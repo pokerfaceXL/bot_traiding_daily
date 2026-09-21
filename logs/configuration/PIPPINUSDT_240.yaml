@@ -1,0 +1,28 @@
+# ─── Symbol i timeframe ────────────────────────────────
+SYMBOL:   PIPPINUSDT
+INTERVAL: "240"          # 4h
+
+# ─── Rozmiar pozycji ───────────────────────────────────
+POSITION_SIZE_USDT: 20   # USDT bez dzwigni (circuit breaker limit)
+LEVERAGE: "10"
+
+# ─── Strategia ─────────────────────────────────────────
+STRATEGY: RSI14_trend50
+
+# ─── Parametry trailing stop / SL ──────────────────────
+ATR_MULTIPLIER: 2.5
+MAX_SL_PCT:  0.06
+ACTIVATE_PCT: 0.03
+TRAIL_PCT:   0.015
+
+# ─── Zlecenia ──────────────────────────────────────────
+ORDER_TYPE: aggressive_limit        # market | limit | aggressive_limit
+LIMIT_OFFSET_PCT: 0.0003
+FILL_TIMEOUT_SEC: 15
+
+# ─── Risk management ───────────────────────────────────
+COOLDOWN_CANDLES: 0       # swiec przerwy po SL
+
+# ─── Backtest ──────────────────────────────────────────
+CANDLES: 8000
+ENTRY_ON_OPEN: true

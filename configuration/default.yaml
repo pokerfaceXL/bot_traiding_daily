@@ -1,0 +1,32 @@
+# === Symbol i timeframe ========================================
+SYMBOL:   PIPPINUSDT
+INTERVAL: "240"          # 4h
+
+# === Parametry live tradingu ===================================
+POSITION_SIZE_USDT: 100   # USDT bez dzwigni (circuit breaker limit)
+LEVERAGE: "10"
+STRATEGY: RSI14_trend50
+
+ATR_MULTIPLIER: 2.5
+MAX_SL_PCT:  0.03
+ACTIVATE_PCT: 0.03
+TRAIL_PCT:   0.015
+MIN_TSL_STEP_PCT: 0 # 0.001   # min poprawa SL (0.1%) zeby wyslac aktualizacje
+
+ORDER_TYPE: aggressive_limit        # market | limit | aggressive_limit
+LIMIT_OFFSET_PCT: 0.0003
+FILL_TIMEOUT_SEC: 15
+
+COOLDOWN_CANDLES: 0       # swiec przerwy po SL
+CIRCUIT_BREAKER_ENABLED: false   # halt do polnocy gdy dzienny PnL <= -POSITION_SIZE_USDT
+
+GAP_PROTECTION_ENABLED: false
+GAP_PROTECTION_THRESHOLD_PCT: 0.005   # 0.5% ponizej SL (Long) / powyzej SL (Short)
+GAP_CHECK_INTERVAL_SEC: 90            # co ile sekund uruchamiana logika gap protection + TSL
+
+# === Parametry backtestu / param search ========================
+CANDLES: 8000
+ENTRY_ON_OPEN: false
+
+BACKTEST_CALMAR_RATIO: 0.80   # Pareto: zachowaj kombinacje z Calmar >= X * calmar_max
+OPTUNA_TRIALS: 200            # liczba prob Optuna (nadpisywalna przez --optuna-trials)

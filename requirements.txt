@@ -1,0 +1,7 @@
+pybit
+python-dotenv
+pyyaml
+requests
+pandas
+numpy
+optuna

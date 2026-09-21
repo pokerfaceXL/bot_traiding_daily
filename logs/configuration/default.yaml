@@ -1,0 +1,21 @@
+# ─── Symbol i timeframe ────────────────────────────────
+SYMBOL:   ETHUSDT
+INTERVAL: "240"          # minuty: 60=1h, 240=4h, 30=30min
+
+# ─── Rozmiar pozycji ───────────────────────────────────
+POSITION_SIZE_USDT: 20   # USDT bez dzwigni (broker mnozy przez LEVERAGE)
+LEVERAGE: "10"
+
+# ─── Strategia ─────────────────────────────────────────
+# Dostepne strategie: patrz python run_backtest_apex.py --list-strategies
+STRATEGY: BB_20_25_SQ
+
+# ─── Parametry trailing stop / SL ──────────────────────
+# Znalezione przez optymalizacje na ETH/BTC/SOL (4h i 1h)
+ATR_MULTIPLIER: 2.5   # mnoznik ATR dla initial stop loss
+MAX_SL_PCT:  0.06     # maks. odleglosc SL od ceny (6% bez dzwigni = 60% z x10)
+ACTIVATE_PCT: 0.03    # trailing aktywuje sie po +3% zysku ceny
+TRAIL_PCT:   0.015    # trailing SL cofa sie o 1.5% od best price
+
+# ─── Backtest ──────────────────────────────────────────
+CANDLES: 8000         # liczba swiec do backtestow
