@@ -1,0 +1,26 @@
+{
+  "worst_month": {
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "strategy": "ADX14_DI_20",
+    "year": 2024,
+    "month": 3,
+    "deviation_pct": 100.0,
+    "positive_day_pct": 0.0
+  },
+  "worst_day": {
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "strategy": "EMA_50_200",
+    "date": "2024-02-29",
+    "pnl": -254.0976546634326
+  },
+  "longest_losing_streak": {
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "strategy": "STOCH14_cross",
+    "streak_len": 949,
+    "start_date": "2024-01-27",
+    "end_date": "2026-09-01"
+  }
+}

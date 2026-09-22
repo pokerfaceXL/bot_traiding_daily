@@ -6,3 +6,4 @@ venv/
 .venv_test/
 .tmp/
 data_cache/*.csv
+output/f005_baseline/raw/*.json
