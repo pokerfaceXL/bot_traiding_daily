@@ -159,3 +159,75 @@ Brak regresji w testach fali 1 (`test_costs.py`) ani w przedistniejących `test_
 
 - **F004c**: zegar wykonania (rozdzielenie ceny triggera od ceny wykonania, najwcześniejsza dostępna po sygnale) — `equity.py` przyjmuje ceny entry/exit jako dane wejściowe, nie liczy triggerów ani opóźnień.
 - **Integracja**: podłączenie `equity.py`+`costs.py` do `backtest_apex.py` zamiast bezkosztowego `_make_trade` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), plus egzekwowanie limitu 50% max DD (na razie tylko śledzony przez `mark_to_market`, nie wymuszany). Nie zrobione w tej fali — `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` nie zostały zmienione.
+
+---
+
+# F004 — Dowód: zegar wykonania (fala 3)
+
+> Zakres tej fali: `execution.py`, standalone, bez sieci, buduje na `costs.py` (fala 1) i `equity.py` (fala 2) — nie importuje ich, ale jest projektowany do współpracy z ich konwencją cen/kierunku. Nie podłącza się jeszcze do `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` — te pliki nie zostały zmienione (integracja to F004d, kolejna i ostatnia fala).
+
+## Co zostało zbudowane
+
+`execution.py` — trzy czyste funkcje plus dataclassy `Bar`/`EntryFill`/`ExitTrigger` i enumy `OrderType`/`TriggerKind`:
+
+- **`resolve_entry_fill(order_type, direction, next_bar, limit_price=None)`** — rozwiązuje cenę wejścia z OHLC świecy N+1, nigdy świecy N (patrz niżej, rozbieżność #5). `MARKET` wypełnia się zawsze po `next_bar.open`. `LIMIT` wypełnia się tylko, gdy zakres `[low, high]` świecy N+1 dotyka `limit_price` w kierunku korzystnym dla zlecenia (`direction=+1`: `low <= limit_price`; `direction=-1`: `high >= limit_price`); w przeciwnym razie `filled=False, fill_price=None` — zlecenie NIE jest cicho wypełniane po gorszej cenie. Gdy świeca otworzyła się już za limitem (gap na korzyść), wypełnienie jest po lepszej cenie `min(open, limit)`/`max(open, limit)`, nie po samym limicie.
+- **`resolve_stop_take_within_bar(direction, bar, stop_loss=None, take_profit=None)`** — rozwiązuje, czy i gdzie SL/TP zostałyby dotknięte w obrębie jednej świecy OHLC. Gdy trafiony jest tylko jeden poziom, ten wygrywa. Gdy **oba** poziomy mieszczą się w `[low, high]` tej samej świecy (rozbieżność #6, Bar Magnifier), funkcja stosuje jawne, udokumentowane założenie **worst-case: SL zawsze wygrywa** — patrz sekcja niżej po pełne uzasadnienie.
+- **`resolve_level_fill(direction, bar, level, kind)`** — funkcja gap handling (punkt 3 tickieta): rozstrzyga cenę wypełnienia dla poziomu, o którym już wiadomo, że został dotknięty. Jeśli świeca **otwiera się już poza poziomem** w kierunku, który by go aktywował (gap przez SL/TP), wypełnienie jest po cenie **otwarcia** świecy, NIE po samym poziomie — i oznaczone `is_gap_fill=True`, żeby odróżnić je od normalnego wypełnienia po poziomie (`is_gap_fill=False`).
+
+### Rozbieżności z F001 adresowane przez ten moduł
+
+- **#5 (brak jawnego odrzucenia bieżącej niezamkniętej świecy)**: moduł zakłada, że sygnał na świecy N został już policzony PO jej zamknięciu (`data_contract.py`'s `filter_closed_candles` robi to wyżej w łańcuchu — ten moduł tego nie powtarza, nie importuje `data_contract.py`). Najwcześniejsza możliwa realizacja to **otwarcie świecy N+1** — nigdy cena zamknięcia świecy N, co byłoby look-ahead (w momencie, gdy sygnał na N staje się znany, jedyna jeszcze nieustalona "z góry" cena to otwarcie kolejnej świecy).
+- **#6 (Bar Magnifier — niejednoznaczna kolejność zdarzeń wewnątrz sub-świecy)**: gdy SL i TP oba mieszczą się w zakresie jednej świecy, z samego OHLC nie da się odtworzyć kolejności (kod `strategy.py` sam to przyznaje przez `ambiguous_count`/`ambiguous_pct`, `strategy.py:619-621,628-630` — mierzy niepewność, nie eliminuje jej). `resolve_stop_take_within_bar` przyjmuje zawsze, że cena poszła **najpierw w stronę SL**. To jest zamierzenie **konserwatywne (pesymistyczne)**, nie optymistyczne: odwrotne założenie (TP zawsze wygrywa) systematycznie zawyżałoby win-rate/PnL strategii bez żadnego dowodu, że tak faktycznie było w danych, których po prostu nie mamy (OHLC nie zawiera ścieżki ceny wewnątrz świecy). Wybór SL-pierwszy nigdy nie zawyży wyniku strategii przez ciche przyjęcie korzystnej dla niej kolejności.
+- **#7 (live używa MarkPrice, backtest OHLC)**: moduł pracuje wyłącznie na OHLC (jak istniejący backtest) — nie próbuje symulować MarkPrice. To jest udokumentowana, akceptowana różnica źródła ceny między live a backtestem, nie błąd do naprawienia w tej fali (naprawienie wymagałoby danych tick/MarkPrice, których backtest OHLC nie ma).
+
+## Scenariusze z ręcznie policzoną arytmetyką
+
+Wszystkie w `tests/test_execution.py`, arytmetyka/uzasadnienie w komentarzu nad każdym scenariuszem.
+
+1. **Market entry wypełnia się po otwarciu następnej świecy** (`test_market_entry_fills_at_next_bars_open`): `next_bar.open=101.0` → `fill_price=101.0`, `filled=True`.
+2. **Limit entry nie wypełnia się, gdy cena nigdy go nie dotyka** (`test_limit_entry_does_not_fill_when_price_never_touches_it`): long limit buy=90, zakres świecy `[92, 98]` nigdy nie sięga 90 → `filled=False, fill_price=None` — zlecenie NIE jest cicho wypełnione po gorszej cenie.
+3. **Limit entry wypełnia się dokładnie po cenie limitu, gdy zakres go dotyka bez gapu** (`test_limit_entry_fills_at_limit_price_when_range_touches_it`): limit=93, zakres `[92,98]`, `open=95>93` (bez gapu) → `fill_price=93.0`.
+4. **Limit entry wypełnia się po lepszym `open`, gdy świeca gapuje przez limit** (`test_limit_entry_fills_at_better_open_when_bar_gaps_through_limit`): limit=90, `open=88` (już poniżej limitu) → `fill_price=88.0` (lepsza cena niż limit), nie 90.
+5. **Short limit entry — symetryczny test w drugą stronę** (`test_short_limit_entry_fills_only_when_range_reaches_up_to_it`): limit=105 poza zakresem `[98,103]` → unfilled; limit=102 wewnątrz zakresu, `open=100<102` → `fill_price=102.0`.
+6. **Normalny SL touch mid-bar, long** (`test_normal_stop_loss_touch_mid_bar_long`): SL=97, bar `open=100,high=102,low=95` — `low<=97` trafiony, `open=100>97` (bez gapu) → `kind=STOP_LOSS, fill_price=97.0, is_gap_fill=False`.
+7. **TP touch mid-bar, long** (`test_take_profit_touch_mid_bar_long`): TP=103, bar `open=100,high=105,low=99` — `high>=103` trafiony, `open=100<103` (bez gapu) → `kind=TAKE_PROFIT, fill_price=103.0, is_gap_fill=False`.
+8. **Test dyskryminujący: SL i TP oba wewnątrz tej samej świecy — konserwatywne SL wygrywa** (`test_both_sl_and_tp_inside_same_bar_conservative_stop_wins`, long, i `..._short` dla strony short): SL=97, TP=103, bar `open=100,high=105,low=95` — OBA poziomy mieszczą się w zakresie. Bez tego testu implementacja mogłaby błędnie (optymistycznie) zwrócić TP. Test wprost sprawdza, że wynikiem jest `kind=STOP_LOSS, fill_price=97.0` — nie `TAKE_PROFIT`. Wariant short: SL=103, TP=97, bar `open=100,high=105,low=95` → `kind=STOP_LOSS, fill_price=103.0`.
+9. **Gap-through-stop na otwarciu, long i short** (`test_gap_through_stop_at_open_long`, `test_gap_through_stop_at_open_short`): long SL=97, bar `open=96` (już poniżej SL) → `fill_price=96.0` (cena otwarcia, NIE 97), `is_gap_fill=True` — odróżnialne od normalnego stop-fill z punktu 6 (`is_gap_fill=False`). Short SL=103, bar `open=104` (już powyżej SL) → `fill_price=104.0, is_gap_fill=True`.
+10. **Brak triggera, gdy żaden poziom nie jest dotknięty** (`test_no_trigger_when_neither_level_touched`): SL=90, TP=110, bar `[99,101]` → `kind=NONE, fill_price=None, is_gap_fill=False`.
+
+Plus testy brzegowe: `direction` spoza `{1,-1}` odrzucone (`ValueError`) w obu funkcjach kierunkowych, `resolve_level_fill` z `kind=NONE` odrzucone (`ValueError`), `LIMIT` bez `limit_price` odrzucone (`ValueError`).
+
+## Wynik testów
+
+Uruchomione przez `/home/limen/bot_traiding_daily/.venv_test/bin/python -m pytest tests/ -v` (ten sam współdzielony venv testowy co fale 1/2 — bez instalowania niczego nowego):
+
+```
+tests/test_costs.py (12 testów) PASSED
+tests/test_data_contract.py (11 testów) PASSED
+tests/test_equity.py (15 testów) PASSED
+tests/test_execution.py::test_market_entry_fills_at_next_bars_open PASSED
+tests/test_execution.py::test_limit_entry_does_not_fill_when_price_never_touches_it PASSED
+tests/test_execution.py::test_limit_entry_fills_at_limit_price_when_range_touches_it PASSED
+tests/test_execution.py::test_limit_entry_fills_at_better_open_when_bar_gaps_through_limit PASSED
+tests/test_execution.py::test_short_limit_entry_fills_only_when_range_reaches_up_to_it PASSED
+tests/test_execution.py::test_normal_stop_loss_touch_mid_bar_long PASSED
+tests/test_execution.py::test_take_profit_touch_mid_bar_long PASSED
+tests/test_execution.py::test_both_sl_and_tp_inside_same_bar_conservative_stop_wins PASSED
+tests/test_execution.py::test_both_sl_and_tp_inside_same_bar_conservative_stop_wins_short PASSED
+tests/test_execution.py::test_gap_through_stop_at_open_long PASSED
+tests/test_execution.py::test_gap_through_stop_at_open_short PASSED
+tests/test_execution.py::test_no_trigger_when_neither_level_touched PASSED
+tests/test_execution.py::test_resolve_level_fill_rejects_unknown_kind PASSED
+tests/test_execution.py::test_resolve_entry_fill_rejects_invalid_direction PASSED
+tests/test_execution.py::test_resolve_stop_take_rejects_invalid_direction PASSED
+tests/test_execution.py::test_limit_entry_requires_limit_price PASSED
+tests/test_offline_backtest.py (2 testy, przedistniejące) PASSED
+
+55 passed in 1.55s
+```
+
+Brak regresji w testach fal 1/2 (`test_costs.py`, `test_equity.py`) ani w przedistniejących `test_data_contract.py`/`test_offline_backtest.py`. `git status` po tej fali pokazuje wyłącznie dwa nowe pliki (`execution.py`, `tests/test_execution.py`) — `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` niezmienione.
+
+## Co pozostaje dla kolejnej fali (poza scope tej pracy)
+
+- **F004d (integracja, ostatnia fala)**: podłączenie `costs.py`+`equity.py`+`execution.py` do `backtest_apex.py` zamiast bezkosztowego `_make_trade` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), egzekwowanie limitu 50% max DD, oraz podłączenie do `data_contract.py`'s `filter_closed_candles` tak, by sygnał na świecy N faktycznie napędzał `resolve_entry_fill`/`resolve_stop_take_within_bar` na świecy N+1 w pętli backtestu. Nie zrobione w tej fali — `execution.py` przyjmuje już gotowe obiekty `Bar`, nie zna źródła danych.
