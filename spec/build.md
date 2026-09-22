@@ -11,7 +11,7 @@
 
 ## NOW
 
-- 🟡 IN PROGRESS — F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004. Fale: (1) audyt danych Bybit + zamrożony protokół (5 symboli, 4h/1h, 30 mies. 2024-03→2026-09, holdout 2026-03→2026-09) — scalone, spec/research/F005-validation-protocol.md; (2) moduł regularności dziennej/miesięcznej — w toku; (3) uruchomienie baseline na zamrożonych danych — czeka.
+- 🟡 IN PROGRESS — F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004. Fale: (1) audyt danych Bybit + zamrożony protokół (5 symboli, 4h/1h, 30 mies. 2024-03→2026-09, holdout 2026-03→2026-09) — scalone, spec/research/F005-validation-protocol.md; (2) regularity.py (positive_day_pct/deviation_pct, Europe/Warsaw, DST-poprawny) — scalone, 71/71 testów; (3) uruchomienie baseline (79 strategii × 5 symboli × 2 interwały) na zamrożonych danych — w toku.
 - Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne.
 
 ## NEXT
