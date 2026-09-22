@@ -1,0 +1,16 @@
+{
+  "actual_end": "2026-09-22T05:00:00+00:00",
+  "actual_start": "2021-06-02T10:00:00+00:00",
+  "checksum_sha256": "5972e492f8defd40fc90fc31d2be31a1c0a0ac6c5f60379ce3423412493a516f",
+  "coverage_pct": 99.9978,
+  "dropped_unclosed_bars": 2,
+  "expected_bars": 46509,
+  "gaps": [],
+  "generated_at": "2026-09-22T07:03:15.730142+00:00",
+  "interval": "60",
+  "requested_end": "2026-09-22T07:00:00+00:00",
+  "requested_start": "2021-06-02T10:00:00+00:00",
+  "row_count": 46508,
+  "symbol": "DOGEUSDT",
+  "warmup_bars": 0
+}

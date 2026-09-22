@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-09-22T07:09:17.167583+00:00",
+  "source": "GET https://api.bybit.com/v5/market/tickers?category=linear, sorted by turnover24h desc, USDT-quote symbols only",
+  "top20_by_turnover24h": [
+    {
+      "symbol": "BTCUSDT",
+      "turnover24h_usdt": 9981908880.162,
+      "volume24h": 117243.991
+    },
+    {
+      "symbol": "ETHUSDT",
+      "turnover24h_usdt": 4375758419.256,
+      "volume24h": 1599394.98
+    },
+    {
+      "symbol": "SOLUSDT",
+      "turnover24h_usdt": 1431507569.534,
+      "volume24h": 12249232.5
+    },
+    {
+      "symbol": "XRPUSDT",
+      "turnover24h_usdt": 959247936.8357,
+      "volume24h": 638433181.5
+    },
+    {
+      "symbol": "ZECUSDT",
+      "turnover24h_usdt": 628192447.0627,
+      "volume24h": 420100.64
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "turnover24h_usdt": 523229763.9084,
+      "volume24h": 5358724177.0
+    },
+    {
+      "symbol": "NEARUSDT",
+      "turnover24h_usdt": 431065262.1644,
+      "volume24h": 101830285.3
+    },
+    {
+      "symbol": "1000PEPEUSDT",
+      "turnover24h_usdt": 422995511.467,
+      "volume24h": 87545757400.0
+    },
+    {
+      "symbol": "SUIUSDT",
+      "turnover24h_usdt": 311861078.477,
+      "volume24h": 305987180.0
+    },
+    {
+      "symbol": "HYPEUSDT",
+      "turnover24h_usdt": 289468671.1209,
+      "volume24h": 3080149.49
+    },
+    {
+      "symbol": "SOXLUSDT",
+      "turnover24h_usdt": 228471768.3703,
+      "volume24h": 1661876.76
+    },
+    {
+      "symbol": "ENAUSDT",
+      "turnover24h_usdt": 186830972.0469,
+      "volume24h": 863542028.0
+    },
+    {
+      "symbol": "AKEUSDT",
+      "turnover24h_usdt": 167818022.3008,
+      "volume24h": 3281551200.0
+    },
+    {
+      "symbol": "TAOUSDT",
+      "turnover24h_usdt": 156186981.9705,
+      "volume24h": 520143.546
+    },
+    {
+      "symbol": "XAUUSDT",
+      "turnover24h_usdt": 153203830.5948,
+      "volume24h": 35205.486
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "turnover24h_usdt": 142238404.6885,
+      "volume24h": 12842519.0
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "turnover24h_usdt": 130992674.6008,
+      "volume24h": 386340.2
+    },
+    {
+      "symbol": "ARBUSDT",
+      "turnover24h_usdt": 126251820.7732,
+      "volume24h": 554546436.2
+    },
+    {
+      "symbol": "ADAUSDT",
+      "turnover24h_usdt": 125303182.0555,
+      "volume24h": 514187618.0
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "turnover24h_usdt": 122104456.2499,
+      "volume24h": 274027851.0
+    }
+  ]
+}

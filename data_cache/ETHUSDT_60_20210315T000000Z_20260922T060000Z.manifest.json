@@ -1,0 +1,16 @@
+{
+  "actual_end": "2026-09-22T05:00:00+00:00",
+  "actual_start": "2021-03-15T00:00:00+00:00",
+  "checksum_sha256": "ba26a4d20551369becd55163c11f5e3e3d0f0ac09739fd5f845cc90a20ad4f35",
+  "coverage_pct": 100.0,
+  "dropped_unclosed_bars": 1,
+  "expected_bars": 48414,
+  "gaps": [],
+  "generated_at": "2026-09-22T06:58:40.730778+00:00",
+  "interval": "60",
+  "requested_end": "2026-09-22T06:00:00+00:00",
+  "requested_start": "2021-03-15T00:00:00+00:00",
+  "row_count": 48414,
+  "symbol": "ETHUSDT",
+  "warmup_bars": 0
+}
