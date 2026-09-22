@@ -231,3 +231,63 @@ Brak regresji w testach fal 1/2 (`test_costs.py`, `test_equity.py`) ani w przedi
 ## Co pozostaje dla kolejnej fali (poza scope tej pracy)
 
 - **F004d (integracja, ostatnia fala)**: podłączenie `costs.py`+`equity.py`+`execution.py` do `backtest_apex.py` zamiast bezkosztowego `_make_trade` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), egzekwowanie limitu 50% max DD, oraz podłączenie do `data_contract.py`'s `filter_closed_candles` tak, by sygnał na świecy N faktycznie napędzał `resolve_entry_fill`/`resolve_stop_take_within_bar` na świecy N+1 w pętli backtestu. Nie zrobione w tej fali — `execution.py` przyjmuje już gotowe obiekty `Bar`, nie zna źródła danych.
+
+---
+
+# F004 — Dowód: orkiestracja pętli backtestu (fala 4)
+
+> Zakres tej fali: `backtest_engine.py`, standalone, bez sieci, składa cztery już scalone moduły F004/F003 (`costs.py` fala 1, `equity.py` fala 2, `execution.py` fala 3, `data_contract.py` F003) w działającą pętlę backtestu end-to-end. **To NIE jest integracja z `backtest_apex.py`** — ta jest kolejną, osobną falą (fala 5). `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` są tylko czytane (import `strategy` dla `STRATEGY_CATALOG`/`add_indicators`), nie modyfikowane.
+
+## Co zostało zbudowane
+
+`backtest_engine.py` — `run_backtest(df, strategy_name, ...)` + `BacktestResult` (dataclass: `trades`, `equity_curve`, `metrics`, `skipped_signals`):
+
+- **Generacja sygnału**: `data_contract.filter_closed_candles` → `strategy.add_indicators` → `strategy.STRATEGY_CATALOG[strategy_name](df)`. Czysta matematyka wskaźników/sygnałów ze `strategy.py` jest użyta jak jest, nie przepisana.
+- **Kontrakt initial-SL/trailing-SL replikowany 1:1 ze `strategy.backtest_trailing` (entry_on_open=True, `strategy.py:498`)**: `_calc_initial_sl` w `backtest_engine.py` to ta sama formuła co `strategy.py`'s `_calc_initial_sl` (`strategy.py:491`) — `dist = price * max_sl_pct`, `atr_multiplier` jest przyjmowany jako parametr (kontrakt z tickieta), ale **celowo NIE jest używany do liczenia dystansu SL**, dokładnie jak w obecnym `strategy.py`, gdzie komponent ATR jest zakomentowany (`strategy.py:495`) — replikujemy istniejące (mylące nazwą, ale realne) zachowanie, nie cichą naprawę. Trailing SL: `activate_pct`/`trail_pct` liczone tą samą formułą, `best_price`/`trailing_sl` aktualizowane HIGH/LOW bieżącego bara PRZED sprawdzeniem dotknięcia SL na tym barze (ta sama kolejność co gałąź `sub_lookup=None` w `strategy.py`, bo ten moduł nie ma danych sub-świec Bar Magnifier). Ten sam `cooldown_candles` gate po wyjściu przez `initial_sl`. To samo wyjście przez odwrócenie sygnału (zamknięcie po `close` bieżącego bara) i to samo zamknięcie na końcu danych (`close` ostatniego bara).
+- **Co NIE jest wzięte ze `strategy.py`**: samo rozstrzygnięcie dotknięcia bara. Zamiast surowych porównań `low <= active_sl`/`high >= active_sl` ze `strategy.py`, każdy bar z otwartą pozycją przechodzi przez `execution.resolve_stop_take_within_bar` (konserwatywne, gap-aware; `take_profit=None`, bo `backtest_trailing` nie ma TP — tylko SL/trailing SL), a wypełnienie idzie przez `execution.resolve_level_fill` (wbudowane w `resolve_stop_take_within_bar`). Wejścia wypełniają się przez `execution.resolve_entry_fill(OrderType.MARKET, ...)` na otwarciu NASTĘPNEGO bara (zamiast `strategy.py`'s własnego `open_a[i]`) — dokładnie semantyka `entry_on_open=True`.
+- **Equity/margin/koszty**: jeden współdzielony `equity.Portfolio` (`initial_equity=500` domyślnie, `stake=100` domyślnie per `spec/build.md`) — `costs.py`'s prowizja/spread/poślizg/funding aplikowane przy KAŻDYM zamknięciu przez `Portfolio.close_position`. W danym momencie otwarta jest tylko JEDNA pozycja (ta sama maszyna stanów co `strategy.backtest_trailing` — ten moduł nie dodaje współbieżności wielopozycyjnej).
+- **Decyzja o `equity.InsufficientMarginError`** (udokumentowana w docstringu modułu, NIE pozostawiona niezdefiniowana): gdy `Portfolio.open_position` podniosłoby ten wyjątek, sygnał jest POMINIĘTY — pozycja po prostu nie zostaje otwarta, pętla kontynuuje, pominięcie trafia do zwracanej listy `skipped_signals`. Wyjątek nie propaguje się i nie przerywa backtestu.
+- **Krzywa equity mark-to-market per-bar**: `Portfolio.mark_to_market` wołane na KAŻDYM barze (nie tylko po zamkniętych transakcjach) z ceną `close` bieżącego bara jako mark price otwartej pozycji (jeśli jest) — `equity_curve` zawiera niezrealizowany PnL otwartych pozycji w każdym momencie.
+- **Metryki**: `total_net_pnl` (suma `net_pnl` transakcji), `win_rate`, `max_drawdown_pct` (z `equity_curve`), `n_trades`, `final_equity`.
+
+## Wybór strategii testowej
+
+`RSI14_7030` (`sig_rsi_extreme` ze `strategy.py`) — wybrana zamiast np. zawsze-w-rynku `EMA_8_21`, bo jest czystą funkcją JEDNEJ już przetestowanej kolumny wskaźnika (`rsi14`) i generuje rzadkie sygnały (0 prawie wszędzie, ±1 tylko na ekstremach RSI). Dzięki temu liczba transakcji na fixture (17 na 600 barach) jest na tyle mała, że pojedyncza transakcja daje się ręcznie prześledzić i zweryfikować end-to-end, a test braku nakładania się pozycji (punkt b niżej) jest sensowny (nie trywialny "zawsze w pozycji").
+
+## Scenariusze testowe (`tests/test_backtest_engine.py`)
+
+Dane: `tests/fixtures/ohlcv_sample.csv` (600 barów 4H, bez luk — wybrana zamiast `ohlcv_sample_gap.csv`, bo ta fala nie testuje obsługi luk, to już pokryte przez `data_contract.py`/F003; pełny przebieg end-to-end nie potrzebuje dodatkowej zmiennej luki w danych) dla testów (a)/(b)/(d), plus mała ręcznie skonstruowana 6-barowa ramka dla testu (c).
+
+1. **(a) Pierwsza transakcja zweryfikowana ręcznie end-to-end** (`test_first_short_trade_matches_hand_calculated_entry_sl_and_costs`): RSI14 przekracza 70 na barze `2024-01-04 00:00` → sygnał short. Wejście market na OTWARCIU następnego bara `2024-01-04 04:00`, `open=103.4276` — zweryfikowane, że `entry_price == 103.4276`, nie cena zamknięcia sygnałowego bara (co byłoby look-ahead). `initial_sl = 103.4276 + 103.4276*0.05 = 108.598980` (formuła `_calc_initial_sl`, dystans tylko z `max_sl_pct`, bez ATR — zweryfikowane wprost). Pozycja przeżywa (SL nigdy nie dotknięty, cena spada w stronę ~101, trailing nigdy się nie aktywuje bo cena nigdy nie spadła 3% na korzyść short przed wyjściem) do odwrócenia sygnału na `2024-01-08 20:00`, zamknięcie po `close=101.0948` tego bara (`exit_reason="signal_reverse"`, `is_gap_fill=False`). Koszty policzone NIEZALEŻNIE przez bezpośrednie wywołania `costs.commission`/`costs.spread_cost`/`costs.slippage_cost` w teście (nie przez zaufanie własnemu wynikowi silnika): `quantity=1000/103.4276=9.668599`, `gross_pnl=22.554908`, `total_costs=3.166168` (prowizja+spread na obu nogach + poślizg wejścia, domyślne stawki silnika 10/5/2 bps), `net_pnl=19.388740`, `equity_curve` po tej transakcji `== 500 + 19.388740 = 519.388740` — wszystko zweryfikowane `pytest.approx` przeciw niezależnie policzonym liczbom.
+2. **(b) Krzywa equity nigdy nie sugeruje więcej niż jednej pozycji marginu na raz** (`test_full_run_never_implies_more_than_one_positions_margin_committed`): dla KAŻDEGO znacznika czasu w `equity_curve` policzone ile transakcji z `trades` ma `entry_time <= ts < exit_time` — zawsze `<= 1`. Dodatkowo (nadmiarowo, jako krzyżowa kontrola) posortowane transakcje nie nakładają się czasowo (`exit_time[i] <= entry_time[i+1]`). To bezpośredni dowód, że nigdy nie jest zaangażowany margin dwóch pozycji (2×`stake`=200) naraz.
+3. **(c) `InsufficientMarginError` → pominięcie sygnału, nie wyjątek** (`test_insufficient_margin_skips_signal_leaves_position_unopened_and_equity_flat`): mała 6-barowa rosnąca ramka, `EMA_8_21` (szybko daje sygnał long), `initial_equity=50 < stake=100` — margin nigdy nie może być pokryty. Zweryfikowane: `res.trades` puste, `res.skipped_signals` ma >=1 wpis, ŻADEN wyjątek nie propaguje się z `run_backtest`, `equity_curve["equity"]` pozostaje płaskie na 50.0 przez cały przebieg (żadna pozycja nigdy nie została otwarta), `res.metrics["n_trades"]==0`. Dodatkowo test wprost odtwarza to samo wywołanie `equity.Portfolio.open_position` bezpośrednio i potwierdza `pytest.raises(equity.InsufficientMarginError)` — dowód, że silnik faktycznie łapie TEN SAM wyjątek, a nie po prostu nigdy nie wchodzi w tę ścieżkę.
+4. **(d) Metryki podsumowujące spójne z `trades`/`equity_curve`** (`test_metrics_summary_matches_trades_and_equity_curve`): `n_trades`, `total_net_pnl`, `win_rate`, `max_drawdown_pct`, `final_equity` przeliczone niezależnie z `trades`/`equity_curve` i porównane z `res.metrics`.
+
+## Znana pułapka uruchamiania testów (nowa w tej fali — WAŻNE dla fali 5)
+
+`strategy.py`'s `_resolve_config_path()` (`strategy.py:23-26`, kod istniejący, nie zmieniony) czyta `sys.argv[1]` i próbuje otworzyć go jako plik YAML configu, jeśli nie zaczyna się od `-`. Żadna wcześniejsza fala nie importowała `strategy.py` bezpośrednio w testach, więc to nigdy nie miało znaczenia. `backtest_engine.py` importuje `strategy` na poziomie modułu (żeby użyć `STRATEGY_CATALOG`/`add_indicators`), więc odtąd **jakiekolwiek wywołanie pytest z argumentem ścieżki** (np. `pytest tests/ -v` — dokładnie komenda użyta w falach 1-3 tego dowodu) **rozbija się** przy kolekcji `tests/test_backtest_engine.py`: `sys.argv[1]` staje się `"tests/"`, co `strategy.py` próbuje otworzyć jako plik configu → `IsADirectoryError`. Zweryfikowane wprost (`pytest tests/ -v` faktycznie rzuca `IsADirectoryError`, `pytest tests/test_backtest_engine.py -v` faktycznie rzuca `yaml.parser.ParserError` próbując sparsować kod Pythona jako YAML). To pre-istniejący błąd w `strategy.py` (poza scope tej fali — nie wolno zmieniać `strategy.py`), tylko teraz ujawniony przez nowy import. **Działające wywołanie: `python -m pytest -v` BEZ argumentu ścieżki** (pytest samo odkrywa `tests/` po rootdir) — użyte do wyniku testów niżej. Fala 5 (integracja z `backtest_apex.py`) i każdy kolejny worker powinni używać tej formy, nie `pytest tests/ -v`.
+
+## Wynik testów
+
+Uruchomione przez `/home/limen/bot_traiding_daily/.venv_test/bin/python -m pytest -v` (ten sam współdzielony venv testowy co fale 1-3, BEZ argumentu ścieżki — patrz pułapka wyżej — bez instalowania niczego nowego):
+
+```
+tests/test_backtest_engine.py::test_first_short_trade_matches_hand_calculated_entry_sl_and_costs PASSED
+tests/test_backtest_engine.py::test_full_run_never_implies_more_than_one_positions_margin_committed PASSED
+tests/test_backtest_engine.py::test_insufficient_margin_skips_signal_leaves_position_unopened_and_equity_flat PASSED
+tests/test_backtest_engine.py::test_metrics_summary_matches_trades_and_equity_curve PASSED
+tests/test_costs.py (12 testów) PASSED
+tests/test_data_contract.py (11 testów) PASSED
+tests/test_equity.py (15 testów) PASSED
+tests/test_execution.py (17 testów) PASSED
+tests/test_offline_backtest.py (2 testy, przedistniejące) PASSED
+
+59 passed in 2.06s
+```
+
+Brak regresji w testach fal 1-3 (`test_costs.py`, `test_equity.py`, `test_execution.py`) ani w przedistniejących `test_data_contract.py`/`test_offline_backtest.py`. `git status` po tej fali pokazuje wyłącznie dwa nowe pliki (`backtest_engine.py`, `tests/test_backtest_engine.py`) — `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` niezmienione.
+
+## Co pozostaje dla ostatniej fali (poza scope tej pracy)
+
+- **F004, fala 5 (integracja, ostatnia fala)**: podłączenie `backtest_engine.run_backtest` do `backtest_apex.py` zamiast bezkosztowego `_make_trade`/`backtest_trailing` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), egzekwowanie limitu 50% max DD (na razie tylko śledzony przez `equity.Portfolio.mark_to_market`, nie wymuszany — `backtest_engine.py` też go nie wymusza, tylko przekazuje dalej w `metrics["max_drawdown_pct"]`). Uwaga na pułapkę `sys.argv`/`strategy._resolve_config_path` opisaną wyżej przy pisaniu/uruchamianiu testów integracyjnych.
+- Nie zrobione w tej fali — `backtest_engine.py` jest samodzielny, nie wie o `backtest_apex.py`.
