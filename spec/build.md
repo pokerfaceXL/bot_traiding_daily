@@ -11,13 +11,10 @@
 
 ## NOW
 
-- 🔴 PLANNED — F001-current-state-map: udokumentować obecne zachowanie bota (main.py/trader.py/strategy.py), realne konfiguracje produkcyjne i różnice symulacja/live.
+- 🔴 PLANNED — F003-data-contract: powtarzalne dane, wspólne daty, kontrola dostępności instrumentów; po F002.
 - Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne.
 
 ## NEXT
-
-- 🔴 F002-offline-boundary: badania bez kluczy handlowych, zleceń i wysyłki do Apex; po F001.
-- 🔴 F003-data-contract: powtarzalne dane, wspólne daty, kontrola dostępności instrumentów; po F002.
 - 🔴 F004-execution-equity: wiarygodna realizacja, koszty, księgowanie kapitału; po F003.
 - 🔴 F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004.
 - 🔴 F010-search-performance: profilowanie/benchmark metod wyszukiwania parametrów; po F005, przed F006.
@@ -27,7 +24,9 @@
 
 ## PROVEN
 
-- Brak zakończonych zadań i brak strategii potwierdzonej w tym procesie.
+- 2026-09 — F001-current-state-map: kontrakt sygnału/wejścia/wyjścia/ryzyka i 16 rozbieżności symulacja/live spisane w `spec/research/F001-current-state.md` (12 potwierdzonych z tej listy, 4 nowe). Który plik configu jest live nieustalone statycznie; właścicielka potwierdziła, że to nieistotne (nikt nie pracuje na produkcji) — nie dociągać.
+- 2026-09 — F002-offline-boundary: `backtest_apex.py --local-csv` uruchamia backtest bez sieci (test blokuje `requests.get/post`); brak danych/wyników kończy proces kodem Ⅰ1 zamiast dawnego `sys.exit(0)`. Potwierdzony brak importu `trader.py`/`rest_logs.py` w ścieżce backtestu. Dowód: `spec/research/F002-offline-boundary.md`.
+- Brak strategii potwierdzonej w tym procesie.
 
 ## Decyzje i granice pracy
 

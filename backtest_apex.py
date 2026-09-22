@@ -43,6 +43,9 @@ parser.add_argument("--optuna-trials", type=int, default=None,
                     help="Liczba prob Optuna (nadpisuje YAML OPTUNA_TRIALS; domyslnie 150)")
 parser.add_argument("--quote", type=float, default=None,
                     help="Kapital bazowy w USD (nadpisuje YAML POSITION_SIZE_USDT; domyslnie 100)")
+parser.add_argument("--local-csv", type=str, default=None,
+                    help="Sciezka do lokalnego CSV (timestamp,open,high,low,close,volume) "
+                         "zamiast pobierania z Bybit — tryb offline, bez zapytan sieciowych")
 args = parser.parse_args()
 
 OPTIMIZATION = args.param_optimization
@@ -287,9 +290,15 @@ def _select_best(pool):
 # POBIERANIE DANYCH (raz dla wszystkich strategii)
 # ──────────────────────────────────────────────────────────────
 
-logger.info(f"Pobieranie {CANDLES} swiec [{SYMBOL} {INTERVAL}]...")
-df_raw = get_bybit_ohlcv(symbol=SYMBOL, interval=INTERVAL, limit=CANDLES)
-logger.info(f"Pobrano {len(df_raw)} swiec. Zakres: {df_raw.index[0]} -> {df_raw.index[-1]}")
+if args.local_csv:
+    logger.info(f"Wczytywanie lokalnego CSV [{args.local_csv}] — tryb offline, bez Bybit.")
+    df_raw = pd.read_csv(args.local_csv, parse_dates=["timestamp"], index_col="timestamp")
+    df_raw = df_raw[["open", "high", "low", "close", "volume"]].astype(float)
+    df_raw = df_raw[~df_raw.index.duplicated(keep="last")].sort_index()
+else:
+    logger.info(f"Pobieranie {CANDLES} swiec [{SYMBOL} {INTERVAL}]...")
+    df_raw = get_bybit_ohlcv(symbol=SYMBOL, interval=INTERVAL, limit=CANDLES)
+logger.info(f"Dane wejsciowe: {len(df_raw)} swiec. Zakres: {df_raw.index[0]} -> {df_raw.index[-1]}")
 
 df_ind = add_indicators(df_raw.copy())
 
@@ -297,16 +306,23 @@ _sub_iv = _SUB_INTERVAL_MAP.get(INTERVAL)
 if _sub_iv is None:
     raise ValueError(f"Brak mapowania sub-interwalu dla INTERVAL={INTERVAL}. "
                      f"Dostepne: {list(_SUB_INTERVAL_MAP.keys())}")
-_sub_limit = CANDLES * (int(INTERVAL) // int(_sub_iv)) + 100
-logger.info(f"Pobieranie {_sub_limit} sub-swiec [{SYMBOL} {_sub_iv}m] (Bar Magnifier)...")
-time.sleep(1.0)
-_sub_df_raw = get_bybit_ohlcv(symbol=SYMBOL, interval=_sub_iv, limit=_sub_limit, sleep_sec=0.5)
+
+if args.local_csv:
+    # Offline: brak drugiego zapytania o sub-swiece, uzywamy glownych swiec z CSV
+    # jako jedynej sub-swiecy na kazda glowna swiece (Bar Magnifier w trybie degenerowanym).
+    _sub_df_raw = df_raw
+    logger.info("Bar Magnifier (offline): sub-swiece = glowne swiece z lokalnego CSV.")
+else:
+    _sub_limit = CANDLES * (int(INTERVAL) // int(_sub_iv)) + 100
+    logger.info(f"Pobieranie {_sub_limit} sub-swiec [{SYMBOL} {_sub_iv}m] (Bar Magnifier)...")
+    time.sleep(1.0)
+    _sub_df_raw = get_bybit_ohlcv(symbol=SYMBOL, interval=_sub_iv, limit=_sub_limit, sleep_sec=0.5)
 sub_lookup = _build_sub_lookup(_sub_df_raw, int(INTERVAL))
 logger.info(f"Bar Magnifier gotowy: {len(_sub_df_raw)} sub-swiec [{_sub_iv}m]")
 
 if len(df_ind) < 500:
     logger.warning(f"Za malo danych ({len(df_ind)} swiec) dla {SYMBOL}. Pomijam.")
-    sys.exit(0)
+    sys.exit(1)
 
 # ──────────────────────────────────────────────────────────────
 # PETLA PO STRATEGIACH
@@ -377,7 +393,7 @@ for strategy_name in strategy_names:
 
 if not results:
     logger.warning("Brak wynikow.")
-    sys.exit(0)
+    sys.exit(1)
 
 # ──────────────────────────────────────────────────────────────
 # NAJLEPSZA STRATEGIA
