@@ -11,7 +11,7 @@
 
 ## NOW
 
-- 🟡 IN PROGRESS — F004-execution-equity: wiarygodna realizacja, koszty, księgowanie kapitału; po F003. Uwzględnij też integrację `data_contract.py` z `backtest_apex.py`/`strategy.get_bybit_ohlcv`, odlożoną przez F003 (patrz `spec/research/F003-data-contract.md`, sekcja „Czego brakuje”). Fale: (1) `costs.py` koszty — scalone; (2) `equity.py` equity/margin — scalone; (3) `execution.py` zegar wykonania — scalone; (4) `backtest_engine.py` orkiestracja (data_contract+costs+equity+execution) — w toku; (5) integracja z backtest_apex.py.
+- 🟡 IN PROGRESS — F004-execution-equity: wiarygodna realizacja, koszty, księgowanie kapitału; po F003. Uwzględnij też integrację `data_contract.py` z `backtest_apex.py`/`strategy.get_bybit_ohlcv`, odlożoną przez F003 (patrz `spec/research/F003-data-contract.md`, sekcja „Czego brakuje”). Fale: (1) `costs.py` koszty — scalone; (2) `equity.py` equity/margin — scalone; (3) `execution.py` zegar wykonania — scalone; (4) `backtest_engine.py` orkiestracja — scalone (`run_backtest` end-to-end na fixture, hand-verified trade, 59/59 testów); (5) integracja z backtest_apex.py — w toku.
 - Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne.
 
 ## NEXT
