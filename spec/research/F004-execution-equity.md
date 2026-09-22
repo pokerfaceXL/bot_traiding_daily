@@ -75,3 +75,87 @@ Brak regresji w przedistniejących testach `test_data_contract.py` i `test_offli
 - **F004b**: equity/margin portfela (`initial_equity=500`, stawka 100 USD/wejście, notional=stawka×leverage, margin osobno), blokada braku środków.
 - **F004c**: zegar wykonania (rozdzielenie ceny triggera od ceny wykonania, najwcześniejsza dostępna po sygnale), mark-to-market equity z pozycjami otwartymi.
 - **Integracja**: podłączenie `costs.py` do `backtest_apex.py` zamiast bezkosztowego `_make_trade` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany). Nie zrobione w tej fali — `strategy.py`/`backtest_apex.py` nie zostały zmienione.
+
+---
+
+# F004 — Dowód: equity/margin portfela (fala 2)
+
+> Zakres tej fali: `equity.py`, standalone, bez sieci, buduje na `costs.py` (fala 1, sekcja wyżej). Zastępuje rozbieżność #7/#8 z `spec/research/F001-current-state.md`: brak modelu wspólnego kapitału/margin i pominięcie equity początkowego/niezrealizowanego DD w `_compute_metrics`. Nie podłącza się jeszcze do `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` — te pliki nie zostały zmienione.
+
+## Co zostało zbudowane
+
+`equity.py` — `Portfolio` (dataclass) jako ledger equity/margin, plus `Position`, `ClosedTrade`, `InsufficientMarginError`:
+
+- **Kontrakt stawki/dźwigni/marginu** (`spec/build.md`, "Decyzje i granice pracy"): `stake` domyślnie 100 USD/wejście PRZED dźwignią, `notional = stake * leverage`, `margin = notional / leverage` — co algebraicznie zawsze daje `margin == stake`: margin to kwota faktycznie zablokowana jako zabezpieczenie, leverage tylko mnoży ekspozycję (notional), nie kwotę marginu.
+- **Wspólne equity** (`initial_equity=500.0` domyślnie): jeden `Portfolio` trzyma `positions: Dict[position_id, Position]` — dowolna liczba pozycji i symboli dzieli tę samą pulę, `committed_margin` to suma marginów wszystkich aktualnie otwartych pozycji niezależnie od symbolu.
+- **Mark-to-market equity** (`Portfolio.equity(mark_prices)`): `initial_equity + realized_pnl + suma(unrealized_pnl otwartych pozycji przy podanych cenach)`. Wywoływane w dowolnym momencie, nie tylko po zamknięciu transakcji — pozycja bez podanej ceny w `mark_prices` domyślnie liczy zerowy niezrealizowany PnL (fallback na `entry_price`).
+- **Blokada braku środków** (`Portfolio.open_position`): liczy `available_margin = equity(mark_prices) - committed_margin - fee_buffer` i podnosi `InsufficientMarginError` (nie ciche pominięcie/ucięcie), jeśli `available_margin < margin` nowej pozycji. Pozycja odrzucona nie trafia do `self.positions` ani nie zmienia `committed_margin`.
+  - **Decyzja projektowa** (odnotowana w docstringu modułu): dostępny margin liczy się z **bieżącego equity mark-to-market**, nie z literalnej stałej `initial_equity`, mimo że tekst tickieta F004b używa skrótu "available equity (initial_equity - margin - buffer)". Powód: wymóg (2) każe wliczać niezrealizowany PnL do equity w każdej chwili, a wymóg (3) blokować wejścia bez pokrycia — użycie stałej `initial_equity` pozwoliłoby otworzyć drugą pozycję za pieniądze, których już nie ma po stracie na pierwszej. Scenariusz stałej `initial_equity` jest szczególnym przypadkiem formuły z bieżącym equity, gdy PnL=0. Pokryte testem `test_open_loss_reduces_available_margin_for_next_position_via_mark_to_market`.
+- **Realizacja PnL przy zamknięciu** (`Portfolio.close_position`): woła `costs.py` — `commission` i `spread_cost` na obu nogach (entry notional + exit notional), `slippage_cost` na notional wejścia, `funding_pnl` za cały okres trzymania pozycji (ta sama konwencja znaków/nóg co w scenariuszach fali 1, `tests/test_costs.py`). `net_pnl = gross_pnl - total_costs + funding_pnl` trafia do `realized_pnl`, margin pozycji wraca do puli (`committed_margin -= margin`), pozycja usuwana z `positions`.
+- **Peak equity i drawdown mark-to-market** (`Portfolio.mark_to_market(mark_prices)`): aktualizuje `peak_equity` (tylko w górę) i zwraca `(equity, drawdown_pct)`, gdzie `drawdown_pct = 100 * (peak_equity - equity) / peak_equity`. Liczone z otwartymi pozycjami wliczonymi (mark-to-market), gotowe do porównania z limitem 50% max DD z `build.md` w kolejnej fali/integracji — sam limit nie jest tu egzekwowany, tylko śledzony.
+
+## Scenariusze z ręcznie policzoną arytmetyką
+
+Wszystkie w `tests/test_equity.py`, arytmetyka w komentarzu nad każdym scenariuszem.
+
+1. **Dwie jednoczesne pozycje dzielące jedną pulę 500 USD** (`test_two_simultaneous_positions_share_one_500_usd_pool`):
+   `initial_equity=500`. Dwie pozycje, każda `stake=100, leverage=5 → margin=100`. Po otwarciu obu: `committed_margin=200`, `equity()=500` (brak PnL), `available_margin()=500-200-0=300`. Trzecia pozycja `margin=100` nadal się mieści (`300>=100`) → `committed_margin=300`, `available_margin=200`.
+
+2. **Pozycja odrzucona z braku marginu** (`test_new_position_rejected_when_margin_insufficient`):
+   4 pozycje `margin=100` każda → `committed_margin=400`, `available=100`. Piąta pozycja `margin=100` dokładnie się mieści (`100>=100`) → przechodzi, `committed_margin=500`, `available=0`. Szósta pozycja `margin=100` przy `available=0` → `InsufficientMarginError`, nie trafia do `positions`, `committed_margin` bez zmian.
+
+3. **Odrzucenie przez bufor na koszty** (`test_new_position_rejected_by_fee_buffer_even_with_nominal_room`):
+   `available_margin` bez bufora = `500-450=50`, dokładnie starcza na pozycję `margin=50` — ale `fee_buffer=10` zarezerwowany na koszty wyjścia sprawia, że wymagane pokrycie to `50+10=60 > 50` dostępne → `InsufficientMarginError`.
+
+4. **Mark-to-market equity i DD z otwartą, przegrywającą pozycją, PRZED jej zamknięciem** (`test_mark_to_market_includes_unrealized_pnl_of_open_position`, `test_mark_to_market_drawdown_while_losing_position_still_open`):
+   long SOLUSDT `entry=20, stake=100, leverage=5 → notional=500, qty=25`. Cena spada do 18: `unrealized = 1*(18-20)*25 = -50` → `equity = 500+0-50 = 450`, `dd = 100*(500-450)/500 = 10.0%`. Cena spada dalej do 16: `unrealized = 1*(16-20)*25 = -100` → `equity=400`, `dd=20.0%`. Pozycja przez cały czas otwarta (`realized_pnl==0`, `"p1" in positions`) — DD liczone wyłącznie mark-to-market, nie po zamknięciu.
+
+5. **Peak equity aktualizuje się w górę przy odbiciu** (`test_peak_equity_updates_when_equity_recovers_above_prior_peak`):
+   po spadku do `equity=450` (dd=10%), cena odbija do 22: `unrealized = 1*(22-20)*25 = +50` → `equity=550`, nowy `peak_equity=550`, `dd=0.0%`.
+
+6. **Zamknięcie pozycji realizuje PnL po kosztach i zwalnia margin** (`test_close_position_realizes_net_pnl_and_frees_margin`):
+   long SOLUSDT `entry=20, exit=22, stake=100, leverage=5 → notional=500, qty=25`. `gross_pnl = 1*(22-20)*25 = 50.00`. `exit_notional=22*25=550`. Prowizja 10bps: entry `500*0.0010=0.50`, exit `550*0.0010=0.55`, suma `1.05`. Spread 5bps: entry `500*0.0005=0.25`, exit `550*0.0005=0.275`, suma `0.525`. Poślizg: `500*0.0002+0.10=0.20`. `total_costs=1.05+0.525+0.20=1.775`. Brak fundingu. `net_pnl=50-1.775+0=48.225`. Po zamknięciu: `realized_pnl=48.225`, `committed_margin=0`, `"p1" not in positions`, `equity()=548.225`.
+
+7. **Sekwencja otwarcie→zamknięcie zgodna z ręczną arytmetyką narastającego equity** (`test_sequence_of_open_close_matches_manual_running_equity`):
+   Trade 1: long SOLUSDT `entry=20, exit=22, stake=100, leverage=5`, bez kosztów → `net=+50`, `equity=500+50=550`. Trade 2: short ETHUSDT `entry=2000, exit=1980, stake=100, leverage=2 → notional=200, qty=0.1`. `gross = -1*(1980-2000)*0.1 = -1*(-20)*0.1 = +2.0` (short zarabia na spadku ceny). Bez kosztów → `net=+2.0`, `equity=550+2=552.0`, `realized_pnl=52.0`, `committed_margin=0`.
+
+8. **Funding wliczony przy zamknięciu** (`test_close_position_applies_funding_pnl`):
+   long SOLUSDT `entry=20=exit=20` (płaska cena, `gross_pnl=0`), `notional=500`. Jedno zdarzenie funding w oknie trzymania, `rate=0.0001`: `funding_payment(long, 500, 0.0001) = -(+1)*500*0.0001 = -0.05`. Bez innych kosztów → `net_pnl = 0 - 0 + (-0.05) = -0.05`.
+
+9. **Test dyskryminujący: strata na otwartej pozycji musi zmniejszyć dostępny margin dla kolejnej** (`test_open_loss_reduces_available_margin_for_next_position_via_mark_to_market`):
+   long SOLUSDT `entry=20, stake=400, leverage=1 → notional=400, margin=400, qty=20`. Cena spada do 15: `unrealized=1*(15-20)*20=-100 → equity=500-100=400`, `available_margin=equity(400)-committed_margin(400)-0=0`. Naiwna formuła `initial_equity - committed_margin` dałaby błędnie `500-400=100` dostępne i przepuściłaby drugą pozycję `margin=100` — poprawna formuła MTM musi ją odrzucić: `InsufficientMarginError`, `"p2" not in positions`. Ten test celowo sprawdza tezę, która mogłaby być fałszywa przy literalnym odczytaniu tickieta ("available equity = initial_equity - margin - buffer").
+
+Plus testy brzegowe: obliczenie `notional/margin/quantity` przy otwarciu, `direction` spoza `{1,-1}` odrzucone (`ValueError`), duplikat `position_id` odrzucony (`ValueError`), zamknięcie nieistniejącej pozycji (`KeyError`).
+
+## Wynik testów
+
+Uruchomione przez `/home/limen/bot_traiding_daily/.venv_test/bin/python -m pytest tests/ -v` (ten sam współdzielony venv testowy co w fali 1 — bez instalowania niczego nowego):
+
+```
+tests/test_costs.py (12 testów) PASSED
+tests/test_data_contract.py (11 testów) PASSED
+tests/test_equity.py::test_open_position_computes_notional_margin_quantity PASSED
+tests/test_equity.py::test_two_simultaneous_positions_share_one_500_usd_pool PASSED
+tests/test_equity.py::test_new_position_rejected_when_margin_insufficient PASSED
+tests/test_equity.py::test_new_position_rejected_by_fee_buffer_even_with_nominal_room PASSED
+tests/test_equity.py::test_mark_to_market_includes_unrealized_pnl_of_open_position PASSED
+tests/test_equity.py::test_mark_to_market_drawdown_while_losing_position_still_open PASSED
+tests/test_equity.py::test_peak_equity_updates_when_equity_recovers_above_prior_peak PASSED
+tests/test_equity.py::test_close_position_realizes_net_pnl_and_frees_margin PASSED
+tests/test_equity.py::test_sequence_of_open_close_matches_manual_running_equity PASSED
+tests/test_equity.py::test_close_position_applies_funding_pnl PASSED
+tests/test_equity.py::test_open_loss_reduces_available_margin_for_next_position_via_mark_to_market PASSED
+tests/test_equity.py::test_close_unknown_position_raises_key_error PASSED
+tests/test_equity.py::test_open_position_rejects_invalid_direction PASSED
+tests/test_equity.py::test_open_position_duplicate_id_rejected PASSED
+tests/test_offline_backtest.py (2 testy, przedistniejące) PASSED
+
+39 passed in 1.26s
+```
+
+Brak regresji w testach fali 1 (`test_costs.py`) ani w przedistniejących `test_data_contract.py`/`test_offline_backtest.py`.
+
+## Co pozostaje dla kolejnych fal (poza scope tej pracy)
+
+- **F004c**: zegar wykonania (rozdzielenie ceny triggera od ceny wykonania, najwcześniejsza dostępna po sygnale) — `equity.py` przyjmuje ceny entry/exit jako dane wejściowe, nie liczy triggerów ani opóźnień.
+- **Integracja**: podłączenie `equity.py`+`costs.py` do `backtest_apex.py` zamiast bezkosztowego `_make_trade` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), plus egzekwowanie limitu 50% max DD (na razie tylko śledzony przez `mark_to_market`, nie wymuszany). Nie zrobione w tej fali — `strategy.py`/`backtest_apex.py`/`main.py`/`trader.py`/`configuration/` nie zostały zmienione.
