@@ -291,3 +291,89 @@ Brak regresji w testach fal 1-3 (`test_costs.py`, `test_equity.py`, `test_execut
 
 - **F004, fala 5 (integracja, ostatnia fala)**: podłączenie `backtest_engine.run_backtest` do `backtest_apex.py` zamiast bezkosztowego `_make_trade`/`backtest_trailing` ze `strategy.py`, z jawną dokumentacją że stary tryb jest zastąpiony (nie cicho duplikowany), egzekwowanie limitu 50% max DD (na razie tylko śledzony przez `equity.Portfolio.mark_to_market`, nie wymuszany — `backtest_engine.py` też go nie wymusza, tylko przekazuje dalej w `metrics["max_drawdown_pct"]`). Uwaga na pułapkę `sys.argv`/`strategy._resolve_config_path` opisaną wyżej przy pisaniu/uruchamianiu testów integracyjnych.
 - Nie zrobione w tej fali — `backtest_engine.py` jest samodzielny, nie wie o `backtest_apex.py`.
+
+---
+
+# F004 — Dowód: integracja z `backtest_apex.py` (fala 5, ostatnia)
+
+> Zakres tej fali: `backtest_apex.py`'s domyślna (nie `--param-optimization`) ścieżka wykonania przestaje liczyć bezkosztowo przez `strategy.backtest_trailing` i zamiast tego woła `backtest_engine.run_backtest` (fala 4, złożenie `costs.py`/`equity.py`/`execution.py`/`data_contract.py`). `strategy.py`/`main.py`/`trader.py`/`configuration/` NIE zostały zmienione — tylko `backtest_apex.py` (adapter/wiring) i testy.
+
+## Co zostało zbudowane
+
+### 1. Rozszerzenie metryk `backtest_engine.py` (`_compute_metrics`)
+
+Dodano do istniejącego słownika metryk (`total_net_pnl`, `win_rate`, `max_drawdown_pct`, `n_trades`, `final_equity` — bez zmiany nazw, superset, nie przemianowanie) pięć nowych kluczy, semantyka dopasowana do `strategy.py`'s `_compute_metrics` (`strategy.py:779-826`), nie tylko nazwa pola:
+
+- **`profit_factor`** = suma zyskownych `net_pnl` / `abs(suma stratnych net_pnl)`, **`0.0` gdy brak strat** — jawnie INNE niż sentinel `9999.0` w `strategy.py:822`, bo tak nakazał tickiet wprost (nie "naprawa" starego zachowania, świadome odejście udokumentowane w kodzie i teście `test_compute_metrics_profit_factor_is_zero_when_no_losing_trades`).
+- **`max_drawdown_usd`** = szczyt-do-dołka equity curve w dolarach: `max(running_peak(equity) - equity)`, liczone niezależnie od `drawdown_pct` (osobna funkcja `_max_drawdown_usd`).
+- **`max_drawdown_abs_pct`** = dokładnie ta sama wartość co `max_drawdown_pct` — zweryfikowane w `strategy.py:816-820`, że `max_drawdown` i `max_drawdown_abs_pct` tam też są literalnie tym samym `round(max_dd_pct, 1)`, nie dwoma różnymi liczbami; ten sam alias odtworzony tutaj.
+- **`calmar`** = `total_net_pnl / (max_drawdown_usd + 1e-9)` — dokładnie ta sama formuła co `strategy.py:816` (`calmar = total_pnl / (max_dd_usd + 1e-9)`), bez annualizacji — dopasowane 1:1, nie "naprawione".
+- **`ambiguous_pct`** = `0.0` na stałe, z komentarzem w kodzie: `execution.py` rozstrzyga niejednoznaczność SL/TP wewnątrz bara deterministycznie (SL zawsze wygrywa, `execution.resolve_stop_take_within_bar`), więc miara "jak często było niejednoznacznie" nie ma już tego samego zastosowania — pole zostaje obecne (nie usunięte), żeby nie rozbić dostępu do klucza w `backtest_apex.py`.
+
+Testy (`tests/test_backtest_engine.py`, dodane do istniejącego pliku fali 4):
+
+1. `test_new_metrics_fields_on_full_fixture_run_recomputed_independently` — dla pełnego przebiegu na fixture (`RSI14_7030`, 17 transakcji), każde z pięciu nowych pól przeliczone NIEZALEŻNIE z `res.trades`/`res.equity_curve` (nie przez zaufanie własnemu kodowi silnika) i porównane `pytest.approx`.
+2. `test_compute_metrics_new_fields_hand_calculated` — w pełni ręcznie skonstruowane `trades_df`/`equity_curve` (3 transakcje: +10, −4, +20; 6-wierszowa krzywa equity 500→510→508→506→515→526) wywołane bezpośrednio przez `be._compute_metrics(...)`, z arytmetyką w komentarzu nad testem: `profit_factor=30/4=7.5`, `max_drawdown_usd=4.0` (peak 510 w indeksie 3, equity 506), `max_drawdown_pct=max_drawdown_abs_pct=78.4314%` (`400/510*100`), `calmar=26/(4+1e-9)≈6.499999998`.
+3. `test_compute_metrics_profit_factor_is_zero_when_no_losing_trades` — 2 transakcje, obie zyskowne (`+5`, `+10`) → `profit_factor==0.0` dokładnie (nie `9999.0`), zgodnie z jawnym wymogiem tickieta.
+
+### 2. `backtest_apex.py`: podłączenie domyślnej ścieżki do `backtest_engine.run_backtest`
+
+- Dodany import `backtest_engine` (obok istniejącego `from strategy import ...`, który zostaje — `backtest_trailing` nadal potrzebny dla gałęzi `--param-optimization`).
+- Nowa funkcja `_adapt_backtest_result(bt_result)` mapuje `BacktestResult.metrics` (nazwy pól `backtest_engine.py`: `total_net_pnl`, `max_drawdown_pct`, ...) na dokładnie te klucze, których oczekuje reszta pliku (`total_pnl`, `max_drawdown`, `max_drawdown_usd`, `max_drawdown_abs_pct`, `profit_factor`, `n_trades`, `calmar`, `ambiguous_pct` — te same nazwy co `strategy.backtest_trailing`'s metryki wcześniej, `strategy.py:816-825`) — samo przemianowanie, nie przeliczenie.
+- W pętli `for strategy_name in strategy_names:`, gałąź `else:` (nie-`OPTIMIZATION`) zamieniona z wywołania `backtest_trailing(df, ...)` na:
+  ```python
+  bt_result = backtest_engine.run_backtest(
+      df_ind, strategy_name, interval=INTERVAL,
+      initial_equity=500.0, stake=POSITION_SIZE_USDT, leverage=LEVERAGE,
+      atr_multiplier=ATR_MULT, max_sl_pct=MAX_SL_PCT,
+      activate_pct=ACTIVATE_PCT, trail_pct=TRAIL_PCT,
+      cooldown_candles=COOLDOWN_CANDLES,
+  )
+  trades_df, metrics = _adapt_backtest_result(bt_result)
+  ```
+  `df_ind` to zmienna modułowa sprzed dodania kolumny `"signal"` (kolumna `signal` jest dodawana tylko do lokalnej kopii `df = df_ind.copy()` używanej przez gałąź `OPTIMIZATION`) — celowo, bo `backtest_engine.run_backtest` sam woła `strategy.add_indicators` i sam generuje kolumnę `signal` wewnętrznie (`data_contract.filter_closed_candles` → `strategy.add_indicators` → `STRATEGY_CATALOG[strategy_name]`). Podwójne wywołanie `add_indicators` (raz na poziomie modułu dla `df_ind`, raz wewnątrz `run_backtest`) jest nieszkodliwe — `add_indicators` przelicza wszystkie kolumny wyłącznie z `close`/`high`/`low`/`volume` i nadpisuje te same nazwy kolumn deterministycznie, zweryfikowane przez faktyczne uruchomienie (zobacz sekcja "Dowód" niżej — wynik identyczny niezależnie od tego, czy `df_ind` ma już policzone wskaźniki).
+- Gałąź `if OPTIMIZATION:` NIE została zmieniona funkcjonalnie — nadal woła `_run_optuna_strategy` → `backtest_trailing` (stary, bezkosztowy silnik). Dodano jawny komentarz na początku tej gałęzi w kodzie (`backtest_apex.py`, tuż po `if OPTIMIZATION:`):
+  > "KNOWN FOLLOW-UP GAP (F004 wave 5): the Optuna search path still calls the old cost-free strategy.backtest_trailing ... Re-wiring Optuna to the new cost/equity-aware engine is out of scope for this wave and is future work"
+
+  To jest świadomie udokumentowana luka, nie cicho porzucona integracja — `--param-optimization` pozostaje na starym, bezkosztowym silniku do kolejnej pracy (poza scope F004).
+
+### 3. Nietknięte pliki
+
+`strategy.py`, `main.py`, `trader.py`, `configuration/` — bez zmian (`git diff --stat` po tej fali pokazuje wyłącznie `backtest_apex.py`, `backtest_engine.py`, `tests/test_backtest_engine.py` (zmienione) i `tests/test_apex_uses_new_engine.py` (nowy)). Tryb `--local-csv` (F002, offline) działa nadal — `tests/test_offline_backtest.py` (przedistniejące, bez zmian) przechodzi bez modyfikacji.
+
+## Test dyskryminujący: `tests/test_apex_uses_new_engine.py`
+
+Uruchamia `backtest_apex.py` jak samodzielny skrypt CLI (ten sam wzorzec `runpy.run_path(..., run_name="__main__")` co `tests/test_offline_backtest.py`, offline `--local-csv` na fixture, sieć zablokowana przez `monkeypatch`) w trybie DOMYŚLNYM (bez `--param-optimization`), strategia `RSI14_7030`, i weryfikuje trzema niezależnymi odniesieniami, że wynik faktycznie pochodzi z nowego, kosztowego silnika — nie jest tylko "inny", tylko **weryfikowalnie niższy o policzalną kwotę kosztów**:
+
+1. **Referencja 1 (parytet wywołania)**: bezpośrednie wywołanie `backtest_engine.run_backtest` z dokładnie tymi samymi parametrami, które teraz przekazuje `backtest_apex.py` (te same `df_ind`, `strategy_name`, `interval`, `initial_equity=500.0`, `stake=100.0`, `leverage=10`, `atr_multiplier=2.5`, `max_sl_pct=0.03`, `activate_pct=0.03`, `trail_pct=0.015`, `cooldown_candles=0` — wartości z `configuration/default.yaml`). Zweryfikowane: `n_trades` i `total_net_pnl` z raportu `report.json`'s `summary["best_pnl"]`/`summary["best_n_trades"]` (`21` transakcji, `$197.651764`) zgadzają się z bezpośrednim wywołaniem `pytest.approx(..., abs=0.01)` — nie "w tym samym przedziale", tylko ten sam kod, te same liczby.
+2. **Referencja 2 (rekoncyliacja kosztów co do grosza)**: to samo wywołanie z `commission_rate_bps=half_spread_bps=slippage_bps=slippage_fixed=0.0`. Ponieważ decyzje o czasie/cenie wejścia i wyjścia w `run_backtest` NIE zależą od parametrów kosztowych (koszty są aplikowane dopiero w `Portfolio.close_position`, po ustaleniu fill price/timing), sekwencja transakcji (czasy wejścia/wyjścia) jest IDENTYCZNA między przebiegiem z kosztami i bez — zweryfikowane wprost (`entry_time`/`exit_time` tablice równe element-po-elemencie). Przy zerowym funding (`funding_pnl==0.0` dla każdej transakcji) różnica `total_net_pnl` (bez kosztów) − `total_net_pnl` (z kosztami) = **dokładnie** suma `total_costs` z transakcji z kosztami (`$67.037209` na tym przebiegu, `pytest.approx(rel=1e-6)`) — nie przybliżenie, tylko rekoncyliacja co do grosza. To jest właściwy dowód "niższy o weryfikowalną, niezerową kwotę kosztów, nie tylko inny".
+3. **Referencja 3 (dosłowne porównanie z tickieta)**: bezpośrednie wywołanie starego, bezkosztowego `strategy.backtest_trailing` z tymi samymi parametrami config-owymi, jakich `backtest_apex.py` używał PRZED tą falą (w tym `entry_on_open=ENTRY_ON_OPEN` z `configuration/default.yaml`, tu `False` — inny mechanizm timing wejścia niż `run_backtest`'s zawsze-`entry_on_open=True`, patrz "Znana luka" niżej) i tym samym zdegenerowanym `sub_lookup` (główne świece jako własne sub-świece, offline), jak w kodzie `backtest_apex.py`. Wynik: stary bezkosztowy silnik dałby `total_pnl=$289.38` (20 transakcji) na tych samych danych/strategii, wobec `$197.65` (21 transakcji) z nowego, kosztowego wywołania przez `backtest_apex.py` — różnica `$91.73`, zweryfikowana `assert apex_pnl < legacy_free_pnl` i `assert (legacy_free_pnl - apex_pnl) > 1.0` (nie szum zaokrągleń). Liczba transakcji różni się (20 vs 21) z powodu innego mechanizmu wejścia (`entry_on_open` semantyka, patrz niżej) — dlatego ta referencja jest nierówną (ale silną) nierównością, nie dokładną rekoncyliacją jak Referencja 2.
+
+## Znana luka wynikająca z tej integracji (nowa, do udokumentowania — NIE naprawiona w tej fali)
+
+`configuration/default.yaml` ma `ENTRY_ON_OPEN: false` — przed tą falą `backtest_apex.py`'s domyślna ścieżka wołała `backtest_trailing(..., entry_on_open=ENTRY_ON_OPEN, ...)`, czyli wejścia na `close` bara sygnałowego (nie na `open` kolejnego bara). `backtest_engine.run_backtest` (fala 4, kontrakt zamrożony przed tą falą) replikuje WYŁĄCZNIE `entry_on_open=True` (wejście na otwarciu następnego bara po sygnale) — nie przyjmuje parametru `entry_on_open` i tickiet fali 5 jawnie nie wymienia go w liście argumentów do przekazania. Efekt: po tej integracji domyślna ścieżka `backtest_apex.py` faktycznie zawsze wchodzi na `open` następnego bara, NIEZALEŻNIE od `ENTRY_ON_OPEN: false` w configu — realna, nie tylko kosmetyczna różnica timing (widoczna wyżej: 21 vs 20 transakcji na tym samym fixture/strategii). To jest znana, udokumentowana tu luka (nie cicho pominięta) pozostawiona na kolejną pracę — rozszerzenie `backtest_engine.run_backtest` o parametr `entry_on_open` byłoby zmianą kontraktu fali 4, poza scope fali 5 (fala 5 miała integrować, nie rozszerzać silnik). Uwaga: `entry_on_open=True` (nowe zachowanie) jest ogólnie bardziej konserwatywne/realistyczne niż `entry_on_open=False` (wejście na `close` sygnałowego bara to częściowy look-ahead — cena `close` bara, na którym liczony jest sygnał, nie jest jeszcze znana w momencie decyzji handlowej w praktyce), więc to nie jest regresja jakości symulacji, tylko rozjazd z bieżącą wartością configu.
+
+## Wynik testów
+
+Uruchomione przez `/home/limen/bot_traiding_daily/.venv_test/bin/python -m pytest -v` z katalogu głównego repo (ten sam współdzielony venv testowy co fale 1-4, BEZ argumentu ścieżki jako pierwszego argumentu — patrz pułapka `sys.argv`/`strategy._resolve_config_path` opisana przy fali 4):
+
+```
+tests/test_apex_uses_new_engine.py::test_apex_default_path_uses_cost_aware_engine_not_free_legacy_one PASSED
+tests/test_backtest_engine.py (7 testów, w tym 3 nowe dla metryk fali 5) PASSED
+tests/test_costs.py (12 testów) PASSED
+tests/test_data_contract.py (11 testów) PASSED
+tests/test_equity.py (15 testów) PASSED
+tests/test_execution.py (17 testów) PASSED
+tests/test_offline_backtest.py (2 testy, przedistniejące, bez zmian) PASSED
+
+63 passed in 2.27s
+```
+
+Brak regresji w 59 przedistniejących testach fal 1-4 (`test_costs.py`, `test_equity.py`, `test_execution.py`, `test_backtest_engine.py`'s oryginalne 4, `test_data_contract.py`, `test_offline_backtest.py`). `git status`/`git diff --stat` po tej fali pokazuje wyłącznie: `backtest_apex.py` (zmieniony, +49/−9), `backtest_engine.py` (zmieniony, +42), `tests/test_backtest_engine.py` (zmieniony, +81), `tests/test_apex_uses_new_engine.py` (nowy plik) — `strategy.py`/`main.py`/`trader.py`/`configuration/` niezmienione, zgodnie z acceptance tickieta F004.
+
+## Co pozostaje poza scope F004 (dla przyszłych ticketów)
+
+- **Re-wiring Optuna (`--param-optimization`) do `backtest_engine.run_backtest`** — udokumentowane jako known gap wprost w kodzie (`backtest_apex.py`, komentarz na początku gałęzi `if OPTIMIZATION:`) i tutaj. Gałąź optymalizacji nadal liczy bezkosztowo.
+- **Egzekwowanie limitu 50% max DD** — `equity.Portfolio.mark_to_market` śledzi `peak_equity`/`drawdown_pct`, `backtest_engine.py` przekazuje to dalej w `metrics["max_drawdown_pct"]`, ale nic nie zatrzymuje backtestu ani nie blokuje nowych wejść przy przekroczeniu 50% — to osobna praca (nie było w scope żadnej z pięciu fal F004, poza samym śledzeniem).
+- **Rozjazd `entry_on_open`** opisany wyżej — `backtest_engine.run_backtest` powinien dostać parametr `entry_on_open` zgodny z `configuration/default.yaml`, żeby domyślna ścieżka `backtest_apex.py` faktycznie honorowała `ENTRY_ON_OPEN: false` zamiast go cicho ignorować.
+- **Wielo-symbolowy portfel / F007** — jawnie poza scope F004 od początku (patrz `ticket.md`).

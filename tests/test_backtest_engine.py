@@ -169,3 +169,84 @@ def test_metrics_summary_matches_trades_and_equity_curve():
     assert res.metrics["win_rate"] == pytest.approx((trades["net_pnl"] > 0).mean() * 100, abs=0.01)
     assert res.metrics["max_drawdown_pct"] == pytest.approx(res.equity_curve["drawdown_pct"].max())
     assert res.metrics["final_equity"] == pytest.approx(res.equity_curve["equity"].iloc[-1])
+
+
+def test_new_metrics_fields_on_full_fixture_run_recomputed_independently():
+    # F004 wave 5: profit_factor/max_drawdown_usd/max_drawdown_abs_pct/calmar are
+    # recomputed here directly from res.trades/res.equity_curve with the formulas
+    # from the ticket, independently of backtest_engine._compute_metrics's own
+    # code -- not by trusting the engine's own numbers against themselves.
+    res = _run_fixture_backtest()
+    trades = res.trades
+    net_pnl = trades["net_pnl"]
+
+    winning_sum = net_pnl[net_pnl > 0].sum()
+    losing_sum = net_pnl[net_pnl <= 0].sum()
+    assert losing_sum != 0  # this fixture run has losing trades -> exercises the real division, not the 0.0 no-losses fallback
+    expected_profit_factor = winning_sum / abs(losing_sum)
+    assert res.metrics["profit_factor"] == pytest.approx(expected_profit_factor, rel=1e-4)
+
+    eq = res.equity_curve["equity"]
+    expected_dd_usd = float((eq.cummax() - eq).max())
+    assert res.metrics["max_drawdown_usd"] == pytest.approx(expected_dd_usd, rel=1e-4)
+
+    # strategy.py's _compute_metrics (strategy.py:816-820) computes max_drawdown
+    # and max_drawdown_abs_pct as the literal same value -- matched here.
+    assert res.metrics["max_drawdown_abs_pct"] == pytest.approx(res.metrics["max_drawdown_pct"])
+
+    expected_calmar = res.metrics["total_net_pnl"] / (expected_dd_usd + 1e-9)
+    assert res.metrics["calmar"] == pytest.approx(expected_calmar, rel=1e-4)
+
+    assert res.metrics["ambiguous_pct"] == 0.0
+
+
+def test_compute_metrics_new_fields_hand_calculated():
+    # Fully hand-built trades/equity_curve (not produced by run_backtest) so every
+    # expected number below is worked out by hand, not cross-checked against the
+    # implementation's own formula.
+    #
+    # 3 closed trades: net_pnl = +10, -4, +20.
+    # winning_sum = 10 + 20 = 30, losing_sum = -4 -> profit_factor = 30 / 4 = 7.5.
+    # total_net_pnl = 10 - 4 + 20 = 26.
+    # win_rate = 2/3 winners * 100 = 66.666... -> rounded 66.67.
+    #
+    # Equity curve (6 mark-to-market rows, initial_equity=500):
+    # equity = [500, 510, 508, 506, 515, 526]
+    # running peak (cummax) = [500, 510, 510, 510, 515, 526]
+    # dd_usd = peak - equity = [0, 0, 2, 4, 0, 0] -> max_drawdown_usd = 4.0
+    # dd_pct = 100 * dd_usd / peak = [0, 0, 200/510*100=39.2157, 400/510*100=78.4314, 0, 0]
+    #   -> max_drawdown_pct = round(78.4314, 4) = 78.4314, same value for max_drawdown_abs_pct.
+    # calmar = total_net_pnl / (max_drawdown_usd + 1e-9) = 26 / 4.000000001 = 6.499999998...
+    trades_df = pd.DataFrame({"net_pnl": [10.0, -4.0, 20.0]})
+    equity_curve = pd.DataFrame({
+        "equity": [500.0, 510.0, 508.0, 506.0, 515.0, 526.0],
+        "drawdown_pct": [0.0, 0.0, 200 / 510 * 100, 400 / 510 * 100, 0.0, 0.0],
+    })
+
+    metrics = be._compute_metrics(trades_df, equity_curve, initial_equity=500.0)
+
+    assert metrics["total_net_pnl"] == pytest.approx(26.0)
+    assert metrics["win_rate"] == pytest.approx(66.67, abs=0.01)
+    assert metrics["n_trades"] == 3
+    assert metrics["final_equity"] == pytest.approx(526.0)
+    assert metrics["profit_factor"] == pytest.approx(7.5)
+    assert metrics["max_drawdown_usd"] == pytest.approx(4.0)
+    assert metrics["max_drawdown_pct"] == pytest.approx(78.4314, abs=0.0001)
+    assert metrics["max_drawdown_abs_pct"] == pytest.approx(metrics["max_drawdown_pct"])
+    assert metrics["calmar"] == pytest.approx(26.0 / (4.0 + 1e-9), rel=1e-6)
+    assert metrics["ambiguous_pct"] == 0.0
+
+
+def test_compute_metrics_profit_factor_is_zero_when_no_losing_trades():
+    # Explicit ticket requirement: profit_factor is 0.0 when there are no losing
+    # trades -- NOT strategy.py's 9999.0 sentinel (strategy.py:822). Matched
+    # literally as specified, not "fixed" to the old sentinel behaviour.
+    trades_df = pd.DataFrame({"net_pnl": [5.0, 10.0]})
+    equity_curve = pd.DataFrame({
+        "equity": [500.0, 505.0, 515.0],
+        "drawdown_pct": [0.0, 0.0, 0.0],
+    })
+
+    metrics = be._compute_metrics(trades_df, equity_curve, initial_equity=500.0)
+
+    assert metrics["profit_factor"] == 0.0
