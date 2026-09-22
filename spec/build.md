@@ -11,11 +11,10 @@
 
 ## NOW
 
-- 🟡 IN PROGRESS — F004-execution-equity: wiarygodna realizacja, koszty, księgowanie kapitału; po F003. Uwzględnij też integrację `data_contract.py` z `backtest_apex.py`/`strategy.get_bybit_ohlcv`, odlożoną przez F003 (patrz `spec/research/F003-data-contract.md`, sekcja „Czego brakuje”). Fale: (1) `costs.py` koszty — scalone; (2) `equity.py` equity/margin — scalone; (3) `execution.py` zegar wykonania — scalone; (4) `backtest_engine.py` orkiestracja — scalone (`run_backtest` end-to-end na fixture, hand-verified trade, 59/59 testów); (5) integracja z backtest_apex.py — w toku (fala 5, druga próba po uszkodzonym poleceniu spawn).
+- 🔴 PLANNED — F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004.
 - Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne.
 
 ## NEXT
-- 🔴 F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004.
 - 🔴 F010-search-performance: profilowanie/benchmark metod wyszukiwania parametrów; po F005, przed F006.
 - 🔴 F006-strategy-research: porównanie hipotez i wybór finalistów na danych rozwojowych; po F005 i F010.
 - 🔴 F007-portfolio-holdout: wspólny kapitał i jednorazowy końcowy test zamrożonego kandydata; po F006.
@@ -25,7 +24,8 @@
 
 - 2026-09 — F001-current-state-map: kontrakt sygnału/wejścia/wyjścia/ryzyka i 16 rozbieżności symulacja/live spisane w `spec/research/F001-current-state.md` (12 potwierdzonych z tej listy, 4 nowe). Który plik configu jest live nieustalone statycznie; właścicielka potwierdziła, że to nieistotne (nikt nie pracuje na produkcji) — nie dociągać.
 - 2026-09 — F002-offline-boundary: `backtest_apex.py --local-csv` uruchamia backtest bez sieci (test blokuje `requests.get/post`); brak danych/wyników kończy proces kodem 1 zamiast dawnego `sys.exit(0)`. Potwierdzony brak importu `trader.py`/`rest_logs.py` w ścieżce backtestu. Dowód: `spec/research/F002-offline-boundary.md`.
-- 2026-09 — F003-data-contract: `data_contract.py` — tylko zamknięte świece, wykrywanie luk, warm-up, manifest z checksumą+coverage%, `enforce_no_silent_gaps` blokuje ciche zerowanie, cache per symbol/interwał/zakres UTC z weryfikacją checksumy. Dostarczony jako samodzielny moduł, nie podpięty jeszcze do `backtest_apex.py` — zob. F004. Dowód: `spec/research/F003-data-contract.md`.
+- 2026-09 — F003-data-contract: `data_contract.py` — tylko zamknięte świece, wykrywanie luk, warm-up, manifest z checksumą+coverage%, `enforce_no_silent_gaps` blokuje ciche zerowanie, cache per symbol/interwał/zakres UTC z weryfikacją checksumy. Dowód: `spec/research/F003-data-contract.md`.
+- 2026-09 — F004-execution-equity: `backtest_apex.py`'s domyślna ścieżka (bez `--param-optimization`) liczy przez nowy silnik `backtest_engine.py` (`costs.py`+`equity.py`+`execution.py`+`data_contract.py`) zamiast bezkosztowego `_make_trade`. Dyskryminujący test: PnL apex ściśle niższe niż stary silnik, różnica dokładnie równa sumie kosztów. Optuna (`--param-optimization`) wciąż na starym silniku — udokumentowana luka, nie cicho pominięta. 63 testy. Dowód: `spec/research/F004-execution-equity.md`.
 - Brak strategii potwierdzonej w tym procesie.
 
 ## Decyzje i granice pracy
