@@ -5,3 +5,4 @@ venv/
 /.limen/
 .venv_test/
 .tmp/
+data_cache/*.csv

@@ -180,6 +180,10 @@ assert manifest.checksum_sha256 == "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f
   4. F007 otwiera to samo, niezmienione okno holdoutu **raz**, dla już zamrożonego finalisty (strategia/e, parametry, koszyk, sizing zamrożone PRZED otwarciem holdoutu) — zgodnie z `spec/build.md`, F007: „Zamrozić strategię(-e)... dopiero wtedy otworzyć holdout." Porażka na holdoucie w F007 nie uprawnia do donastrajania tego samego holdoutu (build.md, F007: „Porażka nie uprawnia do dostrojenia tego samego holdoutu").
   5. Jeśli po 2026-09-01 pojawią się nowe dane (przyszłe miesiące), mogą zasilić przyszłe, osobno uzasadnione okna — ale **to konkretne okno holdoutu** (2026-03 … 2026-08) zachowuje swoją rolę zamrożonego testu końcowego dla obecnego katalogu (F005) i dla kandydata z F007; nie jest przesuwane ani rozszerzane, żeby poprawić wynik.
 
+## 7a. Uwaga Coordinatora: `data_cache/*.csv` nie jest w git
+
+Surowe pliki CSV (~28 MB, ~446 tys. wierszy) nie są śledzone w git (`.gitignore: data_cache/*.csv`) — bloatowałyby historię repo bezterminowo i tylko rosłyby z każdą kolejną falą/symbolem (F006+). Reprodukowalność zapewniają checksumy SHA-256 w `.manifest.json` (śledzone w git) i w tabeli sekcji 6 — nie literalna obecność bajtów w repo. Same CSV zostają lokalnie na dysku serwera projektu (zgodnie z build.md: „wyniki tylko lokalnie na dysku”); jeśli znikną, `scripts/f005_fetch_audit_data.py` + `scripts/f005_build_protocol_cache.py` je odtworzą identycznie (ten sam publiczny endpoint, te same zakresy dat), a `load_dataset` zweryfikuje checksumę przy odczycie.
+
 ## 8. Skrypty i pochodzenie danych
 
 - `scripts/f005_fetch_audit_data.py` — audyt sekcji 1 (sieć: `strategy.get_bybit_ohlcv`, publiczny endpoint kline).
