@@ -304,7 +304,7 @@ Brak regresji w testach fal 1-3 (`test_costs.py`, `test_equity.py`, `test_execut
 
 Dodano do istniejącego słownika metryk (`total_net_pnl`, `win_rate`, `max_drawdown_pct`, `n_trades`, `final_equity` — bez zmiany nazw, superset, nie przemianowanie) pięć nowych kluczy, semantyka dopasowana do `strategy.py`'s `_compute_metrics` (`strategy.py:779-826`), nie tylko nazwa pola:
 
-- **`profit_factor`** = suma zyskownych `net_pnl` / `abs(suma stratnych net_pnl)`, **`0.0` gdy brak strat** — jawnie INNE niż sentinel `9999.0` w `strategy.py:822`, bo tak nakazał tickiet wprost (nie "naprawa" starego zachowania, świadome odejście udokumentowane w kodzie i teście `test_compute_metrics_profit_factor_is_zero_when_no_losing_trades`).
+- **`profit_factor`** = suma zyskownych `net_pnl` / `abs(suma stratnych net_pnl)`, sentinel `9999.0` gdy brak strat — zgodnie z `strategy.py:797`. **Korekta Coordinatora**: fala 5 pierwotnie dostała instrukcję `0.0` dla braku strat, co czyta się jako najgorszy możliwy wynik dla w istocie bezbłędnej serii zysków — poprawione po scaleniu na sentinel `9999.0` (kod: `backtest_engine.py`, test: `test_compute_metrics_profit_factor_is_sentinel_when_no_losing_trades`).
 - **`max_drawdown_usd`** = szczyt-do-dołka equity curve w dolarach: `max(running_peak(equity) - equity)`, liczone niezależnie od `drawdown_pct` (osobna funkcja `_max_drawdown_usd`).
 - **`max_drawdown_abs_pct`** = dokładnie ta sama wartość co `max_drawdown_pct` — zweryfikowane w `strategy.py:816-820`, że `max_drawdown` i `max_drawdown_abs_pct` tam też są literalnie tym samym `round(max_dd_pct, 1)`, nie dwoma różnymi liczbami; ten sam alias odtworzony tutaj.
 - **`calmar`** = `total_net_pnl / (max_drawdown_usd + 1e-9)` — dokładnie ta sama formuła co `strategy.py:816` (`calmar = total_pnl / (max_dd_usd + 1e-9)`), bez annualizacji — dopasowane 1:1, nie "naprawione".
@@ -314,7 +314,7 @@ Testy (`tests/test_backtest_engine.py`, dodane do istniejącego pliku fali 4):
 
 1. `test_new_metrics_fields_on_full_fixture_run_recomputed_independently` — dla pełnego przebiegu na fixture (`RSI14_7030`, 17 transakcji), każde z pięciu nowych pól przeliczone NIEZALEŻNIE z `res.trades`/`res.equity_curve` (nie przez zaufanie własnemu kodowi silnika) i porównane `pytest.approx`.
 2. `test_compute_metrics_new_fields_hand_calculated` — w pełni ręcznie skonstruowane `trades_df`/`equity_curve` (3 transakcje: +10, −4, +20; 6-wierszowa krzywa equity 500→510→508→506→515→526) wywołane bezpośrednio przez `be._compute_metrics(...)`, z arytmetyką w komentarzu nad testem: `profit_factor=30/4=7.5`, `max_drawdown_usd=4.0` (peak 510 w indeksie 3, equity 506), `max_drawdown_pct=max_drawdown_abs_pct=78.4314%` (`400/510*100`), `calmar=26/(4+1e-9)≈6.499999998`.
-3. `test_compute_metrics_profit_factor_is_zero_when_no_losing_trades` — 2 transakcje, obie zyskowne (`+5`, `+10`) → `profit_factor==0.0` dokładnie (nie `9999.0`), zgodnie z jawnym wymogiem tickieta.
+3. `test_compute_metrics_profit_factor_is_sentinel_when_no_losing_trades` — 2 transakcje, obie zyskowne (`+5`, `+10`) → `profit_factor==9999.0` dokładnie, zgodnie z sentinelem `strategy.py` (poprawione po scaleniu, patrz uwaga wyżej).
 
 ### 2. `backtest_apex.py`: podłączenie domyślnej ścieżki do `backtest_engine.run_backtest`
 

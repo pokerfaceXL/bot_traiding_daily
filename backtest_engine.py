@@ -361,11 +361,13 @@ def _compute_metrics(trades_df: pd.DataFrame, equity_curve: pd.DataFrame, initia
     max_dd_usd = _max_drawdown_usd(equity_curve)
     final_equity = float(equity_curve["equity"].iloc[-1]) if not equity_curve.empty else initial_equity + total_net_pnl
 
-    # profit_factor: sum of winning net_pnl / abs(sum of losing net_pnl); 0.0 if
-    # there are no losing trades (per ticket -- not strategy.py's 9999.0 sentinel).
+    # profit_factor: sum of winning net_pnl / abs(sum of losing net_pnl). Coordinator
+    # correction: the F004 wave 5 task instructed 0.0 for no-losses, but that reads as
+    # the worst possible score for what is actually a flawless win record -- matched
+    # to strategy.py's own convention instead (strategy.py:797, sentinel 9999.0).
     winning_sum = float(net_pnl[net_pnl > 0].sum())
     losing_sum = float(net_pnl[net_pnl <= 0].sum())
-    profit_factor = (winning_sum / abs(losing_sum)) if losing_sum != 0 else 0.0
+    profit_factor = (winning_sum / abs(losing_sum)) if losing_sum != 0 else 9999.0
 
     # calmar: same formula as strategy.py's _compute_metrics (strategy.py:816) --
     # total_pnl / (max_dd_usd + 1e-9), no annualization. Matched exactly, not fixed.

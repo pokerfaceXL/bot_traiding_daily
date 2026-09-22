@@ -237,10 +237,11 @@ def test_compute_metrics_new_fields_hand_calculated():
     assert metrics["ambiguous_pct"] == 0.0
 
 
-def test_compute_metrics_profit_factor_is_zero_when_no_losing_trades():
-    # Explicit ticket requirement: profit_factor is 0.0 when there are no losing
-    # trades -- NOT strategy.py's 9999.0 sentinel (strategy.py:822). Matched
-    # literally as specified, not "fixed" to the old sentinel behaviour.
+def test_compute_metrics_profit_factor_is_sentinel_when_no_losing_trades():
+    # Coordinator correction (see backtest_engine.py comment): the original F004
+    # wave 5 task instructed 0.0 here, but that reads as the worst possible score
+    # for a flawless win record. Matched to strategy.py's own sentinel instead
+    # (strategy.py:797, 9999.0), not left at the mistaken literal instruction.
     trades_df = pd.DataFrame({"net_pnl": [5.0, 10.0]})
     equity_curve = pd.DataFrame({
         "equity": [500.0, 505.0, 515.0],
@@ -249,4 +250,4 @@ def test_compute_metrics_profit_factor_is_zero_when_no_losing_trades():
 
     metrics = be._compute_metrics(trades_df, equity_curve, initial_equity=500.0)
 
-    assert metrics["profit_factor"] == 0.0
+    assert metrics["profit_factor"] == 9999.0
