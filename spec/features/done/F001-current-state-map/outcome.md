@@ -1,0 +1,3 @@
+# Outcome
+
+`spec/research/F001-current-state.md` opisuje pełny kontrakt sygnału/wejścia/wyjścia/SL/TSL/cooldownu/circuit breakera z odwołaniami plik:linia dla main.py, trader.py i strategy.py, oraz 16 rozbieżności symulacja/live (12 potwierdzonych z build.md, 4 nowe). Realny config produkcyjny nie da się ustalić statycznie — `main()` zawsze wymaga jawnego argumentu (main.py:112-114), więc `configuration/default.yaml` jest tylko poszlaką, nie dowodem; `configuration/` i `logs/configuration/` mają rozbieżne wartości ryzyka dla tych samych symboli. To pytanie do właścicielki, spisane w sekcji „Otwarte pytania". Brak zmian w kodzie produkcyjnym; praca wyłącznie czytająca.
