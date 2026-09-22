@@ -1,0 +1,16 @@
+{
+  "actual_end": "2026-09-01T00:00:00+00:00",
+  "actual_start": "2024-01-26T00:00:00+00:00",
+  "checksum_sha256": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+  "coverage_pct": 100.0176,
+  "dropped_unclosed_bars": 0,
+  "expected_bars": 5694,
+  "gaps": [],
+  "generated_at": "2026-09-22T07:08:06.351889+00:00",
+  "interval": "240",
+  "requested_end": "2026-09-01T00:00:00+00:00",
+  "requested_start": "2024-01-26T00:00:00+00:00",
+  "row_count": 5695,
+  "symbol": "XRPUSDT",
+  "warmup_bars": 210
+}

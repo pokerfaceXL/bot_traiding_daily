@@ -1,0 +1,16 @@
+{
+  "actual_end": "2026-09-22T00:00:00+00:00",
+  "actual_start": "2020-03-25T08:00:00+00:00",
+  "checksum_sha256": "9964c8156b25057e38b18cac87bffbb8aec1455632073779fa971aed1cfabdb9",
+  "coverage_pct": 100.0,
+  "dropped_unclosed_bars": 1,
+  "expected_bars": 14231,
+  "gaps": [],
+  "generated_at": "2026-09-22T06:59:00.992528+00:00",
+  "interval": "240",
+  "requested_end": "2026-09-22T04:00:00+00:00",
+  "requested_start": "2020-03-25T08:00:00+00:00",
+  "row_count": 14231,
+  "symbol": "BTCUSDT",
+  "warmup_bars": 0
+}

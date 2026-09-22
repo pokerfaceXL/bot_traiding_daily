@@ -1,0 +1,16 @@
+{
+  "actual_end": "2026-09-22T05:00:00+00:00",
+  "actual_start": "2021-10-15T00:00:00+00:00",
+  "checksum_sha256": "948ac662bd972a8e28227e85a3c825f95d07a6204e04dbe4d08d6f0e3751d6a7",
+  "coverage_pct": 100.0,
+  "dropped_unclosed_bars": 1,
+  "expected_bars": 43278,
+  "gaps": [],
+  "generated_at": "2026-09-22T06:57:14.106553+00:00",
+  "interval": "60",
+  "requested_end": "2026-09-22T06:00:00+00:00",
+  "requested_start": "2021-10-15T00:00:00+00:00",
+  "row_count": 43278,
+  "symbol": "SOLUSDT",
+  "warmup_bars": 0
+}
