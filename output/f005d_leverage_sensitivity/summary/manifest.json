@@ -1,0 +1,65 @@
+{
+  "run_timestamp_utc": "2026-09-22T16:19:33.428387+00:00",
+  "git_commit_parent": "88eee250d156358dbef466c439ba33450eeddba3",
+  "n_measured_runs": 600,
+  "n_reused_rows": 100,
+  "n_total_rows": 700,
+  "strategy_sample": [
+    "EMA_8_21",
+    "EMA_13_34_RSI14_55",
+    "RSI14_7030",
+    "MACD_12_26_hist",
+    "MACD_RSI14_50",
+    "BB_20_25_breakout",
+    "BB_20_2_RSI14",
+    "ADX14_DI_20",
+    "STOCH14_cross",
+    "TS_13_34_200_14"
+  ],
+  "leverage_sweep_at_cooldown_0": [
+    1,
+    2,
+    3,
+    5
+  ],
+  "cooldown_sweep_at_leverage_10": [
+    5,
+    20
+  ],
+  "leverage_10_cooldown_0_source": "reused from output/f005_baseline/summary/ (wave 3), not rerun",
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "base_params": {
+    "atr_multiplier": 2.5,
+    "max_sl_pct": 0.03,
+    "activate_pct": 0.03,
+    "trail_pct": 0.015,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "holdout_end": "2026-09-01T00:00:00Z",
+  "now_fixed": "2026-09-01T00:00:00Z",
+  "data_checksums_verified": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "elapsed_seconds": 260.0647132396698
+}
