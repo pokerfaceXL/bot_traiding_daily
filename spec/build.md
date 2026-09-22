@@ -11,8 +11,8 @@
 
 ## NOW
 
-- 🟡 IN PROGRESS — F005-validation-baseline: zamrożony protokół walidacji i wynik obecnych strategii; po F004. Fale: (1) audyt danych Bybit + zamrożony protokół (5 symboli, 4h/1h, 30 mies. 2024-03→2026-09, holdout 2026-03→2026-09) — scalone, spec/research/F005-validation-protocol.md; (2) regularity.py (positive_day_pct/deviation_pct, Europe/Warsaw, DST-poprawny) — scalone, 71/71 testów; (3) uruchomienie baseline (79 strategii × 5 symboli × 2 interwały) na zamrożonych danych — w toku.
-- Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne.
+- 🔴 BLOCKED — F006-strategy-research: porównanie hipotez i wybór finalistów na danych rozwojowych; po F005 i F010. Zablokowane decyzją właścicielki o dźwigni/limitach ryzyka — patrz PROVEN, F005. Diagnostyka wrażliwości na dźwignię/cooldown w toku, żeby dostarczyć pełne dowody na tę decyzję.
+- Uzgodnione: kapitał portfela 500 USD, stawka 100 USD, max DD 50%, cel 100% dni dodatnich z tolerancją, zakres 5 min–4 h; otwarte: dźwignia i szczegóły operacyjne — TO JEST TERAZ BLOKUJĄCE, nie tylko otwarte (patrz F005 w PROVEN).
 
 ## NEXT
 - 🔴 F010-search-performance: profilowanie/benchmark metod wyszukiwania parametrów; po F005, przed F006.
@@ -22,10 +22,9 @@
 
 ## PROVEN
 
-- 2026-09 — F001-current-state-map: kontrakt sygnału/wejścia/wyjścia/ryzyka i 16 rozbieżności symulacja/live spisane w `spec/research/F001-current-state.md` (12 potwierdzonych z tej listy, 4 nowe). Który plik configu jest live nieustalone statycznie; właścicielka potwierdziła, że to nieistotne (nikt nie pracuje na produkcji) — nie dociągać.
-- 2026-09 — F002-offline-boundary: `backtest_apex.py --local-csv` uruchamia backtest bez sieci (test blokuje `requests.get/post`); brak danych/wyników kończy proces kodem 1 zamiast dawnego `sys.exit(0)`. Potwierdzony brak importu `trader.py`/`rest_logs.py` w ścieżce backtestu. Dowód: `spec/research/F002-offline-boundary.md`.
-- 2026-09 — F003-data-contract: `data_contract.py` — tylko zamknięte świece, wykrywanie luk, warm-up, manifest z checksumą+coverage%, `enforce_no_silent_gaps` blokuje ciche zerowanie, cache per symbol/interwał/zakres UTC z weryfikacją checksumy. Dowód: `spec/research/F003-data-contract.md`.
+- 2026-09 (skrót) — F001 (kontrakt sygnału/ryzyka + 16 rozbieżności symulacja/live, `spec/research/F001-current-state.md`), F002 (`backtest_apex.py --local-csv` offline, kod wyjścia 1 na błąd, `spec/research/F002-offline-boundary.md`), F003 (`data_contract.py` — zamknięte świece/luki/warm-up/manifest+checksuma, `spec/research/F003-data-contract.md`) — wszystkie scalone, szczegóły w odpowiednich research docs.
 - 2026-09 — F004-execution-equity: `backtest_apex.py`'s domyślna ścieżka (bez `--param-optimization`) liczy przez nowy silnik `backtest_engine.py` (`costs.py`+`equity.py`+`execution.py`+`data_contract.py`) zamiast bezkosztowego `_make_trade`. Dyskryminujący test: PnL apex ściśle niższe niż stary silnik, różnica dokładnie równa sumie kosztów. Optuna (`--param-optimization`) wciąż na starym silniku — udokumentowana luka, nie cicho pominięta. 63 testy. Dowód: `spec/research/F004-execution-equity.md`.
+- 2026-09 — F005-validation-baseline: zamrożony protokół (spec/research/F005-validation-protocol.md) + zmierzony baseline (spec/research/F005-baseline.md) na realnych danych Bybit, 790 przebiegów (79 strategii × 5 symboli × 2 interwały). **Wynik: 0/24885 ważnych miesięcy spełnia cel, 790/790 przekracza DD>50%.** Zweryfikowana przyczyna (ręcznie sprawdzona na surowych transakcjach): leverage=10 + margin=stake=$100 → strata na SL ≈$30-33, ~12-15 przegranych wyczerpuje $500 poniżej progu $100 w 1-3 mies., konto nigdy więcej nie handluje. To blokuje sensowny start F006, dopóki właścicielka nie zdecyduje o dźwigni/limitach ryzyka (build.md: to jej decyzja, nie rutynowa).
 - Brak strategii potwierdzonej w tym procesie.
 
 ## Decyzje i granice pracy
