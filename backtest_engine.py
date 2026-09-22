@@ -321,7 +321,27 @@ def _empty_metrics(initial_equity: float) -> dict:
         "max_drawdown_pct": 0.0,
         "n_trades": 0,
         "final_equity": initial_equity,
+        "profit_factor": 0.0,
+        "max_drawdown_usd": 0.0,
+        "max_drawdown_abs_pct": 0.0,
+        "calmar": 0.0,
+        # execution.py resolves intra-bar SL/TP ambiguity deterministically via a
+        # documented conservative rule (SL always wins when both SL and TP fall
+        # inside the same bar -- see execution.py's resolve_stop_take_within_bar)
+        # instead of measuring ambiguity like strategy.py's ambiguous_count /
+        # ambiguous_pct. This field is not applicable the same way anymore, but is
+        # kept at 0.0 so downstream key access (backtest_apex.py) does not break.
+        "ambiguous_pct": 0.0,
     }
+
+
+def _max_drawdown_usd(equity_curve: pd.DataFrame) -> float:
+    """Peak-to-trough drawdown in USD from the equity curve (peak - equity, running max of peak)."""
+    if equity_curve.empty:
+        return 0.0
+    eq = equity_curve["equity"]
+    peak = eq.cummax()
+    return float((peak - eq).max())
 
 
 def _compute_metrics(trades_df: pd.DataFrame, equity_curve: pd.DataFrame, initial_equity: float) -> dict:
@@ -330,18 +350,38 @@ def _compute_metrics(trades_df: pd.DataFrame, equity_curve: pd.DataFrame, initia
         if not equity_curve.empty:
             metrics["final_equity"] = float(equity_curve["equity"].iloc[-1])
             metrics["max_drawdown_pct"] = float(equity_curve["drawdown_pct"].max())
+            metrics["max_drawdown_usd"] = _max_drawdown_usd(equity_curve)
+            metrics["max_drawdown_abs_pct"] = metrics["max_drawdown_pct"]
         return metrics
 
     net_pnl = trades_df["net_pnl"]
     total_net_pnl = float(net_pnl.sum())
     win_rate = float((net_pnl > 0).mean() * 100)
     max_dd = float(equity_curve["drawdown_pct"].max()) if not equity_curve.empty else 0.0
+    max_dd_usd = _max_drawdown_usd(equity_curve)
     final_equity = float(equity_curve["equity"].iloc[-1]) if not equity_curve.empty else initial_equity + total_net_pnl
+
+    # profit_factor: sum of winning net_pnl / abs(sum of losing net_pnl); 0.0 if
+    # there are no losing trades (per ticket -- not strategy.py's 9999.0 sentinel).
+    winning_sum = float(net_pnl[net_pnl > 0].sum())
+    losing_sum = float(net_pnl[net_pnl <= 0].sum())
+    profit_factor = (winning_sum / abs(losing_sum)) if losing_sum != 0 else 0.0
+
+    # calmar: same formula as strategy.py's _compute_metrics (strategy.py:816) --
+    # total_pnl / (max_dd_usd + 1e-9), no annualization. Matched exactly, not fixed.
+    calmar = total_net_pnl / (max_dd_usd + 1e-9)
+
+    max_dd_pct_rounded = round(max_dd, 4)
 
     return {
         "total_net_pnl": round(total_net_pnl, 6),
         "win_rate": round(win_rate, 2),
-        "max_drawdown_pct": round(max_dd, 4),
+        "max_drawdown_pct": max_dd_pct_rounded,
         "n_trades": int(len(trades_df)),
         "final_equity": round(final_equity, 6),
+        "profit_factor": round(profit_factor, 6),
+        "max_drawdown_usd": round(max_dd_usd, 6),
+        "max_drawdown_abs_pct": max_dd_pct_rounded,
+        "calmar": round(calmar, 6),
+        "ambiguous_pct": 0.0,
     }

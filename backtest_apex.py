@@ -23,6 +23,7 @@ from strategy import (
     STRATEGY_CATALOG, backtest_trailing,
     _SUB_INTERVAL_MAP, _build_sub_lookup,
 )
+import backtest_engine
 from logger_config import setup_logger
 
 
@@ -274,6 +275,31 @@ def _run_optuna_strategy(df, max_leverage, atr_mult, position_size,
     }
 
 
+def _adapt_backtest_result(bt_result):
+    """
+    Maps backtest_engine.BacktestResult (F004 wave 5) to the trades_df/metrics
+    shape the rest of this file expects -- the same keys strategy.backtest_trailing's
+    metrics dict has (strategy.py:816-825): total_pnl, win_rate, max_drawdown,
+    max_drawdown_usd, max_drawdown_abs_pct, profit_factor, n_trades, calmar,
+    ambiguous_pct. backtest_engine._compute_metrics carries the same information
+    under its own key names (total_net_pnl, max_drawdown_pct, ...) -- this is
+    just the renaming, not a recomputation.
+    """
+    m = bt_result.metrics
+    metrics = {
+        "total_pnl": m["total_net_pnl"],
+        "win_rate": m["win_rate"],
+        "max_drawdown": m["max_drawdown_pct"],
+        "max_drawdown_usd": m["max_drawdown_usd"],
+        "max_drawdown_abs_pct": m["max_drawdown_abs_pct"],
+        "profit_factor": m["profit_factor"],
+        "n_trades": m["n_trades"],
+        "calmar": m["calmar"],
+        "ambiguous_pct": m["ambiguous_pct"],
+    }
+    return bt_result.trades, metrics
+
+
 def _select_best(pool):
     calmar_max = max(r["metrics"]["calmar"] for r in pool)
     if calmar_max > 0:
@@ -339,6 +365,13 @@ for strategy_name in strategy_names:
         df["signal"] = STRATEGY_CATALOG[strategy_name](df)
 
         if OPTIMIZATION:
+            # KNOWN FOLLOW-UP GAP (F004 wave 5): the Optuna search path still calls
+            # the old cost-free strategy.backtest_trailing (via _run_optuna_strategy
+            # below), NOT backtest_engine.run_backtest. Re-wiring Optuna to the new
+            # cost/equity-aware engine is out of scope for this wave and is future
+            # work -- documented here (and in spec/research/F004-execution-equity.md)
+            # so it is not silently dropped. Only the DEFAULT (non --param-optimization)
+            # branch below was switched to backtest_engine.run_backtest in this wave.
             best_combo = _run_optuna_strategy(
                 df,
                 max_leverage=max_lev,
@@ -361,20 +394,20 @@ for strategy_name in strategy_names:
                 f"Ambig={metrics['ambiguous_pct']:.1f}%"
             )
         else:
-            trades_df, metrics = backtest_trailing(
-                df,
+            bt_result = backtest_engine.run_backtest(
+                df_ind,
+                strategy_name,
+                interval=INTERVAL,
+                initial_equity=500.0,
+                stake=POSITION_SIZE_USDT,
+                leverage=LEVERAGE,
                 atr_multiplier=ATR_MULT,
                 max_sl_pct=MAX_SL_PCT,
                 activate_pct=ACTIVATE_PCT,
                 trail_pct=TRAIL_PCT,
-                leverage=LEVERAGE,
-                stake=POSITION_SIZE_USDT,
-                atr_col="atr14",
-                entry_on_open=ENTRY_ON_OPEN,
                 cooldown_candles=COOLDOWN_CANDLES,
-                sub_lookup=sub_lookup,
-                main_interval_min=int(INTERVAL),
             )
+            trades_df, metrics = _adapt_backtest_result(bt_result)
             opt_params = None
             logger.info(
                 f"[{strategy_name:<25}] PnL=${metrics['total_pnl']:8.2f}  "
