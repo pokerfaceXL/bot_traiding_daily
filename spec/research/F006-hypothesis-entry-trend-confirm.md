@@ -234,16 +234,168 @@ clears the checklist.
 
 ## Run_id
 
-(filled in after the run)
+`scripts/f006_entry_trend_confirm_experiment.py`, `git_commit_parent = 6f58528efcaed040b5ff8f4623de3b0cb7ab6f9a`
+(the pre-registration commit above), single pass, `.venv_test` (Python 3.9.25, pandas 2.2.3 --
+rebuilt in this worktree from a cached offline wheelhouse at `/tmp/mine-strategy-wheels` plus
+`/tmp/pipdl` (pyyaml) and `/tmp/pip-unpack-aa92hd6x` (python-dotenv), since this worktree's
+`.venv_test` did not pre-exist; no network access), 30 series, 21.4s. This worktree's
+`data_cache/*.csv` files (git-ignored, symbol/interval OHLCV) were also missing and were copied
+unmodified from the main checkout's `data_cache/` before the first run -- the checksum
+verification against `spec/research/F005-validation-protocol.md` section 6 (0/10 mismatches, see
+below) confirms the copied files are byte-identical to the frozen dataset every other F006 note
+uses, not a different or re-fetched dataset. Per-series results and monthly tables:
+`output/f006_entry_trend_confirm/raw/*.json` (30 files, filtered + unfiltered monthly breakdown
+each). Summary table: `output/f006_entry_trend_confirm/summary/results.csv`. Manifest, checksums,
+harness-control and subset-invariant records: `output/f006_entry_trend_confirm/summary/manifest.json`.
+Re-run once after a sabotage-and-restore pass on `trend_gate` (see Tests) to confirm determinism:
+identical `results.csv` and manifest figures both times.
 
 ## Result
 
-(filled in after the run)
+**Falsified. 0 of 30 series is even a degenerate pass, let alone a genuine one.**
+`promotion_pass_genuine` is `False` for all 30 series, `promotion_pass_filtered` (before the
+`n_trades > 0` guard) is also `False` for all 30 -- unlike the width-expansion note, this slice
+produced **zero** degenerate zero-trade passes at all, so there is no ambiguity between a literal
+and substantive reading of the falsification condition this time; both readings agree.
+
+**Harness control and subset invariant both clean.** The gate-forced-all-True rerun matches
+`output/f006_notrail_monthly/summary/results.csv`'s stored `train1_net_pnl`/`n_trades` for all 30
+series -- **0/30 mismatches** -- and all 10 dataset checksums verified against
+`spec/research/F005-validation-protocol.md` section 6 before any run. The subset invariant
+(`n_trades_filtered <= n_trades_unfiltered`) holds for **30/30** series.
+
+**The predicted mechanism is not just unsupported, it is inverted: pooled win rate falls under
+the filter, and by more than trade-count alone would predict.** Trade count fell 48.0% (1,695
+unfiltered -> 881 filtered, comparable in scale to the width-expansion note's 52.1% cut), but the
+trade-weighted pooled win rate **fell** from 25.07% (reproducing the width-expansion note's own
+unfiltered baseline exactly, confirming both notes measure the same population) to **21.91%** --
+a **-3.16 pp** move, the opposite direction of H1's prediction and seven times larger in
+magnitude than the width gate's +0.42 pp (itself judged "an order of magnitude too small to be
+real"). Mean net PnL per series fell from $48.45 to **$18.47** (62% of the deficit is a straight
+loss, not a wash), and the count of series with positive Train-1 net PnL fell from 18/30 to
+**13/30**. Mean losing months per series also moved the wrong way: **6.47 -> 6.93** (worse), where
+H1 predicted lower.
+
+**Per name, the direction filter is not selective -- it removes calls in proportion to how often
+the signal already disagreed with the slower trend, which for `DONCHIAN_55` is most of the time,
+and the removal correlates with destroying the name's own edge rather than concentrating it:**
+
+| Name | mean net PnL, unfiltered | mean net PnL, filtered | mean neg months, unf. | mean neg months, filt. | total trades unf. -> filt. | total calls gated out / total calls |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| `DONCHIAN_55` | $58.39 | **-$3.57** | -- | -- | 476 -> 147 (-69%) | 329/476 (69%) |
+| `BB_20_25_breakout` | $48.78 | $40.59 | -- | -- | 869 -> 506 (-42%) | 733/1722 (43%) |
+| `DONCHIAN_PULLBACK_55` | $38.19 | $18.39 | -- | -- | 350 -> 228 (-35%) | 127/372 (34%) |
+
+`DONCHIAN_55` is hit hardest and worst: 69% of its calls disagree with the slower EMA50/EMA200
+trend at the moment they fire, and the filter erases essentially all of its aggregate edge ($58.39
+mean net PnL falls to -$3.57, a near-total wipeout, worse even than the width-expansion note did
+to this same name at $0.06). This is the opposite of a coincidence: a Donchian breakout fires
+*at* a new N-bar extreme, which is mechanically the moment price is furthest from its own recent
+average and therefore most likely to be running ahead of a slower-moving EMA50/EMA200 pair that
+has not yet caught up -- so the direction filter disqualifies a large fraction of exactly the
+fresh breakouts that carry this family's edge (per `F006-hypothesis-donchian.md`'s own
+decomposition, a low win rate carried by occasional large winners; a fresh breakout that runs far
+is exactly the kind of move this family depends on, and it is exactly the kind of move that
+temporarily disagrees with a 200-bar-lagged average). `BB_20_25_breakout` and
+`DONCHIAN_PULLBACK_55` are hit less hard (43% and 34% of calls gated respectively, since a
+Bollinger breakout and a pullback-triggered entry are both less extreme relative to their own
+recent range than a raw Donchian breakout) and keep more of their PnL, but neither shows the
+predicted win-rate improvement either (per-name pooled win rate: `DONCHIAN_55` 27.31% ->
+**21.09%**, `BB_20_25_breakout` 25.66% -> **24.11%**, `DONCHIAN_PULLBACK_55` 20.57% -> **17.54%**
+-- every single name's win rate falls under the filter, not just the pooled figure).
+
+**The `n_trades > 0` guard, checked proactively rather than after the fact, found no degenerate
+case to guard against here -- but the near-miss pattern it was built to catch is visible anyway.**
+9 of the 30 series have at least one Train-1 month that was negative unfiltered and flipped to
+non-negative filtered *because that month had zero filtered trades* (`n_months_flipped_to_zero_trade`
+> 0, 14 such months total, concentrated in `DONCHIAN_55`'s 4h series: 6 of the 9 affected series
+are `DONCHIAN_55`/`240`, each losing 1-2 months to this artefact). None of these 9 series comes
+anywhere close to clearing the checklist regardless (each still has 4-8 genuinely-evaluated
+losing months after removing the artefact ones), so the guard did not change this run's verdict --
+but it confirms the artefact is not unique to the width gate: any entry-side filter aggressive
+enough to empty out individual months on this basket will produce a few "months" that look clean
+only because they are empty, and a future, more selective filter that gets closer to the checklist
+will need this guard to avoid the same false read the width-expansion note caught by hand.
+
+**No name and no series shows the predicted signature (win rate up, PnL preserved, losing months
+down) on any measure.** Compared to the width-expansion note's result -- which at least kept
+`BB_20_25_breakout`'s PnL roughly intact even as its monthly profile worsened -- this filter is
+uniformly worse: every name loses PnL, every name's win rate falls, and the pooled losing-months
+average rises rather than falls. A slower-EMA trend-agreement filter is not merely unhelpful for
+this basket, it is actively counter-productive, and the mechanism is traceable rather than
+mysterious: these three names' edge (per `F006-hypothesis-donchian.md`) comes specifically from
+fresh, large-magnitude breakout moves, and a slower trend filter systematically excludes the
+freshest of those moves because a 50/200-period average has not yet turned by the time a genuine
+new extreme is made.
 
 ## Decision
 
-(filled in after the run)
+**No promotion.** H1 is falsified cleanly, without the literal/substantive split the
+width-expansion note had to navigate: no series clears the checklist under any reading, filtered
+or genuine. The pre-registered mechanism -- that direction-agreement with a slower trend would
+raise win rate on the calls that survive -- is not just unsupported but contradicted: win rate
+falls for every one of the three names individually and for the pool, by a margin (-3.16 pp)
+larger than the width-expansion gate's own change was in the *opposite*, hoped-for direction.
+
+**This closes out both tested "changes which calls are entered" mechanisms for this exact target
+(three names, `NO_TRAIL`, monthly criterion) without a Validation candidate.** The
+width-expansion note (a magnitude-of-volatility gate) and this note (a directional trend-agreement
+gate) are mechanistically distinct, cover the two concrete examples the width-expansion note's own
+Decision section named, and both fail -- the first by shrinking the sample without changing
+selection quality, the second by actively selecting *against* the entries that carry this
+family's edge. Two structurally different entry-side filters have now both failed for the same
+underlying reason stated two different ways: any filter that removes the fresh, large, low-win-rate
+breakout moves these three names' edge depends on will look like "fewer bad months" in aggregate
+only by trading less, never by trading better.
+
+**What this suggests for any future entry-side hypothesis on this exact target.** A filter that
+instead *preserves or favours* fresh breakout moves -- rather than gating on volatility magnitude
+or on agreement with a slower trend -- is the remaining unexplored shape in this family, but there
+is no obvious mechanism left in the codebase (per this slice's own scoping paragraph: no genuine
+higher timeframe exists beyond `240` in `data_contract`'s cache, and both the magnitude and
+direction axes readily available from `strategy.add_indicators`/`donchian.py` are now exhausted).
+A different lever entirely -- exit-side, position-sizing, or a genuinely new data source -- is
+more likely to be productive than a third variation on "filter the entry mask." This is reported
+as a scoping observation, not a new hypothesis; the ticket that commissioned this slice asked for
+one pre-registered test, not a further search.
+
+**What is reusable regardless of this outcome:**
+`scripts/f006_entry_trend_confirm_experiment.py`'s pattern (filtered + unfiltered arm from the
+same call, harness control against `f006_notrail_monthly`, and the `promotion_pass_genuine` /
+`n_months_flipped_to_zero_trade` columns that operationalise the `n_trades > 0` guard as data
+rather than prose) is reusable by any future entry-filter slice on this sample without
+modification. `tests/test_entry_trend_confirm.py`'s causality and flat-signal checks are the
+load-bearing checks for this slice's one piece of new logic; no engine, strategy, or Donchian
+module change was needed.
 
 ## Tests
 
-(filled in after the run)
+`tests/test_entry_trend_confirm.py` (6 new tests: causality of `trend_series` at three truncation
+points, that `trend_gate` never opens before `ema200` warms up, that `trend_gate` is exactly
+`(sig == trend) & (sig != 0)` -- checked both for false positives and false negatives against a
+randomised signal -- and that the gate stays `False` when both the signal and the trend are flat)
+is the load-bearing check for this slice's one piece of new logic (`trend_series`/`trend_gate` in
+the new script) -- no existing module (`backtest_engine.py`, `strategy.py`, `entry_masks.py`,
+`donchian.py`, `regularity.py`) was changed. **Sabotage-and-restore performed on the one
+non-obvious line** (`trend_gate`'s `& (sig != 0)` clause): removing it did not fail the original
+three tests (the flat-vs-flat case they exercised happened not to collide with the random-seed
+fixture used), so a fourth test
+(`test_trend_gate_false_when_both_signal_and_trend_are_flat`) was added specifically to close that
+gap, confirmed to fail under the sabotage and pass after restoring the line -- the same discipline
+`F006-hypothesis-donchian.md`'s sabotage table used, applied here to catch a test that looked
+sufficient but was not. `tests/test_regularity.py`'s existing tests re-run to confirm no
+regression, since no new logic is added to `regularity.py` in this slice.
+
+This worktree's `.venv_test` and `data_cache/*.csv` did not pre-exist and were built/copied before
+any test or script ran in this slice (see Run_id) -- not a code change, but recorded here because
+it shifted the "before this slice" full-suite baseline from what an empty worktree would show.
+Measured directly in this worktree, before and after this slice's one new test file, both with
+`.venv_test` and `data_cache` already in place:
+
+| | Before this slice | With this slice |
+| --- | --- | --- |
+| `pytest tests/` (`.venv_test`, Python 3.9.25, pandas 2.2.3) | 143 passed, 9 skipped | **149 passed, 9 skipped** |
+
+Exactly the 6 new tests, no behaviour change in any existing test. The Python 3.11
+`.venv_lorentzian` interpreter was not needed and not used: no Lorentzian dependency in this
+sample, matching every prior note in this exact sub-family.
