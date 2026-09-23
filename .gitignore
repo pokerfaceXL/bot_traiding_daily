@@ -7,3 +7,4 @@ venv/
 .tmp/
 data_cache/*.csv
 output/f005_baseline/raw/*.json
+.venv_lorentzian/

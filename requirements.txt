@@ -5,3 +5,10 @@ requests
 pandas
 numpy
 optuna
+
+# F006 — Lorentzian Classification (spec/build.md priority). Requires-Python >=3.10,<4.0
+# and uses match/case, so it does NOT import on the project's current Python 3.9 test venv;
+# lorentzian.py imports it lazily, and only the LORENTZIAN_* strategies need it.
+# Pulls in ta, scikit-learn, mplfinance, python-dotenv as its own dependencies.
+# numpy must stay <2.0 for it: advanced_ta 0.1.8 uses np.NaN, removed in numpy 2.
+advanced-ta==0.1.8
