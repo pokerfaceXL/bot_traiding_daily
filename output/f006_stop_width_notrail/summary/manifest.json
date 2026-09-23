@@ -1,0 +1,155 @@
+{
+  "run_timestamp_utc": "2026-09-23T18:36:58.018873+00:00",
+  "git_commit_parent": "3ea218468fe262f6a85af82a9a1582e05419580e",
+  "python_version": "3.9.25",
+  "pandas_version": "2.3.3",
+  "n_runs": 320,
+  "sample_names": [
+    "EMA_8_21",
+    "MACD_12_26_hist",
+    "RSI14_7030",
+    "BB_20_25_breakout",
+    "ADX14_DI_20",
+    "DONCHIAN_55",
+    "DONCHIAN_PULLBACK_55",
+    "LORENTZIAN_default"
+  ],
+  "max_sl_pct_sweep": [
+    0.03,
+    0.05,
+    0.08,
+    0.12
+  ],
+  "no_trail_activate_pct": 10.0,
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "cooldown_candles": 0,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "elapsed_seconds": 0.1,
+  "pass": "merged",
+  "no_trail_cell_vs_stored_boundary_note": {
+    "rows_compared": 80,
+    "n_mismatches": 0,
+    "mismatches": [],
+    "source": "80 rows vs output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism": {
+    "runs": 320,
+    "runs_with_a_trailing_exit": 0,
+    "total_trailing_exits": 0
+  },
+  "one_shot_rule": {
+    "runs": 320,
+    "violations": 0
+  },
+  "cells": {
+    "max_sl_pct_0.03": {
+      "max_sl_pct": 0.03,
+      "n_runs": 80,
+      "n_trades": 18771,
+      "avg_winner": 4.7732,
+      "avg_loser": -2.0596,
+      "reward_risk": 2.3176,
+      "breakeven_win_rate_pct": 30.1426,
+      "win_rate_pct": 28.2297,
+      "gap_pp": 1.9129,
+      "net_per_trade": -0.1307,
+      "gross_per_trade": 0.1898,
+      "mean_net_pnl": -30.67,
+      "mean_max_drawdown_pct": 23.26,
+      "survived": 80,
+      "positive_net_pnl": 35
+    },
+    "max_sl_pct_0.05": {
+      "max_sl_pct": 0.05,
+      "n_runs": 80,
+      "n_trades": 18202,
+      "avg_winner": 4.9299,
+      "avg_loser": -2.3363,
+      "reward_risk": 2.1101,
+      "breakeven_win_rate_pct": 32.1528,
+      "win_rate_pct": 30.4692,
+      "gap_pp": 1.6837,
+      "net_per_trade": -0.1223,
+      "gross_per_trade": 0.1982,
+      "mean_net_pnl": -27.83,
+      "mean_max_drawdown_pct": 24.0,
+      "survived": 79,
+      "positive_net_pnl": 37
+    },
+    "max_sl_pct_0.08": {
+      "max_sl_pct": 0.08,
+      "n_runs": 80,
+      "n_trades": 17876,
+      "avg_winner": 5.0205,
+      "avg_loser": -2.4604,
+      "reward_risk": 2.0405,
+      "breakeven_win_rate_pct": 32.8889,
+      "win_rate_pct": 31.3493,
+      "gap_pp": 1.5396,
+      "net_per_trade": -0.1152,
+      "gross_per_trade": 0.2055,
+      "mean_net_pnl": -25.74,
+      "mean_max_drawdown_pct": 24.97,
+      "survived": 79,
+      "positive_net_pnl": 39
+    },
+    "max_sl_pct_0.12": {
+      "max_sl_pct": 0.12,
+      "n_runs": 80,
+      "n_trades": 17618,
+      "avg_winner": 5.053,
+      "avg_loser": -2.5007,
+      "reward_risk": 2.0207,
+      "breakeven_win_rate_pct": 33.1054,
+      "win_rate_pct": 31.5757,
+      "gap_pp": 1.5298,
+      "net_per_trade": -0.1156,
+      "gross_per_trade": 0.2051,
+      "mean_net_pnl": -25.45,
+      "mean_max_drawdown_pct": 25.38,
+      "survived": 79,
+      "positive_net_pnl": 40
+    }
+  },
+  "falsification": {
+    "net_per_trade_by_width": {
+      "0.03": -0.1307,
+      "0.05": -0.1223,
+      "0.08": -0.1152,
+      "0.12": -0.1156
+    },
+    "step_diffs": [
+      0.008400000000000005,
+      0.007100000000000009,
+      -0.0003999999999999976
+    ],
+    "monotonic": false,
+    "span": 0.0155,
+    "base_abs_net_per_trade_at_0.03": 0.1307,
+    "span_pct_of_base": 11.86,
+    "meaningful_span_ge_10pct": true,
+    "falsified": true
+  }
+}

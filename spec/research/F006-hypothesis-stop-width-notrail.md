@@ -147,3 +147,135 @@ original sweep's monotonic win-rate-improves-regardless-of-PnL pattern also hold
 prediction — should move roughly in proportion to `max_sl_pct` if the "no longer clipped by a
 trail" reasoning is correct), and whether any `(name, symbol, interval, max_sl_pct)` combination
 is profitable on Train 1.
+
+## Run_id
+
+Script: `scripts/f006_stop_width_notrail_experiment.py`. `git_commit_parent =
+3ea218468fe262f6a85af82a9a1582e05419580e` (the pre-registration commit above). Catalog+Donchian
+pass (5 catalog names + `DONCHIAN_55` + `DONCHIAN_PULLBACK_55`): Python 3.9.25, `.venv_test`,
+280 runs, 77.0s. Lorentzian pass (`LORENTZIAN_default`): Python 3.11.16, `.venv_lorentzian`,
+40 runs, 48.9s. pandas 2.3.3 in both. `n_runs = 320`. Full parameters, checksums, cross-checks
+and aggregate tables: `output/f006_stop_width_notrail/summary/manifest.json`. Per-run results,
+320 rows: `output/f006_stop_width_notrail/summary/results.csv`.
+
+## Result
+
+**Harness control and mechanism checks both clean.** The `max_sl_pct=0.03` cell's 80 rows
+(identical parameters to `F006-hypothesis-trailing-boundary.md`'s `no_trail` cell) match that
+note's stored rows exactly — 0/80 mismatches on `net_pnl`, `win_rate`, `n_trades`,
+`max_drawdown_pct`, `final_equity`. Zero `trailing_sl` exits across all 320 runs at every
+`max_sl_pct`. Zero one-shot-rule violations.
+
+**Aggregate, pooled over all 320 runs' trades (`n_trades` per cell in the ~17.6k-18.8k range,
+80 series each):**
+
+| `max_sl_pct` | avg winner | avg loser | R:R | breakeven win% | actual win% | net/trade | trades | profitable runs |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0.03 | $4.773 | -$2.060 | 2.318 | 30.14 | 28.23 | -$0.1307 | 18,771 | 35/80 |
+| 0.05 | $4.930 | -$2.336 | 2.110 | 32.15 | 30.47 | -$0.1223 | 18,202 | 37/80 |
+| 0.08 | $5.021 | -$2.460 | 2.041 | 32.89 | 31.35 | -$0.1152 | 17,876 | 39/80 |
+| 0.12 | $5.053 | -$2.501 | 2.021 | 33.11 | 31.58 | -$0.1156 | 17,618 | 40/80 |
+
+**The mechanism prediction is directly confirmed: `avg_loser` moves with `max_sl_pct`, exactly as
+predicted, and no longer sits flat.** At the 0.03/0.02 corner the original sweep found `avg_loser`
+near its cost-plus-3%-stop floor and barely moving; here, with the trail no longer able to cut a
+loser short first, `avg_loser` widens from -$2.060 to -$2.501 (a 21.4% increase) as `max_sl_pct`
+quadruples, and `avg_winner` also widens modestly (fewer premature stop-outs of what would have
+become winners). This is the geometry-artefact mechanism the hypothesis named, now visible for the
+first time in this project's stop-width measurements.
+
+**Net PnL per trade is no longer flat, but the sweep is not cleanly monotonic either — the
+pre-registered falsification condition is a genuine split decision, and it resolves against
+survival.** Net/trade improves substantially and monotonically for the first three widths
+(-$0.1307 → -$0.1223 → -$0.1152, a real, sizeable move), then **reverses by a hair** at the
+widest width (-$0.1152 → -$0.1156, a -$0.0004 step, roughly 0.3% of the total span and well
+within the kind of run-to-run noise this project's other tables call "indistinguishable").
+The overall span (0.03 to 0.12) is $0.0155, **11.86% of `|net/trade at 0.03|`** — comfortably
+above the pre-registered 10% "meaningful" bar — but strict monotonicity fails at the last step.
+Per the falsification condition as written (falsified if **either** non-monotonic **or** span
+<10%, both evaluated, either one sufficient), the non-monotonicity alone falsifies it, even
+though the span condition alone would have survived.
+
+**Win rate rises further and faster than in the original sweep, and closes more of the gap to
+breakeven.** Actual win rate climbs from 28.23% to 31.58% (vs. 28.94%→34.60% in the original
+sweep — a similar-sized move) while breakeven win rate now **also falls** (30.14%→33.11% is
+actually a *rise*, tracking `avg_loser`'s growth) — the gap between them (breakeven − actual)
+narrows from 1.91pp at 0.03 to 1.53pp at 0.12, the closest any F006 stop-width measurement has
+gotten to closing that gap, though it remains open at every width tested.
+
+**Per-strategy breakdown shows the same heterogeneity as the original sweep, on different
+names.** Mean net PnL by strategy across the 5×2 basket:
+
+| Strategy | 0.03 | 0.05 | 0.08 | 0.12 | Pattern |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `DONCHIAN_55` | +$67.7 | +$77.2 | +$111.0 | +$104.8 | improves, then pulls back slightly |
+| `BB_20_25_breakout` | +$57.5 | +$64.2 | +$67.7 | +$70.2 | improves monotonically |
+| `LORENTZIAN_default` | -$4.2 | +$15.6 | +$17.3 | +$20.9 | crosses to positive, keeps improving |
+| `EMA_8_21` | -$9.9 | -$10.2 | -$2.2 | +$1.3 | crosses to positive late |
+| `DONCHIAN_PULLBACK_55` | +$49.5 | +$38.7 | +$26.5 | +$20.5 | **worsens monotonically** |
+| `ADX14_DI_20` | -$129.6 | -$140.7 | -$138.4 | -$138.7 | worsens then flat, stays deeply negative |
+| `RSI14_7030` | -$129.8 | -$135.8 | -$152.9 | -$145.3 | worsens, non-monotonic, stays deeply negative |
+| `MACD_12_26_hist` | -$146.6 | -$131.6 | -$134.8 | -$137.3 | improves then flat, stays deeply negative |
+
+4/8 names show real improvement (2 crossing from negative to positive mean net PnL as stops
+widen), 1/8 (`DONCHIAN_PULLBACK_55`) worsens monotonically — the same kind of split the original
+sweep found (some names benefit from wider stops, some are hurt by larger losers outweighing
+fewer stop-outs), just with different names in each bucket now that `NO_TRAIL` changes which
+mechanism dominates. The count of profitable runs out of 80 rises with width (35→37→39→40), a
+smaller relative move than net/trade's own swing but directionally consistent.
+
+**Falsification check**: the pre-registered condition requires monotonic net/trade movement
+**and** a span ≥10% of the 0.03 base; span is 11.86% (passes) but the sweep is not monotonic
+(0.08→0.12 reverses by $0.0004, i.e. **the hypothesis is falsified**, per the condition as
+written — even though the size and direction of the effect for 3 of 4 steps is exactly what the
+mechanism predicted.
+
+## Decision
+
+**The original stop-width finding does not hold up unchanged, but it is not cleanly overturned
+either — the honest reading is "mostly a geometry artefact, with a residual flat region at the
+top of the range."** Unlike the original 0.03/0.02-corner sweep (net PnL swing under 0.5% of
+base, visibly noise), this `NO_TRAIL` re-test shows a real, mechanism-consistent, 11.9%-of-base
+swing in net PnL per trade, with `avg_loser` moving in direct proportion to `max_sl_pct` for the
+first time — confirming the hypothesis's core mechanism claim. But the swing is concentrated in
+the 0.03→0.08 range (a genuine, monotonic $0.0155 improvement across three widths) and flattens
+— technically reverses by a hair, well inside noise — from 0.08 to 0.12, failing the strict
+monotonicity bar the falsification condition set. This is the same "flattens near the wide end of
+a sweep" shape `F006-hypothesis-trailing-boundary.md`'s H1 found for the trailing-geometry axis,
+just arriving sooner (by 0.08 rather than 0.20) and on a different parameter.
+
+**Practical takeaway, independent of the strict pass/fail**: widening `max_sl_pct` from 0.03 to
+~0.08 under `NO_TRAIL` is worth doing — it measurably reduces per-trade losses and improves net
+PnL for the majority of names in this sample, including moving two (`EMA_8_21`,
+`LORENTZIAN_default`) from negative to positive mean Train-1 net PnL — but pushing further to
+0.12 buys nothing more in aggregate and is a wash. None of this makes any (name, symbol,
+interval, `max_sl_pct`) combination's win rate clear the still-open breakeven gap (1.53-1.91pp at
+every width), so **no promotion candidate emerges from this slice alone.** The three names
+`F006-hypothesis-trailing-boundary.md` already flagged as aggregate-Train-1-positive at `NO_TRAIL`
+(`DONCHIAN_55`, `BB_20_25_breakout`, `DONCHIAN_PULLBACK_55`) remain the strongest leads; of the
+three, `DONCHIAN_55` and `BB_20_25_breakout` also improve further with a wider stop here, while
+`DONCHIAN_PULLBACK_55` is the one name in this sample that gets **worse** as `max_sl_pct` widens —
+consistent with that note's already-flagged large-average-winner-carrying-a-low-win-rate profile,
+where a tighter stop protects more of what's already a favourable asymmetry.
+
+**Next step, unchanged from `F006-hypothesis-trailing-boundary.md`'s own decision and not
+redirected by this slice**: build the Train-1 monthly PnL series for `NO_TRAIL`, focused on
+`DONCHIAN_55`, `BB_20_25_breakout` and `DONCHIAN_PULLBACK_55` — this slice's result does not
+change which names are the leads, it only suggests `max_sl_pct≈0.05-0.08` (rather than the 0.03
+default) is worth including as a second axis when that monthly check is built for `DONCHIAN_55`
+and `BB_20_25_breakout` specifically, given both improve further at that width, while
+`DONCHIAN_PULLBACK_55`'s monthly check should stay at `max_sl_pct=0.03`, its best width in this
+sample.
+
+## Tests
+
+No new computation logic in this slice — `trade_stats.win_loss_decomposition` /
+`pool_decompositions` and `entry_masks.one_shot_entry_mask` /`strategy_signal_series` are reused
+unmodified, per the same convention `F006-hypothesis-trailing-boundary.md` and
+`F006-hypothesis-trailing-sweep-2.md` used for their own unmodified-module slices. The
+load-bearing checks are the ones this note reports in-line: the harness-control diff against
+`F006-hypothesis-trailing-boundary.md`'s stored `no_trail` rows (0/80 mismatches), the
+`NO_TRAIL` mechanism check (0/320 trailing exits), and the one-shot-rule check (0/320
+violations) — all three ran as part of `--merge` above and are recorded in
+`output/f006_stop_width_notrail/summary/manifest.json`. No existing test file was touched and no
+full-suite run was required by the ticket for this reuse-only slice.
