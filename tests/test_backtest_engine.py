@@ -161,6 +161,24 @@ def test_insufficient_margin_skips_signal_leaves_position_unopened_and_equity_fl
         portfolio.open_position("x", "BACKTEST", 1, entry_price=100.0, entry_time=idx[0], stake=100.0, leverage=10.0)
 
 
+def test_entry_regime_mask_all_true_matches_no_mask():
+    df = _load_fixture()
+    baseline = be.run_backtest(df, STRATEGY_NAME, interval="240")
+    all_true = pd.Series(True, index=df.index)
+    masked = be.run_backtest(df, STRATEGY_NAME, interval="240", entry_regime_mask=all_true)
+    assert masked.metrics["n_trades"] == baseline.metrics["n_trades"]
+    assert masked.metrics["total_net_pnl"] == pytest.approx(baseline.metrics["total_net_pnl"])
+
+
+def test_entry_regime_mask_all_false_blocks_every_new_entry():
+    df = _load_fixture()
+    all_false = pd.Series(False, index=df.index)
+    res = be.run_backtest(df, STRATEGY_NAME, interval="240", entry_regime_mask=all_false)
+    assert res.trades.empty
+    assert res.metrics["n_trades"] == 0
+    assert res.metrics["final_equity"] == 500.0
+
+
 def test_metrics_summary_matches_trades_and_equity_curve():
     res = _run_fixture_backtest()
     trades = res.trades

@@ -52,6 +52,12 @@ position is simply not opened, the loop continues, and the skip is recorded
 in the returned skipped_signals list so callers can see it happened. The
 error is not propagated and does not abort the backtest.
 
+Optional `entry_regime_mask` (F006 entry-quality research hook): a boolean
+Series, reindexed onto the closed-candle frame, that gates ONLY new-entry
+queuing (step 4 below) -- it does not affect stop-loss/trailing exits or
+signal-reversal exits, so an entry-quality filter can be tested in isolation
+from exit-sizing changes. Default None preserves prior behaviour exactly.
+
 Zero network connections.
 """
 
@@ -130,6 +136,7 @@ def run_backtest(
     slippage_fixed: float = 0.0,
     funding_events: Iterable[Tuple[object, float]] = (),
     fee_buffer: float = 0.0,
+    entry_regime_mask: Optional[pd.Series] = None,
 ) -> BacktestResult:
     """
     Runs one end-to-end backtest of `strategy_name` over `df`.
@@ -146,6 +153,10 @@ def run_backtest(
     if strategy_name not in strategy.STRATEGY_CATALOG:
         raise ValueError(f"Nieznana strategia: '{strategy_name}'. Dostepne: {sorted(strategy.STRATEGY_CATALOG.keys())}")
     work["signal"] = strategy.STRATEGY_CATALOG[strategy_name](work)
+    if entry_regime_mask is not None:
+        entry_allowed_a = entry_regime_mask.reindex(work.index).fillna(False).to_numpy(dtype=bool)
+    else:
+        entry_allowed_a = None
 
     n = len(work)
     if n == 0:
@@ -284,7 +295,8 @@ def run_backtest(
             active_position_id = None
 
         # 4. Queue an entry for the next bar's open.
-        if pos == 0 and signal != 0 and bar_count > cooldown_until:
+        entry_allowed = entry_allowed_a is None or bool(entry_allowed_a[i])
+        if pos == 0 and signal != 0 and bar_count > cooldown_until and entry_allowed:
             pending_signal = signal
 
         # 5. Per-bar mark-to-market equity curve (includes the open position, if any).
