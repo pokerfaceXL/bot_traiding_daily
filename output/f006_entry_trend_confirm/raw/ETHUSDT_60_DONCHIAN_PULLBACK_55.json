@@ -1,0 +1,194 @@
+{
+  "summary": {
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "strategy": "DONCHIAN_PULLBACK_55",
+    "n_calls": 65,
+    "n_calls_gated_out": 25,
+    "n_trades_unfiltered": 64,
+    "n_trades_filtered": 39,
+    "train1_net_pnl_unfiltered": -75.703214,
+    "train1_net_pnl_filtered": -81.43855,
+    "win_rate_unfiltered": 18.75,
+    "win_rate_filtered": 15.38,
+    "n_neg_months_unfiltered": 9,
+    "n_neg_months_filtered": 9,
+    "full_run_max_drawdown_pct_filtered": 18.3664,
+    "promotion_pass_unfiltered": false,
+    "promotion_pass_filtered": false,
+    "promotion_pass_genuine_filtered": false,
+    "n_months_flipped_to_zero_trade": 0
+  },
+  "monthly_filtered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 3.544338706460053,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -9.955499999999915,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -0.7439637477888255,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": 2.302470339200113,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -7.799757144697082,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": -8.949785051323374,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": 0.7291918904051045,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -7.4455452845257355,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": -16.59549999999996,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -9.077838214510564,
+      "n_trades": 4
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -20.79766178548948,
+      "n_trades": 5
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": -6.649000000000001,
+      "n_trades": 2
+    }
+  ],
+  "monthly_unfiltered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 19.010217180241966,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -23.257732715642874,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": 25.943580003914576,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -4.921345314776545,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": 7.172827160367774,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": -16.944854190356182,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -5.910808109594882,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -5.506519689730453,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": -19.920000000000016,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -19.05133821451051,
+      "n_trades": 7
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -24.12216178548948,
+      "n_trades": 6
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": -8.195078824115967,
+      "n_trades": 4
+    }
+  ]
+}
