@@ -1,0 +1,58 @@
+{
+  "run_timestamp_utc": "2026-09-23T18:21:38.459862+00:00",
+  "git_commit_parent": "18d56de01bb8861c47ae341e38d747a47bc55bcf",
+  "python_version": "3.11.16",
+  "pandas_version": "2.3.3",
+  "n_runs": 90,
+  "sample_names": [
+    "EMA_8_21",
+    "MACD_12_26_hist",
+    "RSI14_7030",
+    "BB_20_25_breakout",
+    "ADX14_DI_20",
+    "DONCHIAN_55",
+    "DONCHIAN_PULLBACK_55",
+    "LORENTZIAN_default"
+  ],
+  "activate_sweep": [
+    0.06,
+    0.1,
+    0.15,
+    0.2
+  ],
+  "trail_sweep": [
+    0.04,
+    0.08
+  ],
+  "no_trail_activate_pct": 10.0,
+  "baseline_cell": "a0.06_t0.04",
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "elapsed_seconds": 42.3,
+  "pass": "lorentzian",
+  "names": [
+    "LORENTZIAN_default"
+  ]
+}

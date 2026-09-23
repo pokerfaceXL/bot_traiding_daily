@@ -129,16 +129,141 @@ range, and a new regression test pins that no `trailing_sl` exit occurs anywhere
 
 ## Run_id
 
-*(filled in after running)*
+`scripts/f006_trailing_boundary_experiment.py`, `git_commit_parent = 18d56de` (the
+pre-registration commit above), `n_runs = 720`. Catalog+Donchian pass: Python 3.9.25,
+`.venv_test`, 630 runs, 107.3s. Lorentzian pass: Python 3.11.16 + advanced-ta 0.1.8,
+`.venv_lorentzian` (rebuilt in this worktree from the cached tarball at `/tmp/cpy311.tar.gz`,
+sha256 verified against the recorded value before use, per
+`spec/research/F006-hypothesis-one-shot-entry.md`'s recipe), 90 runs, 42.3s. pandas 2.3.3 in
+both. Full parameters, checksums, cross-checks and aggregate tables:
+`output/f006_trailing_boundary/summary/manifest.json`. Per-run results, 720 rows:
+`output/f006_trailing_boundary/summary/results.csv`.
 
 ## Result
 
-*(filled in after running)*
+**H1 (diminishing returns) is falsified. H2 (no-trail is the ceiling) is NOT falsified — and
+by a clean, sizeable margin.**
+
+The 9-cell grid, pooled over all 18,302-18,916 trades per cell (80 series each: 8 names ×
+5 symbols × 2 intervals, one-shot mask, `cd=0`, `max_sl_pct=0.03`):
+
+| cell | max(a,t) | avg winner | avg loser | R:R | breakeven win% | actual win% | net/trade | gross/trade | trades | profitable runs |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0.06/0.04 (prior best) | 0.06 | $2.710 | -$2.036 | 1.331 | 42.90 | 29.95 | -$0.614 | -$0.294 | 18,302 | 4/80 |
+| 0.06/0.08 | 0.08 | $3.551 | -$2.011 | 1.766 | 36.16 | 28.51 | -$0.426 | -$0.155 | 18,866 | 13/80 |
+| 0.10/0.04 | 0.10 | $3.353 | -$2.061 | 1.627 | 38.07 | 28.49 | -$0.519 | -$0.223 | 18,682 | 5/80 |
+| 0.10/0.08 | 0.10 | $3.727 | -$2.055 | 1.814 | 35.54 | 28.54 | -$0.404 | -$0.114 | 18,904 | 15/80 |
+| 0.15/0.04 | 0.15 | $3.780 | -$2.064 | 1.832 | 35.31 | 28.22 | -$0.414 | -$0.112 | 18,916 | 15/80 |
+| 0.15/0.08 | 0.15 | $3.988 | -$2.061 | 1.935 | 34.08 | 28.25 | -$0.352 | -$0.055 | 18,890 | 18/80 |
+| 0.20/0.04 | 0.20 | $4.039 | -$2.064 | 1.957 | 33.82 | 28.24 | -$0.341 | -$0.043 | 18,874 | 17/80 |
+| **0.20/0.08 (widest)** | 0.20 | $4.128 | -$2.062 | 2.001 | **33.32** | 28.26 | -$0.313 | **+$0.007** | 18,856 | 21/80 |
+| **NO_TRAIL** | n/a | **$4.773** | -$2.060 | **2.318** | **30.14** | 28.23 | **-$0.131** | **+$0.190** | 18,771 | **35/80** |
+
+**Harness control and mechanism checks both clean.** The `a=0.06, t=0.04` cell's 80 rows match
+`spec/research/F006-hypothesis-trailing-sweep.md`'s stored rows exactly (0/80 mismatches on
+`net_pnl`, `win_rate`, `n_trades`, `max_drawdown_pct`, `final_equity`). `NO_TRAIL` produced zero
+`trailing_sl` exits across all 80 runs, confirmed by the same check both in-script and in
+`tests/test_no_trail_control.py`. The trade-count spread (43/80 series identical, max relative
+spread 47.7%) reproduces the prior note's margin-floor mechanism, not a new confound; every cell
+in this grid passes the pre-registered quality gate (trade drop ≤10% of baseline, net/trade no
+worse than baseline) with room to spare.
+
+**H1 — falsified.** The bar was: widest cell improves breakeven by ≥0.5 pp over the 0.06/0.04
+baseline (met: 9.58 pp), **and** the marginal gain per step is concave (0.06→0.10 gain ≥
+0.10→0.20 gain). It is not: pooled breakeven by activate level (each pooling its two trail
+values) is 39.48 (a=0.06) → 36.80 (a=0.10) → 33.57 (a=0.20), and the 0.10→0.20 step
+(-3.23 pp) is **larger** than the 0.06→0.10 step (-2.68 pp). The curve is not flattening in
+this range — if anything it is still accelerating. The prior note's own read ("flattening but
+has not turned") undersold how much room was left: this slice's widest cell is 9.6 pp better
+than the previous grid's best, nearly two-thirds of the *entire* first sweep's total gain
+(15.54 pp from 58.44% down to 42.90%) captured again just by continuing in the same direction.
+
+**H2 — not falsified, and the ceiling is definitive within this range.** Every one of the 8
+finite cells has a *worse* (higher) breakeven win rate than `NO_TRAIL`. The best finite cell,
+0.20/0.08, still trails `NO_TRAIL` by 3.18 pp (33.32% vs 30.14%) — nowhere close to the 1.0 pp
+margin that would have falsified H2. Every quantity moves the same direction: `avg_winner`
+keeps rising past every finite cell to `NO_TRAIL`'s $4.77, `mean_max_drawdown_pct` falls from
+30.6% (baseline) to 22.8-23.3% at both the widest finite cell and `NO_TRAIL`, and
+`positive_net_pnl` runs rise from 4/80 to 21/80 (widest finite) to **35/80** at `NO_TRAIL` — 44%
+of the sample. **The trailing-stop machinery, at every setting this project has ever tested, is
+a net cost relative to letting the initial stop and the signal alone govern exits.**
+
+**A finding beyond either pre-registered hypothesis, reported because it changes what the next
+step should be.** `NO_TRAIL`'s pooled **gross** (pre-cost) per-trade expectancy is **positive**
+— $0.190, the first positive gross figure in any F006 measurement across 3,660 total runs to
+date (2,940 prior + 720 here). Net is still negative ($0.131 of the $0.320 constant cost per
+trade is not covered), but the entry+initial-stop+signal-reversal combination, unconstrained by
+any trailing exit, has a real edge before costs. Three of the eight names have **positive mean
+net PnL** over Train 1 at `NO_TRAIL`, pooling across their 10 (symbol, interval) series each:
+
+| Name | mean net PnL | profitable series |
+| --- | ---: | ---: |
+| `DONCHIAN_55` | **+$67.69** | 8/10 |
+| `BB_20_25_breakout` | **+$57.55** | 7/10 |
+| `DONCHIAN_PULLBACK_55` | **+$49.54** | 5/10 |
+| `LORENTZIAN_default` | -$4.18 | 4/10 |
+| `EMA_8_21` | -$9.91 | 6/10 |
+| `RSI14_7030` | -$129.81 | 0/10 |
+| `ADX14_DI_20` | -$129.61 | 3/10 |
+| `MACD_12_26_hist` | -$146.61 | 2/10 |
+
+The largest single series is `DONCHIAN_PULLBACK_55`/DOGEUSDT/4h at **+$279.63** net (14 trades,
+14.29% win rate, 21.58% max DD) — a large average winner carrying a low win rate, consistent
+with the mechanism this whole family of notes has been describing. This is a full-Train-1
+aggregate figure, not a monthly one: the protocol's hard rejection criterion ("negative net PnL
+in any evaluated month or over the full period → no promotion, regardless of regularity") has
+not been checked at monthly granularity for any of these candidates, since this script only
+records the aggregate per-run metrics `f006_trailing_sweep_experiment.py`'s schema already
+carried. Reported as a lead, not a result: three names clearing full-period positive net PnL for
+the first time is the strongest signal F006 has produced, and it is untested at the resolution
+the protocol actually requires.
 
 ## Decision
 
-*(filled in after running)*
+**Do not promote anything from this slice.** No monthly PnL series exists yet for any candidate
+here, and the protocol's rejection criterion is monthly, not aggregate — a positive full-Train-1
+sum can still contain a losing month, which alone blocks promotion regardless of the aggregate.
+Spending Validation budget on an unverified monthly profile would repeat the mistake the
+trailing-sweep note's Decision section warned against.
+
+**Both hypotheses resolve cleanly and change the shape of the next step.** H2 surviving means
+the project should stop sweeping `(activate_pct, trail_pct)` combinations that keep a trail
+active — within the entire range tested across two slices (18 finite cells now), no trail ever
+beat no trail. H1 being falsified in the "still accelerating" direction, not the "already
+turned" direction, is moot for the same reason: there is no more reason to push `max(a, t)`
+further out, because `NO_TRAIL` already dominates the whole direction that grid explores.
+
+**Next step: build the Train-1 monthly PnL series for `NO_TRAIL`, focused on `DONCHIAN_55`,
+`BB_20_25_breakout` and `DONCHIAN_PULLBACK_55`** — the three names with positive aggregate net
+PnL — reusing the equity/daily/monthly machinery `spec/research/F005-baseline.md` established,
+rather than opening a new hypothesis. This is the first time F006 has had a specific,
+aggregate-positive candidate worth checking at that resolution; every prior slice's numbers were
+negative before a monthly breakdown was ever justified. If any (name, symbol, interval) triple
+clears the monthly criterion on Train 1, it becomes the first F006 candidate for Validation.
+If none do, the reason will itself be informative (concentrated in a few good months vs. spread
+thin) and should be recorded rather than silently dropped.
+
+**Also worth carrying forward, lower priority than the monthly check:** re-testing
+`spec/research/F006-hypothesis-stop-width.md`'s `max_sl_pct` sweep at `NO_TRAIL` rather than at
+the old 0.03/0.02 corner, since that note's "nothing at any width" conclusion was measured
+inside what these two slices together have now shown is the worst corner of the exit-parameter
+space on two separate axes (trailing geometry and, potentially, stop width).
 
 ## Tests
 
-*(filled in after running)*
+`tests/test_no_trail_control.py` (2 new tests, one on the committed fixture, one on real
+Train-1 BTCUSDT/1h data) pins that `activate_pct=10.0` — an existing parameter used outside its
+normal range, not new logic — produces zero `trailing_sl` exits. No new computation module was
+added in this slice (unlike the trailing-sweep note's `trade_stats.py`), so no mutation testing
+applies; the load-bearing check is the harness-control diff against the prior note's stored
+rows (0/80 mismatches) plus the in-script `no_trail` mechanism check (0/80 trailing exits),
+both of which ran as part of `--merge` above.
+
+Full suite, before and after this slice, on both interpreters:
+
+| | Baseline (this slice's test file excluded) | With this slice |
+| --- | --- | --- |
+| Python 3.9 `.venv_test` | 134 passed, 9 skipped | **136 passed, 9 skipped** |
+| Python 3.11 `.venv_lorentzian` | 137 passed, 6 skipped | **139 passed, 6 skipped** |
+
+Exactly the 2 new tests on both, no behaviour change in any existing test.
