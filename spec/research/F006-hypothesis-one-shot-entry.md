@@ -157,6 +157,19 @@ aggregate tables: `output/f006_one_shot/summary/manifest.json`. Per-run results,
 `output/f006_one_shot/summary/results.csv` (per-pass: `results_catalog.csv`,
 `results_lorentzian.csv`).
 
+**Rebuilding `.venv_lorentzian` in a fresh worktree** (the recipe in
+`spec/research/F006-lorentzian-causality.md`, with the concrete artefact this run used, since the
+download is the slow part — ~7 minutes here): fetch
+`https://github.com/astral-sh/python-build-standalone/releases/download/20260901/cpython-3.11.16+20260901-x86_64-unknown-linux-gnu-install_only.tar.gz`
+(`sha256 faa0758583a63f14c5eee516af82738403b59c13edda6fc0a21d953febd89eed`, 48,910,466 bytes),
+untar, `python3.11 -m venv .venv_lorentzian`, then
+`pip install "numpy>=1.25,<2.0" "pandas>=2.0.3,<3.0" "scikit-learn>=1.3,<2.0" "ta>=0.11,<0.12"
+pytest pyyaml requests` and `pip install --no-deps advanced-ta==0.1.8`. `data_cache/*.csv` is
+gitignored; copy the ten `*_20240126T000000Z_20260901T000000Z.csv` files from the main checkout
+(both passes verify their checksums before use). The Python 3.9 pass ran on the main checkout's
+`.venv_test` interpreter with this worktree as cwd — repo modules resolve here, only third-party
+packages come from that venv.
+
 ## Result
 
 **Aggregate means, 120 (symbol, interval, signal) series per cell:**
