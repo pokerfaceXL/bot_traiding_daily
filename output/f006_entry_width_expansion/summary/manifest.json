@@ -1,0 +1,56 @@
+{
+  "script": "scripts/f006_entry_width_expansion_experiment.py",
+  "git_commit": "05b5288de2873f02ccd5ebfa1482602088acfb4d",
+  "run_started_utc": "2026-09-23T19:13:12.556947+00:00",
+  "python": "3.9.25 (main, Aug 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+  "pandas": "2.3.3",
+  "n_series": 30,
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot + width_expansion_gate",
+    "width_lookback": 30,
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "harness_control": {
+    "rows_compared": 30,
+    "n_mismatches": 0,
+    "mismatches": []
+  },
+  "subset_invariant_violations": [],
+  "n_series_promotion_pass_filtered": 1,
+  "n_series_promotion_pass_unfiltered": 0,
+  "promotion_pass_series_filtered": [
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_55",
+      "train1_net_pnl": 0.0
+    }
+  ],
+  "pooled_mean_win_rate_pct_filtered": 22.120999999999995,
+  "pooled_mean_win_rate_pct_unfiltered": 22.860666666666663,
+  "mean_neg_months_filtered": 5.766666666666667,
+  "mean_neg_months_unfiltered": 6.466666666666667,
+  "seconds": 25.21
+}
