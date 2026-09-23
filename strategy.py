@@ -466,6 +466,15 @@ STRATEGY_CATALOG: dict[str, callable] = {
     "TS_13_34_100_14":  lambda df: sig_triple_screen(df, 13, 34, 100, 14, 55),
 }
 
+# F006 — Lorentzian Classification (advanced-ta 0.1.8), dodane dodatkowo (additive).
+# Zadne istniejace wpisy/funkcje powyzej nie sa zmieniane. Sam import jest lekki:
+# lorentzian.py importuje advanced_ta dopiero w chwili liczenia sygnalu, wiec ten
+# import dziala takze na Pythonie 3.9, gdzie advanced-ta (>=3.10) nie da sie zaimportowac.
+# Kontrakt wejscia/wyjscia identyczny jak kazdy inny wpis katalogu: callable(df) -> Series.
+import lorentzian as _lorentzian  # noqa: E402
+
+STRATEGY_CATALOG.update(_lorentzian.catalog_entries())
+
 
 # ──────────────────────────────────────────────────────────────
 #  SILNIK BACKTESTOW z trailing stop (ATR-based + aktywacja)
