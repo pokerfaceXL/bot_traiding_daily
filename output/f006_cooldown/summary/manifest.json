@@ -1,0 +1,880 @@
+{
+  "run_timestamp_utc": "2026-09-23T09:04:40.612100+00:00",
+  "git_commit_parent": "d86e2d3ddec9ce91a2730379ffef6d5a161bfe1b",
+  "group": "merged",
+  "python_version": "3.11.16",
+  "pandas_version": "2.3.3",
+  "n_runs": 600,
+  "strategy_names": [
+    "EMA_8_21",
+    "EMA_13_34_RSI14_55",
+    "RSI14_7030",
+    "MACD_12_26_hist",
+    "MACD_RSI14_50",
+    "BB_20_25_breakout",
+    "BB_20_2_RSI14",
+    "ADX14_DI_20",
+    "STOCH14_cross",
+    "TS_13_34_200_14",
+    "LORENTZIAN_default",
+    "LORENTZIAN_raw"
+  ],
+  "cooldown_sweep": [
+    0,
+    5,
+    10,
+    20,
+    50
+  ],
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "activate_pct": 0.03,
+    "trail_pct": 0.02,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "now_fixed": "2025-03-01 00:00:00+00:00",
+  "data_checksums_verified": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "elapsed_seconds": null,
+  "pass_manifests": {
+    "catalog": {
+      "run_timestamp_utc": "2026-09-23T09:03:38.355590+00:00",
+      "git_commit_parent": "d86e2d3ddec9ce91a2730379ffef6d5a161bfe1b",
+      "group": "catalog",
+      "python_version": "3.9.25",
+      "pandas_version": "2.3.3",
+      "n_runs": 500,
+      "strategy_names": [
+        "EMA_8_21",
+        "EMA_13_34_RSI14_55",
+        "RSI14_7030",
+        "MACD_12_26_hist",
+        "MACD_RSI14_50",
+        "BB_20_25_breakout",
+        "BB_20_2_RSI14",
+        "ADX14_DI_20",
+        "STOCH14_cross",
+        "TS_13_34_200_14"
+      ],
+      "cooldown_sweep": [
+        0,
+        5,
+        10,
+        20,
+        50
+      ],
+      "symbols": [
+        "SOLUSDT",
+        "ETHUSDT",
+        "BTCUSDT",
+        "XRPUSDT",
+        "DOGEUSDT"
+      ],
+      "intervals": [
+        "240",
+        "60"
+      ],
+      "fixed_params": {
+        "leverage": 1.0,
+        "atr_multiplier": 1.5,
+        "activate_pct": 0.03,
+        "trail_pct": 0.02,
+        "commission_rate_bps": 10.0,
+        "half_spread_bps": 5.0,
+        "slippage_bps": 2.0,
+        "max_sl_pct": 0.03,
+        "initial_equity": 500.0,
+        "stake": 100.0
+      },
+      "warmup_start": "2024-01-26T00:00:00Z",
+      "train1_end": "2025-03-01 00:00:00+00:00",
+      "now_fixed": "2025-03-01 00:00:00+00:00",
+      "data_checksums_verified": {
+        "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+        "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+        "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+        "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+        "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+        "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+        "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+        "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+        "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+        "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+      },
+      "elapsed_seconds": 133.0,
+      "cooldown_zero_cross_check": {
+        "checked": true,
+        "stored_path": "output/f006_stop_width/summary/results.csv",
+        "rows_compared": 100,
+        "mismatches": []
+      }
+    },
+    "lorentzian": {
+      "run_timestamp_utc": "2026-09-23T09:04:39.244627+00:00",
+      "git_commit_parent": "d86e2d3ddec9ce91a2730379ffef6d5a161bfe1b",
+      "group": "lorentzian",
+      "python_version": "3.11.16",
+      "pandas_version": "2.3.3",
+      "n_runs": 100,
+      "strategy_names": [
+        "LORENTZIAN_default",
+        "LORENTZIAN_raw"
+      ],
+      "cooldown_sweep": [
+        0,
+        5,
+        10,
+        20,
+        50
+      ],
+      "symbols": [
+        "SOLUSDT",
+        "ETHUSDT",
+        "BTCUSDT",
+        "XRPUSDT",
+        "DOGEUSDT"
+      ],
+      "intervals": [
+        "240",
+        "60"
+      ],
+      "fixed_params": {
+        "leverage": 1.0,
+        "atr_multiplier": 1.5,
+        "activate_pct": 0.03,
+        "trail_pct": 0.02,
+        "commission_rate_bps": 10.0,
+        "half_spread_bps": 5.0,
+        "slippage_bps": 2.0,
+        "max_sl_pct": 0.03,
+        "initial_equity": 500.0,
+        "stake": 100.0
+      },
+      "warmup_start": "2024-01-26T00:00:00Z",
+      "train1_end": "2025-03-01 00:00:00+00:00",
+      "now_fixed": "2025-03-01 00:00:00+00:00",
+      "data_checksums_verified": {
+        "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+        "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+        "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+        "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+        "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+        "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+        "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+        "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+        "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+        "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+      },
+      "elapsed_seconds": 59.5,
+      "cooldown_zero_cross_check": {
+        "checked": true,
+        "stored_path": "output/f006_lorentzian/summary/results.csv",
+        "rows_compared": 20,
+        "mismatches": []
+      }
+    }
+  },
+  "cooldown_zero_cross_check_catalog": {
+    "checked": true,
+    "stored_path": "output/f006_stop_width/summary/results.csv",
+    "rows_compared": 100,
+    "mismatches": []
+  },
+  "cooldown_zero_cross_check_lorentzian": {
+    "checked": true,
+    "stored_path": "output/f006_lorentzian/summary/results.csv",
+    "rows_compared": 20,
+    "mismatches": []
+  },
+  "means_by_cooldown": [
+    {
+      "cooldown_candles": 0,
+      "mean_net_pnl": -363.67,
+      "mean_gross_pnl": -244.4,
+      "mean_total_costs": 119.27,
+      "mean_net_pnl_per_trade": -1.0785,
+      "mean_win_rate": 28.75,
+      "mean_n_trades": 372.6,
+      "mean_n_initial_sl_exits": 100.3,
+      "mean_max_drawdown_pct": 72.95,
+      "survived": 29,
+      "n": 120,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 5,
+      "mean_net_pnl": -342.95,
+      "mean_gross_pnl": -225.55,
+      "mean_total_costs": 117.4,
+      "mean_net_pnl_per_trade": -1.0614,
+      "mean_win_rate": 29.14,
+      "mean_n_trades": 366.8,
+      "mean_n_initial_sl_exits": 90.6,
+      "mean_max_drawdown_pct": 68.85,
+      "survived": 46,
+      "n": 120,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 10,
+      "mean_net_pnl": -322.55,
+      "mean_gross_pnl": -206.8,
+      "mean_total_costs": 115.75,
+      "mean_net_pnl_per_trade": -1.0362,
+      "mean_win_rate": 29.49,
+      "mean_n_trades": 361.6,
+      "mean_n_initial_sl_exits": 83.0,
+      "mean_max_drawdown_pct": 64.83,
+      "survived": 64,
+      "n": 120,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 20,
+      "mean_net_pnl": -282.72,
+      "mean_gross_pnl": -174.91,
+      "mean_total_costs": 107.81,
+      "mean_net_pnl_per_trade": -1.0172,
+      "mean_win_rate": 29.49,
+      "mean_n_trades": 336.8,
+      "mean_n_initial_sl_exits": 70.0,
+      "mean_max_drawdown_pct": 56.87,
+      "survived": 79,
+      "n": 120,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 50,
+      "mean_net_pnl": -215.4,
+      "mean_gross_pnl": -126.09,
+      "mean_total_costs": 89.3,
+      "mean_net_pnl_per_trade": -1.0097,
+      "mean_win_rate": 29.37,
+      "mean_n_trades": 279.0,
+      "mean_n_initial_sl_exits": 49.4,
+      "mean_max_drawdown_pct": 43.49,
+      "survived": 98,
+      "n": 120,
+      "positive_net_pnl": 0
+    }
+  ],
+  "means_by_cooldown_catalog": [
+    {
+      "cooldown_candles": 0,
+      "mean_net_pnl": -357.81,
+      "mean_gross_pnl": -240.07,
+      "mean_total_costs": 117.74,
+      "mean_net_pnl_per_trade": -1.0795,
+      "mean_win_rate": 28.94,
+      "mean_n_trades": 367.8,
+      "mean_n_initial_sl_exits": 99.6,
+      "mean_max_drawdown_pct": 71.8,
+      "survived": 27,
+      "n": 100,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 5,
+      "mean_net_pnl": -335.29,
+      "mean_gross_pnl": -219.77,
+      "mean_total_costs": 115.52,
+      "mean_net_pnl_per_trade": -1.0596,
+      "mean_win_rate": 29.43,
+      "mean_n_trades": 360.9,
+      "mean_n_initial_sl_exits": 89.4,
+      "mean_max_drawdown_pct": 67.34,
+      "survived": 42,
+      "n": 100,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 10,
+      "mean_net_pnl": -315.16,
+      "mean_gross_pnl": -201.89,
+      "mean_total_costs": 113.27,
+      "mean_net_pnl_per_trade": -1.0422,
+      "mean_win_rate": 29.71,
+      "mean_n_trades": 353.9,
+      "mean_n_initial_sl_exits": 82.2,
+      "mean_max_drawdown_pct": 63.37,
+      "survived": 56,
+      "n": 100,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 20,
+      "mean_net_pnl": -277.57,
+      "mean_gross_pnl": -171.42,
+      "mean_total_costs": 106.14,
+      "mean_net_pnl_per_trade": -1.0177,
+      "mean_win_rate": 29.72,
+      "mean_n_trades": 331.6,
+      "mean_n_initial_sl_exits": 69.5,
+      "mean_max_drawdown_pct": 55.86,
+      "survived": 67,
+      "n": 100,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 50,
+      "mean_net_pnl": -211.46,
+      "mean_gross_pnl": -123.6,
+      "mean_total_costs": 87.85,
+      "mean_net_pnl_per_trade": -1.0111,
+      "mean_win_rate": 29.56,
+      "mean_n_trades": 274.5,
+      "mean_n_initial_sl_exits": 49.4,
+      "mean_max_drawdown_pct": 42.73,
+      "survived": 82,
+      "n": 100,
+      "positive_net_pnl": 0
+    }
+  ],
+  "means_by_cooldown_lorentzian": [
+    {
+      "cooldown_candles": 0,
+      "mean_net_pnl": -393.01,
+      "mean_gross_pnl": -266.05,
+      "mean_total_costs": 126.96,
+      "mean_net_pnl_per_trade": -1.0733,
+      "mean_win_rate": 27.84,
+      "mean_n_trades": 396.6,
+      "mean_n_initial_sl_exits": 103.7,
+      "mean_max_drawdown_pct": 78.72,
+      "survived": 2,
+      "n": 20,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 5,
+      "mean_net_pnl": -381.25,
+      "mean_gross_pnl": -254.44,
+      "mean_total_costs": 126.81,
+      "mean_net_pnl_per_trade": -1.0705,
+      "mean_win_rate": 27.69,
+      "mean_n_trades": 396.1,
+      "mean_n_initial_sl_exits": 96.6,
+      "mean_max_drawdown_pct": 76.4,
+      "survived": 4,
+      "n": 20,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 10,
+      "mean_net_pnl": -359.53,
+      "mean_gross_pnl": -231.37,
+      "mean_total_costs": 128.16,
+      "mean_net_pnl_per_trade": -1.0063,
+      "mean_win_rate": 28.41,
+      "mean_n_trades": 400.4,
+      "mean_n_initial_sl_exits": 87.5,
+      "mean_max_drawdown_pct": 72.11,
+      "survived": 8,
+      "n": 20,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 20,
+      "mean_net_pnl": -308.5,
+      "mean_gross_pnl": -192.34,
+      "mean_total_costs": 116.15,
+      "mean_net_pnl_per_trade": -1.0147,
+      "mean_win_rate": 28.36,
+      "mean_n_trades": 362.9,
+      "mean_n_initial_sl_exits": 72.8,
+      "mean_max_drawdown_pct": 61.93,
+      "survived": 12,
+      "n": 20,
+      "positive_net_pnl": 0
+    },
+    {
+      "cooldown_candles": 50,
+      "mean_net_pnl": -235.09,
+      "mean_gross_pnl": -138.55,
+      "mean_total_costs": 96.54,
+      "mean_net_pnl_per_trade": -1.003,
+      "mean_win_rate": 28.39,
+      "mean_n_trades": 301.6,
+      "mean_n_initial_sl_exits": 49.8,
+      "mean_max_drawdown_pct": 47.31,
+      "survived": 16,
+      "n": 20,
+      "positive_net_pnl": 0
+    }
+  ],
+  "means_by_strategy_cooldown": {
+    "ADX14_DI_20": {
+      "0": {
+        "mean_net_pnl": -400.65,
+        "mean_win_rate": 25.4,
+        "mean_n_trades": 438.2,
+        "survived": 0,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -394.72,
+        "mean_win_rate": 25.07,
+        "mean_n_trades": 443.6,
+        "survived": 1,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -373.25,
+        "mean_win_rate": 25.9,
+        "mean_n_trades": 452.2,
+        "survived": 3,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -327.3,
+        "mean_win_rate": 25.43,
+        "mean_n_trades": 428.6,
+        "survived": 5,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -271.36,
+        "mean_win_rate": 25.32,
+        "mean_n_trades": 389.0,
+        "survived": 6,
+        "n": 10
+      }
+    },
+    "BB_20_25_breakout": {
+      "0": {
+        "mean_net_pnl": -168.62,
+        "mean_win_rate": 32.17,
+        "mean_n_trades": 157.8,
+        "survived": 10,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -155.31,
+        "mean_win_rate": 32.14,
+        "mean_n_trades": 144.8,
+        "survived": 10,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -149.97,
+        "mean_win_rate": 31.91,
+        "mean_n_trades": 140.5,
+        "survived": 10,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -141.93,
+        "mean_win_rate": 32.39,
+        "mean_n_trades": 133.0,
+        "survived": 10,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -106.11,
+        "mean_win_rate": 33.48,
+        "mean_n_trades": 105.8,
+        "survived": 10,
+        "n": 10
+      }
+    },
+    "BB_20_2_RSI14": {
+      "0": {
+        "mean_net_pnl": -306.23,
+        "mean_win_rate": 28.5,
+        "mean_n_trades": 267.4,
+        "survived": 7,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -284.53,
+        "mean_win_rate": 28.55,
+        "mean_n_trades": 250.1,
+        "survived": 7,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -272.32,
+        "mean_win_rate": 28.24,
+        "mean_n_trades": 238.6,
+        "survived": 8,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -238.99,
+        "mean_win_rate": 29.38,
+        "mean_n_trades": 217.6,
+        "survived": 9,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -169.38,
+        "mean_win_rate": 28.96,
+        "mean_n_trades": 159.9,
+        "survived": 10,
+        "n": 10
+      }
+    },
+    "EMA_13_34_RSI14_55": {
+      "0": {
+        "mean_net_pnl": -379.46,
+        "mean_win_rate": 31.49,
+        "mean_n_trades": 340.9,
+        "survived": 2,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -365.5,
+        "mean_win_rate": 30.63,
+        "mean_n_trades": 328.6,
+        "survived": 3,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -332.64,
+        "mean_win_rate": 31.96,
+        "mean_n_trades": 312.0,
+        "survived": 7,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -277.8,
+        "mean_win_rate": 32.98,
+        "mean_n_trades": 283.6,
+        "survived": 7,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -190.6,
+        "mean_win_rate": 32.87,
+        "mean_n_trades": 205.1,
+        "survived": 10,
+        "n": 10
+      }
+    },
+    "EMA_8_21": {
+      "0": {
+        "mean_net_pnl": -399.02,
+        "mean_win_rate": 28.68,
+        "mean_n_trades": 398.3,
+        "survived": 1,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -380.21,
+        "mean_win_rate": 28.73,
+        "mean_n_trades": 388.6,
+        "survived": 3,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -364.2,
+        "mean_win_rate": 28.73,
+        "mean_n_trades": 383.4,
+        "survived": 4,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -310.64,
+        "mean_win_rate": 28.58,
+        "mean_n_trades": 353.1,
+        "survived": 6,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -246.22,
+        "mean_win_rate": 27.3,
+        "mean_n_trades": 292.3,
+        "survived": 8,
+        "n": 10
+      }
+    },
+    "LORENTZIAN_default": {
+      "0": {
+        "mean_net_pnl": -384.99,
+        "mean_win_rate": 30.15,
+        "mean_n_trades": 339.3,
+        "survived": 2,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -369.98,
+        "mean_win_rate": 29.61,
+        "mean_n_trades": 330.9,
+        "survived": 3,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -341.72,
+        "mean_win_rate": 30.99,
+        "mean_n_trades": 327.4,
+        "survived": 5,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -291.47,
+        "mean_win_rate": 30.52,
+        "mean_n_trades": 290.1,
+        "survived": 7,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -202.29,
+        "mean_win_rate": 31.79,
+        "mean_n_trades": 213.2,
+        "survived": 10,
+        "n": 10
+      }
+    },
+    "LORENTZIAN_raw": {
+      "0": {
+        "mean_net_pnl": -401.03,
+        "mean_win_rate": 25.53,
+        "mean_n_trades": 453.8,
+        "survived": 0,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -392.52,
+        "mean_win_rate": 25.76,
+        "mean_n_trades": 461.3,
+        "survived": 1,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -377.35,
+        "mean_win_rate": 25.83,
+        "mean_n_trades": 473.3,
+        "survived": 3,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -325.53,
+        "mean_win_rate": 26.19,
+        "mean_n_trades": 435.6,
+        "survived": 5,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -267.9,
+        "mean_win_rate": 24.98,
+        "mean_n_trades": 389.9,
+        "survived": 6,
+        "n": 10
+      }
+    },
+    "MACD_12_26_hist": {
+      "0": {
+        "mean_net_pnl": -401.56,
+        "mean_win_rate": 26.64,
+        "mean_n_trades": 423.1,
+        "survived": 0,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -389.41,
+        "mean_win_rate": 27.18,
+        "mean_n_trades": 429.5,
+        "survived": 2,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -370.73,
+        "mean_win_rate": 27.84,
+        "mean_n_trades": 430.4,
+        "survived": 3,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -325.83,
+        "mean_win_rate": 27.34,
+        "mean_n_trades": 410.2,
+        "survived": 6,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -267.71,
+        "mean_win_rate": 25.34,
+        "mean_n_trades": 356.7,
+        "survived": 6,
+        "n": 10
+      }
+    },
+    "MACD_RSI14_50": {
+      "0": {
+        "mean_net_pnl": -393.22,
+        "mean_win_rate": 28.4,
+        "mean_n_trades": 402.3,
+        "survived": 2,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -375.83,
+        "mean_win_rate": 28.86,
+        "mean_n_trades": 394.6,
+        "survived": 3,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -354.23,
+        "mean_win_rate": 29.02,
+        "mean_n_trades": 393.2,
+        "survived": 4,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -307.97,
+        "mean_win_rate": 28.22,
+        "mean_n_trades": 361.6,
+        "survived": 6,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -245.49,
+        "mean_win_rate": 28.25,
+        "mean_n_trades": 317.0,
+        "survived": 7,
+        "n": 10
+      }
+    },
+    "RSI14_7030": {
+      "0": {
+        "mean_net_pnl": -362.75,
+        "mean_win_rate": 35.18,
+        "mean_n_trades": 315.6,
+        "survived": 3,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -258.94,
+        "mean_win_rate": 38.39,
+        "mean_n_trades": 246.5,
+        "survived": 9,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -223.67,
+        "mean_win_rate": 37.61,
+        "mean_n_trades": 219.7,
+        "survived": 10,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -180.53,
+        "mean_win_rate": 37.72,
+        "mean_n_trades": 182.7,
+        "survived": 10,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -117.83,
+        "mean_win_rate": 37.92,
+        "mean_n_trades": 129.2,
+        "survived": 10,
+        "n": 10
+      }
+    },
+    "STOCH14_cross": {
+      "0": {
+        "mean_net_pnl": -400.64,
+        "mean_win_rate": 20.35,
+        "mean_n_trades": 620.1,
+        "survived": 0,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -400.9,
+        "mean_win_rate": 22.52,
+        "mean_n_trades": 684.6,
+        "survived": 0,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -400.51,
+        "mean_win_rate": 22.62,
+        "mean_n_trades": 693.1,
+        "survived": 0,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -401.1,
+        "mean_win_rate": 22.46,
+        "mean_n_trades": 709.6,
+        "survived": 0,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -336.01,
+        "mean_win_rate": 21.81,
+        "mean_n_trades": 621.7,
+        "survived": 5,
+        "n": 10
+      }
+    },
+    "TS_13_34_200_14": {
+      "0": {
+        "mean_net_pnl": -365.91,
+        "mean_win_rate": 32.55,
+        "mean_n_trades": 314.1,
+        "survived": 2,
+        "n": 10
+      },
+      "5": {
+        "mean_net_pnl": -347.56,
+        "mean_win_rate": 32.22,
+        "mean_n_trades": 297.9,
+        "survived": 4,
+        "n": 10
+      },
+      "10": {
+        "mean_net_pnl": -310.05,
+        "mean_win_rate": 33.26,
+        "mean_n_trades": 275.6,
+        "survived": 7,
+        "n": 10
+      },
+      "20": {
+        "mean_net_pnl": -263.57,
+        "mean_win_rate": 32.68,
+        "mean_n_trades": 236.0,
+        "survived": 8,
+        "n": 10
+      },
+      "50": {
+        "mean_net_pnl": -163.85,
+        "mean_win_rate": 34.39,
+        "mean_n_trades": 167.9,
+        "survived": 10,
+        "n": 10
+      }
+    }
+  }
+}
