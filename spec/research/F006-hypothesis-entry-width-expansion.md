@@ -202,16 +202,131 @@ any series that still fails, how many losing months it has left compared to its 
 
 ## Run_id
 
-(filled in after running)
+`scripts/f006_entry_width_expansion_experiment.py`, `git_commit_parent = 05b5288` (the
+pre-registration commit above), single pass, `.venv_test` (Python 3.9.25, pandas 2.3.3),
+30 series, 25.2s. Per-series results and monthly tables: `output/f006_entry_width_expansion/raw/*.json`
+(30 files, each carrying both the filtered and unfiltered monthly breakdown). Summary table:
+`output/f006_entry_width_expansion/summary/results.csv`. Manifest, checksums, harness-control
+and subset-invariant records: `output/f006_entry_width_expansion/summary/manifest.json`.
 
 ## Result
 
-(filled in after running)
+**Harness control and subset invariant both clean.** The gate-forced-all-True rerun (this
+script's own "unfiltered" arm) matches `output/f006_notrail_monthly/summary/results.csv`'s
+stored `train1_net_pnl`/`n_trades` for all 30 series -- **0/30 mismatches** -- so this new
+script's engine-call plumbing reproduces the already-verified prior note exactly. The subset
+invariant (`n_trades_filtered <= n_trades_unfiltered`) holds for **30/30** series -- the gate
+never adds an entry, only removes one.
+
+**H1 technically survives, by exactly one series, and that series is degenerate.** The
+falsification condition as pre-registered ("falsified if zero of the 30 series clear the
+checklist") is not met: **1/30** filtered series clears the monthly promotion checklist --
+`DONCHIAN_55`/DOGEUSDT/4h. But `n_calls_gated_out = 18 = n_calls` for that series: the width
+gate rejected **every single one** of its 18 directional calls in Train 1, so it produced
+**zero trades**, **$0.00** net PnL, **0%** drawdown, and trivially "zero losing months" because
+every month has no trade and therefore no PnL to be negative. Hand-verified (not just read off
+the summary row) against the raw width/gate values at all 18 of that series' call-start bars: the
+gate's `width > width.rolling(30).mean()` condition is `False` at every one, by margins ranging
+from -0.023 to -0.19 width-units -- not a rounding-boundary artefact, a genuine, if narrow,
+miss on every occasion. This is not a promotion candidate in any substantive sense -- an
+empty strategy trivially satisfies a zero-tolerance "no losing month" rule -- and the
+pre-registered falsification condition did not anticipate this degenerate case (it should have
+required `n_trades > 0` as an implicit precondition for "clears the checklist"; that gap is
+recorded here rather than silently patched after the fact). Read literally, per the condition
+as written before the run, **H1 survives**; read for substance, **it does not** -- no series with
+any trading activity clears the checklist.
+
+**The pre-registered mechanism (better selection -> higher win rate, fewer losing months) is not
+supported.** Trade-count fell by more than half across the sample -- 1,695 unfiltered trades to
+812 filtered (-52.1%), matching the scale of selectivity the Donchian and BB families showed in
+prior notes -- but the trade-weighted pooled win rate barely moved: **25.07% unfiltered ->
+25.49% filtered, +0.42 pp**, an order of magnitude smaller than the swings
+`F006-hypothesis-stop-width-notrail.md` called "real" (win rate moved 3-5 pp there for a
+comparable-sized trade-count change). Mean net PnL across the 30 series **fell**, from $48.45 to
+$15.21, and the count of series with positive Train-1 net PnL fell from 18/30 to 17/30 -- the
+filter is, in aggregate, removing more good trades than bad ones, the opposite of the predicted
+effect.
+
+**Mean losing months per series moved in different directions for different names, and even where
+it improved the improvement does not survive scrutiny.**
+
+| Name | mean net PnL, unfiltered | mean net PnL, filtered | mean neg months, unfiltered | mean neg months, filtered | positive series (of 10) |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `BB_20_25_breakout` | $48.78 | $48.59 | 5.8 | **6.5 (worse)** | 7 -> 9 |
+| `DONCHIAN_55` | $58.39 | **$0.06** | 6.5 | 5.2 | 7 -> 4 |
+| `DONCHIAN_PULLBACK_55` | $38.19 | **-$3.01** | 7.1 | 5.6 | 4 -> 4 |
+
+`BB_20_25_breakout` is the one name whose net PnL survives the filter roughly intact (and whose
+positive-series count genuinely rises, 7 -> 9) -- but its own mean losing-months count gets
+*worse*, not better (5.8 -> 6.5), the opposite of the predicted direction. Both Donchian names
+show an apparent losing-months improvement, but it is not the win-rate-driven smoothing the
+hypothesis predicted: their mean net PnL collapses toward zero or negative in the same breath
+(`DONCHIAN_55`'s mean falls from $58.39 to $0.06, essentially the filter erasing the name's own
+edge, and `DONCHIAN_PULLBACK_55`'s flips from positive to negative), which is exactly the
+mechanical artefact the falsification-condition gap above hints at: cutting trades in half turns
+some previously-negative months into **flat $0.00 months** (no trade that month, not a winning
+one), which counts as "non-negative" under the checklist's literal wording without representing
+any actual improvement in trade quality. The DOGEUSDT/4h `DONCHIAN_55` series is the extreme,
+degenerate end of exactly this artefact, not an isolated glitch.
+
+**No name shows the hypothesis's predicted signature (win rate up, PnL preserved or improved,
+losing months down) simultaneously.** `BB_20_25_breakout` keeps its PnL but not its monthly
+profile; the two Donchian names improve their monthly profile but at the cost of the PnL (and,
+for `DONCHIAN_55`, the win rate too -- not shown per-name above but visible in
+`output/f006_entry_width_expansion/summary/results.csv`) that made them promotion leads in the
+first place.
 
 ## Decision
 
-(filled in after running)
+**No promotion.** Read for substance rather than by the falsification condition's literal
+wording, **H1 is not supported**: the one series that technically clears the monthly checklist
+does so by trading zero times, which is not a candidate in any sense the protocol's promotion
+gate was designed to certify, and no series with actual trading activity clears it. The
+pre-registered mechanism -- that a width-expansion gate would raise win rate and thereby smooth
+the monthly PnL distribution -- is contradicted by the pooled numbers: win rate moved 0.42 pp
+against a 52% trade-count cut, an order of magnitude too small to be the reason any month's sign
+changed, and the apparent losing-months improvement for the two Donchian names is explained
+more parsimoniously by trades disappearing (turning negative months into empty, flat-zero months)
+than by better entry selection -- the same "starving, not selecting" failure mode
+`F006-hypothesis-entry-regime-filter.md` already found for the generic ADX gate on the old
+catalog, now reproduced with a mechanistically distinct, volatility-based gate on the three
+specific NO_TRAIL-positive names it was targeted at.
+
+**This closes out the width-expansion approach for these three names.** The BB-derived
+squeeze/expansion mechanism, reused here exactly as `strategy.py`'s own `sig_bb_breakout_squeeze`
+defines it, does not generalize into an entry-quality filter that raises win rate for either the
+BB or the Donchian family at `NO_TRAIL`. Combined with
+`F006-hypothesis-entry-regime-filter.md` (ADX gate, old exit geometry, whole catalog) and this
+slice (width gate, `NO_TRAIL`, the three lead names), two mechanistically distinct entry filters
+have now both failed to raise win rate for the reason the monthly criterion actually needs --
+real trade-quality improvement, not fewer trades. A future entry-side hypothesis for these three
+names should look for a filter that changes *which* calls are entered without simply shrinking
+the sample (e.g. a directional/multi-timeframe confirmation rather than a magnitude-of-volatility
+threshold), and should build in the `n_trades > 0` guard this slice's falsification condition
+should have had from the start, so a future run cannot again "pass" by trading nothing.
+
+**What is reusable regardless of this outcome:** `scripts/f006_entry_width_expansion_experiment.py`'s
+pattern of scoring both a filtered and an unfiltered (gate=all-True) arm from the same call to the
+engine, and diffing the unfiltered arm against a prior note's stored rows as the harness control,
+is cheap and reusable by any future entry-filter slice on this sample. `tests/test_entry_width_expansion.py`'s
+causality checks on `width_series`/`width_gate` are the load-bearing correctness check for this
+script's one piece of new logic and pass cleanly; no engine, strategy, or Donchian module change
+was needed.
 
 ## Tests
 
-(filled in after running)
+`tests/test_entry_width_expansion.py` (7 new tests: causality of the width gate for both
+`DONCHIAN_55` and `BB_20_25_breakout`, at three truncation points each, plus a warm-up-window
+check) is the load-bearing check for this slice's one piece of new logic (`width_series`/
+`width_gate` in the new script) -- no existing module (`backtest_engine.py`, `strategy.py`,
+`donchian.py`, `entry_masks.py`, `regularity.py`) was changed. `tests/test_regularity.py`'s
+existing 8 tests re-run to confirm no regression: 8/8 passed, unchanged.
+
+Full suite, Python 3.9 `.venv_test` (no Lorentzian dependency in this sample, so
+`.venv_lorentzian` was not needed, per `F006-hypothesis-notrail-monthly.md`'s precedent):
+
+| | Before this slice | With this slice |
+| --- | --- | --- |
+| `pytest tests/` | 136 passed, 9 skipped | **143 passed, 9 skipped** |
+
+Exactly the 7 new tests, no behaviour change in any existing test.
