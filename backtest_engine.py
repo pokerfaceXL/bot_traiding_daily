@@ -58,6 +58,14 @@ queuing (step 4 below) -- it does not affect stop-loss/trailing exits or
 signal-reversal exits, so an entry-quality filter can be tested in isolation
 from exit-sizing changes. Default None preserves prior behaviour exactly.
 
+Optional `stake_series` (F006 position-sizing research hook,
+spec/research/F006-hypothesis-position-sizing-vol-inverse.md): a float
+Series, reindexed onto the closed-candle frame, read once per entry fill
+(step 1 below) in place of the scalar `stake` -- it changes only HOW MUCH is
+risked on an already-accepted trade, never WHETHER one is accepted (that is
+`entry_regime_mask`'s job, unaffected by this hook). Default None preserves
+prior behaviour exactly (every trade uses the scalar `stake`).
+
 Zero network connections.
 """
 
@@ -137,6 +145,7 @@ def run_backtest(
     funding_events: Iterable[Tuple[object, float]] = (),
     fee_buffer: float = 0.0,
     entry_regime_mask: Optional[pd.Series] = None,
+    stake_series: Optional[pd.Series] = None,
 ) -> BacktestResult:
     """
     Runs one end-to-end backtest of `strategy_name` over `df`.
@@ -157,6 +166,10 @@ def run_backtest(
         entry_allowed_a = entry_regime_mask.reindex(work.index).fillna(False).to_numpy(dtype=bool)
     else:
         entry_allowed_a = None
+    if stake_series is not None:
+        stake_a = stake_series.reindex(work.index).fillna(stake).to_numpy(dtype=float)
+    else:
+        stake_a = None
 
     n = len(work)
     if n == 0:
@@ -228,6 +241,7 @@ def run_backtest(
             fill = execution.resolve_entry_fill(OrderType.MARKET, direction=pending_signal, next_bar=bar)
             trade_counter += 1
             position_id = f"p{trade_counter}"
+            use_stake = float(stake_a[i]) if stake_a is not None else stake
             try:
                 portfolio.open_position(
                     position_id=position_id,
@@ -235,7 +249,7 @@ def run_backtest(
                     direction=pending_signal,
                     entry_price=fill.fill_price,
                     entry_time=idx,
-                    stake=stake,
+                    stake=use_stake,
                     leverage=leverage,
                     fee_buffer=fee_buffer,
                 )
