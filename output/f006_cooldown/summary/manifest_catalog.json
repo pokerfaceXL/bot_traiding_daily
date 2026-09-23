@@ -1,0 +1,72 @@
+{
+  "run_timestamp_utc": "2026-09-23T09:03:38.355590+00:00",
+  "git_commit_parent": "d86e2d3ddec9ce91a2730379ffef6d5a161bfe1b",
+  "group": "catalog",
+  "python_version": "3.9.25",
+  "pandas_version": "2.3.3",
+  "n_runs": 500,
+  "strategy_names": [
+    "EMA_8_21",
+    "EMA_13_34_RSI14_55",
+    "RSI14_7030",
+    "MACD_12_26_hist",
+    "MACD_RSI14_50",
+    "BB_20_25_breakout",
+    "BB_20_2_RSI14",
+    "ADX14_DI_20",
+    "STOCH14_cross",
+    "TS_13_34_200_14"
+  ],
+  "cooldown_sweep": [
+    0,
+    5,
+    10,
+    20,
+    50
+  ],
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "activate_pct": 0.03,
+    "trail_pct": 0.02,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "now_fixed": "2025-03-01 00:00:00+00:00",
+  "data_checksums_verified": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "elapsed_seconds": 133.0,
+  "cooldown_zero_cross_check": {
+    "checked": true,
+    "stored_path": "output/f006_stop_width/summary/results.csv",
+    "rows_compared": 100,
+    "mismatches": []
+  }
+}
