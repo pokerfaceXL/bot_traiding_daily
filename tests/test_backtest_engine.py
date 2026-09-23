@@ -269,3 +269,36 @@ def test_compute_metrics_profit_factor_is_sentinel_when_no_losing_trades():
     metrics = be._compute_metrics(trades_df, equity_curve, initial_equity=500.0)
 
     assert metrics["profit_factor"] == 9999.0
+
+
+def test_stake_series_none_matches_call_without_the_parameter():
+    # spec/research/F006-hypothesis-position-sizing-vol-inverse.md discriminating check 5:
+    # the new stake_series hook's default must be provably additive, not just by inspection.
+    res_default = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240")
+    res_explicit_none = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240", stake_series=None)
+
+    pd.testing.assert_frame_equal(res_default.trades, res_explicit_none.trades)
+    pd.testing.assert_frame_equal(res_default.equity_curve, res_explicit_none.equity_curve)
+    assert res_default.metrics == res_explicit_none.metrics
+
+
+def test_stake_series_scales_the_stake_used_at_each_entry():
+    df = _load_fixture()
+    baseline = be.run_backtest(df, STRATEGY_NAME, interval="240")
+    entry_times = baseline.trades["entry_time"]
+
+    # Double the stake on the first entry only, leave every other entry at the
+    # scalar default (100.0) via .fillna, matching run_backtest's own reindex+fillna
+    # handling of a stake_series that doesn't cover every bar.
+    first_entry = entry_times.iloc[0]
+    stake_series = pd.Series({first_entry: 200.0})
+
+    sized = be.run_backtest(df, STRATEGY_NAME, interval="240", stake_series=stake_series)
+
+    assert len(sized.trades) == len(baseline.trades)
+    assert sized.trades["stake"].iloc[0] == pytest.approx(200.0)
+    assert sized.trades["stake"].iloc[1:].tolist() == pytest.approx([100.0] * (len(sized.trades) - 1))
+    # Doubling only the first trade's stake doubles only that trade's net_pnl
+    # (linear-in-stake cost structure, see the hypothesis note's Observation section).
+    assert sized.trades["net_pnl"].iloc[0] == pytest.approx(2 * baseline.trades["net_pnl"].iloc[0])
+    assert sized.trades["net_pnl"].iloc[1:].tolist() == pytest.approx(baseline.trades["net_pnl"].iloc[1:].tolist())
