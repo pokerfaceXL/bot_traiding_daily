@@ -341,6 +341,20 @@ venv with `numpy 1.26.4` (advanced-ta 0.1.8 still uses `np.NaN`, removed in nump
 2.3.3`, `scikit-learn 1.9.1`, `ta 0.11.0`. Both interpreters were used for the test suite — see
 "Tests" below.
 
+**Reproducing this in a fresh worktree** (two things are not in git, by existing repo policy):
+
+1. `data_cache/*.csv` is gitignored — only the manifests are committed. Copy the ten
+   `*_20240126T000000Z_20260901T000000Z.csv` files from the main checkout's `data_cache/`;
+   both scripts then verify their checksums against protocol section 6 before using them.
+2. No Python ≥ 3.10 interpreter and no `uv`/`conda`/compiler were available on this host, so the
+   runs used a standalone CPython 3.11 (`python-build-standalone`, `cpython-3.11.16+20260901-
+   x86_64-unknown-linux-gnu`) and a venv built from it:
+   `pip install "numpy>=1.25,<2.0" "pandas>=2.0.3,<3.0" "scikit-learn>=1.3,<2.0" "ta>=0.11,<0.12"
+   pytest pyyaml requests` then `pip install --no-deps advanced-ta==0.1.8` (`--no-deps` skips
+   `mplfinance`, which advanced-ta only imports inside its `plot()` method). The venv directory
+   `.venv_lorentzian/` is gitignored alongside `.venv_test/`. Both downloaded advanced-ta
+   artefacts were checksum-verified against PyPI's published hashes (see "Sources").
+
 ## Result
 
 **Causality: the signal can be made causal, and was.** Falsification condition 1 is not met —
