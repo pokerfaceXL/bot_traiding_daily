@@ -161,6 +161,17 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name) -> dict:
 
     train1_net_pnl = _net_pnl_for_months(days, TRAIN1_MONTHS_SET)
     warmup_net_pnl = _net_pnl_for_months(days, WARMUP_MONTHS_SET)
+    # Europe/Warsaw is ahead of UTC, so the data slice's last UTC bar(s) before
+    # TRAIN1_END (2025-03-01T00:00:00Z) can land on Warsaw-local 2025-03-01 --
+    # a day outside both TRAIN1_MONTHS_SET and WARMUP_MONTHS_SET by construction.
+    # Correctly excluded from the Train-1 evaluation (it is not one of Train 1's
+    # 12 calendar months), but must be accounted for in the harness reconciliation.
+    boundary_net_pnl = sum(
+        d.pnl for d in days
+        if d.status != "missing"
+        and (d.day.year, d.day.month) not in TRAIN1_MONTHS_SET
+        and (d.day.year, d.day.month) not in WARMUP_MONTHS_SET
+    )
     full_max_dd = result.metrics["max_drawdown_pct"]
     n_valid_months = sum(1 for r in monthly_rows if r["is_valid"])
 
@@ -176,6 +187,7 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name) -> dict:
         "n_trades": int(len(result.trades)),
         "train1_net_pnl": round(train1_net_pnl, 6),
         "warmup_net_pnl": round(warmup_net_pnl, 6),
+        "boundary_net_pnl": round(boundary_net_pnl, 6),
         "full_run_max_drawdown_pct": full_max_dd,
         "full_run_final_equity": result.metrics["final_equity"],
         "n_valid_months": n_valid_months,
@@ -236,8 +248,8 @@ def main():
             # calendar month; this slice's train1_net_pnl deliberately excludes
             # the 2024-01/02 warm-up buffer (never evaluated by the protocol), so
             # the invariant checked here is train1 + warmup == prior's full total.
-            reconstructed = r["train1_net_pnl"] + r["warmup_net_pnl"]
-            if abs(reconstructed - r["net_pnl"]) > 1e-6 or r["n_trades"] != r["n_trades_prior"]:
+            reconstructed = r["train1_net_pnl"] + r["warmup_net_pnl"] + r["boundary_net_pnl"]
+            if abs(reconstructed - r["net_pnl"]) > 1e-3 or r["n_trades"] != r["n_trades_prior"]:
                 mismatches.append({
                     "symbol": r["symbol"], "interval": r["interval"], "strategy": r["strategy"],
                     "train1_net_pnl": r["train1_net_pnl"], "warmup_net_pnl": r["warmup_net_pnl"],

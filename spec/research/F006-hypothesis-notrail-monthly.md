@@ -130,16 +130,108 @@ time. No new aggregation logic is written; no change to `regularity.py`.
 
 ## Run_id
 
-(filled in after running)
+`scripts/f006_notrail_monthly_experiment.py`, `git_commit_parent = 7098388` (the
+pre-registration commit above), single pass, `.venv_test` (Python 3.9.25, pandas 2.3.3),
+30 series, 8.5s. Per-series results and monthly tables: `output/f006_notrail_monthly/raw/*.json`
+(30 files). Summary table: `output/f006_notrail_monthly/summary/results.csv`. Manifest,
+checksums, harness-control record: `output/f006_notrail_monthly/summary/manifest.json`.
+
+The harness-control invariant needed one correction discovered while running it (not a change
+to the pre-registered evaluation methodology): the very last UTC bar(s) of the Train-1 slice
+(just before `2025-03-01T00:00:00Z`) land on Warsaw-local calendar day 2025-03-01, a day inside
+neither `TRAIN1_MONTHS_SET` nor the warm-up months, because Europe/Warsaw is ahead of UTC. This
+boundary day is correctly excluded from the Train-1 evaluation (it is not one of Train 1's 12
+calendar months) but was initially missing from the harness's reconciliation sum, producing
+spurious "mismatches" against `output/f006_trailing_boundary/summary/results.csv`'s stored
+totals of up to $0.70/series on 11/30 series in the first run. Verified by hand on
+`SOLUSDT/60/DONCHIAN_55` before fixing the script generally: `train1 (-49.643) + warmup (13.831)
++ boundary (0.702) = 52.671 == 52.671` (`net_pnl` stored for that cell). After adding the
+boundary term to the reconciliation, harness control is **0/30 mismatches** (both `n_trades`
+and reconstructed net PnL, tolerance $0.001 for CSV round-trip rounding).
 
 ## Result
 
-(filled in after running)
+**H1 is falsified. Zero of the 30 series clear the monthly promotion checklist.**
+
+No series fails on drawdown or data completeness: `full_run_max_drawdown_pct` ranges 5.4%-27.7%
+across all 30 series (max well under the 50% hard cutoff), and every series has all 12 Train-1
+calendar months `is_valid=True` (no missing-data day anywhere in any series' Train-1 window --
+the data cache has no gaps in this range). The checklist is decided entirely by criterion 2
+(net PnL >= 0 in every evaluated month): **every single one of the 30 series has at least 2
+negative months out of 12**, so `all_valid_months_nonnegative=False` for all 30 and
+`promotion_pass=False` for all 30.
+
+| n_neg_months (out of 12) | n_series |
+| ---: | ---: |
+| 2 | 1 |
+| 3 | 1 |
+| 4 | 2 |
+| 5 | 3 |
+| 6 | 5 |
+| 7 | 10 |
+| 8 | 6 |
+| 9 | 2 |
+
+18/30 series have positive full-Train-1-period net PnL (criterion 3 alone would pass 18/30),
+confirming the prior note's pooled-positive names do contain individually-positive series, not
+just a favourable pool average. But positive full-period PnL and a clean monthly record are
+unrelated in this sample: the single best full-period series,
+`DONCHIAN_PULLBACK_55`/DOGEUSDT/4h at **+$235.66** (8/10 series from the prior note's pooled
+table), still has **8 losing months out of 12**, including a -$77.89 December 2024. The series
+with the *fewest* negative months, `DONCHIAN_55`/DOGEUSDT/1h at **+$197.91** full-period with
+only **2** losing months (-$18.94 in July 2024 being the worse of the two), is the closest any
+series came to clearing the checklist and still fails it outright -- the criterion is exactly
+"zero", not "few", per the protocol's own wording ("regardless of regularity").
+
+The losing months are **spread across the year, not concentrated in one bad stretch**: no
+series has fewer than 2 losing months, the mode is 7/12 (10 of 30 series), and even the two
+series with only 2-3 negative months still fail because the criterion has zero tolerance. This
+is a spread-thin pattern, not a concentrated-crash pattern -- consistent with the mechanism
+every prior F006 note in this family has described (a low win rate carried by a few large
+winners): a strategy whose edge comes from occasional large wins will, by construction, log a
+negative month whenever a calendar month happens not to contain one of those wins, and at these
+win rates (14-30% per the trailing-boundary note's pooled figures) a run of several losing
+months within any 12-month window is close to guaranteed, not an anomaly.
 
 ## Decision
 
-(filled in after running)
+**No promotion. None of the 30 `(name, symbol, interval)` series at `NO_TRAIL` clears
+`spec/research/F005-validation-protocol.md` section 7's monthly criterion on Train 1.** The
+reason is the one the trailing-boundary note's Decision section anticipated ("concentrated in a
+few good months vs. spread thin") and it resolves cleanly to **spread thin**: every series has
+multiple losing months regardless of its full-period sign, and the win-rate/reward-ratio
+profile this whole exit-geometry line of research has repeatedly found (few large winners,
+many small losers) is structurally incompatible with a 12-month window containing zero losing
+months, independent of which of the three names or which `(symbol, interval)` is chosen.
+
+**This closes out the `NO_TRAIL` line for these three names without a Validation candidate.**
+Finding a monthly-clean series by searching further inside `{DONCHIAN_55, BB_20_25_breakout,
+DONCHIAN_PULLBACK_55} x NO_TRAIL` is very unlikely to produce a different answer: the best
+candidate by monthly-cleanliness (`DONCHIAN_55`/DOGEUSDT/1h, 2/12 losing months) was one bad
+month away from the criterion having any chance at all, and the best candidate by full-period
+PnL (`DONCHIAN_PULLBACK_55`/DOGEUSDT/4h) had 8/12. Any future F006 work aimed at clearing this
+criterion needs a change to the entry/exit mechanism that raises the *win rate* or otherwise
+smooths the monthly PnL distribution, not a further search within the exit-geometry axis this
+and the two prior notes have already exhausted (trailing sweep, trailing boundary, and now
+monthly resolution all point the same direction: the signal has a real but lumpy edge that the
+frozen protocol's zero-tolerance monthly rule does not currently admit).
 
 ## Tests
 
-(filled in after running)
+No change to `backtest_engine.py`/`entry_masks.py`/`regularity.py`/`data_contract.py`/
+`strategy.py` in this slice -- the new computation lives entirely in
+`scripts/f006_notrail_monthly_experiment.py`, so the load-bearing check is the harness control
+above (0/30 mismatches after the boundary-day fix), not a new unit test. `tests/test_regularity.py`
+(the module this slice reuses unmodified) re-run to confirm no regression: 8/8 passed, unchanged
+from `spec/research/F005-baseline.md`.
+
+Full suite, both interpreters, this slice's script/note included:
+
+| | Result |
+| --- | --- |
+| Python 3.9.25 `.venv_test` | 136 passed, 9 skipped |
+| Python 3.11.16 `.venv_lorentzian` | 139 passed, 6 skipped |
+
+Identical counts to `spec/research/F006-hypothesis-trailing-boundary.md`'s post-slice baseline
+on both interpreters -- no test added or broken, consistent with zero changes to any tested
+module.
