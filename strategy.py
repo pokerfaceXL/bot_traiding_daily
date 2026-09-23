@@ -475,6 +475,15 @@ import lorentzian as _lorentzian  # noqa: E402
 
 STRATEGY_CATALOG.update(_lorentzian.catalog_entries())
 
+# F006 — Donchian breakout / pullback-after-breakout, dodane dodatkowo (additive).
+# Czysty OHLC, bez zadnych zaleznosci zewnetrznych i bez add_indicators — dziala na
+# kazdym Pythonie, ktory uruchamia ten modul. Zadne istniejace wpisy/funkcje powyzej
+# nie sa zmieniane. Kontrakt wejscia/wyjscia identyczny: callable(df) -> Series.
+# Uzasadnienie rodziny i regul: spec/research/F006-hypothesis-donchian.md.
+import donchian as _donchian  # noqa: E402
+
+STRATEGY_CATALOG.update(_donchian.catalog_entries())
+
 
 # ──────────────────────────────────────────────────────────────
 #  SILNIK BACKTESTOW z trailing stop (ATR-based + aktywacja)
