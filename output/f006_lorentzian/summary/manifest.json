@@ -1,0 +1,231 @@
+{
+  "run_timestamp_utc": "2026-09-23T08:14:15.298457+00:00",
+  "git_commit_parent": "ce585f52f5e5ab70c474361dfd0a6d4581d298c3",
+  "python_version": "3.11.16",
+  "advanced_ta_version": "0.1.8",
+  "n_runs": 120,
+  "strategy_sample": [
+    "EMA_8_21",
+    "EMA_13_34_RSI14_55",
+    "RSI14_7030",
+    "MACD_12_26_hist",
+    "MACD_RSI14_50",
+    "BB_20_25_breakout",
+    "BB_20_2_RSI14",
+    "ADX14_DI_20",
+    "STOCH14_cross",
+    "TS_13_34_200_14"
+  ],
+  "lorentzian_sample": [
+    "LORENTZIAN_default",
+    "LORENTZIAN_raw"
+  ],
+  "symbols": [
+    "SOLUSDT",
+    "ETHUSDT",
+    "BTCUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "intervals": [
+    "240",
+    "60"
+  ],
+  "fixed_params": {
+    "leverage": 1.0,
+    "cooldown_candles": 0,
+    "atr_multiplier": 1.5,
+    "activate_pct": 0.03,
+    "trail_pct": 0.02,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "initial_equity": 500.0,
+    "stake": 100.0
+  },
+  "lorentzian_params": "advanced-ta 0.1.8 library defaults, untuned (see lorentzian.py)",
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "now_fixed": "2025-03-01 00:00:00+00:00",
+  "data_checksums_verified": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "stop_width_cross_check": {
+    "checked": true,
+    "rows_compared": 100,
+    "mismatches": []
+  },
+  "lorentzian_signal_shape": {
+    "SOLUSDT_240": {
+      "bars": 2400,
+      "signal": {
+        "pct_bars_long": 43.6,
+        "pct_bars_short": 48.1,
+        "pct_bars_flat": 8.3,
+        "n_state_flips": 70
+      },
+      "raw_signal": {
+        "pct_bars_long": 56.0,
+        "pct_bars_short": 38.3,
+        "pct_bars_flat": 5.6,
+        "n_state_flips": 311
+      },
+      "pct_bars_filter_allows": 17.0
+    },
+    "SOLUSDT_60": {
+      "bars": 9600,
+      "signal": {
+        "pct_bars_long": 46.0,
+        "pct_bars_short": 51.7,
+        "pct_bars_flat": 2.3,
+        "n_state_flips": 290
+      },
+      "raw_signal": {
+        "pct_bars_long": 47.9,
+        "pct_bars_short": 50.2,
+        "pct_bars_flat": 2.0,
+        "n_state_flips": 1032
+      },
+      "pct_bars_filter_allows": 17.6
+    },
+    "ETHUSDT_240": {
+      "bars": 2400,
+      "signal": {
+        "pct_bars_long": 45.1,
+        "pct_bars_short": 46.6,
+        "pct_bars_flat": 8.3,
+        "n_state_flips": 76
+      },
+      "raw_signal": {
+        "pct_bars_long": 42.9,
+        "pct_bars_short": 52.1,
+        "pct_bars_flat": 5.0,
+        "n_state_flips": 321
+      },
+      "pct_bars_filter_allows": 15.4
+    },
+    "ETHUSDT_60": {
+      "bars": 9600,
+      "signal": {
+        "pct_bars_long": 47.9,
+        "pct_bars_short": 49.6,
+        "pct_bars_flat": 2.4,
+        "n_state_flips": 304
+      },
+      "raw_signal": {
+        "pct_bars_long": 49.3,
+        "pct_bars_short": 48.4,
+        "pct_bars_flat": 2.3,
+        "n_state_flips": 1108
+      },
+      "pct_bars_filter_allows": 17.6
+    },
+    "BTCUSDT_240": {
+      "bars": 2400,
+      "signal": {
+        "pct_bars_long": 40.5,
+        "pct_bars_short": 51.2,
+        "pct_bars_flat": 8.3,
+        "n_state_flips": 58
+      },
+      "raw_signal": {
+        "pct_bars_long": 45.9,
+        "pct_bars_short": 49.3,
+        "pct_bars_flat": 4.8,
+        "n_state_flips": 294
+      },
+      "pct_bars_filter_allows": 16.4
+    },
+    "BTCUSDT_60": {
+      "bars": 9600,
+      "signal": {
+        "pct_bars_long": 51.1,
+        "pct_bars_short": 46.3,
+        "pct_bars_flat": 2.6,
+        "n_state_flips": 279
+      },
+      "raw_signal": {
+        "pct_bars_long": 43.9,
+        "pct_bars_short": 52.3,
+        "pct_bars_flat": 3.8,
+        "n_state_flips": 1247
+      },
+      "pct_bars_filter_allows": 17.3
+    },
+    "XRPUSDT_240": {
+      "bars": 2400,
+      "signal": {
+        "pct_bars_long": 39.9,
+        "pct_bars_short": 51.7,
+        "pct_bars_flat": 8.3,
+        "n_state_flips": 62
+      },
+      "raw_signal": {
+        "pct_bars_long": 54.2,
+        "pct_bars_short": 39.8,
+        "pct_bars_flat": 6.0,
+        "n_state_flips": 301
+      },
+      "pct_bars_filter_allows": 16.8
+    },
+    "XRPUSDT_60": {
+      "bars": 9600,
+      "signal": {
+        "pct_bars_long": 44.6,
+        "pct_bars_short": 53.2,
+        "pct_bars_flat": 2.1,
+        "n_state_flips": 275
+      },
+      "raw_signal": {
+        "pct_bars_long": 54.8,
+        "pct_bars_short": 41.8,
+        "pct_bars_flat": 3.4,
+        "n_state_flips": 1267
+      },
+      "pct_bars_filter_allows": 17.7
+    },
+    "DOGEUSDT_240": {
+      "bars": 2400,
+      "signal": {
+        "pct_bars_long": 41.5,
+        "pct_bars_short": 50.2,
+        "pct_bars_flat": 8.3,
+        "n_state_flips": 64
+      },
+      "raw_signal": {
+        "pct_bars_long": 50.4,
+        "pct_bars_short": 45.7,
+        "pct_bars_flat": 4.0,
+        "n_state_flips": 264
+      },
+      "pct_bars_filter_allows": 16.6
+    },
+    "DOGEUSDT_60": {
+      "bars": 9600,
+      "signal": {
+        "pct_bars_long": 50.3,
+        "pct_bars_short": 47.2,
+        "pct_bars_flat": 2.4,
+        "n_state_flips": 301
+      },
+      "raw_signal": {
+        "pct_bars_long": 53.5,
+        "pct_bars_short": 44.3,
+        "pct_bars_flat": 2.2,
+        "n_state_flips": 960
+      },
+      "pct_bars_filter_allows": 18.0
+    }
+  },
+  "elapsed_seconds": 50.5
+}

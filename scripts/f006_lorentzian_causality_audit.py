@@ -57,7 +57,7 @@ EXPECTED_CHECKSUMS = {
 }
 
 TRUNCATION_TAIL = 50  # bars appended in the truncation test
-N_ANCHORS = 8         # sampled anchors for the walk-forward fidelity check
+N_ANCHORS = 12        # sampled anchors for the walk-forward fidelity check
 
 
 def load_train1(symbol: str, interval: str) -> pd.DataFrame:
@@ -84,24 +84,45 @@ def lib_classify(frame: pd.DataFrame):
 
 
 def check_l1_normalisation(df: pd.DataFrame, n: int) -> dict:
+    """
+    Two extensions of the same prefix, because the leak is data-dependent: a
+    MinMaxScaler fit on the whole frame only moves past values once a LATER bar
+    sets a new min or max. `tail_50` is the falsification condition's own 50-bar
+    extension; `to_end_of_train1` extends the prefix to the end of the Train-1
+    slice, which on this basket does contain new extremes.
+    """
     from advanced_ta.LorentzianClassification import MLExtensions as ml
 
-    short, long = df.iloc[:n], df.iloc[: n + TRUNCATION_TAIL]
-    out = {}
-    for name, fn in (
+    features = (
         ("n_cci_library", lambda d: ml.n_cci(d["high"], d["low"], d["close"], 20, 2)),
         ("n_wt_library", lambda d: ml.n_wt((d["high"] + d["low"] + d["close"]) / 3, 10, 11)),
         ("n_rsi_library", lambda d: ml.n_rsi(d["close"], 14, 2)),
         ("cci_adapter_causal", lambda d: lorentzian._feature_series(ml, d, "CCI", 20, 2)),
         ("wt_adapter_causal", lambda d: lorentzian._feature_series(ml, d, "WT", 10, 11)),
-    ):
-        a, b = np.asarray(fn(short), dtype=float)[:n], np.asarray(fn(long), dtype=float)[:n]
-        diff = np.abs(np.nan_to_num(a) - np.nan_to_num(b))
-        out[name] = {
-            "max_abs_diff_on_shared_bars": float(diff.max()),
-            "n_bars_changed": int((diff > 0).sum()),
-            "pct_bars_changed": round(100.0 * float((diff > 0).mean()), 2),
+    )
+    # The `to_end_of_train1` variant needs room for later bars to actually set a new
+    # extreme, so it starts from half the slice rather than from the truncation test's n.
+    n = min(n, len(df) // 2)
+    short = df.iloc[:n]
+    out = {"prefix_bars": int(n)}
+    for label, extended in (("tail_50", df.iloc[: n + TRUNCATION_TAIL]), ("to_end_of_train1", df)):
+        block = {
+            "extension_bars": int(len(extended) - n),
+            "extension_sets_new_close_extreme": bool(
+                extended["close"].iloc[n:].max() > short["close"].max()
+                or extended["close"].iloc[n:].min() < short["close"].min()
+            ),
         }
+        for name, fn in features:
+            a = np.asarray(fn(short), dtype=float)[:n]
+            b = np.asarray(fn(extended), dtype=float)[:n]
+            diff = np.abs(np.nan_to_num(a) - np.nan_to_num(b))
+            block[name] = {
+                "max_abs_diff_on_shared_bars": round(float(diff.max()), 6),
+                "n_bars_changed": int((diff > 0).sum()),
+                "pct_bars_changed": round(100.0 * float((diff > 0).mean()), 2),
+            }
+        out[label] = block
     return out
 
 

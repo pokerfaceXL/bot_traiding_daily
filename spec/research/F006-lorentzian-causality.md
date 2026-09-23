@@ -225,18 +225,232 @@ only**, as an entry signal into `backtest_engine.run_backtest`'s existing SL/tra
 exactly as for every existing catalog entry. Reproducing the library's dynamic exits would mean
 changing `backtest_engine.py`'s exit logic, which this slice does not do.
 
+### E. Empirical confirmation of the audit (run after the audit above was written)
+
+`scripts/f006_lorentzian_causality_audit.py`, full numbers in
+`output/f006_lorentzian/audit.json`, on real Train-1 data (SOLUSDT/240 and ETHUSDT/60,
+checksum-verified).
+
+**L1 is real, and data-dependent.** Extending a prefix by 50 bars changed *nothing* in the
+library's `n_cci`/`n_wt` on either series — because those 50 bars set no new close extreme.
+Extending the same prefix to the end of the Train-1 slice, which does set a new extreme,
+moved almost every past feature value:
+
+| Series | prefix → extension | `n_cci` (library) | `n_wt` (library) | `n_rsi` (library) | adapter's causal CCI/WT |
+| --- | --- | ---: | ---: | ---: | ---: |
+| SOLUSDT/240 | 1200 → +1200 bars | **98.25%** of past bars changed (max Δ 0.103) | **97.33%** | 0% | **0%** |
+| ETHUSDT/60 | 2400 → +7200 bars | **99.17%** (max Δ 0.105) | **98.67%** | 0% | **0%** |
+
+That asymmetry is itself worth recording: a 50-bar truncation test alone is *not* sufficient
+evidence about L1 — it only bites once a later bar sets a new extreme, and then it moves
+essentially the whole history at once. `n_rsi` (fixed 0..100 `rescale`) never moves, as the
+source reading predicted.
+
+**L2 is real at the 50-bar scale.** `LorentzianClassification(df[:N])` vs
+`LorentzianClassification(df[:N+50])`, comparing the N shared bars:
+
+| Series | `prediction` bars changed | `signal` bars changed | max abs diff |
+| --- | ---: | ---: | ---: |
+| SOLUSDT/240 (N=2350) | 51 / 2350 (2.17%) | 47 / 2350 (2.00%) | 8.0 (the full ±8 range) |
+| ETHUSDT/60 (N=2400) | 54 / 2400 (2.25%) | 50 / 2400 (2.08%) | 8.0 |
+
+Roughly 50 of those are exactly the bars that fall out of the shifted ML window
+(`maxBarsBackIndex` moves by 50, so 50 bars that had a prediction are zeroed), plus a handful
+that differ beyond the boundary. So the port's persistent neighbour state turns out to be
+*mostly* start-independent after a short burn-in — the repaint is concentrated at the window
+edge. That is a useful fact, not an excuse: the values a backtest would read at those bars are
+still not what the same code produces live.
+
+**The adapter passes the same check exactly.** 0 of 2350 and 0 of 2400 bars changed, in
+`prediction`, `signal`, `raw_signal` and `filter_all`, when 50 future bars were appended.
+Same result on the test fixture in `tests/test_lorentzian.py`.
+
+**Fidelity of the reframing.** For 12 anchors spread over the second half of each series, the
+adapter's value at bar `i` was compared against what advanced-ta itself assigns to bar `i` when
+bar `i` is the last bar of the frame handed to it (the literal walk-forward):
+
+| Series | `signal` agreement | `prediction` sign agreement | mean abs `prediction` diff (scale ±8) |
+| --- | ---: | ---: | ---: |
+| SOLUSDT/240 | **12/12 (100%)** | 10/12 (83.3%) | 3.17 |
+| ETHUSDT/60 | **12/12 (100%)** | 11/12 (91.7%) | 1.67 |
+
+The traded quantity — the filtered state signal — matched the library's own walk-forward value
+at every sampled anchor. The raw vote magnitude differs at some anchors, which is the expected
+price of pinning the accumulation anchor (the one deviation section C names).
+
+**Cost of the literal alternative.** A per-bar library call costs 0.46-0.77 s, so literally
+re-instantiating the classifier for every bar projects to 0.3-0.5 h for one 2400-bar series and
+several hours for a 9600-bar one — ~7 h for the 10 series in this slice. The adapter computes a
+whole 2400-bar series in 0.84-0.92 s. The reframing is not just cleaner, it is what makes the
+comparison run affordable at all.
+
 ## Method
 
-_(filled in after the run — see below)_
+Same continuous-run methodology, fixed parameters and checksum discipline as
+`scripts/f006_stop_width_experiment.py` at its `max_sl_pct=0.03` row, so every number below is
+directly comparable with that experiment's table.
+
+- **Script**: `scripts/f006_lorentzian_experiment.py`. **Audit script**:
+  `scripts/f006_lorentzian_causality_audit.py`.
+- **Sample**: `LORENTZIAN_default` and `LORENTZIAN_raw` against the same 10 strategies as
+  `spec/research/F006-hypothesis-stop-width.md` (`EMA_8_21`, `EMA_13_34_RSI14_55`, `RSI14_7030`,
+  `MACD_12_26_hist`, `MACD_RSI14_50`, `BB_20_25_breakout`, `BB_20_2_RSI14`, `ADX14_DI_20`,
+  `STOCH14_cross`, `TS_13_34_200_14`), 5 symbols × 2 intervals = 120 runs.
+- **Lorentzian parameters**: advanced-ta 0.1.8 library defaults only, nothing tuned — features
+  RSI(14,2)/WT(10,11)/CCI(20,2)/ADX(20,2)/RSI(9,2), `neighborsCount=8`, `maxBarsBack=2000`,
+  volatility + regime filters on, ADX filter off, `regimeThreshold=-0.1`, EMA/SMA filters off,
+  `useDynamicExits=False`. `LORENTZIAN_default` is the filtered, forward-filled state signal;
+  `LORENTZIAN_raw` is the bare `sign(prediction)` with no filters and no state carry-over.
+- **Data**: `data_contract.load_dataset("data_cache", symbol, interval, "2024-01-26T00:00:00Z",
+  "2026-09-01T00:00:00Z")`, checksums verified in-script against
+  `spec/research/F005-validation-protocol.md` section 6, then sliced to
+  `[2024-01-26T00:00:00Z, 2025-03-01T00:00:00Z)` — warm-up + Train 1 only — before
+  `run_backtest` sees it. No network fetch, no Validation/Holdout bars in any run.
+- **Warm-up note**: `maxBarsBack=2000` is longer than the protocol's 35-day warm-up buffer at
+  4h (2000 bars = 333 days). No extra history was loaded to compensate, because the causal
+  reframing does not need it: with the accumulation anchored at the frame's first bar, the
+  candidate set is the first `min(len, 2000)` bars and the classifier produces a prediction from
+  the first bars of the frame onward, exactly as advanced-ta does on any frame shorter than
+  `maxBarsBack`. What this costs is that early Train-1 bars vote against a smaller pool of
+  neighbours; what it buys is that the frozen protocol's data slice is used unchanged.
+- **Fixed engine parameters** (identical to the stop-width experiment): `leverage=1`,
+  `cooldown_candles=0`, `max_sl_pct=0.03`, `atr_multiplier=1.5`, `activate_pct=0.03`,
+  `trail_pct=0.02`, `initial_equity=500`, `stake=100`, `commission_rate_bps=10`,
+  `half_spread_bps=5`, `slippage_bps=2`, `now` pinned to `2025-03-01T00:00:00Z`.
+- **Regularity deliberately not computed** — reserved for Validation/Holdout per the frozen
+  protocol; this is Train-only exploration.
+- **Cross-check built into the run**: the 10 existing strategies were re-run rather than quoted,
+  and every row was compared against the stored
+  `output/f006_stop_width/summary/results.csv` `max_sl_pct=0.03` numbers. **100/100 rows matched
+  exactly, 0 mismatches** — the new catalog entries perturbed no existing strategy, and the
+  pipeline reproduces the earlier experiment bit for bit.
 
 ## Run_id
 
-_(filled in after the run — see below)_
+`scripts/f006_lorentzian_experiment.py`, `run_timestamp_utc = 2026-09-23T08:14:15.298457+00:00`,
+`git_commit_parent = ce585f52f5e5ab70c474361dfd0a6d4581d298c3`, `n_runs = 120`,
+`elapsed_seconds = 50.5`, Python 3.11.16, advanced-ta 0.1.8. Full parameters, checksums, the
+stop-width cross-check and the signal-shape diagnostics:
+`output/f006_lorentzian/summary/manifest.json`. Per-run results (120 rows):
+`output/f006_lorentzian/summary/results.csv`. Causality audit output:
+`output/f006_lorentzian/audit.json`.
+
+advanced-ta 0.1.8 declares `Requires-Python >=3.10,<4.0` and uses `match`/`case`, so it cannot be
+imported by the project's Python 3.9 `.venv_test`; the runs above used a separate Python 3.11.16
+venv with `numpy 1.26.4` (advanced-ta 0.1.8 still uses `np.NaN`, removed in numpy 2), `pandas
+2.3.3`, `scikit-learn 1.9.1`, `ta 0.11.0`. Both interpreters were used for the test suite — see
+"Tests" below.
 
 ## Result
 
-_(filled in after the run — see below)_
+**Causality: the signal can be made causal, and was.** Falsification condition 1 is not met —
+the adapter's signal at bar `i` is bit-identical whether the series ends at bar `i` or continues
+for another 50 bars (0 bars changed, both real series and the test fixture), while advanced-ta's
+documented usage fails the same check (2.0-2.3% of bars move, up to the full ±8 range) and its
+WT/CCI features move on 97-99% of past bars once a later bar sets a new extreme. The reframing
+costs one measurable deviation: the adapter's traded signal matched the library's own
+walk-forward value at 24/24 sampled anchors, and the sign of the raw vote at 21/24, while the
+vote's magnitude differs more often (mean abs diff 1.67-3.17 on a ±8 scale).
+
+**Comparison run: the untuned causal Lorentzian signal is worse than the existing catalog on
+Train 1.** Means across the 10 (symbol, interval) series:
+
+| Variant | Mean net PnL | Mean win rate | Mean n_trades | Mean max_drawdown_pct | Survived (≥$100) | Positive net PnL |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `LORENTZIAN_default` | **-$384.99** | 30.15% | 339.3 | 77.15% | 2/10 | 0/10 |
+| `LORENTZIAN_raw` | -$401.03 | 25.53% | 453.8 | 80.29% | 0/10 | 0/10 |
+| existing 10-strategy sample | -$357.81 | 28.94% | 367.8 | 71.80% | 27/100 | 0/100 |
+| best of that sample (`BB_20_25_breakout`) | -$168.62 | 32.17% | — | — | — | 0/10 |
+
+Per series, `LORENTZIAN_default` vs the 10-strategy sample's mean on the same series:
+
+| Series | `LORENTZIAN_default` net PnL | win rate | n_trades | max DD | sample mean net PnL | sample best |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| BTCUSDT/240 | -$301.68 | 36.46% | 288 | 60.58% | -$295.20 | -$89.90 |
+| BTCUSDT/60 | -$335.32 | 33.40% | 476 | 67.48% | -$313.44 | -$151.82 |
+| SOLUSDT/60 | -$400.22 | 34.81% | 316 | 80.10% | -$385.35 | -$243.22 |
+| XRPUSDT/60 | -$400.65 | 31.93% | 357 | 80.24% | -$393.24 | -$317.16 |
+| DOGEUSDT/60 | -$400.92 | 30.45% | 312 | 80.18% | -$392.23 | -$314.02 |
+| DOGEUSDT/240 | -$401.30 | 15.93% | 270 | 80.26% | -$362.96 | -$111.61 |
+| SOLUSDT/240 | -$401.98 | 28.43% | 299 | 80.48% | -$356.93 | -$99.54 |
+| ETHUSDT/240 | -$402.16 | 29.14% | 302 | 80.66% | -$347.00 | -$89.05 |
+| ETHUSDT/60 | -$402.36 | 34.78% | 460 | 80.67% | -$375.23 | -$148.33 |
+| XRPUSDT/240 | -$403.27 | 26.20% | 313 | 80.88% | -$356.47 | -$121.52 |
+
+**`LORENTZIAN_default` is worse than the sample's mean on 10 of 10 series, and worse than the
+sample's best on 10 of 10.** Eight of ten series end at the ~$100 bankruptcy floor
+(`final_equity` $96.73-$99.78, max DD ~80%) — the same floor mechanism `F005-baseline.md`
+described. The two exceptions are both BTCUSDT (final equity $198.32 at 4h, $164.68 at 1h),
+which is also the sample's most survivable symbol, so that says more about BTCUSDT's Train-1
+price path than about the classifier.
+
+Against falsification condition 2, honestly: the run is *not* strictly falsifying, because mean
+win rate is marginally higher than the sample's (30.15% vs 28.94%, +1.2pp). But that edge is
+smaller than the spread inside the sample itself (`RSI14_7030` 35.18%, `STOCH14_cross` 20.35%),
+and it comes with worse net PnL (-$385 vs -$358), worse drawdown (77.15% vs 71.80%) and worse
+survival (20% vs 27%). Treating +1.2pp of win rate as "directionally interesting" while losing
+on all three other axes would be reading noise as signal.
+
+**The one clearly directional finding in this run is about trade frequency, not about the
+classifier's direction.** From the signal-shape diagnostics in the manifest:
+
+| Series | bars | filters let through | `signal` state flips | trades executed |
+| --- | ---: | ---: | ---: | ---: |
+| SOLUSDT/240 | 2400 | 17.0% | 70 | 299 |
+| ETHUSDT/240 | 2400 | 15.4% | 76 | 302 |
+| BTCUSDT/240 | 2400 | 16.4% | 58 | 288 |
+| XRPUSDT/240 | 2400 | 16.8% | 62 | 313 |
+| DOGEUSDT/240 | 2400 | 16.6% | 64 | 270 |
+| SOLUSDT/60 | 9600 | 17.6% | 290 | 316 |
+| BTCUSDT/60 | 9600 | 17.3% | 279 | 476 |
+
+At 4h the classifier changes its mind 58-76 times over Train 1, but the engine executes 270-313
+trades — **4 to 5 trades per directional call**. The engine treats a catalog entry as a
+persistent state and re-enters as soon as the state is non-zero and no position is open, so a
+3% stop plus a persistent state manufactures a long chain of re-entries into the same idea, each
+paying full round-trip cost. `LORENTZIAN_raw` makes the same point from the other side: with the
+filters and the state carry-over removed, flips rise to 264-1267 and net PnL drops to the floor
+on all 10 series (-$401.03 mean). Filtering/holding helps; churn hurts.
+
+**Tests.** `tests/test_lorentzian.py` adds 7 tests, of which the load-bearing one is the
+truncation check above. On the project's Python 3.9 `.venv_test`: **84 passed, 5 skipped**
+(baseline before this slice: 81 passed, 1 skipped — the 4 advanced-ta tests skip there because
+the package needs ≥3.10). On the Python 3.11 venv where advanced-ta is installed: **87 passed,
+2 skipped**. No existing test changed behaviour, and the 100-row cross-check against the
+stop-width results is the stronger form of the same statement.
 
 ## Decision
 
-_(filled in after the run — see below)_
+**The adapter stays; the Lorentzian hypothesis does not get a parameter-tuning slice next.**
+
+What was established: advanced-ta 0.1.8's Lorentzian Classification is usable in this pipeline
+as a genuinely causal signal generator (`lorentzian.py`, two additive catalog entries, engine
+untouched), and its leakage — which is real, measured, and would have silently inflated any
+backtest that used the library as documented — is removed rather than tolerated. That part of
+`spec/build.md`'s F006 priority is done and reusable.
+
+What was not established: any reason to believe tuning this generator's own parameters
+(`neighborsCount`, feature lengths, `maxBarsBack`) is the next best use of the research budget.
+At library defaults it loses to the existing 10-strategy sample on 10/10 series, bottoms out at
+the bankruptcy floor on 8/10, and its only advantage is +1.2pp of win rate — inside the sample's
+own spread. Tuning a generator that is currently the worst option on every series would be
+searching for a parameter set that rescues it, which is exactly the overfitting pattern
+`spec/vision.md` warns about, on a Train window that has now falsified three hypotheses in a row.
+
+**Next slice: entry frequency, not classifier parameters.** The measured 4-5 trades per
+directional call at 4h is the largest single lever visible in this run, it is not
+Lorentzian-specific, and it is testable on both the Lorentzian entries and the existing catalog
+in one experiment: fire an entry only on a state *flip* (the library's own one-shot
+`startLongTrade`/`startShortTrade` semantics, which this slice deliberately did not wire — see
+"Scope cut") and/or set `cooldown_candles` so re-entry cannot immediately follow a stop-out, and
+measure net PnL, trade count and drawdown on Train 1. Two prior F006 hypotheses failed on
+exit-sizing and entry-filtering; this one targets the re-entry loop, which neither touched, and
+`spec/research/F005-leverage-sensitivity.md`'s cooldown sweep only varied cooldown for
+persistent-state signals rather than removing the re-entry behaviour itself. If that slice shows
+nothing either, the honest next step is a different generator family (Donchian/pullback), not
+more parameter search on any of these.
+
+If the entry-frequency slice does restore a non-degenerate result for the Lorentzian entries
+specifically, *then* the parameter-tuning slice becomes worth running, and the second concern
+`spec/build.md` separates — `useDynamicExits`, i.e. the library's kernel-based exits, which would
+require an exit hook in `backtest_engine.py` — becomes the natural follow-up after that.
