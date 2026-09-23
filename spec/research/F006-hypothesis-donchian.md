@@ -122,11 +122,16 @@ dir[i] = +1                if close[i] >  upper[i]
 
 Strict inequalities. The carry-forward is the same convention as every existing catalog trend entry
 (`sig_ema_cross` and friends hold their state until the opposite condition fires), which is what
-makes the one-shot mask meaningful: one contiguous run of `dir` = one directional call. If both
-conditions were true on the same bar (possible only for a bar that both exceeds the N-bar high and
-undercuts the N-bar low, i.e. an engulfing bar wider than the whole channel) the **short** wins, by
-evaluation order — this is an arbitrary tie-break, stated so it is not silently discovered later;
-it is vanishingly rare and is asserted as a documented behaviour in the tests, not left implicit.
+makes the one-shot mask meaningful: one contiguous run of `dir` = one directional call.
+
+> **Correction to this pre-registered paragraph, made while implementing it** (left visible rather
+> than edited away): the paragraph originally said that a bar satisfying *both* conditions resolves
+> short "by evaluation order — an arbitrary tie-break". That was wrong. `upper[i] >= lower[i]`
+> always (the max of a window's highs cannot be below the min of its lows), and the rule compares a
+> single scalar `close[i]` against both bands, so `close > upper AND close < lower` is
+> **unreachable**. There is no tie to break and the evaluation order is irrelevant. The test
+> `test_upper_is_never_below_lower_so_the_two_breakout_conditions_cannot_both_fire` asserts both
+> halves of this on the real 600-bar fixture at N=20 and N=55.
 
 ### `DONCHIAN_PULLBACK_20`, `DONCHIAN_PULLBACK_55` — pullback-after-breakout
 
