@@ -269,23 +269,160 @@ is judged against a concrete precedent rather than in isolation.
 
 ## Run_id
 
-`scripts/f006_entry_cross_symbol_experiment.py`, `git_commit_parent` = the pre-registration
-commit above, single pass, `.venv_test` (Python 3.9, pandas 2.2.3, rebuilt in this worktree from
-the cached offline wheelhouse at `/tmp/mine-strategy-wheels` plus `/tmp/pipdl`/
+`scripts/f006_entry_cross_symbol_experiment.py`, `git_commit_parent = 7ddadf2` (the
+pre-registration commit above), single pass, `.venv_test` (Python 3.9.6, pandas 2.2.3, rebuilt in
+this worktree from the cached offline wheelhouse at `/tmp/mine-strategy-wheels` plus `/tmp/pipdl`/
 `/tmp/pip-unpack-aa92hd6x`/`/tmp/pip-unpack-qe5fl2rp`, since this worktree's `.venv_test` did not
-pre-exist; no network access). This worktree's `data_cache/*.csv` (git-ignored) were also missing
-and were copied unmodified from the main checkout's `data_cache/` before the first run; the
-checksum verification against `spec/research/F005-validation-protocol.md` section 6 confirms the
-copy is byte-identical to the frozen dataset every other F006 note uses. Filled in after running.
+pre-exist; no network access), 30 series, 21.6s. This worktree's `data_cache/*.csv` (git-ignored)
+were also missing and were copied unmodified from the main checkout's `data_cache/` before the
+first run; the checksum verification against `spec/research/F005-validation-protocol.md` section 6
+(0/10 mismatches, part of the harness control below) confirms the copy is byte-identical to the
+frozen dataset every other F006 note uses. Per-series results and monthly tables:
+`output/f006_entry_cross_symbol/raw/*.json` (30 files, filtered + unfiltered monthly breakdown
+each). Summary table: `output/f006_entry_cross_symbol/summary/results.csv`. Manifest, checksums,
+harness-control, index-equality and subset-invariant records:
+`output/f006_entry_cross_symbol/summary/manifest.json`.
 
 ## Result
 
-Filled in after running.
+**Falsified. 0 of 30 series is even a degenerate pass, let alone a genuine one.**
+`promotion_pass_filtered` is `False` for all 30 series (so `promotion_pass_genuine` and
+`degenerate_pass` are both trivially `False`/empty for all 30 too) -- the same clean-falsification
+shape as `F006-hypothesis-entry-trend-confirm.md` and
+`F006-hypothesis-position-sizing-vol-inverse.md`, no literal/substantive split to navigate this
+time either.
+
+**Index-equality precondition, harness control and subset invariant all clean.** All 5 basket
+symbols shared an identical `DatetimeIndex` at both intervals, confirmed again inside the script
+itself, not just at design time (`index_equality_precondition_ok: true`). The gate-forced-all-True
+rerun (this script's own "unfiltered" arm) matches
+`output/f006_notrail_monthly/summary/results.csv`'s stored `train1_net_pnl`/`n_trades` for all 30
+series -- **0/30 mismatches**. The subset invariant (`n_trades_filtered <= n_trades_unfiltered`)
+holds for all 30 series (no violation raised).
+
+**The predicted mechanism is partially supported on the pooled, trade-weighted measure -- the
+first of the four mechanisms tried in this sub-family to move win rate in the predicted direction
+by more than a token amount -- but it does not translate into a smoother monthly PnL distribution,
+which is what the checklist actually needs.** Trade count fell 43.0% (1,695 unfiltered -> 966
+filtered), in the same range as the three prior filters' 43-52% cuts. The trade-weighted pooled
+win rate (`sum(wins)/sum(trades)` across all 30 series, the same aggregation the trend-confirm
+note used for its own headline figure, recomputed here directly from `results.csv` rather than
+read off the simple per-series mean) rose from **25.07% to 26.91%, +1.84 pp** -- the correct
+direction this time (unlike the trend-confirm gate's -3.16 pp), and larger in magnitude than the
+width-expansion gate's +0.42 pp, though still against a comparably large trade-count cut. The
+simple (non-trade-weighted) per-series mean win rate, by contrast, **fell** slightly (22.86% ->
+22.43%), because the improvement is concentrated in the highest-trade-count series (see per-name
+table below) -- both figures are reported, per this note's own pre-registered commitment not to
+report one aggregation and hide the other. The count of series with positive Train-1 net PnL rose
+from 18/30 to **20/30**, and mean net PnL per series **fell**, from $48.45 (this family's recurring unfiltered
+baseline) to **$36.54**, driven entirely by `DONCHIAN_PULLBACK_55` (see below) -- so the pooled
+trade-weighted win-rate gain and the pooled mean-PnL figure point in *different* directions,
+another instance of this family's recurring lesson that a single pooled number is not sufficient
+evidence either way.
+
+**Distinguishing genuine selection from starving the sample, per the ticket's explicit
+requirement: the win-rate gain is real but too small and too unevenly distributed across names to
+smooth the monthly distribution.** Mean negative months per series **did not improve** --
+unfiltered 6.47, filtered **6.63 (slightly worse)** -- the opposite of what a genuinely
+edge-improving filter should do, even though the trade-weighted win rate rose. The two are
+reconciled by the per-name breakdown:
+
+| Name | mean net PnL, unf. | mean net PnL, filt. | trades unf. -> filt. | wins unf. -> filt. (trade-weighted win%) | positive series (of 10) |
+| --- | ---: | ---: | ---: | --- | --- |
+| `BB_20_25_breakout` | $48.78 | **$62.51** | 869 -> 506 | 222.998 -> 139.002 (25.66% -> 27.47%) | 6 -> 8 |
+| `DONCHIAN_55` | $58.39 | $56.42 | 476 -> 268 | 130.002 -> 89.998 (27.31% -> 33.58%) | 8 -> 8 |
+| `DONCHIAN_PULLBACK_55` | $38.19 | **-$9.32** | 350 -> 192 | 71.999 -> 30.997 (20.57% -> 16.14%) | 6 -> 4 |
+
+`BB_20_25_breakout` and `DONCHIAN_55` both show the predicted signature (win rate up, PnL held or
+improved) -- `DONCHIAN_55`'s per-name trade-weighted win rate rises the most of the three (27.31%
+-> 33.58%, +6.27 pp) while keeping its mean PnL essentially intact ($58.39 -> $56.42). But
+`DONCHIAN_PULLBACK_55` shows the opposite signature -- win rate *falls* (20.57% -> 16.14%) and mean
+PnL collapses from positive to negative, flipping 2 of its 10 series from net-positive to
+net-negative. This is not the same starving-artefact the width-expansion note found (no series here
+has `n_trades_filtered == 0`; `DONCHIAN_PULLBACK_55`'s own smallest filtered count is 4 trades,
+`BTCUSDT/240`, still comfortably nonzero) -- it is a genuine, if unwelcome, selection effect: the
+cross-symbol agreement condition removes proportionally more of this name's already-thin trade
+count (350 -> 192, -45%, the steepest cut of the three names) and removes disproportionately more
+winners than losers specifically for this name, the opposite of what it does for the other two.
+Mechanistically this is consistent with `F006-hypothesis-donchian.md`'s and
+`F006-hypothesis-entry-trend-confirm.md`'s own finding that this family's edge is carried by fresh,
+large moves: `DONCHIAN_PULLBACK_55`'s entry is itself a lagged, already-confirmed re-cross of the
+breakout's midline (per `donchian.py`'s own state-machine docstring, entered only after ARM ->
+TOUCH -> TRIGGER), so by the time it fires, a genuine coordinated cross-symbol move may have
+already peaked or reversed on the other 4 symbols, making cross-symbol "current agreement" a
+worse-timed signal for this specific entry shape than for the two raw-breakout names.
+
+**No series comes close to clearing the checklist even where the mechanism worked as predicted.**
+The two series with the fewest negative months under the filter, `BTCUSDT/60/BB_20_25_breakout`
+and `BTCUSDT/240/DONCHIAN_PULLBACK_55`, both have **3** negative months out of 12 -- better than
+any series in the unfiltered baseline achieved (`F006-hypothesis-notrail-monthly.md`'s own best was
+2, though not the same series), but still three away from the zero-tolerance criterion, and no
+series anywhere in the 30 reaches fewer than 3.
 
 ## Decision
 
-Filled in after running.
+**No promotion.** H1 is falsified cleanly: no series has `promotion_pass_genuine = True`, and
+unlike the width-expansion note there is no degenerate zero-trade pass to disambiguate -- every
+series traded a comfortably nonzero number of times in both arms.
+
+**This is the first of the four mechanisms tried against this exact target (three names,
+`NO_TRAIL`, monthly criterion) whose pooled, trade-weighted win-rate effect points in the
+predicted direction by a non-trivial margin (+1.84 pp against a 43% trade cut, versus the width
+gate's +0.42 pp/-52% and the trend gate's -3.16 pp/-48%), and per-name it produced the cleanest
+single positive signature so far** -- `DONCHIAN_55`'s trade-weighted win rate rose 6.27 pp while
+its mean PnL held -- **but the aggregate monthly-smoothing effect the checklist actually requires
+did not materialize**: mean negative months per series moved the wrong way (6.47 -> 6.63), and the
+best series still needed to clear 3 more losing months. The reason is now visible directly rather
+than inferred: the mechanism helps two of the three names and actively hurts the third
+(`DONCHIAN_PULLBACK_55`, whose entries are the most lagged/confirmed of the three and therefore the
+worst-timed to benefit from a same-bar cross-symbol agreement read), so the pooled effect is
+largely cancelled out. **Cross-sectional signal agreement is a mechanistically distinct, and
+partially real, selection signal -- the first of the four tried that is -- but on this exact
+sample and threshold it is not strong or uniform enough across all three target names to flip any
+series' monthly record clean.**
+
+**Scope of what this closes out.** This note tested the one well-justified threshold
+(`MIN_AGREE=2`, a simple majority of the other four) the pre-registration named as the single
+concrete hypothesis, not a sweep -- per the ticket's own instruction not to force an arbitrary
+search. A different threshold (e.g. `MIN_AGREE=1` or `3`) or restricting the gate to only the two
+names it helped (`BB_20_25_breakout`, `DONCHIAN_55`) are both plausible next steps this note does
+not itself take, consistent with "pre-register ONE concrete hypothesis" -- reported here as an
+open question for a future note, not pursued further in this slice. Of the three orthogonal levers
+`F006-hypothesis-position-sizing-vol-inverse.md`'s Decision section named (recency of the last
+loss, cross-sectional agreement, exit-side lever), this note closes out cross-sectional agreement
+at this one threshold with a **negative-but-not-uniformly-negative** result -- distinct from the
+three prior mechanisms' more uniformly negative or null findings -- and the two untried levers
+(recency of last loss, exit-side) remain open for whichever future note the coordinator scopes
+next.
+
+**What is reusable regardless of this outcome:**
+`scripts/f006_entry_cross_symbol_experiment.py`'s pattern (load all 5 basket symbols once per
+interval, build each series' "other 4" vote from already-computed persistent-state signals, score
+filtered + unfiltered arms from the same harness, and the trade-weighted-vs-simple-mean win-rate
+reporting this note's own Result section needed to reconcile two aggregations pointing opposite
+ways) is reusable by any future cross-sectional F006 slice on this sample.
+`tests/test_entry_cross_symbol.py`'s causality and threshold-boundary checks are the load-bearing
+correctness check for this slice's one piece of new logic; no engine, strategy, entry_masks, or
+Donchian module change was needed -- the gate is expressed entirely through the existing
+`entry_regime_mask` hook, exactly as the width-expansion and trend-confirm notes established.
 
 ## Tests
 
-Filled in after running.
+`tests/test_entry_cross_symbol.py` (5 new tests: causality of `cross_symbol_gate` under
+truncation, that the gate never opens when the traded symbol's own signal is flat, exact
+`>= MIN_AGREE` threshold behaviour at the boundary, that agreement counts only symbols matching
+direction -- not any nonzero value, and that a shorter-indexed "other" reindexes defensively to 0
+rather than raising) is the load-bearing check for this slice's one piece of new logic
+(`cross_symbol_gate` in the new script) -- no existing module (`backtest_engine.py`, `strategy.py`,
+`entry_masks.py`, `donchian.py`, `regularity.py`, `data_contract.py`) was changed.
+`tests/test_regularity.py`'s existing tests re-run to confirm no regression, since no new logic is
+added to `regularity.py` in this slice.
+
+Full suite, Python 3.9 `.venv_test` (no Lorentzian dependency in this sample, so
+`.venv_lorentzian` was not needed, matching every prior note in this exact sub-family):
+
+| | Before this slice | With this slice |
+| --- | --- | --- |
+| `pytest tests/` | 157 passed, 9 skipped | **162 passed, 9 skipped** |
+
+Exactly the 5 new tests, no behaviour change in any existing test.
