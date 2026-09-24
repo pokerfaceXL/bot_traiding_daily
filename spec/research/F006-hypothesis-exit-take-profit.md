@@ -268,17 +268,189 @@ lever on this exact axis.
 
 ## Run_id
 
-`scripts/f006_exit_take_profit_experiment.py`, single pass, `.venv_test`. To be filled in after
-running.
+`scripts/f006_exit_take_profit_experiment.py`, `git_commit_parent = 617430b` (the
+pre-registration commit above), single pass, `.venv_test` (Python 3.9.25, pandas 2.2.3), 30
+series x 2 arms = 60 runs, 15.2s. Per-series-per-arm results and monthly tables:
+`output/f006_exit_take_profit/raw/*.json` (60 files). Summary table: `output/
+f006_exit_take_profit/summary/results.csv`. Manifest, checksums and the harness-control record:
+`output/f006_exit_take_profit/summary/manifest.json`.
 
 ## Result
 
-To be filled in after running.
+**H1 is falsified. 0 of 30 series has `promotion_pass_genuine = True` under
+`take_profit_multiple=2.0` — and, distinct from every prior lever tried against this target, the
+reason is that the "hurt" branch of the pre-registered two-sided mechanism dominates the "help"
+branch, not that the lever was simply inert.**
+
+**Harness control: 0/30 mismatches.** The baseline arm (`take_profit_multiple=None`) reproduces
+`output/f006_notrail_monthly/summary/results.csv`'s stored `train1_net_pnl`/`n_trades` for all
+30 series exactly, confirming this script's engine-call plumbing and the new parameter's
+default-inert behaviour before trusting the gated arm's numbers.
+
+**Both predicted directions actually occurred, simultaneously, on different axes — exactly the
+two-sided mechanism this note's Hypothesis section committed to measuring rather than assume.**
+The "help" side: pooled (trade-weighted) win rate rose **+9.98 pp** (25.07% -> 35.05%), and the
+exit-reason mix confirms the mechanism directly, not just its symptom — pooled over all 2,060
+gated trades: 668 (32.4%) now exit via the new `take_profit` reason, `initial_sl` fell from
+1,028/1,695 (60.7%) baseline to 1,109/2,060 (53.8%) gated, and `signal_reverse` fell from 648
+(38.2%) to 280 (13.6%). Trade count also **rose** 21.5% (1,695 -> 2,060) — the take-profit exit
+frees the position for the persistent signal to re-enter sooner within the same directional
+call, exactly the non-monotone-trade-count possibility flagged in Method discriminating check 5
+(unlike every prior additive hook in this sub-family, which could only remove or hold trade
+count fixed). Pooled avg winner **collapsed** from $13.04 to $5.34 (-59.0%) — the take-profit
+cap working exactly as designed, capping the winner at 2x initial risk instead of letting it run
+— while pooled avg loser was essentially unchanged ($-2.99 -> $-3.03, +1.6%, since `initial_sl`
+exits are untouched by this lever by construction).
+
+The "hurt" side, and the one that decides the checklist: **mean Train-1 net PnL per series fell
+from +$48.45 to -$6.54 — the aggregate turned NEGATIVE, the first and only lever in this entire
+six-mechanism sub-family to flip the pooled mean's sign.** Every prior lever (width, trend,
+sizing, cross-symbol x2, loss-recency) left the aggregate mean positive even when it made the
+monthly record worse. Positive-PnL series count fell from 18/30 to 13/30. Mean negative months
+per series moved only marginally in the *helpful* direction (6.47 -> 6.37, -0.10) — a far
+smaller move than the loss-recency note's own -0.96 in the *harmful* direction, and nowhere near
+enough to matter against a criterion requiring exactly zero.
+
+| n_neg_months (out of 12) | n_series baseline | n_series gated |
+| ---: | ---: | ---: |
+| 2 | 1 | 0 |
+| 3 | 1 | 1 |
+| 4 | 2 | 1 |
+| 5 | 3 | 6 |
+| 6 | 5 | 8 |
+| 7 | 10 | 8 |
+| 8 | 6 | 4 |
+| 9 | 2 | 2 |
+
+**The minimum negative-month count anywhere in the sample got WORSE, not better: 2 (baseline) ->
+3 (gated).** This sub-family's best-ever candidate on a non-thin sample,
+`DONCHIAN_55`/DOGEUSDT/1h (`F006-hypothesis-notrail-monthly.md`'s own headline series, 2
+negative months at baseline), is the clearest single demonstration of the mechanism's harmful
+side: under the take-profit its win rate does rise (33.33% -> 40.58%, in the predicted
+direction) and trade count is unchanged (69 -> 69, since this name's calls rarely produce a
+second entry inside the one-shot mask's window), but its Train-1 net PnL falls 83.6% ($197.91 ->
+$32.44) and its negative-month count **rises from 2 to 5** — the exact series this whole
+six-mechanism search has been closest to converting into a Validation candidate gets
+substantially worse, not better, under the one lever every prior note's Decision section named
+as the last untried option.
+
+**Per-name breakdown, all three names show the same pattern — win rate up, mean PnL down, and
+mean negative months flat-to-slightly-improved but never enough to matter:**
+
+| Name | mean PnL, baseline -> gated | mean neg. months, baseline -> gated | trade-wtd win%, baseline -> gated | trades baseline -> gated |
+| --- | ---: | ---: | ---: | ---: |
+| `DONCHIAN_55` | $58.39 -> -$1.92 | 6.5 -> 6.0 | 27.31% -> 36.55% | 476 -> 476 |
+| `BB_20_25_breakout` | $48.78 -> -$16.22 | 5.8 -> 7.0 | 25.66% -> 34.18% | 869 -> 1214 |
+| `DONCHIAN_PULLBACK_55` | $38.19 -> -$1.49 | 7.1 -> 6.1 | 20.57% -> 35.95% | 350 -> 370 |
+
+All three names cross from positive to negative mean PnL. `DONCHIAN_55`'s trade count is
+literally unchanged (476 -> 476, confirmed exit-reason-mix-only effect within existing entries,
+no new re-entries for this name/config) while its mean PnL still falls 103% — the cleanest
+isolation in this table of the capping mechanism acting alone, with no trade-count confound.
+`BB_20_25_breakout`, the name whose trade count rose most (+39.7%), is also the name whose
+negative-month count rose the most (+1.2) despite the largest win-rate gain (+8.52 pp) — the
+extra trades from earlier re-entry evidently do not land disproportionately in months that were
+otherwise going to be negative.
+
+**Distinguishing genuine selection from starving the sample: not applicable in the direction
+every prior note in this sub-family checked, because this lever does not remove trades — it
+adds them (21.5% pooled increase) while simultaneously worsening the checklist's binding
+metric.** There is no ambiguity about a `degenerate_pass` (0/30, since every series traded
+comfortably, `n_trades` ranging from the low dozens to several hundred in the gated arm) or
+about thin-sample near-misses (none of the 30 series comes within reach of the checklist even on
+a thin sample, unlike the cross-symbol-refined note's 2-5-trade near-misses). This is the
+cleanest of the six mechanisms to interpret: the fat-tail winners this whole sub-family's
+Observation sections have repeatedly identified as the reason full-period PnL is positive at all
+are, on this evidence, not merely *helpful* to the aggregate — they are what keeps individual
+months, including the sub-family's own best candidate's two worst months, from going negative
+far more often than the win-rate gain from capping them can repair.
 
 ## Decision
 
-To be filled in after running.
+**No promotion. Falsified, and — like the loss-recency note before it — falsified in the
+direction that actively worsens the aggregate, not merely fails to improve it. Unlike every
+prior lever, this one also flips the pooled mean Train-1 PnL itself negative.** H1 is falsified:
+0 of 30 series has `promotion_pass_genuine = True`, there is no `degenerate_pass` ambiguity to
+resolve, and the mechanism's own two predicted directions both occurred exactly as stated —
+win rate rose (the "help" branch), but the fat-tail winners that were carrying both the
+aggregate PnL and this sub-family's closest-approach candidate were cut enough that the "hurt"
+branch dominates on every measure the checklist actually cares about.
+
+**This closes out the exit-side lever for this exact target (three names, `NO_TRAIL`, monthly
+criterion) at the one well-justified value tested (`TP_MULTIPLE=2.0`), per the ticket's own
+instruction to pre-register ONE concrete hypothesis rather than force a sweep.** A
+`TP_MULTIPLE` sweep toward larger values (3.0, 4.0, ...) is a plausible next step this note does
+not itself take: since `TP_MULTIPLE=2.0` was chosen close to this target's own already-measured
+pooled reward/risk ratio (2.318), a wider multiple would bind less often and asymptotically
+approach the `take_profit_multiple=None` baseline — this note's own data already shows the
+direction that asymptote points (baseline's own mean PnL and negative-month profile), so a sweep
+would very likely trace a monotone path from this note's gated numbers back toward the already-
+measured baseline without crossing into new territory, not toward some interior optimum. Reported
+as an open, low-priority question rather than a recommended follow-up, for the same reason the
+loss-recency note gave for not sweeping its own single value: nothing in this note's data
+suggests a materially different multiple would flip the sign of the effect.
+
+**Stated plainly, per the ticket's explicit instruction: the whole simple entry/exit/sizing axis
+is now exhausted for these three names at `NO_TRAIL`.** Six independent mechanisms — two entry
+filters (width, trend), one position-sizing scheme, cross-symbol agreement at two name-subsets,
+a loss-recency re-entry cooldown, and now a take-profit — have all been tried against the same
+target (`DONCHIAN_55`, `BB_20_25_breakout`, `DONCHIAN_PULLBACK_55` at `NO_TRAIL`) and the same
+criterion (`spec/research/F005-validation-protocol.md` section 7's monthly checklist), and every
+one is falsified, 0/30 (or 0/80 on the narrower cross-symbol refinement) in every case. The
+exit-side lever this note tried was the last one every prior note's Decision section named as
+untried, and it did not merely fail to help — like the loss-recency lever before it, it made the
+situation measurably worse on the checklist's own binding metric, and uniquely among all six it
+also flipped the pooled aggregate mean negative. **The next step is not a further lever on this
+axis: it is either a materially different signal source, or accepting this limit and returning to
+a broader basket/catalog search**, exactly as the ticket instructs this note to state if this
+lever also fails.
+
+**No series in this note's 30-series sample is a Validation candidate, genuine or otherwise, and
+none comes close — flagged prominently and explicitly per the ticket's instruction, as the
+absence of any qualifying result: the best negative-month count anywhere in the gated arm (3) is
+strictly worse than the sub-family's already-established best on a non-thin sample (2,
+`F006-hypothesis-notrail-monthly.md`'s own `DOGEUSDT/60/DONCHIAN_55`, which this note's own gated
+arm converts to 5 negative months) and worse than the thin-sample near-misses `F006-hypothesis-
+entry-cross-symbol-refined.md` explicitly flagged as not substantive (also 2). No series in this
+note's data comes anywhere near clearing the checklist, genuinely or on a thin sample.**
+
+**What is reusable regardless of this outcome:** `backtest_engine.run_backtest`'s new
+`take_profit_multiple` hook (additive, `None` default provably unchanged per the regression test
+below, reuses `execution.py`'s existing, unmodified `take_profit` parameter and its documented
+SL-wins-on-ambiguity rule) is reusable by any future exit-geometry hypothesis, including one that
+combines it with `loss_cooldown_candles`, `entry_regime_mask` or `stake_series` in the same run.
+`scripts/f006_exit_take_profit_experiment.py`'s two-arms-per-series pattern (baseline and gated
+from the same harness, harness control against the stored `NO_TRAIL` baseline, exit-reason-mix
+and avg-winner/avg-loser reporting) is reusable by any future engine-level F006 slice on this
+sample.
 
 ## Tests
 
-To be filled in after running.
+`tests/test_backtest_engine.py` gains 3 new tests for the engine's one change: (1) a
+`take_profit_multiple=None` regression test, mirroring the `stake_series=None` and
+`loss_cooldown_candles=0` regression tests the two prior additive-hook notes required, asserting
+byte-identical `trades`/`equity_curve`/`metrics` with and without the parameter passed
+explicitly; (2) a hand-designed 7-bar synthetic fixture (a monkeypatched
+`strategy.STRATEGY_CATALOG` entry with a fixed signal series, not the real `ohlcv_sample.csv`
+fixture, since this scenario needs bar-by-bar control no real data offers) asserting the
+take-profit fires at exactly the predicted price (`exit_reason == "take_profit"`, `exit_price ==
+take_profit_price`) and bar, and that the gated run's `net_pnl` is strictly smaller than an
+otherwise-identical ungated run where the position instead runs further before a later
+`signal_reverse` close — the direct proof that the lever caps a winner rather than merely
+changing which bar it exits on (Method discriminating check 2); (3) the ticket's own required
+ambiguity-deferral check, on a fixture where both `initial_sl` and `take_profit` fall inside the
+same bar's `[low, high]`, asserting `exit_reason == "initial_sl"` — confirming
+`backtest_engine.py`'s new `elif TAKE_PROFIT` branch correctly defers to `execution.py`'s
+already-existing, unmodified SL-wins-on-ambiguity rule rather than short-circuiting it (Method
+discriminating check 3). All 3 new tests are the load-bearing check for this slice's one piece of
+new engine logic; no other module (`execution.py`, `strategy.py`, `entry_masks.py`,
+`donchian.py`, `regularity.py`, `data_contract.py`) was changed.
+
+Full suite, Python 3.9 `.venv_test` (no Lorentzian dependency in this sample, so
+`.venv_lorentzian` was not needed, matching every prior note in this exact sub-family):
+
+| | Before this slice | With this slice |
+| --- | --- | --- |
+| `pytest tests/` | 165 passed, 9 skipped | **168 passed, 9 skipped** |
+
+Exactly the 3 new tests, no behaviour change in any existing test.

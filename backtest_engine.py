@@ -76,6 +76,22 @@ variable (`loss_cooldown_until`), independent of `cooldown_candles`'s own
 `cooldown_until`, so the two gates can be used together or separately.
 Default 0 preserves prior behaviour exactly.
 
+Optional `take_profit_multiple` (F006 exit-side research hook,
+spec/research/F006-hypothesis-exit-take-profit.md): a float, or None (the
+default). When set, at every entry fill (step 1 below) a take-profit level
+is computed at `take_profit_multiple` times the SAME trade's own initial
+stop distance (`abs(entry_price - initial_sl)`), in the trade's favourable
+direction, and passed into `execution.resolve_stop_take_within_bar`'s
+existing `take_profit` parameter (previously always called with
+`take_profit=None` -- this hook is the only change needed, since
+execution.py already implements the level's resolution, gap handling and
+its conservative SL-wins-on-ambiguity rule). A touch closes the position
+with `exit_reason="take_profit"` exactly like the existing `initial_sl`/
+`trailing_sl` branch closes on a stop touch. Default None means no
+take-profit level is ever computed and `take_profit=None` is passed to
+`execution.resolve_stop_take_within_bar` exactly as before -- preserves
+prior behaviour exactly.
+
 Zero network connections.
 """
 
@@ -149,6 +165,7 @@ def run_backtest(
     trail_pct: float = 0.02,
     cooldown_candles: int = 0,
     loss_cooldown_candles: int = 0,
+    take_profit_multiple: Optional[float] = None,
     commission_rate_bps: float = 10.0,
     half_spread_bps: float = 5.0,
     slippage_bps: float = 2.0,
@@ -269,6 +286,11 @@ def run_backtest(
                 entry_price = fill.fill_price
                 entry_time = idx
                 initial_sl = _calc_initial_sl(pos, entry_price, max_sl_pct)
+                if take_profit_multiple is not None:
+                    sl_distance = abs(entry_price - initial_sl)
+                    take_profit_price = entry_price + pos * take_profit_multiple * sl_distance
+                else:
+                    take_profit_price = None
                 trailing_sl = 0.0
                 best_price = entry_price
                 trail_active = False
@@ -287,9 +309,12 @@ def run_backtest(
                 pos, best_price, trailing_sl, trail_active, entry_price, bar.high, bar.low, activate_pct, trail_pct
             )
             active_sl = _active_sl(pos, initial_sl, trailing_sl, trail_active)
-            trigger = execution.resolve_stop_take_within_bar(pos, bar, stop_loss=active_sl, take_profit=None)
-            if trigger.kind == TriggerKind.STOP_LOSS:
-                exit_reason = "trailing_sl" if (trail_active and active_sl == trailing_sl and trailing_sl != initial_sl) else "initial_sl"
+            trigger = execution.resolve_stop_take_within_bar(pos, bar, stop_loss=active_sl, take_profit=take_profit_price)
+            if trigger.kind in (TriggerKind.STOP_LOSS, TriggerKind.TAKE_PROFIT):
+                if trigger.kind == TriggerKind.TAKE_PROFIT:
+                    exit_reason = "take_profit"
+                else:
+                    exit_reason = "trailing_sl" if (trail_active and active_sl == trailing_sl and trailing_sl != initial_sl) else "initial_sl"
                 closed_trade = portfolio.close_position(
                     active_position_id, trigger.fill_price, idx,
                     commission_rate_bps=commission_rate_bps,
