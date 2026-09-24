@@ -404,3 +404,106 @@ def test_loss_cooldown_also_gates_a_signal_reverse_loss_not_only_initial_sl(monk
     gated = _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles=3)
     assert len(gated.trades) == 2
     assert gated.trades["net_pnl"].iloc[1] < 0
+
+
+# --- spec/research/F006-hypothesis-exit-take-profit.md: take_profit_multiple ---
+
+TAKE_PROFIT_STRATEGY = "_TEST_TAKE_PROFIT"
+
+
+def test_take_profit_multiple_none_matches_call_without_the_parameter():
+    # spec/research/F006-hypothesis-exit-take-profit.md discriminating check 1: the new
+    # take_profit_multiple hook's default must be provably additive, not just by inspection.
+    res_default = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240")
+    res_explicit_none = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240", take_profit_multiple=None)
+
+    pd.testing.assert_frame_equal(res_default.trades, res_explicit_none.trades)
+    pd.testing.assert_frame_equal(res_default.equity_curve, res_explicit_none.equity_curve)
+    assert res_default.metrics == res_explicit_none.metrics
+
+
+def _build_take_profit_frame():
+    """7 synthetic bars. Persistent long signal (bars 0-4), then reversal (bar 5). Entry fills
+    at bar 1's open=100.0, max_sl_pct=0.03 -> initial_sl=97.0, take_profit_multiple=2.0 ->
+    take_profit=106.0. Bar 2's high (106.5) touches take_profit while low (99.5) stays clear of
+    initial_sl; a take_profit_multiple=None run on the identical frame ignores that touch and
+    the position instead runs until the signal_reverse close on bar 5 at close=115.0 -- a
+    strictly higher exit price, proving the gate actually caps the winner rather than merely
+    changing which bar it exits on."""
+    idx = pd.date_range("2024-01-01", periods=7, freq="4h", tz="UTC")
+    rows = [
+        (100.0, 100.5, 99.5, 100.0),   # 0: signal=1, arms entry
+        (100.0, 100.5, 99.5, 100.0),   # 1: entry fill @100.0, sl=97.0/tp=106.0 not yet touched
+        (100.0, 106.5, 99.5, 105.0),   # 2: high touches tp=106.0 (gated run exits here)
+        (105.0, 107.0, 104.0, 106.0),  # 3: (ungated only) still open
+        (106.0, 110.0, 105.0, 109.0),  # 4: (ungated only) still open
+        (109.0, 116.0, 108.0, 115.0),  # 5: signal flips to -1 -> signal_reverse close @115.0
+        (115.0, 115.5, 114.5, 115.0),  # 6: padding bar
+    ]
+    df = pd.DataFrame(rows, columns=["open", "high", "low", "close"], index=idx)
+    df["volume"] = 1000.0
+    signal = pd.Series([1.0] * 5 + [-1.0] * 2, index=idx)
+
+    def _fixed_signal(work: pd.DataFrame) -> pd.Series:
+        return signal.reindex(work.index).fillna(0.0)
+
+    return df, _fixed_signal
+
+
+def test_take_profit_caps_a_winner_that_would_otherwise_run_further(monkeypatch):
+    import strategy
+    df, signal_fn = _build_take_profit_frame()
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, TAKE_PROFIT_STRATEGY, signal_fn)
+    now = df.index[-1] + pd.Timedelta(hours=4)
+
+    ungated = be.run_backtest(
+        df, TAKE_PROFIT_STRATEGY, interval="240", now=now,
+        max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5,
+    )
+    assert ungated.trades["exit_reason"].iloc[0] == "signal_reverse"
+    assert ungated.trades["exit_price"].iloc[0] == pytest.approx(115.0)
+
+    gated = be.run_backtest(
+        df, TAKE_PROFIT_STRATEGY, interval="240", now=now,
+        max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5,
+        take_profit_multiple=2.0,
+    )
+    assert gated.trades["exit_reason"].iloc[0] == "take_profit"
+    assert gated.trades["exit_time"].iloc[0] == df.index[2]
+    assert gated.trades["exit_price"].iloc[0] == pytest.approx(106.0)
+
+    # the gate actually caps the winner: strictly smaller net_pnl than letting it run.
+    assert gated.trades["net_pnl"].iloc[0] < ungated.trades["net_pnl"].iloc[0]
+    assert gated.trades["net_pnl"].iloc[0] > 0  # still a winner, just a smaller one
+
+
+def test_take_profit_defers_to_execution_pys_stop_loss_wins_on_ambiguity_rule(monkeypatch):
+    # A bar where BOTH the initial_sl (97.0) and the take_profit (106.0) fall inside
+    # [low, high]: execution.resolve_stop_take_within_bar's own documented, conservative rule
+    # is that stop_loss always wins when both are ambiguous within one bar -- this asserts
+    # backtest_engine.py's new take_profit branch does not short-circuit that rule.
+    import strategy
+    idx = pd.date_range("2024-01-01", periods=3, freq="4h", tz="UTC")
+    rows = [
+        (100.0, 100.5, 99.5, 100.0),  # 0: signal=1, arms entry
+        (100.0, 100.5, 99.5, 100.0),  # 1: entry fill @100.0, sl=97.0/tp=106.0
+        (100.0, 107.0, 96.0, 100.0),  # 2: BOTH sl (low=96<97) and tp (high=107>106) touched
+    ]
+    df = pd.DataFrame(rows, columns=["open", "high", "low", "close"], index=idx)
+    df["volume"] = 1000.0
+    signal = pd.Series([1.0, 1.0, 1.0], index=idx)
+
+    def _fixed_signal(work: pd.DataFrame) -> pd.Series:
+        return signal.reindex(work.index).fillna(0.0)
+
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, TAKE_PROFIT_STRATEGY, _fixed_signal)
+    now = idx[-1] + pd.Timedelta(hours=4)
+
+    res = be.run_backtest(
+        df, TAKE_PROFIT_STRATEGY, interval="240", now=now,
+        max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5,
+        take_profit_multiple=2.0,
+    )
+    assert len(res.trades) == 1
+    assert res.trades["exit_reason"].iloc[0] == "initial_sl"
+    assert res.trades["exit_price"].iloc[0] == pytest.approx(97.0)
