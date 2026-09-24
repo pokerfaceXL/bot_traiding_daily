@@ -1,0 +1,209 @@
+{
+  "symbol": "ETHUSDT",
+  "interval": "60",
+  "strategy": "DONCHIAN_PULLBACK_55",
+  "baseline": {
+    "n_trades": 64,
+    "train1_net_pnl": -75.703214,
+    "full_run_max_drawdown_pct": 18.9801,
+    "full_run_final_equity": 450.296885,
+    "n_valid_months": 12,
+    "n_negative_months": 9,
+    "all_valid_months_nonnegative": false,
+    "promotion_pass": false,
+    "promotion_pass_genuine": false,
+    "degenerate_pass": false,
+    "win_rate_pct": 18.75,
+    "n_wins": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "is_valid": true,
+        "net_pnl": 19.010217180241966
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "is_valid": true,
+        "net_pnl": -23.257732715642874
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "is_valid": true,
+        "net_pnl": 25.943580003914576
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "is_valid": true,
+        "net_pnl": -4.921345314776545
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "is_valid": true,
+        "net_pnl": 7.172827160367774
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "is_valid": true,
+        "net_pnl": -16.944854190356182
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "is_valid": true,
+        "net_pnl": -5.910808109594882
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "is_valid": true,
+        "net_pnl": -5.506519689730453
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "is_valid": true,
+        "net_pnl": -19.920000000000016
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "is_valid": true,
+        "net_pnl": -19.05133821451051
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "is_valid": true,
+        "net_pnl": -24.12216178548948
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "is_valid": true,
+        "net_pnl": -8.195078824115967
+      }
+    ],
+    "n_trades_per_month": {
+      "2024-03": 4,
+      "2024-04": 4,
+      "2024-05": 3,
+      "2024-06": 5,
+      "2024-07": 5,
+      "2024-08": 6,
+      "2024-09": 5,
+      "2024-10": 6,
+      "2024-11": 6,
+      "2024-12": 7,
+      "2025-01": 6,
+      "2025-02": 4
+    }
+  },
+  "gated": {
+    "n_trades": 50,
+    "train1_net_pnl": -73.57375,
+    "full_run_max_drawdown_pct": 17.0584,
+    "full_run_final_equity": 455.75085,
+    "n_valid_months": 12,
+    "n_negative_months": 10,
+    "all_valid_months_nonnegative": false,
+    "promotion_pass": false,
+    "promotion_pass_genuine": false,
+    "degenerate_pass": false,
+    "win_rate_pct": 18.0,
+    "n_wins": 9,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "is_valid": true,
+        "net_pnl": 19.010217180241966
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "is_valid": true,
+        "net_pnl": -23.257732715642874
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "is_valid": true,
+        "net_pnl": -1.405448034547021
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "is_valid": true,
+        "net_pnl": -3.9771549016220433
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "is_valid": true,
+        "net_pnl": 8.33258430506487
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "is_valid": true,
+        "net_pnl": -10.295854190356067
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "is_valid": true,
+        "net_pnl": -2.595308109594953
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "is_valid": true,
+        "net_pnl": -8.025474405204761
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "is_valid": true,
+        "net_pnl": -16.595500000000015
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "is_valid": true,
+        "net_pnl": -12.411338214510522
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "is_valid": true,
+        "net_pnl": -17.482161785489495
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "is_valid": true,
+        "net_pnl": -4.8705788241160235
+      }
+    ],
+    "n_trades_per_month": {
+      "2024-03": 4,
+      "2024-04": 4,
+      "2024-05": 2,
+      "2024-06": 3,
+      "2024-07": 5,
+      "2024-08": 4,
+      "2024-09": 4,
+      "2024-10": 5,
+      "2024-11": 5,
+      "2024-12": 5,
+      "2025-01": 4,
+      "2025-02": 3
+    }
+  }
+}

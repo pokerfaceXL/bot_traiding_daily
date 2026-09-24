@@ -66,6 +66,16 @@ risked on an already-accepted trade, never WHETHER one is accepted (that is
 `entry_regime_mask`'s job, unaffected by this hook). Default None preserves
 prior behaviour exactly (every trade uses the scalar `stake`).
 
+Optional `loss_cooldown_candles` (F006 loss-recency research hook,
+spec/research/F006-hypothesis-loss-recency-cooldown.md): an int, mirroring
+`cooldown_candles` but conditioned on the realized sign of the CLOSED
+trade's net_pnl rather than on exit_reason -- after any exit (initial_sl,
+trailing_sl or signal_reverse) that closes at net_pnl < 0, no new entry is
+queued for `loss_cooldown_candles` bars. Tracked in its own loop-local
+variable (`loss_cooldown_until`), independent of `cooldown_candles`'s own
+`cooldown_until`, so the two gates can be used together or separately.
+Default 0 preserves prior behaviour exactly.
+
 Zero network connections.
 """
 
@@ -138,6 +148,7 @@ def run_backtest(
     activate_pct: float = 0.03,
     trail_pct: float = 0.02,
     cooldown_candles: int = 0,
+    loss_cooldown_candles: int = 0,
     commission_rate_bps: float = 10.0,
     half_spread_bps: float = 5.0,
     slippage_bps: float = 2.0,
@@ -198,6 +209,7 @@ def run_backtest(
 
     pending_signal = 0
     cooldown_until = -1
+    loss_cooldown_until = -1
     trade_counter = 0
 
     trades: List[dict] = []
@@ -292,6 +304,8 @@ def run_backtest(
                 active_position_id = None
                 if exit_reason == "initial_sl" and cooldown_candles > 0:
                     cooldown_until = bar_count + cooldown_candles
+                if loss_cooldown_candles > 0 and closed_trade.net_pnl < 0:
+                    loss_cooldown_until = bar_count + loss_cooldown_candles
 
         # 3. Signal reversal: close the open position at this bar's close.
         if pos != 0 and signal != 0 and signal != pos:
@@ -307,10 +321,12 @@ def run_backtest(
             pos = 0
             trail_active = False
             active_position_id = None
+            if loss_cooldown_candles > 0 and closed_trade.net_pnl < 0:
+                loss_cooldown_until = bar_count + loss_cooldown_candles
 
         # 4. Queue an entry for the next bar's open.
         entry_allowed = entry_allowed_a is None or bool(entry_allowed_a[i])
-        if pos == 0 and signal != 0 and bar_count > cooldown_until and entry_allowed:
+        if pos == 0 and signal != 0 and bar_count > cooldown_until and bar_count > loss_cooldown_until and entry_allowed:
             pending_signal = signal
 
         # 5. Per-bar mark-to-market equity curve (includes the open position, if any).
