@@ -1,0 +1,110 @@
+{
+  "script": "scripts/f006_mean_reversion_notrail_experiment.py",
+  "git_commit": "812d259ba4a76101028e09028af5cde52161bb6c",
+  "run_started_utc": "2026-09-24T12:52:35.168315+00:00",
+  "python": "3.9.25 (main, Aug 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+  "pandas": "2.3.3",
+  "n_series": 60,
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0
+  },
+  "no_trail_mechanism_check": {
+    "runs": 60,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "bb_revert_mirror_check": {
+    "checked_pairs": 2,
+    "mismatches": 0
+  },
+  "h1_aggregate_table": [
+    {
+      "strategy": "BB_20_2_revert",
+      "sum_net_pnl": -908.1321,
+      "mean_net_pnl": -90.8132,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "h1_pass": false
+    },
+    {
+      "strategy": "BB_20_25_revert",
+      "sum_net_pnl": -577.6631,
+      "mean_net_pnl": -57.7663,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "h1_pass": false
+    },
+    {
+      "strategy": "RSI14_6535",
+      "sum_net_pnl": -1552.4052,
+      "mean_net_pnl": -155.2405,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "h1_pass": false
+    },
+    {
+      "strategy": "RSI21_7030",
+      "sum_net_pnl": -919.5016,
+      "mean_net_pnl": -91.9502,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "h1_pass": false
+    },
+    {
+      "strategy": "RSI7_6535",
+      "sum_net_pnl": -2167.7664,
+      "mean_net_pnl": -216.7766,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "h1_pass": false
+    }
+  ],
+  "h1_names_passing": [],
+  "h2_monthly_table": [],
+  "h2_n_promotion_pass": 0,
+  "h2_promotion_pass_series": [],
+  "n_momentum_files_loaded": 80,
+  "momentum_neg_fraction_by_month": {
+    "2024-03": 0.3375,
+    "2024-04": 0.775,
+    "2024-05": 0.7875,
+    "2024-06": 0.5,
+    "2024-07": 0.3875,
+    "2024-08": 0.6625,
+    "2024-09": 0.4375,
+    "2024-10": 0.6375,
+    "2024-11": 0.0375,
+    "2024-12": 0.6875,
+    "2025-01": 0.7,
+    "2025-02": 0.275
+  },
+  "h3_correlation_table": [],
+  "seconds": 22.54
+}

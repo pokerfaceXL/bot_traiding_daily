@@ -1,0 +1,148 @@
+{
+  "symbol": "BTCUSDT",
+  "interval": "60",
+  "strategy": "RSI7_6535",
+  "n_calls": 1501,
+  "net_pnl": -303.571022,
+  "gross_pnl": -32.155771,
+  "win_rate": 50.47,
+  "n_trades": 848,
+  "n_wins": 428,
+  "n_losses": 420,
+  "avg_winner": 0.864182,
+  "avg_loser": -1.603431,
+  "breakeven_win_rate_pct": 64.979,
+  "exit_trailing_sl": 0,
+  "max_drawdown_pct": 60.7142,
+  "final_equity": 196.428978,
+  "train1_net_pnl": -278.412923,
+  "warmup_net_pnl": -21.833599,
+  "boundary_net_pnl": 0.0,
+  "first_day_net_pnl": -3.3245,
+  "n_valid_months": 12,
+  "all_valid_months_nonnegative": false,
+  "promotion_pass": false,
+  "monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -37.75261372697457,
+      "positive_day_pct": 32.25806451612903,
+      "deviation_pct": 67.74193548387096,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -19.986369094406655,
+      "positive_day_pct": 40.0,
+      "deviation_pct": 60.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -10.826150780237754,
+      "positive_day_pct": 38.70967741935484,
+      "deviation_pct": 61.29032258064516,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -19.39747663742014,
+      "positive_day_pct": 26.666666666666668,
+      "deviation_pct": 73.33333333333333,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -50.033327322431944,
+      "positive_day_pct": 22.580645161290324,
+      "deviation_pct": 77.41935483870968,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -19.382998233919693,
+      "positive_day_pct": 45.16129032258065,
+      "deviation_pct": 54.83870967741935,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -25.89869642897179,
+      "positive_day_pct": 36.666666666666664,
+      "deviation_pct": 63.333333333333336,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -16.515409355066936,
+      "positive_day_pct": 35.483870967741936,
+      "deviation_pct": 64.51612903225806,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -22.469649581017478,
+      "positive_day_pct": 36.666666666666664,
+      "deviation_pct": 63.333333333333336,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -12.109276490672556,
+      "positive_day_pct": 32.25806451612903,
+      "deviation_pct": 67.74193548387096,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -31.11977884962201,
+      "positive_day_pct": 16.129032258064516,
+      "deviation_pct": 83.87096774193549,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -12.921176683730636,
+      "positive_day_pct": 42.857142857142854,
+      "deviation_pct": 57.142857142857146,
+      "target_met": false
+    }
+  ],
+  "seconds": 0.43
+}
