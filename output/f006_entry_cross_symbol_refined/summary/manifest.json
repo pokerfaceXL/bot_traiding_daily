@@ -1,0 +1,122 @@
+{
+  "script": "scripts/f006_entry_cross_symbol_refined_experiment.py",
+  "git_commit": "6a8127b7f54a29795f2790ee4c852a62221fc178",
+  "run_started_utc": "2026-09-24T03:01:46.429121+00:00",
+  "python": "3.9.25 (main, Aug 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+  "pandas": "2.2.3",
+  "n_series": 20,
+  "n_cells": 80,
+  "min_agree_values": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "names": [
+    "DONCHIAN_55",
+    "BB_20_25_breakout"
+  ],
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "index_equality_precondition_ok": true,
+  "harness_control_vs_prior_cross_symbol_note_at_min_agree_2": {
+    "rows_compared": 20,
+    "n_mismatches": 0,
+    "mismatches": []
+  },
+  "harness_control_vs_notrail_monthly": {
+    "rows_compared": 20,
+    "n_mismatches": 0,
+    "mismatches": []
+  },
+  "subset_and_monotonicity_invariant_violations": [],
+  "n_cells_promotion_pass_genuine": 0,
+  "n_cells_promotion_pass_any": 0,
+  "genuine_pass_cells": [],
+  "degenerate_pass_cells": [],
+  "per_min_agree_summary": {
+    "1": {
+      "pooled_trade_weighted_win_rate_pct_unfiltered": 26.2453,
+      "pooled_trade_weighted_win_rate_pct_filtered": 26.8081,
+      "simple_mean_win_rate_pct_unfiltered": 24.748,
+      "simple_mean_win_rate_pct_filtered": 24.254,
+      "mean_net_pnl_unfiltered": 53.5856,
+      "mean_net_pnl_filtered": 51.5064,
+      "mean_neg_months_unfiltered": 6.15,
+      "mean_neg_months_filtered": 6.55,
+      "total_trades_unfiltered": 1345,
+      "total_trades_filtered": 1037,
+      "trade_count_reduction_pct": 22.9,
+      "n_positive_series_unfiltered": 14,
+      "n_positive_series_filtered": 15,
+      "n_promotion_pass_genuine": 0,
+      "n_promotion_pass_any": 0,
+      "min_filtered_trades": 13
+    },
+    "2": {
+      "pooled_trade_weighted_win_rate_pct_unfiltered": 26.2453,
+      "pooled_trade_weighted_win_rate_pct_filtered": 29.061,
+      "simple_mean_win_rate_pct_unfiltered": 24.748,
+      "simple_mean_win_rate_pct_filtered": 25.84,
+      "mean_net_pnl_unfiltered": 53.5856,
+      "mean_net_pnl_filtered": 59.4622,
+      "mean_neg_months_unfiltered": 6.15,
+      "mean_neg_months_filtered": 6.5,
+      "total_trades_unfiltered": 1345,
+      "total_trades_filtered": 788,
+      "trade_count_reduction_pct": 41.41,
+      "n_positive_series_unfiltered": 14,
+      "n_positive_series_filtered": 16,
+      "n_promotion_pass_genuine": 0,
+      "n_promotion_pass_any": 0,
+      "min_filtered_trades": 11
+    },
+    "3": {
+      "pooled_trade_weighted_win_rate_pct_unfiltered": 26.2453,
+      "pooled_trade_weighted_win_rate_pct_filtered": 26.9924,
+      "simple_mean_win_rate_pct_unfiltered": 24.748,
+      "simple_mean_win_rate_pct_filtered": 24.614,
+      "mean_net_pnl_unfiltered": 53.5856,
+      "mean_net_pnl_filtered": 43.473,
+      "mean_neg_months_unfiltered": 6.15,
+      "mean_neg_months_filtered": 6.55,
+      "total_trades_unfiltered": 1345,
+      "total_trades_filtered": 552,
+      "trade_count_reduction_pct": 58.96,
+      "n_positive_series_unfiltered": 14,
+      "n_positive_series_filtered": 13,
+      "n_promotion_pass_genuine": 0,
+      "n_promotion_pass_any": 0,
+      "min_filtered_trades": 8
+    },
+    "4": {
+      "pooled_trade_weighted_win_rate_pct_unfiltered": 26.2453,
+      "pooled_trade_weighted_win_rate_pct_filtered": 27.5192,
+      "simple_mean_win_rate_pct_unfiltered": 24.748,
+      "simple_mean_win_rate_pct_filtered": 31.8965,
+      "mean_net_pnl_unfiltered": 53.5856,
+      "mean_net_pnl_filtered": 28.5858,
+      "mean_neg_months_unfiltered": 6.15,
+      "mean_neg_months_filtered": 5.2,
+      "total_trades_unfiltered": 1345,
+      "total_trades_filtered": 258,
+      "trade_count_reduction_pct": 80.82,
+      "n_positive_series_unfiltered": 14,
+      "n_positive_series_filtered": 12,
+      "n_promotion_pass_genuine": 0,
+      "n_promotion_pass_any": 0,
+      "min_filtered_trades": 2
+    }
+  },
+  "seconds": 30.19
+}

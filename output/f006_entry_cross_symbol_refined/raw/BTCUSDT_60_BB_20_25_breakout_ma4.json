@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "strategy": "BB_20_25_breakout",
+    "min_agree": 4,
+    "n_calls": 288,
+    "n_calls_gated_out": 263,
+    "n_trades_unfiltered": 134,
+    "n_trades_filtered": 22,
+    "train1_net_pnl_unfiltered": -52.420319,
+    "train1_net_pnl_filtered": -26.896949,
+    "win_rate_unfiltered": 29.85,
+    "win_rate_filtered": 27.27,
+    "n_neg_months_unfiltered": 7,
+    "n_neg_months_filtered": 9,
+    "full_run_max_drawdown_pct_filtered": 7.9973,
+    "promotion_pass_unfiltered": false,
+    "promotion_pass_filtered": false,
+    "promotion_pass_genuine_filtered": false,
+    "n_months_flipped_to_zero_trade": 1
+  },
+  "monthly_filtered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 0.0,
+      "n_trades": 0
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -3.589729595246979,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -4.222558993140467,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -2.5045725875078233,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -6.639999999999986,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": -6.639999999999986,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -3.3245000000000005,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -1.7664088574072139,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 3.7582752498378795,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -1.7143492143330263,
+      "n_trades": 4
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -3.3245000000000005,
+      "n_trades": 1
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": 3.0713954851335643,
+      "n_trades": 3
+    }
+  ],
+  "monthly_unfiltered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": -17.530812167934187,
+      "n_trades": 12
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -0.5435421398674976,
+      "n_trades": 10
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -18.207833472543484,
+      "n_trades": 15
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -13.473421360763837,
+      "n_trades": 15
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": 4.22856633994445,
+      "n_trades": 10
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": -19.462663743361645,
+      "n_trades": 11
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": 16.221128874349517,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": 6.763111463786402,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 17.363523178198704,
+      "n_trades": 8
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -17.45420910994511,
+      "n_trades": 12
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -12.366584143774048,
+      "n_trades": 11
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": 2.0424173529140717,
+      "n_trades": 8
+    }
+  ]
+}

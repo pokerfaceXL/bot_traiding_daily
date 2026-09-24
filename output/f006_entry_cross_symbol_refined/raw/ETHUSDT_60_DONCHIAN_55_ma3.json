@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "strategy": "DONCHIAN_55",
+    "min_agree": 3,
+    "n_calls": 78,
+    "n_calls_gated_out": 36,
+    "n_trades_unfiltered": 78,
+    "n_trades_filtered": 42,
+    "train1_net_pnl_unfiltered": -14.108667,
+    "train1_net_pnl_filtered": 22.351969,
+    "win_rate_unfiltered": 29.49,
+    "win_rate_filtered": 35.71,
+    "n_neg_months_unfiltered": 7,
+    "n_neg_months_filtered": 8,
+    "full_run_max_drawdown_pct_filtered": 5.6716,
+    "promotion_pass_unfiltered": false,
+    "promotion_pass_filtered": false,
+    "promotion_pass_genuine_filtered": false,
+    "n_months_flipped_to_zero_trade": 0
+  },
+  "monthly_filtered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": -3.3245000000000005,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": 3.589808485371293,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -7.35981916734238,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -2.3824649843219845,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -5.799069212815709,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 11.539031573677846,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -0.5062882103708262,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -0.8618624628741145,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 28.14574909859988,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -7.631158041722017,
+      "n_trades": 1
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -4.786991007931306,
+      "n_trades": 4
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": 11.72953273762954,
+      "n_trades": 2
+    }
+  ],
+  "monthly_unfiltered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": -11.551385664782629,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -3.0411915146287356,
+      "n_trades": 7
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -10.675319167342366,
+      "n_trades": 4
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -13.017838252264937,
+      "n_trades": 9
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": 12.314446415223472,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 14.795879747757454,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -11.943317761559115,
+      "n_trades": 8
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": 4.824934476389444,
+      "n_trades": 6
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 21.49674909859982,
+      "n_trades": 5
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -15.792904404239607,
+      "n_trades": 9
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": 0.0826948300531285,
+      "n_trades": 7
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": -1.6014144838859465,
+      "n_trades": 5
+    }
+  ]
+}
