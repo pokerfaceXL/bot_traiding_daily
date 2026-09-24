@@ -1,0 +1,83 @@
+{
+  "script": "scripts/f006_entry_cross_symbol_experiment.py",
+  "git_commit": "7ddadf2ab254977d682454157765ed249c974be5",
+  "run_started_utc": "2026-09-24T02:51:25.283771+00:00",
+  "python": "3.9.25 (main, Aug 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+  "pandas": "2.2.3",
+  "n_series": 30,
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot + cross_symbol_agreement_gate",
+    "min_agree": 2,
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "index_equality_precondition_ok": true,
+  "harness_control": {
+    "rows_compared": 30,
+    "n_mismatches": 0,
+    "mismatches": []
+  },
+  "subset_invariant_violations": [],
+  "n_series_promotion_pass_filtered_any": 0,
+  "n_series_promotion_pass_unfiltered": 0,
+  "n_series_promotion_pass_genuine": 0,
+  "degenerate_pass_series": [],
+  "genuine_pass_series": [],
+  "pooled_mean_win_rate_pct_filtered": 22.43,
+  "pooled_mean_win_rate_pct_unfiltered": 22.860666666666667,
+  "mean_neg_months_filtered": 6.633333333333334,
+  "mean_neg_months_unfiltered": 6.466666666666667,
+  "total_trades_unfiltered": 1695,
+  "total_trades_filtered": 966,
+  "trade_count_reduction_pct": 43.01,
+  "per_name_win_rate": {
+    "BB_20_25_breakout": {
+      "win_rate_unfiltered": 25.8,
+      "win_rate_filtered": 28.264
+    },
+    "DONCHIAN_55": {
+      "win_rate_unfiltered": 23.696,
+      "win_rate_filtered": 23.416
+    },
+    "DONCHIAN_PULLBACK_55": {
+      "win_rate_unfiltered": 19.086,
+      "win_rate_filtered": 15.61
+    }
+  },
+  "per_name_mean_net_pnl": {
+    "BB_20_25_breakout": {
+      "train1_net_pnl_unfiltered": 48.7841248,
+      "train1_net_pnl_filtered": 62.5088475
+    },
+    "DONCHIAN_55": {
+      "train1_net_pnl_unfiltered": 58.38705259999999,
+      "train1_net_pnl_filtered": 56.415540299999996
+    },
+    "DONCHIAN_PULLBACK_55": {
+      "train1_net_pnl_unfiltered": 38.1923474,
+      "train1_net_pnl_filtered": -9.3176636
+    }
+  },
+  "seconds": 21.58
+}
