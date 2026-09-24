@@ -302,3 +302,105 @@ def test_stake_series_scales_the_stake_used_at_each_entry():
     # (linear-in-stake cost structure, see the hypothesis note's Observation section).
     assert sized.trades["net_pnl"].iloc[0] == pytest.approx(2 * baseline.trades["net_pnl"].iloc[0])
     assert sized.trades["net_pnl"].iloc[1:].tolist() == pytest.approx(baseline.trades["net_pnl"].iloc[1:].tolist())
+
+
+# --- spec/research/F006-hypothesis-loss-recency-cooldown.md: loss_cooldown_candles ---
+
+LOSS_COOLDOWN_STRATEGY = "_TEST_LOSS_COOLDOWN"
+
+
+def _build_loss_cooldown_frame(ninth_bar_close: float):
+    """11 synthetic bars, hand-designed so the first long trade (entered bar 1,
+    filled at open=100.0) hits its initial_sl (sl=97.0) on bar 2 -- a loss -- and
+    the persistent long signal would otherwise re-arm on the very next bar. Bar 9
+    flips the signal to short, closing the second long trade via signal_reverse at
+    `ninth_bar_close` (110.0 = win, 90.0 = loss depending on caller) and queuing a
+    new short entry for bar 10. Every bar's low/high stays clear of any stop level
+    except where a touch is explicitly intended, so every trade boundary is exactly
+    where this docstring says it is, not an accidental touch elsewhere."""
+    idx = pd.date_range("2024-01-01", periods=11, freq="4h", tz="UTC")
+    rows = [
+        (100.0, 100.5, 99.5, 100.0),   # 0: signal=1, arms entry
+        (100.0, 100.6, 98.5, 100.0),   # 1: entry fill @100.0, sl=97.0 not touched
+        (100.0, 100.2, 96.5, 96.6),    # 2: low touches sl=97.0 -> initial_sl loss
+        (96.6, 96.7, 96.5, 96.6),      # 3: gated (or, at loss_cooldown=0, re-entry)
+        (96.6, 96.7, 96.5, 96.6),      # 4: gated
+        (96.6, 96.7, 96.5, 96.6),      # 5: gated
+        (96.6, 96.7, 96.5, 96.6),      # 6: gate expires here, entry arms
+        (96.6, 96.7, 96.5, 96.6),      # 7: 2nd trade entry fill @96.6, sl=93.702
+        (96.6, 96.7, 96.5, 96.6),      # 8: sl not touched
+        (96.6, max(110.2, ninth_bar_close + 0.2), 96.5, ninth_bar_close),  # 9: signal_reverse close
+        (ninth_bar_close, ninth_bar_close + 0.5, ninth_bar_close - 0.5, ninth_bar_close),  # 10: 3rd (short) entry fill, if not gated
+    ]
+    df = pd.DataFrame(rows, columns=["open", "high", "low", "close"], index=idx)
+    df["volume"] = 1000.0
+    signal = pd.Series([1] * 9 + [-1] * 2, index=idx, dtype=float)
+
+    def _fixed_signal(work: pd.DataFrame) -> pd.Series:
+        return signal.reindex(work.index).fillna(0.0)
+
+    return df, _fixed_signal
+
+
+def _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles: int):
+    import strategy
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, LOSS_COOLDOWN_STRATEGY, signal_fn)
+    now = df.index[-1] + pd.Timedelta(hours=4)
+    return be.run_backtest(
+        df, LOSS_COOLDOWN_STRATEGY, interval="240", now=now,
+        max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5,
+        loss_cooldown_candles=loss_cooldown_candles,
+    )
+
+
+def test_loss_cooldown_candles_zero_matches_call_without_the_parameter(monkeypatch):
+    import strategy
+    df, signal_fn = _build_loss_cooldown_frame(ninth_bar_close=110.0)
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, LOSS_COOLDOWN_STRATEGY, signal_fn)
+    now = df.index[-1] + pd.Timedelta(hours=4)
+
+    res_default = be.run_backtest(df, LOSS_COOLDOWN_STRATEGY, interval="240", now=now, max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5)
+    res_explicit_zero = be.run_backtest(df, LOSS_COOLDOWN_STRATEGY, interval="240", now=now, max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5, loss_cooldown_candles=0)
+
+    pd.testing.assert_frame_equal(res_default.trades, res_explicit_zero.trades)
+    pd.testing.assert_frame_equal(res_default.equity_curve, res_explicit_zero.equity_curve)
+    assert res_default.metrics == res_explicit_zero.metrics
+
+
+def test_loss_cooldown_delays_reentry_after_an_initial_sl_loss_without_dropping_the_trade(monkeypatch):
+    # Win variant (bar 9 closes the 2nd long trade at a profit via signal_reverse):
+    # gating the loss on bar 2 should delay the 2nd trade's entry from bar 3
+    # (baseline, loss_cooldown_candles=0) to bar 7 (gated, loss_cooldown_candles=3),
+    # but neither run drops a trade -- both end with exactly 3 trades, since the
+    # persistent signal re-arms once the gate expires.
+    df, signal_fn = _build_loss_cooldown_frame(ninth_bar_close=110.0)
+
+    baseline = _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles=0)
+    assert len(baseline.trades) == 3
+    assert baseline.trades["entry_time"].tolist() == [df.index[1], df.index[3], df.index[10]]
+    assert baseline.trades["net_pnl"].iloc[0] < 0
+
+    gated = _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles=3)
+    assert len(gated.trades) == 3
+    assert gated.trades["entry_time"].tolist() == [df.index[1], df.index[7], df.index[10]]
+    assert gated.trades["net_pnl"].iloc[0] < 0
+    # the win at trade 2 must NOT itself start a new loss-cooldown window: the
+    # short entry queued right after it still fires at the very next bar (10).
+    assert gated.trades["net_pnl"].iloc[1] > 0
+
+
+def test_loss_cooldown_also_gates_a_signal_reverse_loss_not_only_initial_sl(monkeypatch):
+    # Loss variant (bar 9 closes the 2nd long trade at a LOSS via signal_reverse,
+    # an exit_reason cooldown_candles never gates at all): the 3rd (short) entry
+    # that would otherwise fire immediately at bar 10 must be suppressed, proving
+    # the gate is conditioned on realized net_pnl sign, not on exit_reason label.
+    df, signal_fn = _build_loss_cooldown_frame(ninth_bar_close=90.0)
+
+    baseline = _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles=0)
+    assert len(baseline.trades) == 3
+    assert baseline.trades["net_pnl"].iloc[1] < 0
+    assert baseline.trades["entry_time"].iloc[2] == df.index[10]
+
+    gated = _run_loss_cooldown(monkeypatch, df, signal_fn, loss_cooldown_candles=3)
+    assert len(gated.trades) == 2
+    assert gated.trades["net_pnl"].iloc[1] < 0

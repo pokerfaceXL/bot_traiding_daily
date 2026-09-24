@@ -1,0 +1,17 @@
+{
+  "script": "scripts/f006_loss_recency_cooldown_experiment.py",
+  "run_timestamp_utc": "2026-09-24T03:17:50.909288+00:00",
+  "n_series": 30,
+  "loss_cooldown_candles": 50,
+  "elapsed_seconds": 18.1,
+  "harness_control_mismatches": 0,
+  "n_promotion_pass_genuine": 0,
+  "n_degenerate_pass": 0,
+  "pooled_trade_weighted_win_pct_baseline": 25.073746312684364,
+  "pooled_trade_weighted_win_pct_gated": 24.761904761904763,
+  "mean_negative_months_baseline": 6.466666666666667,
+  "mean_negative_months_gated": 7.433333333333334,
+  "mean_train1_net_pnl_baseline": 48.45450826666666,
+  "mean_train1_net_pnl_gated": 28.147460966666664,
+  "trade_cut_pct": 31.85840707964602
+}
