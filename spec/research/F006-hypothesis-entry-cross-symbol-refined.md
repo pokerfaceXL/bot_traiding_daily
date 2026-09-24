@@ -414,7 +414,12 @@ Full suite, Python 3.9 `.venv_test` (no Lorentzian dependency in this sample):
 
 | | Before this slice | With this slice |
 | --- | --- | --- |
-| `pytest tests/` | 161 passed, 10 skipped | **161 passed, 10 skipped** |
+| `pytest tests/` | 162 passed, 9 skipped | **162 passed, 9 skipped** |
+
+(An initial run before `output/f005_baseline` raw artifacts existed on local disk in this
+worktree showed 161 passed/10 skipped -- `tests/test_f005_baseline_output.py`'s skip is
+disk-state-dependent, not a regression; the table above reports the stable count matching
+`F006-hypothesis-entry-cross-symbol-agreement.md`'s own baseline.)
 
 No test file changed or added in this slice -- all discriminating checks for this slice's own new
 logic (the sweep loop, harness controls, monotonicity check) are enforced in-script as hard stops
