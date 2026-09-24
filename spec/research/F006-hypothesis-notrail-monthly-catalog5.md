@@ -147,3 +147,148 @@ days at a time. No new aggregation logic is written; no change to `regularity.py
 3. **`n_trades > 0` guard is exercised, not vacuous**: the manifest records how many of the 50
    series (if any) have `n_trades == 0`, so the guard's effect (if any) is visible rather than
    assumed absent by construction.
+
+## Run_id
+
+`scripts/f006_notrail_monthly_catalog5_experiment.py`, `git_commit_parent = 1e4bd04` (the
+pre-registration commit above), single pass, `.venv_test` (Python 3.9.25, pandas 2.3.3),
+50 series, 16.3s. Per-series results and monthly tables:
+`output/f006_notrail_monthly_catalog5/raw/*.json` (50 files). Summary table:
+`output/f006_notrail_monthly_catalog5/summary/results.csv`. Manifest, checksums,
+harness-control record: `output/f006_notrail_monthly_catalog5/summary/manifest.json`.
+
+The harness-control invariant needed a correction discovered while running it (not a change to
+the pre-registered evaluation methodology, and distinct from the Warsaw-boundary correction
+inherited from `spec/research/F006-hypothesis-notrail-monthly.md`, which this note's script
+applied from the start and which required no further fix here). `regularity.classify_days`
+unconditionally flags the very first calendar day of any equity curve as `"missing"` — there is
+no prior day to diff its equity against, so `pnl=None` for that day — and this day's real
+equity delta is silently dropped from every `_net_pnl_for_*` sum unless separately captured.
+This was invisible for `spec/research/F006-hypothesis-notrail-monthly.md`'s three names because
+`DONCHIAN_55`/`DONCHIAN_PULLBACK_55`/`BB_20_25_breakout` all use `pandas.Series.rolling`
+(default `min_periods=window`), which cannot produce a valid signal until its full lookback
+window is available and therefore never trades on the very first loaded day. The five names in
+this sample are EMA-crossover/EMA-filter strategies built on `pandas.Series.ewm` (default
+`min_periods=0`), which produces a value from the first bar onward — `EMA3_21_50_200` on
+`SOLUSDT/240` does trade on the first loaded day (2024-01-26), moving equity from `500.0` to
+`497.049` (a `-$2.951` first-day loss) that the original reconciliation formula silently
+dropped, producing exactly `31/50` spurious mismatches of `$2.95`-scale magnitude in the first
+run. Verified by hand on that cell: `equity_curve` shows a real trade opening and losing money
+within the first loaded day, `regularity.classify_days`'s first `DayResult` has `status="missing"`,
+`pnl=None`, and `equity=497.049` — the delta from `initial_equity=500.0` is real money that
+belongs in the reconciliation. `scripts/f006_notrail_monthly_catalog5_experiment.py` was
+extended with a `first_day_net_pnl` term (`days[0].equity - INITIAL_EQUITY` when `days[0]` is
+the unconditional first-day `"missing"` case) added to the reconciliation total; this day falls
+inside the warm-up months (2024-01/02) in every case observed, so it is correctly never counted
+in either the Train-1 evaluation or the promotion checklist — the fix only affects the harness
+reconciliation, not any evaluated quantity. After adding this term, harness control is
+**0/50 mismatches** (both `n_trades` and reconstructed net PnL, tolerance $0.001 for CSV
+round-trip rounding), diffed against `output/f006_catalog_notrail_sweep/summary/results.csv`'s
+stored `no_trail=True`, `mask_mode="one_shot"` rows for these 5 names.
+
+This first-day artifact is a pre-existing property of `regularity.classify_days` (unchanged in
+this slice — the fix lives entirely in this note's reconciliation script, not in `regularity.py`
+itself) and is worth flagging for any future F006 slice sampling `ewm`-based names: the original
+monthly note's boundary-day fix and this note's first-day fix are two independent artifacts of
+the same design (a day with no counterpart to diff against is always `"missing"`, at both ends
+of the loaded window), and a future slice combining both a `.rolling`-based name and an
+`.ewm`-based name in the same run should expect to need both corrections simultaneously.
+
+## Result
+
+**H1 is falsified. Zero of the 50 series clear the monthly promotion checklist.**
+
+No series fails on drawdown or data completeness: `full_run_max_drawdown_pct` ranges
+7.5%-25.1% across all 50 series (max well under the 50% hard cutoff), every series has all 12
+Train-1 calendar months `is_valid=True`, and every series has `n_trades > 0` (min 13 trades,
+`DOGEUSDT/240/EMA_50_200`) — the explicit zero-trade guard this note's falsification condition
+added is never actually triggered in this sample (0/50 series have `n_trades == 0`), so it is
+exercised-but-vacuous here, not load-bearing for this particular result.
+
+The checklist is decided entirely by criterion 2 (net PnL ≥ 0 in every evaluated month), exactly
+as in `spec/research/F006-hypothesis-notrail-monthly.md`'s result for the original 3 names:
+**every single one of the 50 series has at least 3 negative months out of 12**, so
+`all_valid_months_nonnegative=False` for all 50 and `promotion_pass=False` for all 50.
+
+| n_neg_months (out of 12) | n_series |
+| ---: | ---: |
+| 3 | 3 |
+| 4 | 4 |
+| 5 | 13 |
+| 6 | 9 |
+| 7 | 13 |
+| 8 | 3 |
+| 9 | 5 |
+
+36/50 series (72%) have positive full-Train-1-period net PnL (criterion 3 alone would pass
+36/50) — a materially higher hit rate than the original 3 names' 18/30 (60%), consistent with
+`spec/research/F006-catalog-notrail-sweep.md`'s finding that these 5 names beat the originals
+on every aggregate measure. But, exactly as in the original monthly note, positive full-period
+PnL and a clean monthly record are unrelated in this sample: the single best full-period series,
+`EMA3_21_50_200`/XRPUSDT/4h at **+$300.02** (10/10 series from the catalog sweep's pooled
+table had this name profitable), still has **5 losing months out of 12**. The series with the
+*fewest* negative months, `BB_20_25_EMA200`/SOLUSDT/1h at **+$85.52** full-period with only
+**3** losing months, is the closest any series in this sample came to clearing the checklist and
+still fails it outright — the criterion is exactly "zero", not "few", per the protocol's own
+wording ("regardless of regularity"). Two other series also reach the 3-losing-month floor —
+`EMA3_21_50_200`/DOGEUSDT/1h (+$213.44) and `EMA_50_200`/DOGEUSDT/1h (+$198.46) — so the
+best-in-sample result is not a single outlier: three independent (name, symbol, interval)
+combinations converge on the same "3 losing months" floor, still short of the zero-tolerance
+bar by 3 months.
+
+The losing months are **spread across the year, not concentrated in one bad stretch**, same
+pattern as the original monthly note: no series has fewer than 3 losing months, the mode is
+5/12 and 7/12 (13 series each), and even the three best-in-sample series (3/12 losing months)
+still fail because the criterion has zero tolerance. This is consistent with the same mechanism
+every prior F006 note in the `NO_TRAIL` family has described (a low win rate carried by a few
+large winners, confirmed for these 5 names by `spec/research/F006-catalog-notrail-sweep.md`'s
+own reported breakeven-win-rate gaps of -8.6 to -10.9 percentage points, on trade counts as low
+as 364-820 pooled over 10 series): a strategy whose edge comes from occasional large wins will,
+by construction, log a negative month whenever a calendar month happens not to contain one of
+those wins.
+
+## Decision
+
+**No promotion. None of the 50 `(name, symbol, interval)` series at `NO_TRAIL` clears
+`spec/research/F005-validation-protocol.md` section 7's monthly criterion on Train 1.** Despite
+beating the original 3 leads on every aggregate measure reported in
+`spec/research/F006-catalog-notrail-sweep.md` (mean net PnL, profitable-series count,
+breakeven-win-rate gap), these 5 names resolve to the same "spread thin" pattern the original
+monthly note found: every series has multiple losing months regardless of its full-period sign,
+and a wider breakeven-win-rate margin does not by itself translate into monthly cleanliness —
+it shrinks the number of losing months somewhat (this sample's best is 3/12 vs. the original
+3 names' best of 2/12) but does not come close to eliminating them.
+
+**This closes out the `NO_TRAIL` line for these five catalog-sweep names without a Validation
+candidate, and — combined with `spec/research/F006-hypothesis-notrail-monthly.md`'s result for
+the original 3 — means 0/80 `NO_TRAIL` `(name, symbol, interval)` series tested across both
+notes clear the monthly promotion checklist.** No series across either note has produced this
+project's first real Validation candidate. The best result across both notes remains
+`DONCHIAN_55`/DOGEUSDT/1h at 2/12 losing months (the original monthly note); this note's best,
+`BB_20_25_EMA200`/SOLUSDT/1h at 3/12, does not improve on that. Any future F006 work aimed at
+clearing this criterion needs a change to the entry/exit mechanism that raises the win rate or
+smooths the monthly PnL distribution more fundamentally than widening the strategy-name search
+has — widening the name axis found names with a wider aggregate edge, but did not change the
+underlying lumpy-winner shape that the zero-tolerance monthly rule rejects.
+
+## Tests
+
+No change to `backtest_engine.py`/`entry_masks.py`/`regularity.py`/`data_contract.py`/
+`strategy.py` in this slice — the new computation lives entirely in
+`scripts/f006_notrail_monthly_catalog5_experiment.py`, so the load-bearing check is the harness
+control above (0/50 mismatches after the first-day fix), not a new unit test.
+`tests/test_regularity.py` (the module this slice reuses unmodified) re-run to confirm no
+regression: 8/8 passed.
+
+Full suite, both interpreters, this slice's script/note included:
+
+| | Result |
+| --- | --- |
+| Python 3.9.25 `.venv_test` | 168 passed, 9 skipped |
+| Python 3.11.16 `.venv_lorentzian` | 171 passed, 6 skipped |
+
+Higher pass counts than `spec/research/F006-hypothesis-notrail-monthly.md`'s post-slice
+baseline (136/139) reflect the tests added by every F006 slice merged in between (cooldown,
+donchian, entry-cross-symbol, catalog sweep, etc.) — not a regression, and not attributable to
+this slice, which adds no new test (no computation module changed).
+
