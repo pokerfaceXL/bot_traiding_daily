@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "strategy": "BB_20_25_breakout",
+    "min_agree": 4,
+    "n_calls": 270,
+    "n_calls_gated_out": 244,
+    "n_trades_unfiltered": 152,
+    "n_trades_filtered": 25,
+    "train1_net_pnl_unfiltered": -22.2282,
+    "train1_net_pnl_filtered": -52.141681,
+    "win_rate_unfiltered": 21.71,
+    "win_rate_filtered": 16.0,
+    "n_neg_months_unfiltered": 6,
+    "n_neg_months_filtered": 9,
+    "full_run_max_drawdown_pct_filtered": 11.5102,
+    "promotion_pass_unfiltered": false,
+    "promotion_pass_filtered": false,
+    "promotion_pass_genuine_filtered": false,
+    "n_months_flipped_to_zero_trade": 0
+  },
+  "monthly_filtered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": -3.3245000000000005,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -6.649000000000058,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -6.0793991498001105,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": 4.2659671838828785,
+      "n_trades": 2
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -9.964499999999987,
+      "n_trades": 3
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 2.753386243386217,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": 1.984749594485038,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -3.3155000000000427,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": -3.315499999999986,
+      "n_trades": 1
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -11.883885161799526,
+      "n_trades": 4
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": -3.3245000000000005,
+      "n_trades": 1
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": -13.288999999999987,
+      "n_trades": 4
+    }
+  ],
+  "monthly_unfiltered": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 1.3274596093732498,
+      "n_trades": 13
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -8.08775463700988,
+      "n_trades": 11
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": -25.07795248564156,
+      "n_trades": 11
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -15.092299523500117,
+      "n_trades": 15
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -0.40925324877213143,
+      "n_trades": 11
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 2.6081122624350996,
+      "n_trades": 10
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": 16.48446803714728,
+      "n_trades": 8
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": 12.853177277949897,
+      "n_trades": 8
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 31.236965238449898,
+      "n_trades": 12
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -41.25930575583908,
+      "n_trades": 18
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": 4.526710126742046,
+      "n_trades": 10
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": -1.3385267965928165,
+      "n_trades": 10
+    }
+  ]
+}
