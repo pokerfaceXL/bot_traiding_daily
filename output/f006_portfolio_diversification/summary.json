@@ -1,0 +1,13 @@
+{
+  "selected_series": [
+    "DOGEUSDT/60/DONCHIAN_55",
+    "ETHUSDT/60/BB_20_25_breakout",
+    "SOLUSDT/60/BB_20_25_EMA200",
+    "BTCUSDT/240/DONCHIAN_PULLBACK_55",
+    "XRPUSDT/240/EMA3_21_50_200"
+  ],
+  "best_alone_neg_months": 2,
+  "combined_neg_months": 2,
+  "n_months_evaluated": 12,
+  "clears_zero_tolerance_criterion": false
+}
