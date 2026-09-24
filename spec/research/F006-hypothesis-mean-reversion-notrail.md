@@ -254,19 +254,157 @@ already-stored `monthly` arrays, no import of `backtest_engine.py`/`strategy.py`
 ## Run_id
 
 `scripts/f006_mean_reversion_notrail_experiment.py`, `.venv_test` (Python 3.9.25, pandas
-2.3.3), single pass, 60 backtests. Per-series results: `output/f006_mean_reversion_notrail/raw/*.json`
+2.3.3), single pass, 60 backtests, 22.5s. Per-series results: `output/f006_mean_reversion_notrail/raw/*.json`
 (60 files). Summary table: `output/f006_mean_reversion_notrail/summary/results.csv`. Manifest,
 checksums, harness-control record, H1/H2/H3 verdicts:
 `output/f006_mean_reversion_notrail/summary/manifest.json`.
 
+The frozen-window `data_cache` CSVs (git-ignored, checksum-verified per symbol/interval
+against `spec/research/F005-validation-protocol.md` section 6) were missing from this worktree
+(only the `.manifest.json` sidecars are tracked in git; the CSVs are a local build artifact of
+the main checkout) and were copied read-only from `/home/limen/bot_traiding_daily/data_cache/`
+before this script's first run — a per-worktree environment gap, not a change to the frozen
+dataset itself. The script's own checksum check (`EXPECTED_CHECKSUMS` against
+`data_contract.load_dataset`'s returned manifest) passed for all 10 `(symbol, interval)` pairs,
+confirming the copied files are byte-identical to the frozen cache, not a re-fetch.
+
 ## Result
 
-(filled in after running)
+**H1 is falsified. All 5 candidate names are aggregate-Train-1-negative at `NO_TRAIL`** — the
+opposite of every momentum/breakout name's typical profile in this basket:
+
+| Name | mechanism | sum net PnL (10 series) | mean net PnL | profitable series |
+| --- | --- | ---: | ---: | ---: |
+| `BB_20_2_revert` | BB reversion | -$908.13 | -$90.81 | 0/10 |
+| `BB_20_25_revert` | BB reversion | -$577.66 | -$57.77 | 1/10 |
+| `RSI21_7030` | RSI extreme | -$919.50 | -$91.95 | 0/10 |
+| `RSI14_6535` | RSI extreme | -$1,552.41 | -$155.24 | 0/10 |
+| `RSI7_6535` | RSI extreme | -$2,167.77 | -$216.78 | 0/10 |
+
+All checks clean: harness control (`RSI14_7030`'s 10 rows) matched
+`output/f006_trailing_boundary/summary/results.csv`'s stored `NO_TRAIL` rows exactly (0/10
+mismatches on `net_pnl`, `win_rate`, `n_trades`, `max_drawdown_pct`, `final_equity`) — this
+note's harness reproduces the established `NO_TRAIL` cell correctly. `NO_TRAIL` mechanism
+check: 0/60 runs produced a `trailing_sl` exit. One-shot rule: 0/60 violations. Mirror-image
+sanity check: `BB_20_2_revert`/`BB_20_25_revert`'s raw signals are the exact sign-negation of
+`BB_20_2_breakout`/`BB_20_25_breakout`'s wherever either fires, on `BTCUSDT/240` — confirms
+`sig_bb_revert` was read and wired correctly, not an implementation bug producing the negative
+result. All 80 momentum-family raw JSON files loaded cleanly (30 + 50, all 12 months
+`is_valid=True` for all 80, as both source notes' own Result sections state) for the H3
+computation, described below even though H3 is formally moot (see Decision).
+
+**The negative result is directly consistent with the mirror-image relationship to the
+already-tested breakout names, not a coincidence.** `BB_20_25_breakout` was one of the three
+original `NO_TRAIL` leads at **+$57.55** mean net PnL
+(`spec/research/F006-hypothesis-trailing-boundary.md`); `BB_20_25_revert` — the literal opposite
+direction on the same band-crossing signal — comes out at **-$57.77** mean net PnL, almost the
+exact negative of the breakout name's figure (the two are not perfectly symmetric because entry
+timing, holding costs, and stop/exit interaction with price paths differ once a trade is open,
+but the sign and rough magnitude match the mirror-image expectation closely). The same pattern
+holds for `BB_20_2_breakout`/`BB_20_2_revert` in the same direction (`BB_20_2_breakout` was one
+of the 54 aggregate-positive names in `spec/research/F006-catalog-notrail-sweep.md`'s wider
+sweep; its revert counterpart is here the single worst-performing candidate, -$90.81 mean). In
+a basket of trending crypto assets over Train 1, the market rewarded riding a band breakout and
+punished fading one — exactly what a basket that has trended more than it has mean-reverted
+would produce, and precisely the mechanism
+`spec/research/F006-portfolio-diversification-exploration.md`'s Decision section anticipated
+when it named "a genuinely uncorrelated-mechanism strategy this catalog does not yet contain"
+as the open question.
+
+**`RSI14_7030`'s three untested threshold siblings confirm rather than overturn its own already-closed
+result.** All three (`RSI14_6535`, `RSI21_7030`, `RSI7_6535`) are aggregate-negative at
+`NO_TRAIL`, two of them (`RSI14_6535`, `RSI7_6535`) considerably worse than `RSI14_7030`'s own
+`NO_TRAIL` figure of -$129.81 mean. Tightening the extreme thresholds (65/35 vs. 70/30) or
+shortening the RSI lookback (7 vs. 14/21) increases trade frequency on noise near the midline
+without adding a compensating edge — the RSI-extreme mechanism as a family, not merely
+`RSI14_7030`'s specific parameterization, is negative in this basket at this exit geometry.
+
+**One individual series is a small exception, reported for honesty and immediately contextualized,
+not flagged as a lead.** `BB_20_25_revert`/`XRPUSDT/4h` is the only individually-profitable
+series among all 50 candidate series, at **+$33.65** net PnL (67 trades, 25.37% win rate) — far
+smaller than any of the aggregate-positive momentum-family leads found in prior notes (the
+smallest was `DONCHIAN_PULLBACK_55`'s mean of +$49.54, and single-series leads there ran into
+the hundreds of dollars). Its own name (`BB_20_25_revert`) is still aggregate-negative overall
+(-$57.77 mean, 1/10 profitable), so this one series does not clear the pre-registered H1 gate
+(name-level mean net PnL, not per-series), and per the falsification condition H2/H3 are not
+evaluated for a name that fails H1. Checked anyway for completeness, not because the
+pre-registration requires it: `BB_20_25_revert`/`XRPUSDT/4h` has **7 losing months out of 12**
+on Train 1 (computed the same way as every other H2 check in this family) — far short of the
+zero-tolerance bar regardless, so nothing was missed by not pursuing it further.
+
+**H2 and H3 are not applicable — H1 failed for every one of the 5 candidates**, exactly per
+the pre-registered falsification condition ("If H1 is itself falsified, H2 is not evaluated ...
+not silently treated as falsified or passed", and the identical clause for H3). The
+momentum-family per-month negative-fraction table was still computed and is recorded in the
+manifest (`momentum_neg_fraction_by_month`) since the script computes it unconditionally, but
+no per-candidate correlation figure is reported because there is no H1-passing candidate to
+correlate against it — reporting a correlation number here would imply a positive lead exists
+when none does.
 
 ## Decision
 
-(filled in after running)
+**Do not pursue this signal family further at this exit geometry and basket. The mean-reversion
+mechanism, tested as thoroughly as the momentum/breakout mechanism was (5 new names spanning
+both genuinely counter-trend function families in `strategy.STRATEGY_CATALOG`, at the identical
+`NO_TRAIL` exit geometry and 5-symbol x 2-interval Train-1 basket), is not merely "also lumpy"
+the way the momentum family was — it is aggregate-negative, the harder failure mode. A
+momentum-family name failing the monthly criterion (as all 80 momentum series have) at least
+had a real edge to lose to bad-month lumpiness; these 5 reversion names do not clear the easier
+aggregate bar in the first place, so the monthly criterion and the whole point of this note's
+new H3 measurement (losing-month correlation with the momentum family) are moot for this
+specific candidate set.**
+
+**This is a genuinely negative result, reported honestly, not an inconclusive one.** The catalog
+section above establishes that these 5 names plus the already-closed `RSI14_7030` are the
+*complete* set of genuinely counter-trend (enters-against-an-extreme) mechanisms
+`strategy.STRATEGY_CATALOG`'s 85 names contain — there is no untested mean-reversion candidate
+left in the current catalog to try next. Per the task's own fallback instruction ("if none in
+the current 85 names is well-justified... design the smallest well-justified new mean-reversion
+signal using only existing indicator columns"): every indicator column `add_indicators`
+computes (RSI 7/14/21, Bollinger Bands at three `(period, k)` settings, Stochastic %K/%D,
+ADX/DI) is already exhausted by the two functions in the catalog table above — a
+Stochastic-extreme reversion signal (`stoch_k < 20` long / `stoch_k > 80` short, no trend
+filter) is the one combination not already in the catalog under any name, but given that (a)
+Stochastic's *directional* variants (`STOCH14_cross`/`STOCH5_cross`) were the single worst pair
+in the entire 85-name catalog sweep (-$3,924.69/-$3,897.59 sum), and (b) both genuinely
+counter-trend families this note tested (BB and RSI extremes, covering the same broad
+oscillator-extreme mechanism a Stochastic-extreme signal would add) failed decisively and
+consistently across all 5 new names, a Stochastic-extreme variant is not well-justified as a
+separate next step — it would very likely reproduce the same negative result for the same
+reason (this basket trended more than it reverted over Train 1), not add new mechanism
+diversity worth the compute.
+
+**What this means for the wider F006 diversification question `spec/research/F006-portfolio-diversification-exploration.md`
+left open**: the specific mechanistically-different candidate that note's Decision section asked
+for ("a genuinely uncorrelated-mechanism strategy this catalog does not yet contain") does not
+exist as a profitable option inside the current 85-name catalog on this basket — mean reversion
+is not merely a diversifying-but-still-lumpy alternative to momentum here, it is a losing
+mechanism outright on Train 1's SOL/ETH/BTC/XRP/DOGE price paths. This does not mean
+mean-reversion signals never work on crypto; it means this specific basket, over this specific
+12-month Train-1 window, trended enough that fading extremes lost money at every threshold and
+lookback combination this catalog offers. Any future attempt at genuine mechanism diversity for
+F007's portfolio question would need either a new signal family not built from `add_indicators`'
+existing columns (the task's fallback path was checked and found not well-justified as a small
+extension of what already failed) or a different basket/window where reversion has genuinely
+worked historically, not a further search inside this catalog's remaining names.
 
 ## Tests
 
-(filled in after running)
+No change to `backtest_engine.py`/`entry_masks.py`/`regularity.py`/`data_contract.py`/
+`strategy.py`/`trade_stats.py` in this slice — the new computation lives entirely in
+`scripts/f006_mean_reversion_notrail_experiment.py`, so the load-bearing checks are the harness
+control (0/10 mismatches against `output/f006_trailing_boundary/summary/results.csv`), the
+`NO_TRAIL` mechanism check (0/60 trailing exits) and the mirror-image sanity check (0/2
+mismatches), all of which ran as part of the single pass above and are recorded in
+`output/f006_mean_reversion_notrail/summary/manifest.json`.
+
+Full suite, `.venv_test` (Python 3.9.25), this slice's script/note included:
+
+| | Result |
+| --- | --- |
+| Python 3.9.25 `.venv_test` | 168 passed, 9 skipped |
+
+Identical to the pre-slice baseline (no test added or broken — no computation module changed).
+Only the single-interpreter lane was run: this slice's sample (`BB_*_revert`, `RSI*` names) has
+no Lorentzian dependency, so `.venv_lorentzian` adds nothing new to verify here and was not
+re-run.
