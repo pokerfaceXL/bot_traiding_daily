@@ -233,10 +233,11 @@ def test_catalog_gained_four_donchian_entries_and_left_the_other_79_bit_identica
     for name in ("DONCHIAN_20", "DONCHIAN_55", "DONCHIAN_PULLBACK_20", "DONCHIAN_PULLBACK_55"):
         assert callable(strategy.STRATEGY_CATALOG[name])
     # 79 F005 baseline entries + 2 Lorentzian (F006) + 4 Donchian (this slice) + 3
-    # vol-regime-wrap (F006, spec/research/F006-hypothesis-vol-regime-wrap.md)
+    # vol-regime-wrap + 5 cross-sectional-rs (F006; see test_cross_sectional_rs.py,
+    # spec/research/F006-hypothesis-vol-regime-wrap.md)
     assert "LORENTZIAN_default" in strategy.STRATEGY_CATALOG
     assert "LORENTZIAN_raw" in strategy.STRATEGY_CATALOG
-    assert len(strategy.STRATEGY_CATALOG) == 88
+    assert len(strategy.STRATEGY_CATALOG) == 93
 
     # Value-level, not name-level: every pre-existing entry's signal on the shared
     # fixture must hash to what it hashed to at the commit before donchian.py was

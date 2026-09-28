@@ -494,6 +494,16 @@ import vol_regime_wrap as _vol_regime_wrap  # noqa: E402
 
 STRATEGY_CATALOG.update(_vol_regime_wrap.catalog_entries())
 
+# F006 — cross-sectional relative-strength rank (XS_RS_*), dodane dodatkowo (additive).
+# Jedyny wpis katalogu ktory NIE jest funkcja czystego single-df: potrzebuje danych z
+# calego basketu na raz (peer-aware plumbing, patrz docstring cross_sectional_rs.py),
+# wiec eksperyment musi wywolac cross_sectional_rs.set_active_context(symbol, interval)
+# przed kazdym uzyciem tych nazw. Zadne istniejace wpisy/funkcje powyzej nie sa zmieniane.
+# Uzasadnienie: spec/research/F006-hypothesis-cross-sectional-rs.md.
+import cross_sectional_rs as _cross_sectional_rs  # noqa: E402
+
+STRATEGY_CATALOG.update(_cross_sectional_rs.catalog_entries())
+
 
 # ──────────────────────────────────────────────────────────────
 #  SILNIK BACKTESTOW z trailing stop (ATR-based + aktywacja)

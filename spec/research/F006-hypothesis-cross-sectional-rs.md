@@ -127,16 +127,87 @@ before trusting new names.
 
 ## Run_id
 
-_(placeholder)_
+Base commit `cfcb919` (this note's pre-registration commit). Additive module `cross_sectional_rs.py`
+wired into `strategy.py`'s `STRATEGY_CATALOG` (90 entries, up from 85; 5 new `XS_RS_*` names,
+no existing entry touched). `scripts/f006_cross_sectional_rs_experiment.py`, single pass,
+`output/f006_cross_sectional_rs/` (`summary/results.csv`, `summary/manifest.json`,
+`raw/*.json`). 51 series in 10.3s (50 candidate series = 5 names x 5 symbols x 2 intervals, +
+1 harness-control series: `DONCHIAN_55` on `BTCUSDT/240`). Checksums matched
+`spec/research/F005-validation-protocol.md` section 6 for all 10 `(symbol, interval)` pairs.
+Harness control: 0/1 mismatch against `output/f006_catalog_notrail_sweep/summary/results.csv`'s
+stored `DONCHIAN_55`/`BTCUSDT`/`240` NO_TRAIL row -- the script's engine call reproduces stored
+numbers exactly. `no_trail_mechanism_check`: 0/50 candidate runs produced a `trailing_sl` exit.
+`one_shot_violations`: 0.
 
 ## Result
 
-_(placeholder)_
+**H1: 2/5 names clear** (mean net PnL over the 10-series pool at NO_TRAIL):
+
+| Name | mean net PnL | sum net PnL | profitable series | H1 |
+| --- | ---: | ---: | ---: | --- |
+| `XS_RS_20_TOP1` | -11.61 | -116.08 | 4/10 | fail |
+| `XS_RS_48_TOP1` | **+12.45** | +124.53 | 4/10 | **pass** |
+| `XS_RS_96_TOP1` | **+39.19** | +391.90 | 7/10 | **pass** |
+| `XS_RS_20_TOP2` | -74.14 | -741.43 | 2/10 | fail |
+| `XS_RS_48_TOP2` | -9.39 | -93.87 | 3/10 | fail |
+
+H1 is not falsified: both longer-lookback `TOP1` names (`XS_RS_48_TOP1`, `XS_RS_96_TOP1`) have
+positive mean net PnL, and `XS_RS_96_TOP1` also has the most profitable series (7/10) of any
+name in this slice. The `TOP2` variants are aggregately worse than every `TOP1` variant
+(2x the exposure -- 2 longs + 2 shorts per bar instead of 1+1 -- did not average out into a
+better result; it concentrated the losing `XS_RS_20` cell's loss further).
+
+**H2: 0/20 series clear the monthly promotion checklist** (checked for the 2 H1-passing names
+only, per the note's conditional). Every one of the 20 `(symbol, interval)` series for
+`XS_RS_48_TOP1` / `XS_RS_96_TOP1` has at least 2 losing valid Train-1 months (worst 11, best 2 --
+`DOGEUSDT`/`60`/`XS_RS_96_TOP1`, `train1_net_pnl=+197.83`, 2 losing months, still fails the
+"every valid month non-negative" clause). Full table in
+`output/f006_cross_sectional_rs/summary/manifest.json`'s `h2_monthly_table`. H2 is falsified.
 
 ## Decision
 
-_(placeholder)_
+**Cross-sectional relative-strength rank is closed as a family at this basket/geometry.** H1
+held (a genuinely new generator -- entry defined by peer rank, not a single-series
+channel/band/EMA/RSI rule -- produced 2 aggregate-positive names, the first out-of-catalog
+generator this basket's F006 slices have found to clear H1 outright with 7/10 profitable series
+for the best name), but H2 did not: every H1-clearing series still has the same "lumpy winner,
+lumpy loser" monthly shape every other F006 family has hit (2-11 losing Train-1 months, never 0).
+Per the pre-registration, no extra lookbacks/`TOP_K` are added after seeing that `TOP1` beats
+`TOP2` and longer lookback beats shorter -- that ordering is a real, monotonic finding in this
+Result, but chasing it (e.g. `LOOKBACK=144`) is exactly the re-tuning the note forbids, and
+nothing in this Result is a "clean, non-overfit lever" distinct from what every prior F006
+family already tried and failed to fix (fewer losing months without giving up the winning ones).
+The module (`cross_sectional_rs.py`) and its 5 catalog entries stay in the codebase, additive and
+inert (unused by `STRATEGY`/live trading), as a working, tested generator for a future slice that
+asks a genuinely different question (e.g. combining rank with an existing filter, or a different
+basket) rather than re-tuning this one.
 
 ## Tests
 
-_(placeholder)_
+`tests/test_cross_sectional_rs.py`, 10/10 passing:
+
+- Rank math on hand-built fixtures: known top/bottom ranks resolve to +1/-1 with the middle rank
+  flat; a bar missing on one symbol drops that timestamp for every symbol's own precomputed
+  series (not forward-filled, not partially ranked); the first `LOOKBACK` bars are flat for
+  everyone (no partial-return ranking); `TOP_K=2` covers exactly 2 longs + 2 shorts + 1 flat;
+  malformed baskets (wrong symbol set) raise.
+- Additive-only regression: `STRATEGY_CATALOG` gained exactly the 5 `XS_RS_*` entries (90 total,
+  up from 85) and the other 83 pre-existing entries (79 F005 + 4 Donchian; `LORENTZIAN_*`
+  excluded -- `advanced-ta` not importable on this interpreter, same exclusion
+  `tests/test_donchian.py` already makes) hash bit-identical to their pre-this-slice fingerprints
+  (`tests/fixtures/catalog_fingerprints_pre_cross_sectional_rs.json`). Updated
+  `tests/test_donchian.py`'s hardcoded catalog-length assertion (85 -> 90) to match.
+- Peer-aware plumbing contract: a `XS_RS_*` catalog entry called with no active
+  `(symbol, interval)` context raises `RuntimeError` (not a silent zero signal); called with a
+  context nothing was registered for also raises; called with a registered context returns
+  exactly that precomputed series.
+- End-to-end: `entry_masks.strategy_signal_series` -> `one_shot_entry_mask` ->
+  `backtest_engine.run_backtest` on a real OHLCV fixture reproduces the same index alignment
+  contract `tests/test_donchian.py` checks for the Donchian family.
+
+Full suite: `python3 -m pytest tests/ -q --deselect tests/test_lorentzian.py` (excluded for the
+same `advanced-ta` reason as above; run separately: 3 passed, 4 skipped, unaffected) ->
+**174 passed, 6 skipped** (skips are pre-existing, environment-only: missing raw output on disk,
+one uncached symbol/interval, three trailing-geometry fixtures that don't produce a `trailing_sl`
+exit at those params -- none touch this slice). No pre-existing test's assertions changed except
+the catalog-length constant noted above.
