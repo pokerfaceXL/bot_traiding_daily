@@ -504,6 +504,15 @@ import cross_sectional_rs as _cross_sectional_rs  # noqa: E402
 
 STRATEGY_CATALOG.update(_cross_sectional_rs.catalog_entries())
 
+# F006 -- UTC opening-range breakout, dodane dodatkowo (additive). Czysty OHLC +
+# kalendarz UTC, bez zadnych zaleznosci zewnetrznych i bez add_indicators — dziala
+# na kazdym Pythonie. Zadne istniejace wpisy/funkcje powyzej nie sa zmieniane.
+# Kontrakt wejscia/wyjscia identyczny: callable(df) -> Series.
+# Uzasadnienie rodziny i regul: spec/research/F006-hypothesis-opening-range-breakout.md.
+import opening_range_breakout as _opening_range_breakout  # noqa: E402
+
+STRATEGY_CATALOG.update(_opening_range_breakout.catalog_entries())
+
 
 # ──────────────────────────────────────────────────────────────
 #  SILNIK BACKTESTOW z trailing stop (ATR-based + aktywacja)
