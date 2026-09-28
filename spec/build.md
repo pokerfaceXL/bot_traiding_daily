@@ -18,6 +18,7 @@
 
 - ✅ CLOSED — F006 vol-range-expansion (`RVOL_RE_*`): H1 pass 3/5 names, H2 monthly falsified (best 3 losing months). Family closed at NO_TRAIL/basket; do not re-tune. Evidence: spec/research/F006-hypothesis-vol-range-expansion.md (branch limen/2026-09-28-f006-vol-range-expansion-7c12a336 may still be unmerged — leave alone unless owner merges).
 - 🟡 LAUNCHED — F006 new signal family outside catalog/add_indicators: cross-sectional relative-strength rank vs basket peers as the entry generator (distinct from MIN_AGREE direction-agreement *filter* and from RVOL_RE). Pre-registered: spec/research/F006-hypothesis-cross-sectional-rs.md.
+- 🟡 LAUNCHED — F006 new signal family outside catalog/add_indicators: UTC opening-range breakout (`ORB_UTC_*`) as the entry generator (session-clock OR then break; distinct from RVOL_RE, XS_RS, and all rolling-indicator catalog names). Pre-registered: spec/research/F006-hypothesis-opening-range-breakout.md.
 
 ## NEXT
 - 🔴 F010-search-performance: profilowanie/benchmark metod wyszukiwania parametrów; odroczone — F006 na razie używa małych, ręcznych siatek (400 przebiegów w ~90s), Optuna/smart search potrzebne dopiero gdy siatki urosną. Jawna decyzja Coordinatora, nie przeoczenie kolejności z build.md.
