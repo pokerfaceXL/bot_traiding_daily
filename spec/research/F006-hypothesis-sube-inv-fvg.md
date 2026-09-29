@@ -51,16 +51,16 @@ Add an isolated signal module with runtime-only catalog registration, unit-test 
 
 ## Run_id
 
-_(filled after the run)_
+`output/f006_sube_inv_fvg/summary/manifest.json`, executed at implementation tip `9c06e32dd9a3724dabff7e092dc91d408f57e07c`.
 
 ## Result
 
-_(filled after the run)_
+The `DONCHIAN_55` control reproduced all ten stored rows (zero mismatches); all 60 runs had zero trailing exits and zero one-shot violations. `SINV_FIRST_H4` alone clears the PnL part of H1 at +$41.4145 mean Train-1 net PnL, but it has just six trades over ten series (0.6 mean trades/series), so it is falsified by the pre-registered density rule. Its two positive XRP series still have two negative months and no series passes H2. The other four names have negative mean PnL: FIRST_FVG -$7.1403, MSS_CLOSE -$10.1421, MSS_IN_FVG -$5.4986, and FIRST_SMT -$1.3298; all are sparse too.
 
 ## Decision
 
-_(filled after the run)_
+This five-day geometry is rejected on Train-1. The positive H4 aggregate is not a candidate: it is six trades concentrated in two XRP series, below the frozen minimum, and does not clear monthly regularity. Do not shorten blocks or add confirmations after this result.
 
 ## Tests
 
-_(filled after the run)_
+`python3 -m pytest -q tests/test_sube_inv_fvg.py` passed: 4 tests. It checks complete epoch blocks, missing-block rejection, prefix invariance under appended future bars, frozen names/no midpoint geometry, and H4 alignment. `python3 scripts/f006_sube_inv_fvg_experiment.py` completed in 446.2 seconds; its checked manifest and raw/summary evidence are under `output/f006_sube_inv_fvg/`.

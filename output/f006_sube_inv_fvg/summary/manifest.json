@@ -1,0 +1,220 @@
+{
+  "family": "sube_inv_fvg",
+  "script": "scripts/f006_sube_inv_fvg_experiment.py",
+  "git_commit": "9c06e32dd9a3724dabff7e092dc91d408f57e07c",
+  "run_started_utc": "2026-09-29T21:08:20.746099+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 60,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "SINV_FIRST_FVG",
+    "SINV_MSS_CLOSE",
+    "SINV_MSS_IN_FVG",
+    "SINV_FIRST_H4",
+    "SINV_FIRST_SMT"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-sube-inv-fvg.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 60,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "h1_table": [
+    {
+      "strategy": "SINV_FIRST_FVG",
+      "sum_net_pnl": -71.4035,
+      "mean_net_pnl": -7.1403,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "n_trades_total": 22,
+      "h1_pass": false
+    },
+    {
+      "strategy": "SINV_MSS_CLOSE",
+      "sum_net_pnl": -101.4207,
+      "mean_net_pnl": -10.1421,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "n_trades_total": 36,
+      "h1_pass": false
+    },
+    {
+      "strategy": "SINV_MSS_IN_FVG",
+      "sum_net_pnl": -54.9857,
+      "mean_net_pnl": -5.4986,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "n_trades_total": 22,
+      "h1_pass": false
+    },
+    {
+      "strategy": "SINV_FIRST_H4",
+      "sum_net_pnl": 414.145,
+      "mean_net_pnl": 41.4145,
+      "n_series": 10,
+      "n_profitable_series": 2,
+      "n_trades_total": 6,
+      "h1_pass": true
+    },
+    {
+      "strategy": "SINV_FIRST_SMT",
+      "sum_net_pnl": -13.298,
+      "mean_net_pnl": -1.3298,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "n_trades_total": 4,
+      "h1_pass": false
+    }
+  ],
+  "h1_names_passing": [
+    "SINV_FIRST_H4"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 210.780262,
+      "n_trades": 2,
+      "max_drawdown_pct": 22.2924,
+      "n_neg_months": 2,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": 210.013725,
+      "n_trades": 2,
+      "max_drawdown_pct": 22.6808,
+      "n_neg_months": 2,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": -3.3245,
+      "n_trades": 1,
+      "max_drawdown_pct": 0.6649,
+      "n_neg_months": 1,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "SINV_FIRST_H4",
+      "train1_net_pnl": -3.3245,
+      "n_trades": 1,
+      "max_drawdown_pct": 0.6649,
+      "n_neg_months": 1,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 446.2
+}
