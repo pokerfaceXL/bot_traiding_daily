@@ -14,6 +14,7 @@ Reads local files only. Zero network connections.
 from __future__ import annotations
 
 import argparse
+import csv
 import glob
 import json
 import os
@@ -21,6 +22,42 @@ import sys
 from datetime import datetime, timezone
 
 FROZEN_SCHEMA_KEYS = {"h1_table", "h1_falsified", "h1_names_passing", "h2_status"}
+
+EXIT_REASON_COLUMNS = (
+    "exit_initial_sl", "exit_trailing_sl", "exit_take_profit",
+    "exit_signal_reverse", "exit_end_of_data",
+)
+
+
+def _summary_aggregates(family_dir: str) -> dict | None:
+    """Mean n_trades/win_rate/max_drawdown_pct and summed exit-reason mix across every
+    row of summary/results.csv, for whichever of those columns the frozen schema this
+    family was written with actually has. Returns None if results.csv is absent."""
+    results_path = os.path.join(family_dir, "summary", "results.csv")
+    if not os.path.exists(results_path):
+        return None
+    with open(results_path, newline="") as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        return {"n_rows": 0}
+
+    def _mean(col: str) -> float | None:
+        vals = [float(r[col]) for r in rows if col in r and r[col] not in ("", None)]
+        return round(sum(vals) / len(vals), 4) if vals else None
+
+    exit_mix_totals = {}
+    for col in EXIT_REASON_COLUMNS:
+        vals = [int(float(r[col])) for r in rows if col in r and r[col] not in ("", None)]
+        if vals:
+            exit_mix_totals[col] = sum(vals)
+
+    return {
+        "n_rows": len(rows),
+        "mean_n_trades": _mean("n_trades"),
+        "mean_win_rate": _mean("win_rate"),
+        "mean_max_drawdown_pct": _mean("max_drawdown_pct"),
+        "exit_mix_totals": exit_mix_totals,
+    }
 
 
 def _load_manifest(family_dir: str) -> dict:
@@ -57,6 +94,7 @@ def _load_manifest(family_dir: str) -> dict:
         "h2_status": manifest.get("h2_status"),
         "h2_names_with_a_passing_series": manifest.get("h2_names_with_a_passing_series", []),
         "harness_control": manifest.get("harness_control"),
+        "summary_aggregates": _summary_aggregates(family_dir),
     }
 
 
@@ -103,6 +141,21 @@ def _render_markdown(digest: dict) -> str:
                     f"| {e['family']} | {row['strategy']} | {row['mean_net_pnl']:.4f} | "
                     f"{row['h1_pass']} | {e['h2_status']} |"
                 )
+        lines.append("")
+
+        lines += ["## Frozen-schema families -- summary/results.csv aggregates (all rows, incl. control)", "",
+                   "| family | rows | mean n_trades | mean win_rate | mean max_drawdown_pct | exit mix totals |",
+                   "| --- | ---: | ---: | ---: | ---: | --- |"]
+        for e in frozen:
+            agg = e.get("summary_aggregates")
+            if not agg or agg.get("n_rows") in (None, 0):
+                lines.append(f"| {e['family']} | -- | -- | -- | -- | (no results.csv) |")
+                continue
+            mix = ", ".join(f"{k}={v}" for k, v in agg.get("exit_mix_totals", {}).items()) or "--"
+            lines.append(
+                f"| {e['family']} | {agg['n_rows']} | {agg['mean_n_trades']} | "
+                f"{agg['mean_win_rate']} | {agg['mean_max_drawdown_pct']} | {mix} |"
+            )
         lines.append("")
 
     legacy = [e for e in digest["families"] if e["schema"] != "frozen"]

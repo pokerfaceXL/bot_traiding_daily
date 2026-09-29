@@ -105,11 +105,46 @@ each `{year, month, is_valid, is_partial, net_pnl, positive_day_pct, deviation_p
 target_met}`).
 
 `output/f006_<family>/summary/results.csv` -- one row per series, the same per-series
-row with `monthly` dropped (nested lists are not CSV-safe). Columns, in write order:
+row with `monthly` dropped (nested lists are not CSV-safe). Columns, in write order
+(`f006_family_runner.SUMMARY_COLUMNS` is the single source of truth; this list must
+match it exactly):
 `symbol, interval, strategy, n_calls, net_pnl, gross_pnl, win_rate, n_trades, n_wins,
-n_losses, avg_winner, avg_loser, breakeven_win_rate_pct, exit_trailing_sl,
+n_losses, avg_winner, avg_loser, breakeven_win_rate_pct, sum_wins, sum_losses,
+mean_bars_held, total_costs, exit_initial_sl, exit_trailing_sl, exit_take_profit,
+exit_signal_reverse, exit_end_of_data, profit_factor, calmar, max_drawdown_usd,
 max_drawdown_pct, final_equity, train1_net_pnl, warmup_net_pnl, boundary_net_pnl,
 n_valid_months, all_valid_months_nonnegative, promotion_pass, seconds`.
+
+The additive columns beyond the original frozen set (F006 shared-harness full-metrics
+ticket, "Dodaj wszystko co jest liczone" -- surface what the engine/`trade_stats`
+already compute, not add new computation):
+
+- `exit_initial_sl`, `exit_trailing_sl`, `exit_take_profit`, `exit_signal_reverse`,
+  `exit_end_of_data` -- the full `trades["exit_reason"].value_counts()` histogram
+  (`backtest_engine._record_close`'s five possible labels), one column per label,
+  0 when that label never occurred. NO_TRAIL families still always have
+  `exit_trailing_sl == 0` (`run_family`'s existing no-trail mechanism check already
+  enforces this unconditionally); it is not evidence the other four columns are wired.
+- `sum_wins`, `sum_losses`, `mean_bars_held`, `total_costs` -- `sum_wins`/`sum_losses`
+  come straight from `trade_stats.win_loss_decomposition`'s own `sum_wins`/
+  `sum_losses` keys (same win convention: `net_pnl > 0` is a win, a zero-PnL trade
+  counts as a loss); `mean_bars_held` is `(exit_time - entry_time)` in bars, mean over
+  trades, 0.0 when there are no trades; `total_costs` is `trades["total_costs"].sum()`
+  (commission + spread + slippage, no funding), 0.0 when there are no trades.
+- `profit_factor`, `calmar`, `max_drawdown_usd` -- copied unmodified from
+  `backtest_engine.run_backtest(...).metrics`, which already computes all three
+  (`backtest_engine._compute_metrics`); this ticket only stops dropping them on the
+  floor between the engine and `results.csv`.
+
+All additive columns fill `0` (or `0.0`) when the underlying quantity is absent (no
+trades in the cell), never `null`/`NaN`, so downstream CSV readers do not need a
+special case for an empty cell.
+
+Not in scope for this ticket (future work only, not implemented here): a per-trade
+blotter parquet dump, and `regime_label_hit_rate` (a family that tags entries with a
+regime label would need to persist that label alongside each trade before any
+regime-conditioned sub-PnL breakdown is possible -- no current family module does
+this, so there is no hook to surface yet).
 
 `output/f006_<family>/summary/manifest.json` -- top-level keys: `family`, `script`,
 `git_commit`, `run_started_utc`, `python`, `pandas`, `n_series`, `checksums_used`,

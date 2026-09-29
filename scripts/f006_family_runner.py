@@ -93,7 +93,11 @@ WARMUP_MONTHS_SET = {(2024, 1), (2024, 2)}
 SUMMARY_COLUMNS = [
     "symbol", "interval", "strategy", "n_calls", "net_pnl", "gross_pnl", "win_rate",
     "n_trades", "n_wins", "n_losses", "avg_winner", "avg_loser", "breakeven_win_rate_pct",
-    "exit_trailing_sl", "max_drawdown_pct", "final_equity", "train1_net_pnl",
+    "sum_wins", "sum_losses", "mean_bars_held", "total_costs",
+    "exit_initial_sl", "exit_trailing_sl", "exit_take_profit", "exit_signal_reverse",
+    "exit_end_of_data",
+    "profit_factor", "calmar", "max_drawdown_usd",
+    "max_drawdown_pct", "final_equity", "train1_net_pnl",
     "warmup_net_pnl", "boundary_net_pnl", "n_valid_months", "all_valid_months_nonnegative",
     "promotion_pass", "seconds",
 ]
@@ -166,6 +170,8 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
     n_trades = int(len(trades))
     exit_mix = trades["exit_reason"].value_counts().to_dict() if n_trades else {}
     d = trade_stats.win_loss_decomposition(trades)
+    total_costs = round(float(trades["total_costs"].sum()) if n_trades else 0.0, 6)
+    mean_bars_held = _mean_bars_held(trades, interval)
 
     days, months = regularity.compute_regularity(result.equity_curve)
     months_by_key = {(mo.year, mo.month): mo for mo in months}
@@ -221,7 +227,18 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
         "avg_loser": round(d["avg_loser"], 6),
         "breakeven_win_rate_pct": (round(d["breakeven_win_rate_pct"], 4)
                                    if d["breakeven_win_rate_pct"] is not None else None),
+        "sum_wins": round(d["sum_wins"], 6),
+        "sum_losses": round(d["sum_losses"], 6),
+        "mean_bars_held": mean_bars_held,
+        "total_costs": total_costs,
+        "exit_initial_sl": int(exit_mix.get("initial_sl", 0)),
         "exit_trailing_sl": int(exit_mix.get("trailing_sl", 0)),
+        "exit_take_profit": int(exit_mix.get("take_profit", 0)),
+        "exit_signal_reverse": int(exit_mix.get("signal_reverse", 0)),
+        "exit_end_of_data": int(exit_mix.get("end_of_data", 0)),
+        "profit_factor": m["profit_factor"],
+        "calmar": m["calmar"],
+        "max_drawdown_usd": m["max_drawdown_usd"],
         "max_drawdown_pct": full_max_dd,
         "final_equity": m["final_equity"],
         "train1_net_pnl": round(train1_net_pnl, 6),
@@ -233,6 +250,16 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
         "monthly": monthly_rows,
         "seconds": round(time.time() - t0, 2),
     }
+
+
+def _mean_bars_held(trades: pd.DataFrame, interval: str) -> float:
+    """Mean holding time in bars. Both entry mask variants hold a call until the
+    opposite extreme, so how long the ENGINE actually holds one is not readable off
+    the signal."""
+    if not len(trades):
+        return 0.0
+    span = pd.to_datetime(trades["exit_time"]) - pd.to_datetime(trades["entry_time"])
+    return round(float((span.dt.total_seconds() / 60.0 / int(interval)).mean()), 2)
 
 
 def verify_harness_control(rows: list, control_name: str, reference_csv: str) -> dict:

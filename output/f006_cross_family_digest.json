@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-29T14:42:08.447190+00:00",
+  "generated_utc": "2026-09-29T20:32:58.580334+00:00",
   "output_glob": "output/f006_*",
   "n_family_dirs_found": 22,
   "n_frozen_schema": 1,
@@ -417,7 +417,7 @@
       "schema": "frozen",
       "family": "runner_selfcheck",
       "script": "scripts/f006_family_runner.py",
-      "git_commit": "b2237edf1b1237477778a8e4e0b951f414c89f9a",
+      "git_commit": "442b246a3345c9a1a94674411574eb8358b2199b",
       "n_series": 20,
       "hypothesis_note": "Runner self-check only (spec/research/F006-shared-harness.md's Acceptance section), not a new signal-family test. DONCHIAN_20/DONCHIAN_55 are closed F006 catalog entries reused here only to prove run_family() reproduces output/f006_trailing_boundary/summary/results.csv's stored NO_TRAIL numbers.",
       "candidate_names": [
@@ -426,8 +426,8 @@
       "h1_table": [
         {
           "strategy": "DONCHIAN_20",
-          "sum_net_pnl": 231.1958,
-          "mean_net_pnl": 23.1196,
+          "sum_net_pnl": 196.6614,
+          "mean_net_pnl": 19.6661,
           "n_series": 10,
           "n_profitable_series": 5,
           "n_trades_total": 1281,
@@ -444,6 +444,19 @@
         "rows_compared": 10,
         "n_mismatches": 0,
         "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "summary_aggregates": {
+        "n_rows": 20,
+        "mean_n_trades": 87.85,
+        "mean_win_rate": 25.0335,
+        "mean_max_drawdown_pct": 14.6717,
+        "exit_mix_totals": {
+          "exit_initial_sl": 826,
+          "exit_trailing_sl": 0,
+          "exit_take_profit": 0,
+          "exit_signal_reverse": 920,
+          "exit_end_of_data": 11
+        }
       }
     },
     {

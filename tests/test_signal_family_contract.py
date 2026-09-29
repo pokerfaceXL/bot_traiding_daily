@@ -282,6 +282,20 @@ def test_run_family_always_covers_the_frozen_basket_and_control(tmp_path):
     assert manifest["harness_control"]["rows_compared"] == 10
     assert manifest["harness_control"]["n_mismatches"] == 0
 
+    results_csv = os.path.join(str(tmp_path / "f006_contract_basket_check"), "summary", "results.csv")
+    with open(results_csv) as f:
+        header = f.readline().strip().split(",")
+    assert set(header) == set(f006_family_runner.SUMMARY_COLUMNS), (
+        "results.csv columns drifted from f006_family_runner.SUMMARY_COLUMNS"
+    )
+    for col in (
+        "exit_initial_sl", "exit_trailing_sl", "exit_take_profit",
+        "exit_signal_reverse", "exit_end_of_data", "sum_wins", "sum_losses",
+        "mean_bars_held", "total_costs", "profit_factor", "calmar",
+        "max_drawdown_usd",
+    ):
+        assert col in header, f"results.csv is missing frozen column {col!r}"
+
 
 # -- 7. H1 must use Train-1 PnL, not diagnostic full-run PnL -----------------
 

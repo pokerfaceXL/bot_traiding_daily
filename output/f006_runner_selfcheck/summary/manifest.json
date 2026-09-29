@@ -1,8 +1,8 @@
 {
   "family": "runner_selfcheck",
   "script": "scripts/f006_family_runner.py",
-  "git_commit": "b2237edf1b1237477778a8e4e0b951f414c89f9a",
-  "run_started_utc": "2026-09-29T14:42:08.314440+00:00",
+  "git_commit": "442b246a3345c9a1a94674411574eb8358b2199b",
+  "run_started_utc": "2026-09-29T20:32:32.390439+00:00",
   "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
   "pandas": "2.3.3",
   "n_series": 20,
@@ -50,8 +50,8 @@
   "h1_table": [
     {
       "strategy": "DONCHIAN_20",
-      "sum_net_pnl": 231.1958,
-      "mean_net_pnl": 23.1196,
+      "sum_net_pnl": 196.6614,
+      "mean_net_pnl": 19.6661,
       "n_series": 10,
       "n_profitable_series": 5,
       "n_trades_total": 1281,
