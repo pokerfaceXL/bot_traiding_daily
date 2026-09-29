@@ -56,6 +56,7 @@ def _summary_aggregates(family_dir: str) -> dict | None:
         "mean_n_trades": _mean("n_trades"),
         "mean_win_rate": _mean("win_rate"),
         "mean_max_drawdown_pct": _mean("max_drawdown_pct"),
+        "mean_phase_fit_score": _mean("phase_fit_score"),
         "exit_mix_totals": exit_mix_totals,
     }
 
@@ -144,17 +145,18 @@ def _render_markdown(digest: dict) -> str:
         lines.append("")
 
         lines += ["## Frozen-schema families -- summary/results.csv aggregates (all rows, incl. control)", "",
-                   "| family | rows | mean n_trades | mean win_rate | mean max_drawdown_pct | exit mix totals |",
-                   "| --- | ---: | ---: | ---: | ---: | --- |"]
+                   "| family | rows | mean n_trades | mean win_rate | mean max_drawdown_pct | mean phase-fit | exit mix totals |",
+                   "| --- | ---: | ---: | ---: | ---: | ---: | --- |"]
         for e in frozen:
             agg = e.get("summary_aggregates")
             if not agg or agg.get("n_rows") in (None, 0):
-                lines.append(f"| {e['family']} | -- | -- | -- | -- | (no results.csv) |")
+                lines.append(f"| {e['family']} | -- | -- | -- | -- | -- | (no results.csv) |")
                 continue
             mix = ", ".join(f"{k}={v}" for k, v in agg.get("exit_mix_totals", {}).items()) or "--"
             lines.append(
                 f"| {e['family']} | {agg['n_rows']} | {agg['mean_n_trades']} | "
-                f"{agg['mean_win_rate']} | {agg['mean_max_drawdown_pct']} | {mix} |"
+                f"{agg['mean_win_rate']} | {agg['mean_max_drawdown_pct']} | "
+                f"{agg['mean_phase_fit_score']} | {mix} |"
             )
         lines.append("")
 

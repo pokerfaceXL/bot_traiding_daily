@@ -67,7 +67,11 @@ name list, and the hypothesis note text differ per family.
    values, edge cases, mirror directions, etc.) stay in `tests/test_<family>.py` and
    are not duplicated here.
 3. Frozen result schema (below) so `output/f006_*/summary/{results.csv,manifest.json}`
-   is stable and digestible without per-family parsing.
+   is stable and digestible without per-family parsing. Regime/wrap/switch callers may
+   additionally pass a causal bar-level `phase_labeler`, its complete fixed legs, and
+   each name's expected legs. The harness attributes a completed trade to the label at
+   its next-bar-open entry fill, never changes the engine or H1/H2, and records PnL,
+   count, win rate, exit mix, bar/trade shares, and expected-leg trade fraction.
 4. `scripts/f006_cross_family_digest.py`: globs `output/f006_*/summary/manifest.json`,
    reads any manifest matching the frozen schema (`h1_table`/`h1_falsified`/
    `h2_status` present) into one H1/H2-per-family/name table, and marks any manifest
@@ -113,7 +117,8 @@ n_losses, avg_winner, avg_loser, breakeven_win_rate_pct, sum_wins, sum_losses,
 mean_bars_held, total_costs, exit_initial_sl, exit_trailing_sl, exit_take_profit,
 exit_signal_reverse, exit_end_of_data, profit_factor, calmar, max_drawdown_usd,
 max_drawdown_pct, final_equity, train1_net_pnl, warmup_net_pnl, boundary_net_pnl,
-n_valid_months, all_valid_months_nonnegative, promotion_pass, seconds`.
+n_valid_months, all_valid_months_nonnegative, promotion_pass, phase_fit_score,
+phase_unlabeled_trades, phase_leg_metrics, seconds`.
 
 The additive columns beyond the original frozen set (F006 shared-harness full-metrics
 ticket, "Dodaj wszystko co jest liczone" -- surface what the engine/`trade_stats`
@@ -140,18 +145,39 @@ All additive columns fill `0` (or `0.0`) when the underlying quantity is absent 
 trades in the cell), never `null`/`NaN`, so downstream CSV readers do not need a
 special case for an empty cell.
 
-Not in scope for this ticket (future work only, not implemented here): a per-trade
-blotter parquet dump, and `regime_label_hit_rate` (a family that tags entries with a
-regime label would need to persist that label alongside each trade before any
-regime-conditioned sub-PnL breakdown is possible -- no current family module does
-this, so there is no hook to surface yet).
+### Phase-fit audit fields
+
+A regime/wrap/switch caller opts in with `phase_labeler`, ordered `phase_legs`, and
+`phase_expected_legs` in `run_family`. `phase_labeler(train1_df)` must return one
+causal label per Train-1 bar. Each completed trade is assigned the label at
+`entry_time` (the actual next-bar-open fill). The raw row's `phase_fit.legs` and the
+summary CSV's JSON `phase_leg_metrics` contain, for every configured leg (including
+empty legs): `net_pnl`, `n_trades`, `win_rate`, `exit_mix`, `n_bars`, `bar_share`, and
+`trade_share`. `phase_fit_score` is the fraction of all completed trades whose entry
+leg is in that strategy's expected set; unlabelled entries count against it and are
+reported as `phase_unlabeled_trades`. The manifest mirrors every per-series phase
+record under `phase_fit.series`, along with the label source and expected-leg map.
+
+`scripts/f006_phase_fit_audit.py` uses synthetic labels and trades only when run
+without arguments; it proves empty-regime output retains all zero legs and
+all-in-one-leg output retains zero other legs. On a frozen VOLW tip, map
+`vol_regime(df)`'s `-1/0/1` to `LOW/MID/HIGH`, declare those three legs, and set
+expected legs to `HIGH`, `LOW`, or `HIGH+LOW` for the three frozen names. On a frozen
+REGIME_SW tip, map `compute_regime(df)["regime"]`'s `0/1/2` to
+`UNDEFINED/RANGE/TREND`; the combined name expects `RANGE+TREND` and each ablation
+expects its own leg. Pass those mappings to that family's existing `run_family` call
+and run its script; the audit does not load validation or holdout bars.
+
+Not in scope: a signal-autopsy/per-trade blotter export. This audit is aggregate
+entry-leg diagnostics, not a replacement for the separate H-SIGNAL-AUTOPSY-01 work.
 
 `output/f006_<family>/summary/manifest.json` -- top-level keys: `family`, `script`,
 `git_commit`, `run_started_utc`, `python`, `pandas`, `n_series`, `checksums_used`,
 `params`, `candidate_names`, `control_name` (always `DONCHIAN_55`),
 `hypothesis_note`, `harness_control` (always `{rows_compared, n_mismatches, source}`
 from the non-skippable DONCHIAN_55 comparison), `no_trail_mechanism_check`,
-`one_shot_violations`, `h1_table` (per-candidate-name
+`one_shot_violations`, `phase_fit` (null unless a family opts in; otherwise label
+source, legs, expected-leg map, and per-series leg diagnostics), `h1_table` (per-candidate-name
 `{strategy, sum_net_pnl, mean_net_pnl, n_series, n_profitable_series, n_trades_total,
 h1_pass}`; despite these frozen historical field names, `sum_net_pnl`, `mean_net_pnl`,
 `n_profitable_series`, and `h1_pass` are calculated from `train1_net_pnl` only, with

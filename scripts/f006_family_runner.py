@@ -37,6 +37,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import backtest_engine  # noqa: E402
 import data_contract  # noqa: E402
 import entry_masks  # noqa: E402
+import f006_phase_fit_audit  # noqa: E402
 import regularity  # noqa: E402
 import strategy  # noqa: E402
 import trade_stats  # noqa: E402
@@ -99,7 +100,7 @@ SUMMARY_COLUMNS = [
     "profit_factor", "calmar", "max_drawdown_usd",
     "max_drawdown_pct", "final_equity", "train1_net_pnl",
     "warmup_net_pnl", "boundary_net_pnl", "n_valid_months", "all_valid_months_nonnegative",
-    "promotion_pass", "seconds",
+    "promotion_pass", "phase_fit_score", "phase_unlabeled_trades", "phase_leg_metrics", "seconds",
 ]
 
 
@@ -155,7 +156,10 @@ def _net_pnl_for_months(days, months_set) -> float:
     return total
 
 
-def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
+def _run_one(
+    train1_df, mask, symbol, interval, strategy_name, n_calls,
+    phase_labels=None, phase_legs=(), expected_phase_legs=None,
+) -> dict:
     t0 = time.time()
     result = backtest_engine.run_backtest(
         train1_df, strategy_name, interval=interval, now=NOW, symbol=symbol,
@@ -214,6 +218,11 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
         and train1_net_pnl >= 0
         and n_trades > 0
     )
+    phase_fit = None
+    if phase_labels is not None:
+        phase_fit = f006_phase_fit_audit.compute_phase_fit(
+            phase_labels, trades, legs=phase_legs, expected_legs=expected_phase_legs,
+        )
 
     return {
         "symbol": symbol, "interval": interval, "strategy": strategy_name,
@@ -247,6 +256,10 @@ def _run_one(train1_df, mask, symbol, interval, strategy_name, n_calls) -> dict:
         "n_valid_months": n_valid_months,
         "all_valid_months_nonnegative": all_valid_months_nonnegative,
         "promotion_pass": promotion_pass,
+        "phase_fit_score": phase_fit["phase_fit_score"] if phase_fit else None,
+        "phase_unlabeled_trades": phase_fit["n_unlabeled_trades"] if phase_fit else 0,
+        "phase_leg_metrics": json.dumps(phase_fit["legs"], separators=(",", ":")) if phase_fit else "",
+        "phase_fit": phase_fit,
         "monthly": monthly_rows,
         "seconds": round(time.time() - t0, 2),
     }
@@ -319,6 +332,10 @@ def run_family(
     hypothesis_note: str,
     script_path: str,
     output_dir: Optional[str] = None,
+    phase_labeler: Optional[Callable[[pd.DataFrame], pd.Series]] = None,
+    phase_legs: Sequence[str] = (),
+    phase_expected_legs: Optional[Mapping[str, Sequence[str]]] = None,
+    phase_label_source: Optional[str] = None,
 ) -> dict:
     """Runs the frozen F006 NO_TRAIL Train-1 sweep for one signal family and writes
     output/f006_<family>/{raw,summary}/. Returns the manifest dict (also written to
@@ -334,7 +351,15 @@ def run_family(
     catalog_entries, if given, is registered into strategy.STRATEGY_CATALOG for this
     process only (never edits strategy.py) -- pass None if every name in
     candidate_names is already a production catalog entry (e.g. a harness self-check).
+
+    A regime/wrap/switch caller may also provide a causal ``phase_labeler`` plus its
+    fixed ``phase_legs`` and per-strategy expected legs. Labels are attached to
+    completed trades at their entry-fill bar for diagnostics only; H1/H2 are untouched.
     """
+    if phase_labeler is None and (phase_legs or phase_expected_legs or phase_label_source):
+        raise ValueError("phase_legs, phase_expected_legs, and phase_label_source require phase_labeler")
+    if phase_labeler is not None and not phase_legs:
+        raise ValueError("phase_labeler requires the complete fixed phase_legs list")
     t_start = time.time()
     output_dir = output_dir or f"output/f006_{family}"
     try:
@@ -361,11 +386,20 @@ def run_family(
         for interval in INTERVALS:
             train1_df, manifest = load_train1(symbol, interval)
             checksums_used[f"{symbol}_{interval}"] = manifest.checksum_sha256
+            labels = phase_labeler(train1_df) if phase_labeler is not None else None
+            if labels is not None:
+                labels = pd.Series(labels)
+                if not labels.index.equals(train1_df.index):
+                    raise ValueError("phase_labeler must return labels on the Train-1 bar index")
             for name in all_names:
                 sig = entry_masks.strategy_signal_series(train1_df, name, interval=interval, now=NOW)
                 mask = entry_masks.one_shot_entry_mask(sig)
                 n_calls = int(mask.sum())
-                row = _run_one(train1_df, mask, symbol, interval, name, n_calls)
+                expected_legs = (phase_expected_legs or {}).get(name)
+                row = _run_one(
+                    train1_df, mask, symbol, interval, name, n_calls,
+                    phase_labels=labels, phase_legs=phase_legs, expected_phase_legs=expected_legs,
+                )
                 rows.append(row)
                 with open(f"{output_dir}/raw/{symbol}_{interval}_{name}.json", "w") as f:
                     json.dump(row, f, indent=2, default=str)
@@ -431,6 +465,16 @@ def run_family(
         "harness_control": harness,
         "no_trail_mechanism_check": no_trail_check,
         "one_shot_violations": len(one_shot_violations),
+        "phase_fit": None if phase_labeler is None else {
+            "entry_label": "entry_fill_bar",
+            "label_source": phase_label_source,
+            "legs": list(phase_legs),
+            "expected_legs_by_strategy": {key: list(value) for key, value in (phase_expected_legs or {}).items()},
+            "series": [
+                {key: row[key] for key in ("symbol", "interval", "strategy", "phase_fit_score", "phase_unlabeled_trades", "phase_fit")}
+                for row in rows
+            ],
+        },
         "h1_table": h1_table,
         "h1_names_passing": h1_names_passing,
         "h1_falsified": h1_falsified,
