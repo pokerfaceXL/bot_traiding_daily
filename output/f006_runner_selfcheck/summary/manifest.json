@@ -1,22 +1,22 @@
 {
   "family": "runner_selfcheck",
   "script": "scripts/f006_family_runner.py",
-  "git_commit": "d1f5d158941fc4097c97b7e31d2069aaba7a6b5f",
-  "run_started_utc": "2026-09-29T12:42:23.822395+00:00",
+  "git_commit": "7992f2c62eff1f936b24b4c6a2b8f7f02da1b529",
+  "run_started_utc": "2026-09-29T14:16:31.816671+00:00",
   "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
   "pandas": "2.3.3",
   "n_series": 20,
   "checksums_used": {
-    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
-    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
-    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
-    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
-    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
-    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
-    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
-    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
-    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
-    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
   },
   "params": {
     "activate_pct": 10.0,
@@ -176,5 +176,5 @@
   ],
   "h2_names_with_a_passing_series": [],
   "h2_status": "falsified",
-  "elapsed_seconds": 5.3
+  "elapsed_seconds": 4.2
 }

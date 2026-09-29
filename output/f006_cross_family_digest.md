@@ -1,6 +1,6 @@
 # F006 cross-family digest
 
-Generated 2026-09-29T12:42:26.692505+00:00. 22 `output/f006_*` directories found (1 frozen-schema, 20 legacy-schema, 1 other/missing).
+Generated 2026-09-29T14:16:31.948638+00:00. 22 `output/f006_*` directories found (1 frozen-schema, 20 legacy-schema, 1 other/missing).
 
 ## Frozen-schema families (H1/H2 per name)
 
