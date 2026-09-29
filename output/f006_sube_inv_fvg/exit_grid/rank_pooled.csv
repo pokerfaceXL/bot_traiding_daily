@@ -1,0 +1,5 @@
+exit_cell,win_rate,mean_train1_net_pnl,h1_pass,n_series,n_trades,mean_trades_per_series,density_below_10,max_drawdown_pct,legacy_h2_series,sparse_h2_series
+TP_x2,28.88888888888889,-1.29204,False,50,90,1.8,True,2.8043,4,4
+TRAIL_a0.03_t0.02,26.666666666666668,-3.12079466,False,50,90,1.8,True,2.8043,4,4
+TRAIL_a0.06_t0.04,23.333333333333332,-3.0356667799999997,False,50,90,1.8,True,3.0357,2,2
+NO_TRAIL,6.666666666666667,3.46074248,True,50,90,1.8,True,22.6808,0,0

@@ -1,0 +1,27 @@
+[
+  {
+    "strategy": "SINV_FIRST_FVG",
+    "mean_trades_per_series": 2.2,
+    "sparsity_falsified": true
+  },
+  {
+    "strategy": "SINV_MSS_CLOSE",
+    "mean_trades_per_series": 3.6,
+    "sparsity_falsified": true
+  },
+  {
+    "strategy": "SINV_MSS_IN_FVG",
+    "mean_trades_per_series": 2.2,
+    "sparsity_falsified": true
+  },
+  {
+    "strategy": "SINV_FIRST_H4",
+    "mean_trades_per_series": 0.6,
+    "sparsity_falsified": true
+  },
+  {
+    "strategy": "SINV_FIRST_SMT",
+    "mean_trades_per_series": 0.4,
+    "sparsity_falsified": true
+  }
+]

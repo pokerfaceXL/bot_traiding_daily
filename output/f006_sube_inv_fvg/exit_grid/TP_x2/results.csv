@@ -1,0 +1,51 @@
+symbol,interval,strategy,exit_cell,n_calls,net_pnl,train1_net_pnl,win_rate,n_trades,n_wins,max_drawdown_pct,final_equity,n_valid_months,all_valid_months_nonnegative,legacy_h2,h2_sparse_absent_zero_trade,n_scored_months,train1_exit_n_trades,train1_exit_net_pnl,exit_mix
+SOLUSDT,240,SINV_FIRST_FVG,TP_x2,2,2.3645,2.3645,50.0,2,1,0.6649,502.3645,12,False,False,False,2,2,2.364499999999987,"{""initial_sl"": 1, ""take_profit"": 1}"
+SOLUSDT,240,SINV_MSS_CLOSE,TP_x2,4,4.729,4.729,50.0,4,2,1.4297,504.729,12,False,False,False,4,4,4.728999999999997,"{""initial_sl"": 2, ""take_profit"": 2}"
+SOLUSDT,240,SINV_MSS_IN_FVG,TP_x2,2,2.3735,2.3735,50.0,2,1,1.4203,502.3735,12,False,False,False,2,2,2.373499999999984,"{""initial_sl"": 1, ""take_profit"": 1}"
+SOLUSDT,240,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+SOLUSDT,240,SINV_FIRST_SMT,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6649,496.6755,12,False,False,False,1,1,-3.3244999999999942,"{""initial_sl"": 1}"
+ETHUSDT,240,SINV_FIRST_FVG,TP_x2,2,2.3645,2.3645,50.0,2,1,0.6574,502.3645,12,False,False,False,2,2,2.3645000000000005,"{""initial_sl"": 1, ""take_profit"": 1}"
+ETHUSDT,240,SINV_MSS_CLOSE,TP_x2,2,2.3735,2.3735,50.0,2,1,0.6784,502.3735,12,False,False,False,2,2,2.3734999999999973,"{""initial_sl"": 1, ""take_profit"": 1}"
+ETHUSDT,240,SINV_MSS_IN_FVG,TP_x2,1,5.689,5.689,100.0,1,1,0.0,505.689,12,True,True,True,1,1,5.689,"{""take_profit"": 1}"
+ETHUSDT,240,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+ETHUSDT,240,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,240,SINV_FIRST_FVG,TP_x2,1,-3.3155,-3.3155,0.0,1,0,0.7519,496.6845,12,False,False,False,1,1,-3.3154999999999997,"{""initial_sl"": 1}"
+BTCUSDT,240,SINV_MSS_CLOSE,TP_x2,3,-0.951,-0.951,33.33,3,1,1.6757,499.049,12,False,False,False,3,3,-0.9510000000000005,"{""initial_sl"": 2, ""take_profit"": 1}"
+BTCUSDT,240,SINV_MSS_IN_FVG,TP_x2,3,-0.951,-0.951,33.33,3,1,1.6757,499.049,12,False,False,False,3,3,-0.9510000000000005,"{""initial_sl"": 2, ""take_profit"": 1}"
+BTCUSDT,240,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,240,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+XRPUSDT,240,SINV_FIRST_FVG,TP_x2,4,-4.2665,-4.2665,25.0,4,1,1.5004,495.7335,12,False,False,False,4,4,-4.266500000000004,"{""initial_sl"": 3, ""take_profit"": 1}"
+XRPUSDT,240,SINV_MSS_CLOSE,TP_x2,5,-7.573,-7.573,20.0,5,1,1.9832,492.427,12,False,False,False,5,5,-7.57299999999999,"{""initial_sl"": 4, ""take_profit"": 1}"
+XRPUSDT,240,SINV_MSS_IN_FVG,TP_x2,1,-3.3155,-3.3155,0.0,1,0,0.6664,496.6845,12,False,False,False,1,1,-3.3154999999999974,"{""initial_sl"": 1}"
+XRPUSDT,240,SINV_FIRST_H4,TP_x2,2,11.36,11.36,100.0,2,2,0.4216,511.36,12,True,True,True,2,2,11.360000000000024,"{""take_profit"": 2}"
+XRPUSDT,240,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+DOGEUSDT,240,SINV_FIRST_FVG,TP_x2,2,-6.649,-6.649,0.0,2,0,1.3298,493.351,12,False,False,False,2,2,-6.649000000000013,"{""initial_sl"": 2}"
+DOGEUSDT,240,SINV_MSS_CLOSE,TP_x2,4,-13.28,-13.28,0.0,4,0,2.7188,486.72,12,False,False,False,4,4,-13.279999999999996,"{""initial_sl"": 4}"
+DOGEUSDT,240,SINV_MSS_IN_FVG,TP_x2,4,-13.28,-13.28,0.0,4,0,2.7188,486.72,12,False,False,False,4,4,-13.279999999999996,"{""initial_sl"": 4}"
+DOGEUSDT,240,SINV_FIRST_H4,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6649,496.6755,12,False,False,False,1,1,-3.324499999999992,"{""initial_sl"": 1}"
+DOGEUSDT,240,SINV_FIRST_SMT,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6649,496.6755,12,False,False,False,1,1,-3.324500000000005,"{""initial_sl"": 1}"
+SOLUSDT,60,SINV_FIRST_FVG,TP_x2,2,2.3645,2.3645,50.0,2,1,0.6886,502.3645,12,False,False,False,2,2,2.364499999999987,"{""initial_sl"": 1, ""take_profit"": 1}"
+SOLUSDT,60,SINV_MSS_CLOSE,TP_x2,4,4.729,4.729,50.0,4,2,1.5771,504.729,12,False,False,False,4,4,4.728999999999997,"{""initial_sl"": 2, ""take_profit"": 2}"
+SOLUSDT,60,SINV_MSS_IN_FVG,TP_x2,2,2.3735,2.3735,50.0,2,1,1.5667,502.3735,12,False,False,False,2,2,2.373499999999984,"{""initial_sl"": 1, ""take_profit"": 1}"
+SOLUSDT,60,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+SOLUSDT,60,SINV_FIRST_SMT,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6886,496.6755,12,False,False,False,1,1,-3.3244999999999942,"{""initial_sl"": 1}"
+ETHUSDT,60,SINV_FIRST_FVG,TP_x2,2,2.3645,2.3645,50.0,2,1,0.6951,502.3645,12,False,False,False,2,2,2.3645000000000005,"{""initial_sl"": 1, ""take_profit"": 1}"
+ETHUSDT,60,SINV_MSS_CLOSE,TP_x2,2,2.3735,2.3735,50.0,2,1,0.6784,502.3735,12,False,False,False,2,2,2.3734999999999973,"{""initial_sl"": 1, ""take_profit"": 1}"
+ETHUSDT,60,SINV_MSS_IN_FVG,TP_x2,1,5.689,5.689,100.0,1,1,0.0,505.689,12,True,True,True,1,1,5.689,"{""take_profit"": 1}"
+ETHUSDT,60,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+ETHUSDT,60,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,60,SINV_FIRST_FVG,TP_x2,1,-3.3155,-3.3155,0.0,1,0,0.7519,496.6845,12,False,False,False,1,1,-3.3154999999999997,"{""initial_sl"": 1}"
+BTCUSDT,60,SINV_MSS_CLOSE,TP_x2,3,-0.951,-0.951,33.33,3,1,1.8617,499.049,12,False,False,False,3,3,-0.9510000000000005,"{""initial_sl"": 2, ""take_profit"": 1}"
+BTCUSDT,60,SINV_MSS_IN_FVG,TP_x2,3,-0.951,-0.951,33.33,3,1,1.8617,499.049,12,False,False,False,3,3,-0.9510000000000005,"{""initial_sl"": 2, ""take_profit"": 1}"
+BTCUSDT,60,SINV_FIRST_H4,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,60,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+XRPUSDT,60,SINV_FIRST_FVG,TP_x2,4,-4.2665,-4.2665,25.0,4,1,1.5376,495.7335,12,False,False,False,4,4,-4.266500000000004,"{""initial_sl"": 3, ""take_profit"": 1}"
+XRPUSDT,60,SINV_MSS_CLOSE,TP_x2,5,-7.573,-7.573,20.0,5,1,2.2422,492.427,12,False,False,False,5,5,-7.57299999999999,"{""initial_sl"": 4, ""take_profit"": 1}"
+XRPUSDT,60,SINV_MSS_IN_FVG,TP_x2,1,-3.3155,-3.3155,0.0,1,0,0.9302,496.6845,12,False,False,False,1,1,-3.3154999999999974,"{""initial_sl"": 1}"
+XRPUSDT,60,SINV_FIRST_H4,TP_x2,2,11.36,11.36,100.0,2,2,0.4843,511.36,12,True,True,True,2,2,11.360000000000024,"{""take_profit"": 2}"
+XRPUSDT,60,SINV_FIRST_SMT,TP_x2,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+DOGEUSDT,60,SINV_FIRST_FVG,TP_x2,2,-6.649,-6.649,0.0,2,0,1.3298,493.351,12,False,False,False,2,2,-6.649000000000013,"{""initial_sl"": 2}"
+DOGEUSDT,60,SINV_MSS_CLOSE,TP_x2,4,-13.28,-13.28,0.0,4,0,2.8043,486.72,12,False,False,False,4,4,-13.279999999999996,"{""initial_sl"": 4}"
+DOGEUSDT,60,SINV_MSS_IN_FVG,TP_x2,4,-13.28,-13.28,0.0,4,0,2.8043,486.72,12,False,False,False,4,4,-13.279999999999996,"{""initial_sl"": 4}"
+DOGEUSDT,60,SINV_FIRST_H4,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6649,496.6755,12,False,False,False,1,1,-3.324499999999992,"{""initial_sl"": 1}"
+DOGEUSDT,60,SINV_FIRST_SMT,TP_x2,1,-3.3245,-3.3245,0.0,1,0,0.6649,496.6755,12,False,False,False,1,1,-3.324500000000005,"{""initial_sl"": 1}"
