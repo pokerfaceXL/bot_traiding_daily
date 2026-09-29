@@ -115,7 +115,8 @@ def compute_signals(df: pd.DataFrame, tf_min: int, reference: pd.DataFrame | Non
     for k, direction in s["first"].items():
         event_at = s["blocks"].at[k, "complete_at"]
         containing = int((_index_utc(df)[df.index.get_loc(event_at)].value // 60_000_000_000) // H4_MIN)
-        for hk, hd in h4["first"].items():
+        for gap in h4["fvgs"]:
+            hk, hd = gap["k"], gap["direction"]
             if containing < hk <= containing + 6 and hd == direction and h4["blocks"].at[hk, "complete_at"] > event_at:
                 h4_values[h4["blocks"].at[hk, "complete_at"]] = direction; break
     first_h4 = pd.Series(0, index=df.index, dtype=int)
