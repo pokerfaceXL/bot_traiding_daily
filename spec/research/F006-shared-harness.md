@@ -21,8 +21,10 @@ family (merged, `9b62759`/`61d810d`), and `scripts/f006_bb_kelt_squeeze_experime
 monthly regularity + promotion-pass check), `verify_harness_control` against
 `output/f006_trailing_boundary/summary/results.csv`, and a `main()` that registers
 runtime-only catalog entries, sweeps `symbols x intervals x names`, writes
-`output/f006_<family>/{raw,summary}/`, and computes H1 (mean net PnL > 0 across the
+`output/f006_<family>/{raw,summary}/`, and computes H1 (mean `train1_net_pnl` > 0 across the
 10-series pool) then H2 (monthly promotion checklist, only for H1-passing names).
+`net_pnl` includes warm-up and boundary diagnostics and must not be used for the H1
+gate.
 Nothing about that loop is family-specific; only `catalog_entries()`, the candidate
 name list, and the hypothesis note text differ per family.
 
@@ -116,7 +118,10 @@ n_valid_months, all_valid_months_nonnegative, promotion_pass, seconds`.
 from the non-skippable DONCHIAN_55 comparison), `no_trail_mechanism_check`,
 `one_shot_violations`, `h1_table` (per-candidate-name
 `{strategy, sum_net_pnl, mean_net_pnl, n_series, n_profitable_series, n_trades_total,
-h1_pass}`), `h1_names_passing`, `h1_falsified`, `h2_table`, `h2_names_with_a_passing_series`,
+h1_pass}`; despite these frozen historical field names, `sum_net_pnl`, `mean_net_pnl`,
+`n_profitable_series`, and `h1_pass` are calculated from `train1_net_pnl` only, with
+H1 passing iff `mean(train1_net_pnl) > 0`), `h1_names_passing`, `h1_falsified`,
+`h2_table`, `h2_names_with_a_passing_series`,
 `h2_status` (`"not_applicable_h1_failed"` / `"falsified"` / `"cleared"`),
 `elapsed_seconds`. A manifest missing `h1_falsified` predates this schema; the digest
 must treat it as `schema: legacy`, not crash.

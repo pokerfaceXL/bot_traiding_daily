@@ -6,9 +6,9 @@ ticket, spec/research/F006-shared-harness.md). Infrastructure, not a signal fami
 Centralizes what every F006 family script since f006_notrail_monthly hand-copied:
 the frozen symbol/interval basket, the ten data_cache checksums, the Train-1 window,
 the NO_TRAIL exit geometry, the DONCHIAN_55 harness-control comparison, the per-
-series raw/summary/manifest write under output/f006_<family>/, and the H1 (mean net
-PnL > 0 across the 10-series pool) / H2 (monthly promotion checklist, conditional on
-H1) checks.
+series raw/summary/manifest write under output/f006_<family>/, and the H1 (mean
+Train-1 net PnL > 0 across the 10-series pool) / H2 (monthly promotion checklist,
+conditional on H1) checks.
 
 A new signal-family script's whole job: define a signal module with
 `catalog_entries() -> dict[str, Callable[[pd.DataFrame], pd.Series]]`, freeze its own
@@ -260,6 +260,30 @@ def verify_harness_control(rows: list, control_name: str, reference_csv: str) ->
     return {"rows_compared": int(len(merged)), "n_mismatches": 0, "source": reference_csv}
 
 
+def _build_h1_table(summary_df: pd.DataFrame, candidate_names: Sequence[str]) -> list[dict]:
+    """Aggregate H1 exclusively from Train-1 PnL, never diagnostic full-run PnL.
+
+    The frozen schema retains its historical ``*_net_pnl`` field names, but each
+    aggregate below is deliberately derived from ``train1_net_pnl``. ``net_pnl``
+    includes warm-up and boundary days and remains diagnostic-only.
+    """
+    cand_df = summary_df[summary_df["strategy"].isin(candidate_names)]
+    h1_table = []
+    for name in candidate_names:
+        sub = cand_df[cand_df["strategy"] == name]
+        train1_pnl = sub["train1_net_pnl"]
+        h1_table.append({
+            "strategy": name,
+            "sum_net_pnl": round(float(train1_pnl.sum()), 4),
+            "mean_net_pnl": round(float(train1_pnl.mean()), 4),
+            "n_series": int(len(sub)),
+            "n_profitable_series": int((train1_pnl > 0).sum()),
+            "n_trades_total": int(sub["n_trades"].sum()),
+            "h1_pass": bool(train1_pnl.mean() > 0),
+        })
+    return h1_table
+
+
 def run_family(
     family: str,
     candidate_names: Sequence[str],
@@ -335,20 +359,8 @@ def run_family(
     if one_shot_violations:
         raise SystemExit(f"STOP: {len(one_shot_violations)} one-shot violations.")
 
-    # -------------------------------------------------- H1: aggregate check (candidates only)
-    cand_df = summary_df[summary_df["strategy"].isin(candidate_names)]
-    h1_table = []
-    for name in candidate_names:
-        sub = cand_df[cand_df["strategy"] == name]
-        h1_table.append({
-            "strategy": name,
-            "sum_net_pnl": round(float(sub["net_pnl"].sum()), 4),
-            "mean_net_pnl": round(float(sub["net_pnl"].mean()), 4),
-            "n_series": int(len(sub)),
-            "n_profitable_series": int((sub["net_pnl"] > 0).sum()),
-            "n_trades_total": int(sub["n_trades"].sum()),
-            "h1_pass": bool(sub["net_pnl"].mean() > 0),
-        })
+    # -------------------------------------------------- H1: aggregate Train-1 check (candidates only)
+    h1_table = _build_h1_table(summary_df, candidate_names)
     h1_names_passing = [r["strategy"] for r in h1_table if r["h1_pass"]]
     h1_falsified = len(h1_names_passing) == 0
 

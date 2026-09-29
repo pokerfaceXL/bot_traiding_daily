@@ -283,7 +283,38 @@ def test_run_family_always_covers_the_frozen_basket_and_control(tmp_path):
     assert manifest["harness_control"]["n_mismatches"] == 0
 
 
-# -- 7. Train-1 loader must not peek beyond its frozen boundary ---------------
+# -- 7. H1 must use Train-1 PnL, not diagnostic full-run PnL -----------------
+
+def test_h1_uses_train1_pnl_not_full_run_pnl():
+    # WARMUP_BOUNDARY_GAIN looks profitable in full-run net_pnl but lost during
+    # Train-1; TRAIN1_GAIN is the reverse. H1's frozen gate must follow only the
+    # pre-registered Train-1 window.
+    rows = pd.DataFrame([
+        {"strategy": "WARMUP_BOUNDARY_GAIN", "net_pnl": 100.0, "train1_net_pnl": -5.0, "n_trades": 2},
+        {"strategy": "WARMUP_BOUNDARY_GAIN", "net_pnl": 20.0, "train1_net_pnl": 0.0, "n_trades": 3},
+        {"strategy": "TRAIN1_GAIN", "net_pnl": -100.0, "train1_net_pnl": 5.0, "n_trades": 4},
+        {"strategy": "TRAIN1_GAIN", "net_pnl": -20.0, "train1_net_pnl": 1.0, "n_trades": 5},
+    ])
+
+    h1 = {
+        row["strategy"]: row
+        for row in f006_family_runner._build_h1_table(
+            rows, ["WARMUP_BOUNDARY_GAIN", "TRAIN1_GAIN"]
+        )
+    }
+
+    assert h1["WARMUP_BOUNDARY_GAIN"] == {
+        "strategy": "WARMUP_BOUNDARY_GAIN", "sum_net_pnl": -5.0,
+        "mean_net_pnl": -2.5, "n_series": 2, "n_profitable_series": 0,
+        "n_trades_total": 5, "h1_pass": False,
+    }
+    assert h1["TRAIN1_GAIN"]["sum_net_pnl"] == 6.0
+    assert h1["TRAIN1_GAIN"]["mean_net_pnl"] == 3.0
+    assert h1["TRAIN1_GAIN"]["n_profitable_series"] == 2
+    assert h1["TRAIN1_GAIN"]["h1_pass"] is True
+
+
+# -- 8. Train-1 loader must not peek beyond its frozen boundary ---------------
 
 def test_load_train1_requests_only_warmup_through_train1_end(monkeypatch):
     requested = {}
