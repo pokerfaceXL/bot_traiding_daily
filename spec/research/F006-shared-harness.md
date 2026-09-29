@@ -29,15 +29,19 @@ name list, and the hypothesis note text differ per family.
 ## Method (what this ticket builds, not a trading hypothesis)
 
 1. `scripts/f006_family_runner.py`: an importable module (not a template to copy)
-   exposing `run_family(family, candidate_names, catalog_entries=None,
-   hypothesis_note=..., script_path=..., control_name="DONCHIAN_55",
-   control_reference_csv="output/f006_trailing_boundary/summary/results.csv",
-   output_dir=None)`. It owns the frozen basket (`SYMBOLS`, `INTERVALS`,
-   `EXPECTED_CHECKSUMS` -- `spec/research/F005-validation-protocol.md` section 6),
-   the Train-1 window and NO_TRAIL geometry (`activate_pct=10.0`, `max_sl_pct=0.03`,
-   one-shot entry mask, `cooldown_candles=0`, `leverage=1`), the DONCHIAN_55 harness
-   control, the H1/H2 checks, and every file write under `output/f006_<family>/`.
-   A future family script's entire job is: define a signal module with
+   exposing `run_family(family, candidate_names, *, catalog_entries=None,
+   hypothesis_note=..., script_path=..., output_dir=None)`. It owns the frozen
+   `SYMBOLS × INTERVALS` basket, `EXPECTED_CHECKSUMS`
+   (`spec/research/F005-validation-protocol.md` section 6), and the module-level
+   `CONTROL_NAME`/`CONTROL_REFERENCE_CSV` DONCHIAN_55 harness control; it always
+   runs that control. The basket/control are deliberately not caller arguments:
+   `symbols`, `intervals`, `control_name`, or `control_reference_csv` raise
+   `TypeError`, and `CONTROL_NAME` as a candidate raises `ValueError`. This prevents a
+   family from writing non-10-series or uncontrolled results while claiming the frozen
+   schema. The module also owns the Train-1 window and NO_TRAIL geometry
+   (`activate_pct=10.0`, `max_sl_pct=0.03`, one-shot entry mask,
+   `cooldown_candles=0`, `leverage=1`), the H1/H2 checks, and every file write under
+   `output/f006_<family>/`. A future family script's entire job is: define a signal module with
    `catalog_entries() -> dict[str, Callable[[pd.DataFrame], pd.Series]]`, freeze its
    candidate names and hypothesis note in its own `spec/research/F006-hypothesis-*.md`
    (unchanged discipline), and call `run_family(...)` once. It MUST NOT copy the loop.
@@ -98,9 +102,10 @@ n_valid_months, all_valid_months_nonnegative, promotion_pass, seconds`.
 
 `output/f006_<family>/summary/manifest.json` -- top-level keys: `family`, `script`,
 `git_commit`, `run_started_utc`, `python`, `pandas`, `n_series`, `checksums_used`,
-`params`, `candidate_names`, `control_name`, `hypothesis_note`, `harness_control`
-(`{rows_compared, n_mismatches, source}` or `null` if no control was requested),
-`no_trail_mechanism_check`, `one_shot_violations`, `h1_table` (per-candidate-name
+`params`, `candidate_names`, `control_name` (always `DONCHIAN_55`),
+`hypothesis_note`, `harness_control` (always `{rows_compared, n_mismatches, source}`
+from the non-skippable DONCHIAN_55 comparison), `no_trail_mechanism_check`,
+`one_shot_violations`, `h1_table` (per-candidate-name
 `{strategy, sum_net_pnl, mean_net_pnl, n_series, n_profitable_series, n_trades_total,
 h1_pass}`), `h1_names_passing`, `h1_falsified`, `h2_table`, `h2_names_with_a_passing_series`,
 `h2_status` (`"not_applicable_h1_failed"` / `"falsified"` / `"cleared"`),
