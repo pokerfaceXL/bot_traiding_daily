@@ -78,6 +78,43 @@ Rank cells by pooled trade-weighted win rate, both per signal and across all fiv
 
 Density below ten trades/series is reported as a sparsity flag, not a sole-DNR reason. Exits add no signal opportunities; report observed trade counts rather than assume shorter holding times cannot affect execution of later frozen opportunities. Report unconditional per-series H2 flags and counts conditional on H1 separately. Evidence goes in `output/f006_sube_inv_fvg/exit_grid/`.
 
-## Tests
+## Continuation results and verdict
+
+Execution commit: `f5e6d80` (recorded in every exit-grid manifest). The exit-only sibling `scripts/f006_sube_inv_fvg_exit_grid.py` completed 210 runs: 200 candidate cells and ten NO_TRAIL controls. All 60 original NO_TRAIL series match, including Train-1 PnL, trade counts, win rate, drawdown, equity, and legacy H2. The ten DONCHIAN_55 controls match the shared reference exactly. A separate check also reproduced all 720 original NO_TRAIL monthly equity PnLs within 1e-10. `sube_inv_fvg.py`, the shared harness, engine, and production catalog are unchanged.
+
+Pooled trade-weighted win rate ranks TP_x2 **28.89%**, TRAIL_a0.03_t0.02 **26.67%**, TRAIL_a0.06_t0.04 **23.33%**, NO_TRAIL **6.67%**. Mean Train-1 PnL across all 50 candidate series is respectively **-$1.2920, -$3.1208, -$3.0357, +$3.4607**. This pooled description does not replace the per-name H1 test below. Each cell has 90 trades across 50 series (1.8 mean); every name retains its original trade count and signal opportunities. Exits did not fix sparsity.
+
+Each row below is a ten-series pool. Positive mean PnL means H1 PASS, nonpositive means FAIL. H2 counts are unconditional legacy/sparse passing series; only H1-positive rows qualify for conditional H2. WR ordering is within each name; equal WR values are ties, not evidence of superiority.
+
+| Signal / exit cell | Win rate | Mean Train-1 PnL | Legacy / sparse H2 |
+| --- | ---: | ---: | ---: |
+| SINV_FIRST_FVG / TP_x2 | 27.27% | -1.9004 | 0 / 0 |
+| SINV_FIRST_FVG / TRAIL_a0.06_t0.04 | 27.27% | -3.6077 | 0 / 0 |
+| SINV_FIRST_FVG / TRAIL_a0.03_t0.02 | 22.73% | -4.3070 | 0 / 0 |
+| SINV_FIRST_FVG / NO_TRAIL | 0.00% | -7.1403 | 0 / 0 |
+| SINV_FIRST_H4 / TP_x2 | 66.67% | +1.6071 | 2 / 2 |
+| SINV_FIRST_H4 / TRAIL_a0.03_t0.02 | 66.67% | -0.2568 | 2 / 2 |
+| SINV_FIRST_H4 / TRAIL_a0.06_t0.04 | 66.67% | +1.5586 | 2 / 2 |
+| SINV_FIRST_H4 / NO_TRAIL | 33.33% | +41.4145 | 0 / 0 |
+| SINV_FIRST_SMT / NO_TRAIL | 0.00% | -1.3298 | 0 / 0 |
+| SINV_FIRST_SMT / TP_x2 | 0.00% | -1.3298 | 0 / 0 |
+| SINV_FIRST_SMT / TRAIL_a0.03_t0.02 | 0.00% | -1.3298 | 0 / 0 |
+| SINV_FIRST_SMT / TRAIL_a0.06_t0.04 | 0.00% | -1.3298 | 0 / 0 |
+| SINV_MSS_CLOSE / TP_x2 | 27.78% | -2.9403 | 0 / 0 |
+| SINV_MSS_CLOSE / TRAIL_a0.03_t0.02 | 27.78% | -5.6309 | 0 / 0 |
+| SINV_MSS_CLOSE / TRAIL_a0.06_t0.04 | 19.44% | -7.3956 | 0 / 0 |
+| SINV_MSS_CLOSE / NO_TRAIL | 5.56% | -10.1421 | 0 / 0 |
+| SINV_MSS_IN_FVG / TP_x2 | 27.27% | -1.8968 | 2 / 2 |
+| SINV_MSS_IN_FVG / TRAIL_a0.03_t0.02 | 22.73% | -4.0795 | 2 / 2 |
+| SINV_MSS_IN_FVG / TRAIL_a0.06_t0.04 | 18.18% | -4.4038 | 0 / 0 |
+| SINV_MSS_IN_FVG / NO_TRAIL | 9.09% | -5.4986 | 0 / 0 |
+
+**Verdict:** retain SINV_FIRST_H4 with TP_x2 and TRAIL_a0.06_t0.04 for independent review under the revised policy, rather than sole-DNR on density. Both clear H1 and both H2 definitions; their passing series are XRPUSDT/60 and XRPUSDT/240, each with two trades and two scored exit months. They are not independent confirmations across assets: both timeframes trade XRP, and the entire name/cell has only six trades (0.6 per series). TP_x2 has a tied highest name-level WR and slightly higher aggregate PnL than the wider trail, not a proven statistical advantage. Neither is validated or authorized for live trading.
+
+The other four names fail H1 in every cell. SINV_FIRST_H4 with the tighter trail also fails H1 despite its WR; NO_TRAIL H4 clears H1 but fails both H2 definitions. Sparse H2 and legacy H2 happen to select the same series here; absent-month semantics are separately tested rather than inferred from that coincidence. Density means remain FIRST_FVG 2.2, MSS_CLOSE 3.6, MSS_IN_FVG 2.2, FIRST_H4 0.6, FIRST_SMT 0.4. No sole density rejection, entry change, merge, or validation/holdout access occurred.
+
+Evidence includes per-cell CSV/manifests, per-name and pooled rank tables, 2,520 dual-rule monthly rows, and 836 trade records (including the control) under `output/f006_sube_inv_fvg/exit_grid/`. Per-series and per-name maximum DD and full exit-mix histograms are retained in the CSVs. Focused tests: `python3 -m pytest -q tests/test_sube_exit_grid.py tests/test_sube_inv_fvg.py` → 12 passed; the sparse fixture proves an absent month is neutral, a losing exit-month fails, and an all-absent series cannot pass. Warm-up/boundary exclusion, Warsaw month assignment, DD/PnL gates, weighted ranking, and the NO_TRAIL mismatch guard are also checked.
+
+## Original NO_TRAIL tests
 
 `python3 -m pytest -q tests/test_sube_inv_fvg.py` passed: 4 tests. It checks complete epoch blocks, missing-block rejection, prefix invariance under appended future bars, frozen names/no midpoint geometry, and H4 alignment. `python3 scripts/f006_sube_inv_fvg_experiment.py` completed in 446.2 seconds; its checked manifest and raw/summary evidence are under `output/f006_sube_inv_fvg/`.

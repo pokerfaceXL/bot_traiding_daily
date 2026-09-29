@@ -1,0 +1,10 @@
+{
+  "git_commit": "f5e6d801383faf9254ee074a82d0cf8e1043f668",
+  "exit_cell": "TP_x2",
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "take_profit_multiple": 2.0
+  },
+  "shared_manifest": "../manifest.json"
+}
