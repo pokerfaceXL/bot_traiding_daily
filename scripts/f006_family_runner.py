@@ -49,22 +49,21 @@ CONTROL_NAME = "DONCHIAN_55"  # closed/merged family, harness control only
 CONTROL_REFERENCE_CSV = "output/f006_trailing_boundary/summary/results.csv"
 
 WARMUP_START = "2024-01-26T00:00:00Z"
-HOLDOUT_END = "2026-09-01T00:00:00Z"
 TRAIN1_END = pd.Timestamp("2025-03-01T00:00:00Z")
 NOW = TRAIN1_END
 
 # spec/research/F005-validation-protocol.md section 6.
 EXPECTED_CHECKSUMS = {
-    ("SOLUSDT", "240"): "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
-    ("SOLUSDT", "60"): "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
-    ("ETHUSDT", "240"): "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
-    ("ETHUSDT", "60"): "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
-    ("BTCUSDT", "240"): "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
-    ("BTCUSDT", "60"): "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
-    ("XRPUSDT", "240"): "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
-    ("XRPUSDT", "60"): "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
-    ("DOGEUSDT", "240"): "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
-    ("DOGEUSDT", "60"): "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff",
+    ("SOLUSDT", "240"): "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    ("SOLUSDT", "60"): "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    ("ETHUSDT", "240"): "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    ("ETHUSDT", "60"): "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    ("BTCUSDT", "240"): "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    ("BTCUSDT", "60"): "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    ("XRPUSDT", "240"): "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    ("XRPUSDT", "60"): "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    ("DOGEUSDT", "240"): "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    ("DOGEUSDT", "60"): "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe",
 }
 
 # NO_TRAIL exit geometry, identical across every F006 NO_TRAIL cell.
@@ -110,8 +109,10 @@ def register_catalog_entries(entries: Mapping[str, Callable]) -> None:
 
 def load_train1(symbol: str, interval: str):
     try:
+        # Do not load, slice, or inspect validation/holdout bars for a Train-1 H1 run.
+        # The cache request ends at TRAIN1_END; WARMUP_START retains indicator warm-up.
         full_df, manifest = data_contract.load_dataset(
-            "data_cache", symbol, interval, WARMUP_START, HOLDOUT_END
+            "data_cache", symbol, interval, WARMUP_START, TRAIN1_END
         )
     except data_contract.DataContractError as exc:
         raise SystemExit(

@@ -263,3 +263,36 @@ def test_run_family_always_covers_the_frozen_basket_and_control(tmp_path):
     assert manifest["harness_control"] is not None, "control check was skipped"
     assert manifest["harness_control"]["rows_compared"] == 10
     assert manifest["harness_control"]["n_mismatches"] == 0
+
+
+# -- 7. Train-1 loader must not peek beyond its frozen boundary ---------------
+
+def test_load_train1_requests_only_warmup_through_train1_end(monkeypatch):
+    requested = {}
+    symbol, interval = "BTCUSDT", "60"
+    index = pd.DatetimeIndex([
+        pd.Timestamp("2024-01-26T00:00:00Z"),
+        pd.Timestamp("2025-02-28T23:00:00Z"),
+    ])
+    df = pd.DataFrame(
+        {"open": [1.0, 1.0], "high": [1.0, 1.0], "low": [1.0, 1.0],
+         "close": [1.0, 1.0], "volume": [1.0, 1.0]},
+        index=index,
+    )
+
+    class Manifest:
+        checksum_sha256 = f006_family_runner.EXPECTED_CHECKSUMS[(symbol, interval)]
+
+    def fake_load_dataset(cache_dir, got_symbol, got_interval, start, end):
+        requested.update(cache_dir=cache_dir, symbol=got_symbol, interval=got_interval,
+                         start=start, end=end)
+        return df, Manifest()
+
+    monkeypatch.setattr(f006_family_runner.data_contract, "load_dataset", fake_load_dataset)
+    train1_df, _manifest = f006_family_runner.load_train1(symbol, interval)
+
+    assert requested == {
+        "cache_dir": "data_cache", "symbol": symbol, "interval": interval,
+        "start": f006_family_runner.WARMUP_START, "end": f006_family_runner.TRAIN1_END,
+    }
+    assert train1_df.index.max() < f006_family_runner.TRAIN1_END

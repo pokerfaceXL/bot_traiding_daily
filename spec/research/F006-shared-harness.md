@@ -38,7 +38,9 @@ name list, and the hypothesis note text differ per family.
    `symbols`, `intervals`, `control_name`, or `control_reference_csv` raise
    `TypeError`, and `CONTROL_NAME` as a candidate raises `ValueError`. This prevents a
    family from writing non-10-series or uncontrolled results while claiming the frozen
-   schema. The module also owns the Train-1 window and NO_TRAIL geometry
+   schema. The module requests its local cache only from `WARMUP_START` through
+   `TRAIN1_END` (warm-up included): validation and holdout bars are never loaded,
+   sliced, or inspected by a Train-1 H1 run. It also owns the NO_TRAIL geometry
    (`activate_pct=10.0`, `max_sl_pct=0.03`, one-shot entry mask,
    `cooldown_candles=0`, `leverage=1`), the H1/H2 checks, and every file write under
    `output/f006_<family>/`. A future family script's entire job is: define a signal module with
