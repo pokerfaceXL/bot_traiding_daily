@@ -24,6 +24,7 @@ Six checks, each generic over "a dict[name -> callable(df) -> pd.Series]":
      entry only ever fills on the bar immediately after its decision bar, never on
      the decision bar's own close.
 """
+import inspect
 import os
 import sys
 
@@ -208,3 +209,57 @@ def test_one_shot_calls_fill_only_on_the_bar_after_the_decision_bar(
         assert entry_time in eligible_next_bars, (
             f"{family_name}:{name}: entry_time {entry_time} is not immediately after any one-shot call"
         )
+
+
+# -- 6. frozen basket + harness control cannot be bypassed ------------------
+# scripts/f006_family_runner.py: run_family() must always own the 5x2 SYMBOLS x
+# INTERVALS basket and the DONCHIAN_55 control -- no kwarg may let a caller narrow
+# the basket or skip the control while still claiming the frozen H1/H2 schema.
+
+FORBIDDEN_RUN_FAMILY_KWARGS = {"symbols", "intervals", "control_name", "control_reference_csv"}
+
+
+def test_run_family_exposes_no_basket_or_control_override():
+    sig = inspect.signature(f006_family_runner.run_family)
+    leaked = FORBIDDEN_RUN_FAMILY_KWARGS & set(sig.parameters)
+    assert not leaked, f"run_family exposes a basket/control override kwarg: {leaked}"
+
+
+@pytest.mark.parametrize("kwarg", sorted(FORBIDDEN_RUN_FAMILY_KWARGS))
+def test_run_family_rejects_a_basket_or_control_override_kwarg(kwarg):
+    with pytest.raises(TypeError):
+        f006_family_runner.run_family(
+            family="should_not_run", candidate_names=["DONCHIAN_20"],
+            hypothesis_note="contract test", script_path="tests/test_signal_family_contract.py",
+            **{kwarg: object()},
+        )
+
+
+def test_run_family_rejects_the_control_name_as_a_candidate():
+    with pytest.raises(ValueError):
+        f006_family_runner.run_family(
+            family="should_not_run",
+            candidate_names=[f006_family_runner.CONTROL_NAME],
+            hypothesis_note="contract test", script_path="tests/test_signal_family_contract.py",
+        )
+
+
+def test_run_family_always_covers_the_frozen_basket_and_control(tmp_path):
+    manifest = f006_family_runner.run_family(
+        family="contract_basket_check",
+        candidate_names=["DONCHIAN_20"],
+        hypothesis_note=(
+            "Contract test (tests/test_signal_family_contract.py): proves run_family "
+            "always covers the frozen 5x2 SYMBOLS x INTERVALS basket and the DONCHIAN_55 "
+            "harness control -- not a signal-family hypothesis."
+        ),
+        script_path="tests/test_signal_family_contract.py",
+        output_dir=str(tmp_path / "f006_contract_basket_check"),
+    )
+    expected_keys = {f"{s}_{i}" for s in f006_family_runner.SYMBOLS for i in f006_family_runner.INTERVALS}
+    assert set(manifest["checksums_used"]) == expected_keys, "basket was narrowed"
+    assert manifest["n_series"] == len(expected_keys) * 2  # 1 candidate + 1 control, per series
+    assert manifest["control_name"] == "DONCHIAN_55"
+    assert manifest["harness_control"] is not None, "control check was skipped"
+    assert manifest["harness_control"]["rows_compared"] == 10
+    assert manifest["harness_control"]["n_mismatches"] == 0

@@ -266,16 +266,18 @@ def run_family(
     catalog_entries: Optional[Mapping[str, Callable]] = None,
     hypothesis_note: str,
     script_path: str,
-    control_name: Optional[str] = CONTROL_NAME,
-    control_reference_csv: Optional[str] = CONTROL_REFERENCE_CSV,
     output_dir: Optional[str] = None,
-    symbols: Sequence[str] = SYMBOLS,
-    intervals: Sequence[str] = INTERVALS,
 ) -> dict:
     """Runs the frozen F006 NO_TRAIL Train-1 sweep for one signal family and writes
     output/f006_<family>/{raw,summary}/. Returns the manifest dict (also written to
     summary/manifest.json). See spec/research/F006-shared-harness.md's "Frozen result
     schema" for the column/key contract.
+
+    The symbol/interval basket and the DONCHIAN_55 harness control are NOT caller-
+    configurable -- this function owns them so no family can emit a non-10-series or
+    uncontrolled result while claiming the frozen schema. A family that needs a
+    different basket or control is not this shared harness's caller; it needs its own
+    reviewed exception, not a kwarg on this function.
 
     catalog_entries, if given, is registered into strategy.STRATEGY_CATALOG for this
     process only (never edits strategy.py) -- pass None if every name in
@@ -291,7 +293,9 @@ def run_family(
     if catalog_entries:
         register_catalog_entries(catalog_entries)
 
-    all_names = list(candidate_names) + ([control_name] if control_name else [])
+    if CONTROL_NAME in candidate_names:
+        raise ValueError(f"{CONTROL_NAME!r} is the harness control, not a candidate name")
+    all_names = list(candidate_names) + [CONTROL_NAME]
     for name in all_names:
         if name not in strategy.STRATEGY_CATALOG:
             raise ValueError(f"strategy {name!r} not registered in strategy.STRATEGY_CATALOG")
@@ -301,8 +305,8 @@ def run_family(
 
     rows = []
     checksums_used = {}
-    for symbol in symbols:
-        for interval in intervals:
+    for symbol in SYMBOLS:
+        for interval in INTERVALS:
             train1_df, manifest = load_train1(symbol, interval)
             checksums_used[f"{symbol}_{interval}"] = manifest.checksum_sha256
             for name in all_names:
@@ -319,9 +323,8 @@ def run_family(
     summary_df.to_csv(f"{output_dir}/summary/results.csv", index=False)
 
     # -------------------------------------------------- discriminating checks
-    harness = None
-    if control_name and control_reference_csv:
-        harness = verify_harness_control(rows, control_name, control_reference_csv)
+    # unconditional: no kwarg on this function can skip the harness control
+    harness = verify_harness_control(rows, CONTROL_NAME, CONTROL_REFERENCE_CSV)
 
     no_trail_check = {"runs": len(rows),
                       "runs_with_a_trailing_exit": int(sum(1 for r in rows if r["exit_trailing_sl"] > 0))}
@@ -383,7 +386,7 @@ def run_family(
             "initial_equity": INITIAL_EQUITY, "stake": STAKE, **FIXED_PARAMS,
         },
         "candidate_names": list(candidate_names),
-        "control_name": control_name,
+        "control_name": CONTROL_NAME,
         "hypothesis_note": hypothesis_note,
         "harness_control": harness,
         "no_trail_mechanism_check": no_trail_check,
