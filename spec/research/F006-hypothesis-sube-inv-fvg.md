@@ -57,9 +57,26 @@ Add an isolated signal module with runtime-only catalog registration, unit-test 
 
 The `DONCHIAN_55` control reproduced all ten stored rows (zero mismatches); all 60 runs had zero trailing exits and zero one-shot violations. `SINV_FIRST_H4` alone clears the PnL part of H1 at +$41.4145 mean Train-1 net PnL, but it has just six trades over ten series (0.6 mean trades/series), so it is falsified by the pre-registered density rule. Its two positive XRP series still have two negative months and no series passes H2. The other four names have negative mean PnL: FIRST_FVG -$7.1403, MSS_CLOSE -$10.1421, MSS_IN_FVG -$5.4986, and FIRST_SMT -$1.3298; all are sparse too.
 
-## Decision
+## Prior NO_TRAIL decision (superseded evaluation policy)
 
-This five-day geometry is rejected on Train-1. The positive H4 aggregate is not a candidate: it is six trades concentrated in two XRP series, below the frozen minimum, and does not clear monthly regularity. Do not shorten blocks or add confirmations after this result.
+The original pass rejected this five-day geometry on density and legacy H2. The continuation instruction supersedes that sole-DNR decision: assess the frozen exits and sparse H2 before deciding. Entry rules and the original evidence remain unchanged.
+
+## Continuation freeze: exits and sparse H2
+
+Source: `/tmp/F006-continue-sube-exits-h2sparse.md` and `/tmp/F006-eval-policy-sparse-h2-and-exits-2026-09-29.md`. This extension is frozen before the continuation run; it is not a new entry hypothesis.
+
+| Exit cell | activate_pct | trail_pct | take_profit_multiple |
+| --- | ---: | ---: | --- |
+| NO_TRAIL | 10.0 | 0.04 | None |
+| TP_x2 | 10.0 | 0.04 | 2.0 |
+| TRAIL_a0.06_t0.04 | 0.06 | 0.04 | None |
+| TRAIL_a0.03_t0.02 | 0.03 | 0.02 | None |
+
+Run all five frozen names × ten Train-1 series × four exits, plus DONCHIAN_55 on NO_TRAIL only. Use existing engine hooks and frozen runner constants/loaders without changing the shared harness or signal module. Reproduce the original NO_TRAIL rows exactly. No validation/holdout, entry retune, or new exit cells.
+
+Rank cells by pooled trade-weighted win rate, both per signal and across all five names. H1 remains mean `train1_net_pnl > 0` over ten series per name/cell. Retain legacy H2 unchanged. For `h2_sparse_absent_zero_trade`, group closed-trade net PnL by exit calendar month in Europe/Warsaw (same timezone as legacy regularity); score only the twelve Train-1 months containing exits. Zero-exit months are ABSENT, not losing or scored. Require all scored months nonnegative, series DD <= 50%, Train-1 equity PnL >= 0, and at least one Train-1 exit. Exit-month realized PnL and Train-1 equity PnL are separate fields, not interchangeable.
+
+Density below ten trades/series is reported as a sparsity flag, not a sole-DNR reason. Exits add no signal opportunities; report observed trade counts rather than assume shorter holding times cannot affect execution of later frozen opportunities. Report unconditional per-series H2 flags and counts conditional on H1 separately. Evidence goes in `output/f006_sube_inv_fvg/exit_grid/`.
 
 ## Tests
 
