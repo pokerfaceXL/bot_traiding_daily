@@ -1,0 +1,180 @@
+{
+  "family": "runner_selfcheck",
+  "script": "scripts/f006_family_runner.py",
+  "git_commit": "9e8f6ae80e658107e4731c498cfcb3003beae1b1",
+  "run_started_utc": "2026-09-29T12:10:34.443705+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 20,
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "DONCHIAN_20"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "Runner self-check only (spec/research/F006-shared-harness.md's Acceptance section), not a new signal-family test. DONCHIAN_20/DONCHIAN_55 are closed F006 catalog entries reused here only to prove run_family() reproduces output/f006_trailing_boundary/summary/results.csv's stored NO_TRAIL numbers.",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 20,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "h1_table": [
+    {
+      "strategy": "DONCHIAN_20",
+      "sum_net_pnl": 231.1958,
+      "mean_net_pnl": 23.1196,
+      "n_series": 10,
+      "n_profitable_series": 5,
+      "n_trades_total": 1281,
+      "h1_pass": true
+    }
+  ],
+  "h1_names_passing": [
+    "DONCHIAN_20"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": 22.90416,
+      "n_trades": 46,
+      "max_drawdown_pct": 8.868,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": -73.157862,
+      "n_trades": 221,
+      "max_drawdown_pct": 21.6765,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": -5.199057,
+      "n_trades": 54,
+      "max_drawdown_pct": 9.339,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": -137.822163,
+      "n_trades": 220,
+      "max_drawdown_pct": 31.1131,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": 14.842064,
+      "n_trades": 46,
+      "max_drawdown_pct": 7.7489,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": -81.981928,
+      "n_trades": 206,
+      "max_drawdown_pct": 21.8328,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": 283.815082,
+      "n_trades": 45,
+      "max_drawdown_pct": 15.5367,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": 55.416794,
+      "n_trades": 192,
+      "max_drawdown_pct": 30.5678,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": 165.645771,
+      "n_trades": 49,
+      "max_drawdown_pct": 17.8749,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "DONCHIAN_20",
+      "train1_net_pnl": -47.80151,
+      "n_trades": 202,
+      "max_drawdown_pct": 19.0796,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 5.4
+}
