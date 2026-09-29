@@ -1,8 +1,8 @@
 {
   "family": "runner_selfcheck",
   "script": "scripts/f006_family_runner.py",
-  "git_commit": "7992f2c62eff1f936b24b4c6a2b8f7f02da1b529",
-  "run_started_utc": "2026-09-29T14:16:31.816671+00:00",
+  "git_commit": "b2237edf1b1237477778a8e4e0b951f414c89f9a",
+  "run_started_utc": "2026-09-29T14:42:08.314440+00:00",
   "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
   "pandas": "2.3.3",
   "n_series": 20,
@@ -176,5 +176,5 @@
   ],
   "h2_names_with_a_passing_series": [],
   "h2_status": "falsified",
-  "elapsed_seconds": 4.2
+  "elapsed_seconds": 4.1
 }

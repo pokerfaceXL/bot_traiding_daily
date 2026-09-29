@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-29T14:16:31.948638+00:00",
+  "generated_utc": "2026-09-29T14:42:08.447190+00:00",
   "output_glob": "output/f006_*",
   "n_family_dirs_found": 22,
   "n_frozen_schema": 1,
@@ -417,7 +417,7 @@
       "schema": "frozen",
       "family": "runner_selfcheck",
       "script": "scripts/f006_family_runner.py",
-      "git_commit": "7992f2c62eff1f936b24b4c6a2b8f7f02da1b529",
+      "git_commit": "b2237edf1b1237477778a8e4e0b951f414c89f9a",
       "n_series": 20,
       "hypothesis_note": "Runner self-check only (spec/research/F006-shared-harness.md's Acceptance section), not a new signal-family test. DONCHIAN_20/DONCHIAN_55 are closed F006 catalog entries reused here only to prove run_family() reproduces output/f006_trailing_boundary/summary/results.csv's stored NO_TRAIL numbers.",
       "candidate_names": [
