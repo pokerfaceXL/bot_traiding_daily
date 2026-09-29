@@ -1,0 +1,553 @@
+{
+  "family": "liq_range_eqh",
+  "script": "scripts/f006_liq_range_eqh_experiment.py",
+  "git_commit": "85c192c070f6cc8c13f888b157f6eb3866c3d28b",
+  "run_started_utc": "2026-09-29T19:06:32.620723+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 60,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "RANGE_EQH_RECLAIM_L2",
+    "RANGE_EQH_RECLAIM_L3",
+    "RANGE_EQH_RECLAIM_WIDE",
+    "RANGE_EQH_RECLAIM_TIGHT",
+    "RANGE_EQH_RECLAIM_WICK"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-liq-range-eqh.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 60,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "h1_table": [
+    {
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "sum_net_pnl": 541.3095,
+      "mean_net_pnl": 54.1309,
+      "n_series": 10,
+      "n_profitable_series": 5,
+      "n_trades_total": 557,
+      "h1_pass": true
+    },
+    {
+      "strategy": "RANGE_EQH_RECLAIM_L3",
+      "sum_net_pnl": -41.399,
+      "mean_net_pnl": -4.1399,
+      "n_series": 10,
+      "n_profitable_series": 4,
+      "n_trades_total": 994,
+      "h1_pass": false
+    },
+    {
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "sum_net_pnl": 643.2009,
+      "mean_net_pnl": 64.3201,
+      "n_series": 10,
+      "n_profitable_series": 6,
+      "n_trades_total": 588,
+      "h1_pass": true
+    },
+    {
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "sum_net_pnl": 395.0757,
+      "mean_net_pnl": 39.5076,
+      "n_series": 10,
+      "n_profitable_series": 5,
+      "n_trades_total": 512,
+      "h1_pass": true
+    },
+    {
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "sum_net_pnl": 312.7829,
+      "mean_net_pnl": 31.2783,
+      "n_series": 10,
+      "n_profitable_series": 4,
+      "n_trades_total": 443,
+      "h1_pass": true
+    }
+  ],
+  "h1_names_passing": [
+    "RANGE_EQH_RECLAIM_L2",
+    "RANGE_EQH_RECLAIM_WIDE",
+    "RANGE_EQH_RECLAIM_TIGHT",
+    "RANGE_EQH_RECLAIM_WICK"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": 84.092761,
+      "n_trades": 24,
+      "max_drawdown_pct": 6.2214,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 135.12845,
+      "n_trades": 26,
+      "max_drawdown_pct": 14.2802,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": 78.301047,
+      "n_trades": 25,
+      "max_drawdown_pct": 3.4863,
+      "n_neg_months": 3,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -20.726027,
+      "n_trades": 19,
+      "max_drawdown_pct": 6.1227,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": -19.794039,
+      "n_trades": 96,
+      "max_drawdown_pct": 18.2704,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 20.610824,
+      "n_trades": 93,
+      "max_drawdown_pct": 11.189,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": -33.631411,
+      "n_trades": 88,
+      "max_drawdown_pct": 18.4695,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -4.025258,
+      "n_trades": 76,
+      "max_drawdown_pct": 11.5241,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": -42.280894,
+      "n_trades": 34,
+      "max_drawdown_pct": 14.1152,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": -44.327041,
+      "n_trades": 33,
+      "max_drawdown_pct": 14.5186,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": -62.594135,
+      "n_trades": 26,
+      "max_drawdown_pct": 12.407,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -61.295509,
+      "n_trades": 26,
+      "max_drawdown_pct": 13.9547,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": -57.533424,
+      "n_trades": 107,
+      "max_drawdown_pct": 16.8398,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": -47.795798,
+      "n_trades": 107,
+      "max_drawdown_pct": 15.2469,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": -37.991304,
+      "n_trades": 100,
+      "max_drawdown_pct": 12.5648,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -78.879287,
+      "n_trades": 81,
+      "max_drawdown_pct": 18.7516,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": -35.799948,
+      "n_trades": 22,
+      "max_drawdown_pct": 10.7512,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": -30.479643,
+      "n_trades": 26,
+      "max_drawdown_pct": 8.6204,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": -41.79267,
+      "n_trades": 22,
+      "max_drawdown_pct": 11.381,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -29.159948,
+      "n_trades": 20,
+      "max_drawdown_pct": 10.0267,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": -32.365496,
+      "n_trades": 70,
+      "max_drawdown_pct": 10.6904,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": -42.519708,
+      "n_trades": 71,
+      "max_drawdown_pct": 12.6276,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": -36.542491,
+      "n_trades": 61,
+      "max_drawdown_pct": 11.5637,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": -42.691662,
+      "n_trades": 51,
+      "max_drawdown_pct": 15.2173,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": 384.852912,
+      "n_trades": 25,
+      "max_drawdown_pct": 19.2285,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 385.606351,
+      "n_trades": 25,
+      "max_drawdown_pct": 19.2128,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": 393.082719,
+      "n_trades": 23,
+      "max_drawdown_pct": 19.0986,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": 372.756196,
+      "n_trades": 22,
+      "max_drawdown_pct": 19.0206,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": 139.302657,
+      "n_trades": 78,
+      "max_drawdown_pct": 13.0876,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 33.628383,
+      "n_trades": 96,
+      "max_drawdown_pct": 19.2078,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": 93.010309,
+      "n_trades": 76,
+      "max_drawdown_pct": 13.7095,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": 133.418529,
+      "n_trades": 67,
+      "max_drawdown_pct": 13.8613,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": 70.636309,
+      "n_trades": 20,
+      "max_drawdown_pct": 5.3058,
+      "n_neg_months": 3,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 190.596974,
+      "n_trades": 23,
+      "max_drawdown_pct": 9.5547,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": 28.967417,
+      "n_trades": 17,
+      "max_drawdown_pct": 5.7044,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": 36.585248,
+      "n_trades": 12,
+      "max_drawdown_pct": 6.7006,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_L2",
+      "train1_net_pnl": 50.198617,
+      "n_trades": 81,
+      "max_drawdown_pct": 11.9725,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "train1_net_pnl": 42.75209,
+      "n_trades": 88,
+      "max_drawdown_pct": 7.5952,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_TIGHT",
+      "train1_net_pnl": 14.266252,
+      "n_trades": 74,
+      "max_drawdown_pct": 14.6764,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "RANGE_EQH_RECLAIM_WICK",
+      "train1_net_pnl": 6.800629,
+      "n_trades": 69,
+      "max_drawdown_pct": 11.6298,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 67.8
+}
