@@ -245,6 +245,24 @@ def test_run_family_rejects_the_control_name_as_a_candidate():
 
 
 def test_run_family_always_covers_the_frozen_basket_and_control(tmp_path):
+    # This is the one live engine/cache integration test in this contract file.
+    # CSVs are deliberately gitignored; a clean worktree has only their committed
+    # manifests. Do not turn that expected absence into a failure of the API/unit
+    # contract above. Prepare them offline from the main checkout's frozen cache
+    # before requesting this live proof (see F006-shared-harness.md).
+    cache_files = [
+        "data_cache/{}_{}_20240126T000000Z_20250301T000000Z.csv".format(symbol, interval)
+        for symbol in f006_family_runner.SYMBOLS
+        for interval in f006_family_runner.INTERVALS
+    ]
+    missing = [path for path in cache_files if not os.path.exists(path)]
+    if missing:
+        pytest.skip(
+            "live frozen-basket proof requires local bounded Train-1 CSVs; "
+            "prepare them offline from the main checkout data_cache as documented "
+            "in spec/research/F006-shared-harness.md (missing: {})".format(missing[0])
+        )
+
     manifest = f006_family_runner.run_family(
         family="contract_basket_check",
         candidate_names=["DONCHIAN_20"],

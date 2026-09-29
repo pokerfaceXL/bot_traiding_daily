@@ -43,7 +43,14 @@ name list, and the hypothesis note text differ per family.
    sliced, or inspected by a Train-1 H1 run. It also owns the NO_TRAIL geometry
    (`activate_pct=10.0`, `max_sl_pct=0.03`, one-shot entry mask,
    `cooldown_candles=0`, `leverage=1`), the H1/H2 checks, and every file write under
-   `output/f006_<family>/`. A future family script's entire job is: define a signal module with
+   `output/f006_<family>/`. The API/unit portions of
+   `tests/test_signal_family_contract.py` require no CSV cache. Its one live
+   frozen-basket/control proof and the runner self-check require the ten bounded
+   `data_cache/*_20240126T000000Z_20250301T000000Z.csv` files; CSVs are intentionally
+   gitignored, so a clean worktree skips that live proof with an explicit reason.
+   Prepare them offline from the main checkout's existing frozen cache (never fetch
+   from the network) before requesting the live proof/self-check. A future family
+   script's entire job is: define a signal module with
    `catalog_entries() -> dict[str, Callable[[pd.DataFrame], pd.Series]]`, freeze its
    candidate names and hypothesis note in its own `spec/research/F006-hypothesis-*.md`
    (unchanged discipline), and call `run_family(...)` once. It MUST NOT copy the loop.
