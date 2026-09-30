@@ -1,0 +1,26 @@
+........F..................                                              [100%]
+=================================== FAILURES ===================================
+_____________ test_mask_no_delayed_entry_and_unclosed_bar_excluded _____________
+
+    def test_mask_no_delayed_entry_and_unclosed_bar_excluded():
+        df = bars()
+        signal = entry_masks.strategy_signal_series(df, "DONCHIAN_55", "240", now=harness.NOW)
+        one_shot = entry_masks.one_shot_entry_mask(signal)
+        pd.testing.assert_series_equal(experiment.entry_mask(df, "240", None), one_shot)
+        gated = experiment.entry_mask(df, "240", 1.0)
+        assert not (gated & ~one_shot).any()
+        # A bar opening at the evaluation instant cannot be used, even if it breaks out.
+        extra = df.iloc[-1:].copy()
+        extra.index = pd.DatetimeIndex([harness.NOW])
+        extra[["high", "low", "close"]] *= 100
+>       pd.testing.assert_series_equal(gated, experiment.entry_mask(pd.concat([df, extra]), "240", 1.0))
+E       AssertionError: Series.index are different
+E       
+E       Attribute "names" are different
+E       [left]:  ['timestamp']
+E       [right]: [None]
+
+tests/test_donchian_abs_atr_gate.py:67: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_donchian_abs_atr_gate.py::test_mask_no_delayed_entry_and_unclosed_bar_excluded
+1 failed, 26 passed in 1.29s

@@ -1,7 +1,7 @@
 # Strategy profile — DONCHIAN_55_NO_TRAIL
 
-status: CONDITIONAL
-profile_date: 2026-09-30
+status: FREEZE
+profile_date: 2026-09-30 (updated after H-DONCHIAN-ABS-ATR-ENTRY-GATE-01)
 baseline_source: output/f006_signal_autopsy/control_on (main tip f925a47)
 trade_table: output/f006_signal_autopsy/control_on/autopsy/*_DONCHIAN_55.csv
 train1_entry_cohort: 2024-03-01 <= entry_time < 2025-03-01 UTC (train1_entry=True)
@@ -74,6 +74,7 @@ Rare **channel runners** that reach the opposite Donchian extreme (`signal_rever
 | Take-profit | F006-hypothesis-exit-take-profit | WR up, **net negative** (cuts tails) |
 | Vol-inverse sizing | F006-hypothesis-position-sizing-vol-inverse | falsified |
 | Calm / low ATR-percentile keep | autopsy counterfactual | **destroys** edge (removes runners) |
+| Absolute ATR%(14) entry gate, 5-T grid | F006-hypothesis-donchian-abs-atr-entry-gate | **falsified**: 0/5 T clears all four pre-declared criteria; best PnL cell (T=2.0%) only drops initial_sl share 5.39pp (need ≥10pp), every T that clears 10pp loses >50% of big-winner PnL |
 | Catalog expansion / other families | many DNR | do not replace diagnosis of this baseline |
 
 ## Rejected hypotheses (do not retest without new info)
@@ -82,21 +83,20 @@ Rare **channel runners** that reach the opposite Donchian extreme (`signal_rever
 - “Quality = calm / low volatility at entry” (percentile≤0.5)
 - “Raise WR with TP / trail”
 - “Fix months with loss-recency cooldown”
+- “Quality = absolute ATR%(14) below a fixed threshold at entry” (H-DONCHIAN-ABS-ATR-ENTRY-GATE-01, all 5 pre-registered T falsified)
 - Random new independent strategies before finishing this profile’s open questions
 
 ## Unresolved questions
 
-1. Can an **entry-time** feature separate `initial_sl` deaths from `signal_reverse` runners without removing Nov-type winners?
-2. Absolute ATR% at entry is higher on `initial_sl` (≈1.63) than on `signal_reverse` (≈1.05) — is that a usable gate or another way to cut tails?
-3. Is long-only a structural crypto asymmetry or Train-1 sampling artifact?
-4. Given concentration, should status move to FREEZE if the next single-axis test fails?
+1. Can an **entry-time** feature separate `initial_sl` deaths from `signal_reverse` runners without removing Nov-type winners? — No causal, single-axis absolute-ATR% entry gate found in the pre-registered 5-point grid; the stop-share/big-winner trade-off did not clear both bars at any T. Left open for a genuinely non-correlated mechanism only (§13).
+2. Absolute ATR% at entry is higher on `initial_sl` (≈1.63) than on `signal_reverse` (≈1.05) — is that a usable gate or another way to cut tails? — Answered: it is another way to cut tails. Every T that meaningfully reduced initial_sl share (≥10pp) also removed more than half of baseline big-winner PnL; the one T with high big-winner retention (2.0%, 83.4%) barely moved the stop share (5.39pp). See F006-hypothesis-donchian-abs-atr-entry-gate.md Result table.
+3. Is long-only a structural crypto asymmetry or Train-1 sampling artifact? — Still open; out of scope for this closed profile (portfolio-construction question, not a new profile axis).
+4. Given concentration, should status move to FREEZE if the next single-axis test fails? — Yes, applied: the one remaining untested entry axis (allowed next experiment #1) is now falsified, so this profile moves to FREEZE per the CONDITIONAL rationale below.
 
-## Allowed next experiments (budget: one primary change)
+## Allowed next experiments
 
-1. **H-DONCHIAN-ABS-ATR-ENTRY-GATE-01** (preferred): reject entry when ATR% exceeds a small pre-registered threshold grid — see companion hyp note.
-2. If (1) falsified: optional long-only ablation as a *portfolio construction* question, not as “new strategy search”.
-3. No new unrelated strategy family until this profile is FREEZE/FALSIFIED with documented insufficiency, or a clearly non-correlated mechanism is justified per COORDINATOR_RESEARCH_PROTOCOL §13.
+All single-axis entry/exit/sizing mechanisms tested for this profile (trailing, stop width, width-expansion gate, EMA trend confirm, cross-symbol agreement, loss-recency cooldown, take-profit, vol-inverse sizing, calm/percentile keep, absolute ATR% gate) are exhausted and falsified or rejected. No further tuning of this profile is authorized. The only allowed next step is a genuinely non-correlated mechanism justified per COORDINATOR_RESEARCH_PROTOCOL §13, written as a new pre-registered hypothesis note before any implementation. Long-only ablation, if pursued, is a *portfolio construction* question for F007, not a re-opening of this profile.
 
 ## Status rationale
 
-**CONDITIONAL** (protocol Level B): aggregate positive after costs, enough trades, risk-limit survivable on harness rows, explainable mechanism — but monthly regularity fails, edge is concentrated in few runners, and symbol/interval stability is uneven. Not FREEZE yet: one untested entry axis remains (absolute ATR% gate). Not CONTINUE as a generator of new families. Not REJECT: baseline still the research control (+58.387).
+**FREEZE** (protocol Level, falsified-axis exhaustion): the profile's one remaining untested entry axis — absolute ATR%(14) entry gate, H-DONCHIAN-ABS-ATR-ENTRY-GATE-01 — was pre-registered with a fixed 5-point T grid and Train-1-only evaluation, and falsified: 0/5 thresholds cleared all four pre-declared success criteria (mean train1_net_pnl > baseline; initial_sl share down ≥10pp; ≥50% of big-winner PnL retained; not thin). The trade-off is structural, not a tuning failure — thresholds that meaningfully cut the stop-out share also cut the same fat-tail runners that produce all of the aggregate edge (mirrors the calm/percentile-keep and trend-confirm counterfactuals already in the tested-modifications table). Combined with unresolved monthly regularity (7/12 losing entry-months persists at every T) and pre-existing extreme concentration (single-month/single-trade dependence), this profile is FROZEN: no further single-axis refinement is authorized. Evidence: spec/research/F006-hypothesis-donchian-abs-atr-entry-gate.md, output/f006_donchian_abs_atr_gate/.

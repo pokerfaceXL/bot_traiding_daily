@@ -43,3 +43,26 @@ T grid fixed before run: {median_train1_atr_pct_of_entries, 1.0%, 1.25%, 1.5%, 2
 
 decision_if_pass: REFINE (write new profile metrics; consider validation)
 decision_if_fail: FREEZE or CONDITIONAL→FREEZE for DONCHIAN_55_NO_TRAIL pending a non-correlated mechanism justification (§13)
+
+## Result
+
+Train-1 only; all five pre-registered thresholds evaluated on the full frozen 5×2 basket (50 candidate runs + 10 control runs). The forced-off gate reproduced all 10 control rows exactly, including mean train1_net_pnl **+58.3870526**. The median of the 447 control Train-1 entries' ATR% was **1.1600820232399194%**, written to `output/f006_donchian_abs_atr_gate/grid_freeze.json` before any gated result. `number_of_trials = 5`; no grid extension.
+
+| T (%) | Mean train1_net_pnl | Pooled entry net | Net / entry | Entries / series | initial_sl share | Drop (pp) | Big-winner PnL retained | Losing entry-months | Pass |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Ungated control | +58.387053 | +570.205729 | +1.275628 | 44.7 | 61.5213% | — | 100% | 7/12 | control |
+| Median: 1.1600820232399194 | +38.956993 | +378.371159 | +1.689157 | 22.4 | 47.7679% | 13.7534 | 48.1984% | 6/12 | no |
+| 1.0 | +29.961843 | +297.386136 | +1.625061 | 18.3 | 44.8087% | 16.7125 | 37.5131% | 7/12 | no |
+| 1.25 | +36.310822 | +344.740646 | +1.384501 | 24.9 | 49.7992% | 11.7221 | 48.1984% | 5/12 | no |
+| 1.5 | +31.783318 | +304.202733 | +1.024252 | 29.7 | 52.8620% | 8.6593 | 51.2706% | 7/12 | no |
+| 2.0 | +60.301989 | +588.653341 | +1.603960 | 36.7 | 56.1308% | 5.3905 | 83.4489% | 7/12 | no |
+
+PnL in the primary column uses the unchanged harness's daily Train-1 equity changes; pooled entry net, stop shares, counts, and months use trades entered in `[2024-03-01, 2025-03-01)` UTC. Those two PnL cohorts are deliberately not conflated. The 36 baseline big winners sum to +1218.439488; retention matches symbol/interval/entry timestamp/direction, with identical exit timestamp, reason, and net PnL verified. No candidate is thin on the pre-declared basket-mean criterion, including zero-trade series in the denominator.
+
+ATR uses `100 * SMA(true_range, 14) / close` on the closed signal bar, matching the autopsy's one-bar-shifted feature at the next-open fill. The gate intersects the original one-shot mask, never changes the persistent signal used for exits, and cannot defer a rejected breakout until volatility falls. All 60 runs retained NO_TRAIL; no trailing/TP exits or retained-trade economics mismatches occurred.
+
+Artifacts: `output/f006_donchian_abs_atr_gate/results.csv` (all 60 series rows), `cell_summary.csv`, `manifest.json`, `grid_freeze.json`, each cell's `summary.json`, raw monthly summaries and blotters, and `run.log`. Reproduction: `python3 scripts/f006_donchian_abs_atr_gate.py` with the checksum-locked Train-1 cache. Implementation source commit: `e15b2ba`; source and data hashes are in the manifest.
+
+## Decision
+
+**FALSIFIED; DONCHIAN_55_NO_TRAIL: CONDITIONAL → FREEZE.** Zero of five thresholds meets all four requirements. At the best PnL threshold (2.0%), the +1.914936 mean improvement and 83.45% big-winner retention do not compensate for a stop-share reduction of only 5.39pp. The three thresholds that reduce stop share by at least 10pp lose more than half of baseline big-winner PnL and lower mean PnL. Monthly concentration remains unresolved (best-PnL cell still has 7/12 losing entry-months). No threshold selected for validation; no validation/holdout loaded, no new family started, and no widening without a new written non-correlated mechanism justification (§13).

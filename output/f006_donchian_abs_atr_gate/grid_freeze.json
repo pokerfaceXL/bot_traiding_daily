@@ -1,0 +1,61 @@
+{
+  "hypothesis": "H-DONCHIAN-ABS-ATR-ENTRY-GATE-01",
+  "git_commit": "e15b2baeaeec82d080a0f1455641e5a3f0818ea0",
+  "source_sha256": {
+    "donchian.py": "b9cd1f00d48b793e3e9457ac518e2a2842d96f3f95149e22d270eb43a40ddfe9",
+    "scripts/f006_donchian_abs_atr_gate.py": "cf5eeacc8669e9f67c91285ac616d4df4412e3657010ae37a0148bc8053d9221",
+    "scripts/f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "data_window": [
+    "2024-01-26T00:00:00Z",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "validation_holdout_loaded": false,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "atr_definition": "100 * SMA(true_range, 14) / close at signal-bar close; next-open fill",
+  "mask": "original DONCHIAN_55 one_shot AND atr_pct <= T; exits use ungated signal",
+  "median_entry_atr_pct": 1.1600820232399194,
+  "median_cohort_n": 447,
+  "threshold_grid": {
+    "median": 1.1600820232399194,
+    "t_1_0": 1.0,
+    "t_1_25": 1.25,
+    "t_1_5": 1.5,
+    "t_2_0": 2.0
+  },
+  "number_of_trials": 5,
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_signal_autopsy/control_on/summary/results.csv"
+  },
+  "control_mean_train1_net_pnl": 58.387052600000004,
+  "metric_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC; harness PnL uses daily Train-1 equity changes",
+  "retention": "sum baseline net_pnl>=10 whose symbol/interval/entry_time/direction survived; identical exits/PnL required"
+}
