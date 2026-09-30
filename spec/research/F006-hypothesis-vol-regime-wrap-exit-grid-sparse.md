@@ -106,8 +106,60 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Result
 
-_(empty until after Train-1)_
+Train-1 only. Producing commit `f30bfe9` (harness `scripts/f006_vol_regime_wrap_exit_grid.py`;
+module/tests/registration restored byte-identical from `7deae4f`). Evidence:
+`output/f006_vol_regime_wrap/exit_grid/` (`results.csv`, `monthly.csv`, `trades.csv`,
+`rank_by_name.csv`, `rank_pooled.csv`, `section8_regression.csv`, `manifest.json`, per-cell dirs).
+
+Harness integrity: parent NO_TRAIL reproduced exactly, 40/40 rows, 0 mismatches (n_calls, n_trades,
+n_wins, win_rate, net_pnl, train1_net_pnl, max_dd, final_equity, n_valid_months, legacy H2).
+DONCHIAN_55 control 10/10 rows, 0 mismatches vs `output/f006_trailing_boundary`; mean Train-1
++58.387. One-shot violations 0. 130 runs (3 names × 4 cells × 10 series + control × 10).
+
+Per name × cell, ranked by trade-weighted win_rate (primary rank key):
+
+| Name | Exit cell | WR % | mean Train-1 | H1 | trades/series | max DD % | legacy H2 | sparse H2 | series > 0 |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| VOLW_HIGH_BRK_20 | TRAIL_a0.03_t0.02 | 36.83 | −127.26 | fail | 127.6 | 49.80 | 0/10 | 0/10 | 0 |
+| VOLW_HIGH_BRK_20 | TP_x2 | 35.62 | −6.35 | fail | 113.7 | 13.29 | 0/10 | 0/10 | 4 |
+| VOLW_HIGH_BRK_20 | TRAIL_a0.06_t0.04 | 32.34 | −83.83 | fail | 107.9 | 33.99 | 0/10 | 0/10 | 0 |
+| VOLW_HIGH_BRK_20 | NO_TRAIL | 25.73 | **+59.65** | pass | 88.6 | 20.08 | 0/10 | 0/10 | 5 |
+| VOLW_HL_20 | TP_x2 | 42.20 | −34.25 | fail | 248.1 | 27.76 | 0/10 | 0/10 | 1 |
+| VOLW_HL_20 | TRAIL_a0.03_t0.02 | 41.35 | −213.93 | fail | 261.7 | 80.01 | 0/10 | 0/10 | 0 |
+| VOLW_HL_20 | TRAIL_a0.06_t0.04 | 40.83 | −134.77 | fail | 243.7 | 52.80 | 0/10 | 0/10 | 0 |
+| VOLW_HL_20 | NO_TRAIL | 39.40 | **+1.40** | pass | 226.4 | 28.93 | 0/10 | 0/10 | 4 |
+| VOLW_LOW_MR_20 (ablation) | TRAIL_a0.03_t0.02 | 51.12 | −101.56 | fail | 138.1 | 38.51 | 0/10 | 0/10 | 0 |
+| VOLW_LOW_MR_20 (ablation) | TP_x2 | 48.78 | −17.47 | fail | 131.0 | 17.72 | 0/10 | 0/10 | 3 |
+| VOLW_LOW_MR_20 (ablation) | TRAIL_a0.06_t0.04 | 48.20 | −57.09 | fail | 130.5 | 23.93 | 0/10 | 0/10 | 0 |
+| VOLW_LOW_MR_20 (ablation) | NO_TRAIL | 45.38 | −2.88 | fail | 124.5 | 21.96 | 0/10 | 0/10 | 4 |
+
+(WR here is trade-weighted over the pool; the card's "WR≈23.8%" for VOLW_HIGH_BRK_20 was a
+mean across series.)
+
+- **H1 per cell:** passes only under NO_TRAIL (VOLW_HIGH_BRK_20 +59.65, VOLW_HL_20 +1.40).
+  H1 is falsified for TP_x2, TRAIL_a0.06_t0.04, and TRAIL_a0.03_t0.02: under those cells no
+  frozen H1-eligible name has mean Train-1 > 0.
+- **§8 regression:** all 9 non-baseline name×cell pairs raise WR over NO_TRAIL for the same name
+  and lower mean Train-1 (`section8_regression.csv`). The worst-hit case is VOLW_HIGH_BRK_20
+  (Δ −66.0 TP_x2, −143.5 TRAIL_a0.06, −186.9 TRAIL_a0.03). Exit mix confirms the fat-winner
+  kill. On XRPUSDT_240, NO_TRAIL = 40 initial_sl + 5 signal_reverse; TP_x2 turns 19 exits into
+  take_profit; trails turn 19–30 exits into trailing_sl. This is the same lesson as the
+  closed btc_filter and in-review liq_range_eqh exit-grids.
+- **H2 (dual) on H1-clearers (NO_TRAIL only):** legacy 0/20 series; `h2_sparse_absent_zero_trade`
+  0/20 series. Sparse ABSENT does not rescue anything. This is a dense family (≥88 trades/series;
+  only 16 of 1560 name×cell×series×month slots are zero-trade ABSENT). Every H1-clearer series
+  has ≥3 losing scored exit-months (VOLW_HIGH_BRK_20 min 5, VOLW_HL_20 min 3).
+- **Density note:** not a sparse mechanism. Mean trades/series ranges 88.6–261.7; density is
+  not a DNR reason. Trades/series rises under TP/trail because earlier exits free the one-shot
+  mask to take later calls. `n_trades ≤ n_calls` still holds, and no entry rule was added.
 
 ## Decision
 
-_(empty until after Train-1)_
+**H-VOL-REGIME-WRAP-EXIT-GRID-SPARSE-01: exit-grid improvement FALSIFIED; H2 FALSIFIED under both
+legacy and sparse rules.** NO_TRAIL remains the only H1-passing geometry, and it is exactly the
+parent result. The remaining exit cells are §8 regressions: WR up, mean Train-1 down,
+fat winners cut. Uneven months are not an exit-geometry artefact that TP/trail can repair.
+The monthly unevenness is intrinsic to the frozen breakout entries (few fat winners carry the
+mean). Per the standing policy, the exit grid + sparse H2 pass is now done, so ordinary
+DNR on VOL-REGIME-WRAP is permitted. Entries stay frozen at `7deae4f`. No holdout, no
+merge, no follow-up spawn from this note.
