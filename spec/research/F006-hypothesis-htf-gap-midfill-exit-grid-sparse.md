@@ -130,9 +130,13 @@ Pooled WR rank (descriptive): TRAIL_a0.03_t0.02 43.61% (−40.09) > TP_x2 37.21%
 
 - **H1 per cell:** holds only under NO_TRAIL (3/3 names). Falsified under TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02 (0/3 names with mean Train-1 > 0).
 - **§8:** every TP/trail cell raises WR (+11.9 to +19.6 pp) while cutting mean Train-1 by −30 to −66 vs NO_TRAIL for the same name → all 9 non-baseline cells are regressions. Fat-winner example: DOGEUSDT 240 HTF_FVG_MID_R1 Train-1 +131.61 under NO_TRAIL (one 161-USDT winner) becomes −27.52 (TP_x2), −32.41 (a0.06/t0.04), −29.41 (a0.03/t0.02).
-- **H2 dual:** legacy 0/30 and `h2_sparse_absent_zero_trade` 0/30 in every cell. Sparse relief is irrelevant here: the family is not sparse (≈10.4–11.2 scored exit-months of 12 per series; 130 ABSENT series-months over all 130 runs), and every series in every cell has ≥4 losing scored exit-months (min 6 under NO_TRAIL). Not a single series has ≤1 losing month.
+- **H2 dual:** legacy 0/30 and `h2_sparse_absent_zero_trade` 0/30 in every cell. Sparse relief is irrelevant here: the family is not sparse (≈10.4–11.2 scored exit-months of 12 per series; 116 ABSENT of 1440 candidate series×cell×month rows), and every series in every cell has ≥4 losing scored exit-months (min 6 under NO_TRAIL). Not a single series has ≤1 losing month.
 - **Density note:** 35.8–50.9 trades/series; no density flag. TP/trail cells fill more of the same pre-computed one-shot calls (e.g. R1 358→441 trades) only because earlier exits free the position slot; n_calls and signal hashes are identical across cells, n_trades ≤ n_calls everywhere.
 
 ## Decision
 
 **Ordinary DNR for the exit-grid continuation.** H1 holds only on the NO_TRAIL baseline already recorded by the parent; no TP/trail cell survives H1, all are §8 regressions (WR up by clipping the fat winners that carry the mean). H2 is falsified under both legacy and sparse rules in all four cells — the uneven months are not an exit-geometry artefact (Y rejected). Entries stay frozen at `aaf00f5`; no R_MAX / bias / midfill / exit retune follows. Train-1 only; no Validation/holdout; no merge; no follow-up spawn from this note.
+
+## Tests
+
+`python3 -m pytest -q tests/test_htf_gap_midfill_exit_grid.py tests/test_htf_gap_midfill.py` → 17 passed (sparse ABSENT vs scored, Warsaw exit-month bucketing, warmup/boundary exclusion, empty-series non-vacuity, frozen exit kwargs, NO_TRAIL raw-row reproduction guard, trade-weighted WR rank, §8 flag, frozen three names). Full suite at evidence tip `392b1ed`: 315 passed, 7 skipped.
