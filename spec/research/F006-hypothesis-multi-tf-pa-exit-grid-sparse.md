@@ -4,7 +4,7 @@
 id: H-MULTI-TF-PA-EXIT-GRID-SPARSE-01
 ticket: S7-EXIT-GRID
 name: MULTI-TF-PA standing exit grid + dual sparse H2 (entries frozen)
-status: prereg_frozen (base origin/main d016659)
+status: closed_dnr (prereg 3ce656b on base d016659; evidence d332457)
 parent: H-MULTI-TF-PA-01 tip 3fc50ec / limen/2026-09-29-f006-multi-tf-pa-effff4e7 (module+hyp+tests+Train-1 NO_TRAIL evidence on branch tip 3fc50ec; manifest git_commit_parent 582f69c)
 universe: BTC/ETH/SOL/XRP/DOGE USDT perps × {60,240}
 data_needs: [ohlcv]
@@ -113,8 +113,48 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Result
 
-_(empty until after Train-1)_
+Train-1 only, run 2026-09-30. Harness `scripts/f006_multi_tf_pa_exit_grid.py` at producing commit `d332457` (manifest `git_commit`); evidence `output/f006_multi_tf_pa/exit_grid/` (results / monthly / trades / rank_by_name / rank_pooled / per-cell dirs / manifest). 210 runs = 5 names × 10 series × 4 cells + DONCHIAN_55 × 10 on NO_TRAIL.
+
+Checks: parent NO_TRAIL reproduction **60/60 rows, 0 mismatches** (n_calls, n_trades, n_wins, win_rate, net_pnl, train1_net_pnl, DD, final_equity, n_valid_months, month sign, legacy H2 vs parent `promotion_pass`); DONCHIAN_55 harness control 10/10, 0 mismatches, mean Train-1 **+58.387**; one-shot violations 0. Module `multi_tf_pa.py` byte-identical to `3fc50ec` and to the autopsy source copy.
+
+Per name × cell (trade-weighted WR; mean Train-1 over 10 series; legacy/sparse H2 series passing):
+
+| Name | Cell | WR % | mean Train-1 | H1 | trades/series | max DD % | legacy H2 | sparse H2 | §8 regression |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- |
+| MTFP_HTF_BRK20 | TRAIL_a0.03_t0.02 | 35.02 | −171.17 | fail | 158.5 | 65.87 | 0 | 0 | yes |
+| MTFP_HTF_BRK20 | TP_x2 | 34.38 | −23.67 | fail | 137.3 | 28.32 | 0 | 0 | yes |
+| MTFP_HTF_BRK20 | TRAIL_a0.06_t0.04 | 30.38 | −114.39 | fail | 127.4 | 46.32 | 0 | 0 | yes |
+| MTFP_HTF_BRK20 | NO_TRAIL | 25.26 | **+35.08** | pass | 97.8 | 24.85 | 0 | 0 | — |
+| MTFP_HTF_BRK10 | TP_x2 | 34.59 | −14.76 | fail | 169.4 | 24.70 | 0 | 0 | yes |
+| MTFP_HTF_BRK10 | TRAIL_a0.03_t0.02 | 34.13 | −204.17 | fail | 196.3 | 80.53 | 0 | 0 | yes |
+| MTFP_HTF_BRK10 | TRAIL_a0.06_t0.04 | 30.81 | −115.78 | fail | 157.4 | 49.91 | 0 | 0 | yes |
+| MTFP_HTF_BRK10 | NO_TRAIL | 27.32 | +29.81 | pass | 127.0 | 22.43 | 0 | 0 | — |
+| MTFP_HTF_BRK5 | TP_x2 | 34.13 | −20.39 | fail | 184.0 | 29.24 | 0 | 0 | yes |
+| MTFP_HTF_BRK5 | TRAIL_a0.03_t0.02 | 33.46 | −219.89 | fail | 210.7 | 80.26 | 0 | 0 | yes |
+| MTFP_HTF_BRK5 | TRAIL_a0.06_t0.04 | 30.06 | −131.90 | fail | 172.0 | 53.86 | 0 | 0 | yes |
+| MTFP_HTF_BRK5 | NO_TRAIL | 26.68 | +11.07 | pass | 138.7 | 23.39 | 0 | 0 | — |
+| MTFP_HTF_BLOCK | TRAIL_a0.03_t0.02 | 35.44 | −189.82 | fail | 188.2 | 80.69 | 0 | 0 | yes |
+| MTFP_HTF_BLOCK | TP_x2 | 34.42 | −31.05 | fail | 165.6 | 22.32 | 0 | 0 | yes |
+| MTFP_HTF_BLOCK | TRAIL_a0.06_t0.04 | 31.46 | −118.55 | fail | 155.1 | 54.31 | 0 | 0 | yes |
+| MTFP_HTF_BLOCK | NO_TRAIL | 27.59 | +18.91 | pass | 128.3 | 32.82 | 0 | 0 | — |
+| MTFP_HTF_PIN | TRAIL_a0.03_t0.02 | 45.91 | −21.30 | fail | 25.7 | 11.06 | 0 | 0 | yes |
+| MTFP_HTF_PIN | TRAIL_a0.06_t0.04 | 36.61 | −12.50 | fail | 25.4 | 10.30 | 0 | 0 | yes |
+| MTFP_HTF_PIN | TP_x2 | 36.47 | −6.31 | fail | 25.5 | 9.92 | 0 | 0 | yes |
+| MTFP_HTF_PIN | NO_TRAIL | 21.94 | +22.56 | pass | 23.7 | 20.76 | 0 | 0 | — |
+
+Pooled (descriptive, five MTFP names, 50 series): TRAIL_a0.03_t0.02 WR 34.83 / mean −161.27; TP_x2 34.45 / −19.24; TRAIL_a0.06_t0.04 30.91 / −98.62; NO_TRAIL 26.58 / +23.49.
+
+- **WR rank winner** (per policy primary key): TRAIL_a0.03_t0.02 for BRK20/BLOCK/PIN, TP_x2 for BRK10/BRK5 — but every non-NO_TRAIL cell lowers mean Train-1 below zero.
+- **H1 per cell:** NO_TRAIL holds (5/5 names, reproduces parent). TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02 each **falsified** (no name > 0).
+- **H2 dual:** legacy 0/200 name×series×cell; `h2_sparse_absent_zero_trade` 0/200. Under NO_TRAIL every MTFP series still has ≥ 4 losing *scored* exit-months (BRK20 min 6/series); ABSENT months exist (125 across all MTFP rows, mostly PIN) but removing them does not rescue any series — the failure is losing traded months, not sparsity.
+- **§8:** all 15 TP/trail name×cells are regressions (WR +3.4…+24.0 pp, mean Train-1 −28.9…−234.0 vs NO_TRAIL same name). Exit mix confirms fat-winner truncation (pooled MTFP winners from `trades.csv`): NO_TRAIL 1370 winners, mean +8.73 on `signal_reverse`; TP_x2 mean winner +5.68 on `take_profit`; TRAIL_a0.06_t0.04 +3.92 and TRAIL_a0.03_t0.02 +1.39 on `trailing_sl`.
+- **Density note:** NO_TRAIL trades/series 23.7 (PIN) … 138.7 (BRK5); no name below 10. TP/trail raise realized trades/series (e.g. BRK20 97.8 → 158.5) without new signal opportunities: `n_calls` unchanged, positions simply free up earlier for later one-shot calls already in the mask (n_trades ≤ n_calls holds everywhere).
 
 ## Decision
 
-_(empty until after Train-1)_
+**Ordinary DNR for the MULTI-TF-PA exit-grid continuation** (same outcome shape as closed btc_filter / liq_range_eqh exit-grids).
+
+- H1: holds only under NO_TRAIL (parent result reproduced exactly; BRK20 +35.08). Falsified under TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02.
+- H2: falsified under both legacy and `h2_sparse_absent_zero_trade` for every H1-clearer in every cell. The sparse rule changes nothing here — the family is not sparse (except PIN) and losing months are traded months.
+- §8: every TP/trail cell is a WR-for-PnL regression; no exit cell is promoted. Uneven months are **not** explained by exit geometry — hypothesis Y (nierówne miesiące przez exit geometry) is rejected for this frozen entry set.
+- No entry retune, no sixth name, no holdout, no merge. Entries stay frozen at `3fc50ec`. Parent H-MULTI-TF-PA-01 Decision (H1 5/5 / H2 falsified) stands unchanged.
