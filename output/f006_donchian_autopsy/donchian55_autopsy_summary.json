@@ -1,0 +1,16 @@
+{
+  "n_train1": 447,
+  "net_sum": 570.2057285097598,
+  "mean": 1.2756280279860397,
+  "wr": 0.2751677852348993,
+  "series_mean": 57.020572850975974,
+  "loss_months": 7,
+  "n_months": 12,
+  "exit_mix": {
+    "initial_sl": 275,
+    "signal_reverse": 168,
+    "end_of_data": 4
+  },
+  "avg_win": 12.76208694379975,
+  "avg_loss": -3.0849721159802765
+}
