@@ -99,8 +99,63 @@ decides).
 
 ## Result
 
-_Filled in after the frozen Train-1 exit grid runs. Not run yet as of this freeze commit._
+Frozen Train-1 5x2 exit grid run on all five names via
+`scripts/f006_catalog5_exit_class_grid.py` -> `output/f006_catalog5_exit_class/`
+(producing commit noted in `manifest.json`). Entries unchanged: NO_TRAIL cell exactly
+reproduces both prior references
+(`output/f006_catalog_notrail_sweep/summary/results.csv`,
+`output/f006_notrail_monthly_catalog5/summary/results.csv`, 50/50 rows, 0 mismatches) and
+the DONCHIAN_55 harness control reproduces `output/f006_trailing_boundary/summary/results.csv`
+(10/10 rows, 0 mismatches).
+
+Per-name mean `train1_net_pnl` (NO_TRAIL baseline vs non-baseline cells, from
+`rank_by_name.csv`):
+
+| strategy | NO_TRAIL | TP_x2 | TRAIL_a0.06_t0.04 | TRAIL_a0.03_t0.02 |
+| --- | ---: | ---: | ---: | ---: |
+| EMA_50_200 | +72.67 | +17.84 | -6.97 | -20.81 |
+| BB_20_25_EMA200 | +82.90 | -5.21 | -70.26 | -107.58 |
+| EMA3_21_50_200 | +95.73 | +8.77 | -29.62 | -53.13 |
+| EMA3_13_50_200 | +91.15 | +13.54 | -29.65 | -60.21 |
+| BB_20_2_EMA200 | +95.32 | +3.70 | -112.55 | -187.05 |
+
+- **(a)** No non-baseline cell beats the NO_TRAIL baseline mean `train1_net_pnl` for **any**
+  of the five names, let alone all five. `TP_x2` stays H1-pass (mean_train1_net_pnl > 0) for
+  4/5 names but is well below NO_TRAIL in every case; both trail cells are net-negative for
+  4/5 names and barely positive-adjacent for none. **Falsifier (a) triggers.**
+- **(b)** `TRAIL_a0.03_t0.02` cuts `initial_sl` share relative to NO_TRAIL on every name
+  (`EMA_50_200` 60.99%->32.69%, `BB_20_25_EMA200` 57.14%->41.93%, `EMA3_21_50_200`
+  65.22%->40.21%, `EMA3_13_50_200` 65.80%->39.61%, `BB_20_2_EMA200` 46.10%->39.72%) -- a cut
+  of >=10pp on 4/5 names (6.38pp on `BB_20_2_EMA200`, the exception) -- while flipping mean
+  `train1_net_pnl` from strongly positive to negative on those same 4/5 names, removing all
+  of the baseline's net positive contribution (>50% of big-winner PnL, since the net result
+  crosses zero). **Falsifier (b) triggers** for the trail cells on the 4/5 names that clear
+  the >=10pp cut threshold.
+- **(c)** Worst-series losing-month count (of 12, `legacy_is_valid` months only) per name,
+  max across the 10-series basket: NO_TRAIL sits at 8-9/12 for all five names (not the
+  autopsy's single-series 7/12 floor, which was a best-case series, not the worst-case used
+  here for a strict per-name aggregate). `TP_x2` only marginally improves one name
+  (`EMA_50_200` 8->7), no others; both trail cells are strictly worse, reaching 12/12 losing
+  months on 4/5 names. **Falsifier (c) triggers** -- the floor does not improve on 4/5 names
+  under any cell, and the one nominal 1-month improvement (`EMA_50_200`/`TP_x2`) still fails
+  both legacy H2 and `h2_sparse_absent_zero_trade` (`legacy_h2_series=0`,
+  `sparse_h2_series=0` for every name x cell combination in `rank_by_name.csv`).
+
+All three pre-registered falsifiers trigger, independently and jointly, across the shared
+mechanism test.
 
 ## Decision
 
-_Filled in after Result. Not decided yet as of this freeze commit._
+**FALSIFIED.** The exit-class axis (NO_TRAIL/TP_x2/TRAIL_a0.06_t0.04/TRAIL_a0.03_t0.02) does
+not rescue any of the five CONDITIONAL catalog5 names: NO_TRAIL remains the best exit
+geometry by `train1_net_pnl` for every name, and both trail variants actively destroy the
+fat-tail-dependent edge these names rely on (trimming winners before they run, since the
+same elevated-volatility moves that produce the big winners also produce the early
+retracements a tight trail exits on). `H-CATALOG5-EXIT-CLASS-01` is closed;
+no merge, no further exit-class retune on these five names. Per `spec/research/F006-catalog5-family-insufficiency-s13.md`,
+both licensed axes for this shared class (ABS-ATR entry gate, exit-class change) are now
+closed; a further attempt needs a genuinely different mechanism (cross-asset/market-structure
+context, order-flow/liquidity features, or partial-exit/volatility-adaptive holding, per that
+note's "why a next family would need to be different" section) and its own pre-registration,
+not a retest of either closed axis. All five profiles stay CONDITIONAL; status change to this
+decision is not made by this note alone (coordinator review).
