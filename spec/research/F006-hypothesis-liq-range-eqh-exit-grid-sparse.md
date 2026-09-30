@@ -88,8 +88,73 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Result
 
-_(empty until after Train-1 run)_
+Train-1 only. Producing commit `4bfb69f` (harness; manifest `git_commit`). Evidence:
+`output/f006_liq_range_eqh/exit_grid/` (`results.csv`, `monthly.csv`, `trades.csv`,
+`rank_by_name.csv`, `rank_pooled.csv`, `manifest.json`, per-cell subdirs). 5 names × 4 cells × 10
+series + DONCHIAN_55 on NO_TRAIL = 210 runs, ~60 s.
+
+Checks: NO_TRAIL reproduces the parent raw rows exactly (60/60 rows incl. control; n_calls,
+n_trades, n_wins, win_rate, net/train1 PnL, DD, final equity, n_valid_months, legacy H2 —
+0 mismatches). DONCHIAN_55 harness control 10/10 vs trailing_boundary, mean Train-1 **+58.387**.
+One-shot violations 0. `n_calls` identical across cells for every series (exits add no signal
+opportunities; `n_trades` rises under TP/trail only because earlier exits free the one-position
+engine to fill more of the same frozen calls).
+
+Per name × cell (trade-weighted WR is the rank key; mean Train-1 = H1):
+
+| Name | Cell | WR % | mean Train-1 | H1 | trades/series | legacy H2 | sparse H2 | §8 regression |
+| --- | --- | ---: | ---: | :-: | ---: | ---: | ---: | :-: |
+| WIDE | TRAIL_a0.03_t0.02 | 45.36 | −53.07 | fail | 70.1 | 0/10 | 0/10 | **yes** |
+| WIDE | TP_x2 | 39.31 | −9.69 | fail | 66.9 | 0/10 | 0/10 | **yes** |
+| WIDE | TRAIL_a0.06_t0.04 | 38.37 | −34.66 | fail | 66.2 | 0/10 | 0/10 | **yes** |
+| WIDE | NO_TRAIL | 30.95 | **+64.32** | pass | 58.8 | 0/10 | 0/10 | — |
+| L2 | TRAIL_a0.03_t0.02 | 45.41 | −53.62 | fail | 66.5 | 0/10 | 0/10 | **yes** |
+| L2 | TP_x2 | 40.00 | −7.31 | fail | 63.0 | 0/10 | 0/10 | **yes** |
+| L2 | TRAIL_a0.06_t0.04 | 38.88 | −30.94 | fail | 62.5 | 0/10 | 0/10 | **yes** |
+| L2 | NO_TRAIL | 30.88 | +54.13 | pass | 55.7 | 0/10 | 0/10 | — |
+| TIGHT | TRAIL_a0.03_t0.02 | 45.11 | −50.10 | fail | 61.4 | 0/10 | 0/10 | **yes** |
+| TIGHT | TP_x2 | 39.18 | −8.62 | fail | 58.2 | 0/10 | 0/10 | **yes** |
+| TIGHT | TRAIL_a0.06_t0.04 | 37.95 | −31.67 | fail | 57.7 | 0/10 | 0/10 | **yes** |
+| TIGHT | NO_TRAIL | 29.10 | +39.51 | pass | 51.2 | 0/10 | 0/10 | — |
+| WICK | TRAIL_a0.03_t0.02 | 43.88 | −48.99 | fail | 53.1 | 0/10 | 0/10 | **yes** |
+| WICK | TP_x2 | 38.02 | −11.69 | fail | 50.5 | 0/10 | 0/10 | **yes** |
+| WICK | TRAIL_a0.06_t0.04 | 37.52 | −29.94 | fail | 50.1 | 0/10 | 0/10 | **yes** |
+| WICK | NO_TRAIL | 26.19 | +31.28 | pass | 44.3 | 0/10 | 0/10 | — |
+| L3 | TRAIL_a0.03_t0.02 | 44.98 | −94.55 | fail | 112.5 | 0/10 | 0/10 | **yes** |
+| L3 | TP_x2 | 42.87 | −20.35 | fail | 108.0 | 0/10 | 0/10 | **yes** |
+| L3 | TRAIL_a0.06_t0.04 | 42.33 | −49.61 | fail | 107.5 | 0/10 | 0/10 | **yes** |
+| L3 | NO_TRAIL | 37.12 | −4.14 | fail | 99.4 | 0/10 | 0/10 | — |
+
+Pooled WR rank (descriptive): TRAIL_a0.03_t0.02 45.0% (−60.06) > TP_x2 40.3% (−11.53) >
+TRAIL_a0.06_t0.04 39.5% (−35.36) > NO_TRAIL 31.9% (+37.02).
+
+- **H1:** passes only under NO_TRAIL (WIDE, L2, TIGHT, WICK — parent result reproduced). Falsified
+  for TP_x2, TRAIL_a0.06_t0.04 and TRAIL_a0.03_t0.02: no name has mean Train-1 > 0 in those cells.
+- **H2 (dual):** every H1-clearer (NO_TRAIL × 4 names, 40 series) fails **both** legacy H2 (0/40)
+  and `h2_sparse_absent_zero_trade` (0/40). Sparse H2 does not rescue it: these series are dense
+  (44–59 trades/series; mean 11.2 of 12 Train-1 months scored under NO_TRAIL; 39 ABSENT
+  series-months across 50 series) and every candidate series has ≥3 losing scored exit-months
+  (NO_TRAIL mean ≈7 losing scored months/series). The failure is losing months, not missing months.
+- **§8 regression:** all 15 non-NO_TRAIL name×cell rows (incl. L3) raise WR (+5.2 to +17.7 pp)
+  while lowering mean Train-1 (−16 to −117) vs the same name's NO_TRAIL — every TP/trail cell is a
+  regression, the same lesson as closed btc_filter exit-grid.
+- **Mechanism note (diagnostic, not a gate):** the NO_TRAIL edge sits in a few fat winners
+  exited by `signal_reverse`/end of data. WIDE NO_TRAIL: the top three trades (XRP 240 +381.4,
+  DOGE 240 +196.3, XRP 60 +121.8, all Dec 2024–Jan 2025 exits) sum to ≈ +699, more than
+  WIDE's whole ten-series trade PnL (≈ +659). Under TP_x2 / both trails WIDE's largest single
+  trade is ≤ +20.6 and it has at most one trade above +15 (NO_TRAIL: 25). TP/trail cut the tail
+  that the family's aggregate depends on.
+- Density note: no name×cell below 10 trades/series; the sparse-H2 policy is not the binding
+  constraint for this family.
 
 ## Decision
 
-_(empty until after Train-1 run)_
+**Ordinary DNR for the exit-refinement branch of LIQ-RANGE-EQH.** None of the four frozen exit
+cells makes the family promotable: TP_x2 and both trails fail H1 and are §8 regressions for every
+name; NO_TRAIL stays H1 pass / H2 fail under both legacy and sparse H2 (0/40). Exit geometry does
+not explain the uneven months (Y rejected): the frozen exits trade one losing-month pattern for
+a negative aggregate by cutting the few fat winners the edge depends on. Entries were not touched,
+no new names/cells, Train-1 only, no holdout/Validation, no merge. Not reopening btc_filter
+exit-grid, catalog5, ORB, ABS-ATR, PARTIAL, EXIT-CLASS, Donchian FREEZE, HTFP or CASCADE-FADE.
+Any further LIQ-RANGE-EQH work would need a new pre-registered card (e.g. the fat-winner tail
+concentration above); this note does not authorize one.
