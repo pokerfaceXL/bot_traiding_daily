@@ -1,0 +1,185 @@
+{
+  "signal_autopsy": {
+    "blotter": "BTCUSDT_60_MTFP_HTF_BRK20.csv",
+    "n_closed_trades": 130,
+    "n_train1_entries": 119,
+    "calm": {
+      "n": 119,
+      "n_true": 59,
+      "rate": 0.4957983193277311,
+      "tag": "weak"
+    },
+    "forward_agreement": {
+      "n": 119,
+      "n_true": 57,
+      "rate": 0.4789915966386555,
+      "tag": "weak"
+    },
+    "quick_reverse": {
+      "n": 119,
+      "n_true": 0,
+      "rate": 0.0,
+      "tag": "strong"
+    }
+  },
+  "symbol": "BTCUSDT",
+  "interval": "60",
+  "strategy": "MTFP_HTF_BRK20",
+  "n_calls": 328,
+  "net_pnl": 8.521176,
+  "gross_pnl": 50.241773,
+  "win_rate": 33.08,
+  "n_trades": 130,
+  "n_wins": 43,
+  "n_losses": 87,
+  "avg_winner": 5.198305,
+  "avg_loser": -2.471332,
+  "breakeven_win_rate_pct": 32.2223,
+  "sum_wins": 223.5271,
+  "sum_losses": -215.005924,
+  "mean_bars_held": 65.73,
+  "total_costs": 41.720597,
+  "exit_initial_sl": 42,
+  "exit_trailing_sl": 0,
+  "exit_take_profit": 0,
+  "exit_signal_reverse": 87,
+  "exit_end_of_data": 1,
+  "profit_factor": 1.039632,
+  "calmar": 0.165301,
+  "max_drawdown_usd": 51.549549,
+  "max_drawdown_pct": 9.5271,
+  "final_equity": 508.521176,
+  "train1_net_pnl": 1.275486,
+  "warmup_net_pnl": 7.747755,
+  "boundary_net_pnl": -0.502064,
+  "n_valid_months": 12,
+  "all_valid_months_nonnegative": false,
+  "promotion_pass": false,
+  "phase_fit_score": null,
+  "phase_unlabeled_trades": 0,
+  "phase_leg_metrics": "",
+  "phase_fit": null,
+  "monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 17.893052528905855,
+      "positive_day_pct": 54.83870967741935,
+      "deviation_pct": 45.16129032258065,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 1.0544819875946132,
+      "positive_day_pct": 43.333333333333336,
+      "deviation_pct": 56.666666666666664,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -17.488686097940104,
+      "positive_day_pct": 29.032258064516128,
+      "deviation_pct": 70.96774193548387,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -8.24850357022251,
+      "positive_day_pct": 36.666666666666664,
+      "deviation_pct": 63.333333333333336,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 0.8475540176477239,
+      "positive_day_pct": 35.483870967741936,
+      "deviation_pct": 64.51612903225806,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -2.6578760587692614,
+      "positive_day_pct": 41.935483870967744,
+      "deviation_pct": 58.064516129032256,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 9.121658408523956,
+      "positive_day_pct": 50.0,
+      "deviation_pct": 50.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 3.8775055930875624,
+      "positive_day_pct": 54.83870967741935,
+      "deviation_pct": 45.16129032258065,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 2.045126433167411,
+      "positive_day_pct": 40.0,
+      "deviation_pct": 60.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -9.436765538589839,
+      "positive_day_pct": 54.83870967741935,
+      "deviation_pct": 45.16129032258065,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 2.6033812815488204,
+      "positive_day_pct": 54.83870967741935,
+      "deviation_pct": 45.16129032258065,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 1.6645568684901946,
+      "positive_day_pct": 50.0,
+      "deviation_pct": 50.0,
+      "target_met": false
+    }
+  ],
+  "seconds": 0.32
+}

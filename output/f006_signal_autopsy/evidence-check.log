@@ -1,0 +1,4 @@
+PASS: 130 blotters / 7965 trades reconcile counts and net PnL; excursions nonnegative; every exit before Train-1 cutoff.
+PASS: six candidate replays reproduce archived series economics exactly; six source SHA256 values match.
+PASS: control_off has no autopsy artifacts; seven enabled control comparisons match all summary columns except seconds.
+Control mean Train-1 net PnL: 58.387052600000004

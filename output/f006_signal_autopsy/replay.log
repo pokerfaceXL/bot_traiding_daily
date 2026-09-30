@@ -1,0 +1,8 @@
+/home/limen/bot_traiding_daily/.bot_traiding_daily-limen-worktrees/2026-09-30-f006-signal-autopsy-3c5433a2/scripts/f006_signal_autopsy.py:119: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  name: summarize(pd.concat(frames, ignore_index=True)) for name, frames in families.items()
+btc_filter: Train-1 replay complete; control identical
+liq_range_eqh: Train-1 replay complete; control identical
+vol_regime_wrap: Train-1 replay complete; control identical
+multi_tf_pa: Train-1 replay complete; control identical
+liq_cascade_proxy: Train-1 replay complete; control identical
+beta_gate: Train-1 replay complete; control identical

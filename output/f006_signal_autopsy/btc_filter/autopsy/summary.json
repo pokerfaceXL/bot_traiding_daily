@@ -1,0 +1,60 @@
+{
+  "freeze": {
+    "atr_bars": 14,
+    "percentile_bars": 100,
+    "forward_bars": 5,
+    "quick_reverse_bars": 3,
+    "calm_percentile_max": 0.5,
+    "agreement_strong_min": 0.5,
+    "calm_strong_min": 0.5,
+    "reverse_strong_max": 0.25,
+    "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+    "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+  },
+  "by_strategy": {
+    "BTC_FILTER_ER20_DONCHIAN_20": {
+      "n_closed_trades": 598,
+      "n_train1_entries": 560,
+      "calm": {
+        "n": 560,
+        "n_true": 283,
+        "rate": 0.5053571428571428,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 560,
+        "n_true": 248,
+        "rate": 0.44285714285714284,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 560,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "DONCHIAN_55": {
+      "n_closed_trades": 476,
+      "n_train1_entries": 447,
+      "calm": {
+        "n": 447,
+        "n_true": 225,
+        "rate": 0.5033557046979866,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 447,
+        "n_true": 204,
+        "rate": 0.4563758389261745,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 447,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    }
+  }
+}

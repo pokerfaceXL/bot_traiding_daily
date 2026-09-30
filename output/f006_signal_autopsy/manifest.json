@@ -1,0 +1,376 @@
+{
+  "producing_commit": "71397054e407f99df348f9d43014039129ad17ba",
+  "digest": "output/f006_cross_family_digest.md",
+  "digest_sha256": "a0fa2aa59905d38372e7ab52dfd3ae5e4d6f7471f98c9c622710273b7bca5215",
+  "window": {
+    "start": "2024-01-26T00:00:00Z",
+    "end_exclusive": "2025-03-01T00:00:00+00:00",
+    "holdout_loaded": false
+  },
+  "hypothesis_note": "spec/research/F006-hypothesis-signal-autopsy.md",
+  "families": [
+    {
+      "family": "btc_filter",
+      "strategy": "BTC_FILTER_ER20_DONCHIAN_20",
+      "closed_tip": "e5186821754db007c450906cf1d334d1aaedf274",
+      "source_path": "btc_filter.py",
+      "source_sha256": "b2926e7cb518ba5bafafce698bf669908e3e920377f6cf3a276ef6bb713b6b71",
+      "archived_source": "output/f006_signal_autopsy/sources/btc_filter.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "BTC_FILTER_ER20_DONCHIAN_20",
+          "sum_net_pnl": 736.5014,
+          "mean_net_pnl": 73.6501,
+          "n_series": 10,
+          "n_profitable_series": 8,
+          "n_trades_total": 598,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    },
+    {
+      "family": "liq_range_eqh",
+      "strategy": "RANGE_EQH_RECLAIM_WIDE",
+      "closed_tip": "785d5cf8e2e1b38a5f46c916bdff844aba999e32",
+      "source_path": "liq_range_eqh.py",
+      "source_sha256": "2ba4f01b27a04447d2a2effb3528ce0fbbc31cb73faf4649d05fa8adb1cdee97",
+      "archived_source": "output/f006_signal_autopsy/sources/liq_range_eqh.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "RANGE_EQH_RECLAIM_WIDE",
+          "sum_net_pnl": 643.2009,
+          "mean_net_pnl": 64.3201,
+          "n_series": 10,
+          "n_profitable_series": 6,
+          "n_trades_total": 588,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    },
+    {
+      "family": "vol_regime_wrap",
+      "strategy": "VOLW_HIGH_BRK_20",
+      "closed_tip": "73411829a9e07da4636b3b78938738f1a3f3948b",
+      "source_path": "vol_regime_wrap.py",
+      "source_sha256": "12d0e38833fdf47e01696a6f439332a289badcbe74af22ba657a9447329cfea5",
+      "archived_source": "output/f006_signal_autopsy/sources/vol_regime_wrap.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "VOLW_HIGH_BRK_20",
+          "sum_net_pnl": 596.5128,
+          "mean_net_pnl": 59.6513,
+          "n_series": 10,
+          "n_profitable_series": 5,
+          "n_trades_total": 886,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    },
+    {
+      "family": "multi_tf_pa",
+      "strategy": "MTFP_HTF_BRK20",
+      "closed_tip": "3fc50ec55695dca2026aeb64c6203f6b6e121553",
+      "source_path": "multi_tf_pa.py",
+      "source_sha256": "c4003ab18c8ac904484579f3df69822a351872ad3d4bee99430c90c8bc633e87",
+      "archived_source": "output/f006_signal_autopsy/sources/multi_tf_pa.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "MTFP_HTF_BRK20",
+          "sum_net_pnl": 350.8253,
+          "mean_net_pnl": 35.0825,
+          "n_series": 10,
+          "n_profitable_series": 6,
+          "n_trades_total": 978,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    },
+    {
+      "family": "liq_cascade_proxy",
+      "strategy": "LIQ_CASCADE_20_120_6_R15_V25_C75",
+      "closed_tip": "80c013ca7062548e17b8c60fac8ad3e027925ba8",
+      "source_path": "liq_cascade_proxy.py",
+      "source_sha256": "e6693b494bf1defd9c7b6c0fb977455a79f2f48e8a9b97654f770c36e620a042",
+      "archived_source": "output/f006_signal_autopsy/sources/liq_cascade_proxy.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "LIQ_CASCADE_20_120_6_R15_V25_C75",
+          "sum_net_pnl": 253.974,
+          "mean_net_pnl": 25.3974,
+          "n_series": 10,
+          "n_profitable_series": 5,
+          "n_trades_total": 221,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    },
+    {
+      "family": "beta_gate",
+      "strategy": "BETA_GATE_DONCH20",
+      "closed_tip": "54fd498b705aaa39f42a0a1ff9d9d92bf5af8777",
+      "source_path": "beta_gate.py",
+      "source_sha256": "4f1f1bb43fd0eb9d6509a045c149b241d82fb2f38bd6b4877f9349b77e531656",
+      "archived_source": "output/f006_signal_autopsy/sources/beta_gate.py",
+      "control_equivalence": {
+        "rows_equal_excluding_seconds": 10,
+        "off_mean_train1_net_pnl": 58.387052600000004
+      },
+      "harness_control": {
+        "rows_compared": 10,
+        "n_mismatches": 0,
+        "source": "output/f006_trailing_boundary/summary/results.csv"
+      },
+      "h1_table": [
+        {
+          "strategy": "BETA_GATE_DONCH20",
+          "sum_net_pnl": 314.0029,
+          "mean_net_pnl": 31.4003,
+          "n_series": 10,
+          "n_profitable_series": 7,
+          "n_trades_total": 1362,
+          "h1_pass": true
+        }
+      ],
+      "h2_status": "falsified"
+    }
+  ],
+  "control_source": {
+    "implementation_base": "2cc712e",
+    "strategy": "DONCHIAN_55",
+    "source": "output/f006_runner_selfcheck/summary/results.csv"
+  },
+  "control_equivalence": {
+    "rows_equal_excluding_seconds": 10,
+    "off_mean_train1_net_pnl": 58.387052600000004
+  },
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "freeze": {
+    "atr_bars": 14,
+    "percentile_bars": 100,
+    "forward_bars": 5,
+    "quick_reverse_bars": 3,
+    "calm_percentile_max": 0.5,
+    "agreement_strong_min": 0.5,
+    "calm_strong_min": 0.5,
+    "reverse_strong_max": 0.25,
+    "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+    "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+  },
+  "tags_by_strategy": {
+    "DONCHIAN_55": {
+      "n_closed_trades": 476,
+      "n_train1_entries": 447,
+      "calm": {
+        "n": 447,
+        "n_true": 225,
+        "rate": 0.5033557046979866,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 447,
+        "n_true": 204,
+        "rate": 0.4563758389261745,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 447,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "BTC_FILTER_ER20_DONCHIAN_20": {
+      "n_closed_trades": 598,
+      "n_train1_entries": 560,
+      "calm": {
+        "n": 560,
+        "n_true": 283,
+        "rate": 0.5053571428571428,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 560,
+        "n_true": 248,
+        "rate": 0.44285714285714284,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 560,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "RANGE_EQH_RECLAIM_WIDE": {
+      "n_closed_trades": 588,
+      "n_train1_entries": 548,
+      "calm": {
+        "n": 548,
+        "n_true": 278,
+        "rate": 0.5072992700729927,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 546,
+        "n_true": 290,
+        "rate": 0.5311355311355311,
+        "tag": "strong"
+      },
+      "quick_reverse": {
+        "n": 548,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "VOLW_HIGH_BRK_20": {
+      "n_closed_trades": 886,
+      "n_train1_entries": 814,
+      "calm": {
+        "n": 814,
+        "n_true": 63,
+        "rate": 0.0773955773955774,
+        "tag": "weak"
+      },
+      "forward_agreement": {
+        "n": 814,
+        "n_true": 380,
+        "rate": 0.4668304668304668,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 814,
+        "n_true": 25,
+        "rate": 0.030712530712530713,
+        "tag": "strong"
+      }
+    },
+    "MTFP_HTF_BRK20": {
+      "n_closed_trades": 978,
+      "n_train1_entries": 899,
+      "calm": {
+        "n": 899,
+        "n_true": 496,
+        "rate": 0.5517241379310345,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 898,
+        "n_true": 421,
+        "rate": 0.4688195991091314,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 899,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "LIQ_CASCADE_20_120_6_R15_V25_C75": {
+      "n_closed_trades": 221,
+      "n_train1_entries": 209,
+      "calm": {
+        "n": 209,
+        "n_true": 120,
+        "rate": 0.5741626794258373,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 209,
+        "n_true": 106,
+        "rate": 0.507177033492823,
+        "tag": "strong"
+      },
+      "quick_reverse": {
+        "n": 209,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    },
+    "BETA_GATE_DONCH20": {
+      "n_closed_trades": 1362,
+      "n_train1_entries": 1252,
+      "calm": {
+        "n": 1252,
+        "n_true": 699,
+        "rate": 0.5583067092651757,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 1252,
+        "n_true": 619,
+        "rate": 0.49440894568690097,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 1252,
+        "n_true": 11,
+        "rate": 0.00878594249201278,
+        "tag": "strong"
+      }
+    }
+  }
+}

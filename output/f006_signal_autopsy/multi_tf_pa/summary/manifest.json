@@ -1,0 +1,241 @@
+{
+  "family": "multi_tf_pa",
+  "script": "/home/limen/bot_traiding_daily/.bot_traiding_daily-limen-worktrees/2026-09-30-f006-signal-autopsy-3c5433a2/scripts/f006_signal_autopsy_batch.py",
+  "git_commit": "71397054e407f99df348f9d43014039129ad17ba",
+  "run_started_utc": "2026-09-30T09:57:12.269840+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 20,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "MTFP_HTF_BRK20"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-signal-autopsy.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 20,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "phase_fit": null,
+  "h1_table": [
+    {
+      "strategy": "MTFP_HTF_BRK20",
+      "sum_net_pnl": 350.8253,
+      "mean_net_pnl": 35.0825,
+      "n_series": 10,
+      "n_profitable_series": 6,
+      "n_trades_total": 978,
+      "h1_pass": true
+    }
+  ],
+  "h1_names_passing": [
+    "MTFP_HTF_BRK20"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 33.73055,
+      "n_trades": 48,
+      "max_drawdown_pct": 10.4829,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": -60.085162,
+      "n_trades": 181,
+      "max_drawdown_pct": 24.8452,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": -24.890448,
+      "n_trades": 44,
+      "max_drawdown_pct": 9.7159,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": -73.761986,
+      "n_trades": 153,
+      "max_drawdown_pct": 19.3339,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 9.906441,
+      "n_trades": 35,
+      "max_drawdown_pct": 9.4911,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 1.275486,
+      "n_trades": 130,
+      "max_drawdown_pct": 9.5271,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 222.818396,
+      "n_trades": 39,
+      "max_drawdown_pct": 21.885,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 110.018723,
+      "n_trades": 140,
+      "max_drawdown_pct": 17.1416,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": 151.262666,
+      "n_trades": 44,
+      "max_drawdown_pct": 17.4408,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "MTFP_HTF_BRK20",
+      "train1_net_pnl": -19.449354,
+      "n_trades": 164,
+      "max_drawdown_pct": 22.7585,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 5.9,
+  "signal_autopsy": {
+    "freeze": {
+      "atr_bars": 14,
+      "percentile_bars": 100,
+      "forward_bars": 5,
+      "quick_reverse_bars": 3,
+      "calm_percentile_max": 0.5,
+      "agreement_strong_min": 0.5,
+      "calm_strong_min": 0.5,
+      "reverse_strong_max": 0.25,
+      "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+      "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+    },
+    "by_strategy": {
+      "MTFP_HTF_BRK20": {
+        "n_closed_trades": 978,
+        "n_train1_entries": 899,
+        "calm": {
+          "n": 899,
+          "n_true": 496,
+          "rate": 0.5517241379310345,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 898,
+          "n_true": 421,
+          "rate": 0.4688195991091314,
+          "tag": "weak"
+        },
+        "quick_reverse": {
+          "n": 899,
+          "n_true": 0,
+          "rate": 0.0,
+          "tag": "strong"
+        }
+      },
+      "DONCHIAN_55": {
+        "n_closed_trades": 476,
+        "n_train1_entries": 447,
+        "calm": {
+          "n": 447,
+          "n_true": 225,
+          "rate": 0.5033557046979866,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 447,
+          "n_true": 204,
+          "rate": 0.4563758389261745,
+          "tag": "weak"
+        },
+        "quick_reverse": {
+          "n": 447,
+          "n_true": 0,
+          "rate": 0.0,
+          "tag": "strong"
+        }
+      }
+    }
+  }
+}
