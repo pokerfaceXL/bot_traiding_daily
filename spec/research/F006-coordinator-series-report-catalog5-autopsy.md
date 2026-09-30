@@ -3,6 +3,14 @@
 Mandatory end-of-series report, covering the Donchian autopsy + catalog5 dual/trio autopsy +
 this job's §13 finalization series.
 
+> **Update (2026-09-30):** after this report, `H-CATALOG5-EXIT-CLASS-01` (tip `923de9c`,
+> FALSIFIED (a)(b)(c)) and `H-CATALOG5-PARTIAL-EXIT-01` (tip `3d4edd4`, FALSIFIED (a)(b))
+> exhausted the licensed exit-grid and partial-exit axes, with the entry-vol axis already DNR.
+> All five catalog5 profiles referred to below as CONDITIONAL are now **FREEZE** (not
+> REJECT); remaining §13 work needs order-flow/OI data or a new family outside this `NO_TRAIL`
+> class — see the addendum in `spec/research/F006-catalog5-family-insufficiency-s13.md`.
+> Answers 1-10 below are kept as written at the time.
+
 1. **Która strategia jest obecnie najlepsza?** None is promotable — no profile in this
    repository has cleared the protocol §7 monthly promotion checklist. Among the six
    `NO_TRAIL` catalog5/Donchian profiles (the only strategy profiles on disk), the

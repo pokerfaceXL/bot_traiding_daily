@@ -8,6 +8,10 @@
 > stay CONDITIONAL; only their "Allowed next experiments" gate is tightened as stated below.
 > `spec/COORDINATOR_RESEARCH_PROTOCOL.md` §13 is the referenced section (`## 13. Kiedy wolno
 > rozpocząć nową rodzinę strategii`).
+>
+> **Superseded status (2026-09-30 addendum below):** after `H-CATALOG5-EXIT-CLASS-01` and
+> `H-CATALOG5-PARTIAL-EXIT-01` were both FALSIFIED, all five profiles moved CONDITIONAL →
+> **FREEZE**. The original "no status change" wording is kept below for the record.
 
 ## Why a shared-class note, not five per-name notes
 
@@ -109,7 +113,7 @@ must not widen after seeing per-name results.
 
 ## Status of this note
 
-Finalized. No profile changes status because of this note — all five CONDITIONAL profiles
+Finalized (original status; superseded by the addendum below for profile status). No profile changes status because of this note — all five CONDITIONAL profiles
 listed above remain CONDITIONAL (an autopsy-plus-shared-shape argument is not itself a
 mechanism falsification test on each name; it only licenses skipping a redundant per-name
 ABS-ATR retest), and `DONCHIAN_55_NO_TRAIL` remains FREEZE'd under its own already-finalized
@@ -121,3 +125,42 @@ justified in writing (not a re-test of the entry-volatility axis), and that
 FALSIFIED on Donchian, and the shared entry-ATR asymmetry direction confirmed by all five
 autopsies is evidence the same stop-share/big-winner trade-off would recur, not a reason to
 re-run it per name.
+
+## Addendum (2026-09-30): non-entry axes exhausted — five profiles FREEZE
+
+Since this note was finalized, both non-entry directions it licensed ("a change to the *exit*
+mechanism … e.g. partial exits") were pre-registered as shared mechanisms across all five
+names and run on the frozen Train-1 5×2 basket:
+
+- `H-CATALOG5-EXIT-CLASS-01` (full-position NO_TRAIL / TP_x2 / TRAIL_a0.06_t0.04 /
+  TRAIL_a0.03_t0.02) — **FALSIFIED** (a)(b)(c), tip `923de9c`
+  (`spec/research/F006-hypothesis-catalog5-exit-class.md`, `output/f006_catalog5_exit_class/`).
+- `H-CATALOG5-PARTIAL-EXIT-01` (50% at +1R / +1.5R / +2R with NO_TRAIL remainder; 50% at
+  +1R with TRAIL_a0.06_t0.04 remainder) — **FALSIFIED** (a)(b), tip `3d4edd4`
+  (`spec/research/F006-hypothesis-catalog5-partial-exit.md`,
+  `output/f006_catalog5_partial_exit/`). Full NO_TRAIL remains the best exit geometry by
+  `train1_net_pnl` on every name; banking or trailing trades away the fat-tail runners.
+
+Conclusions:
+
+1. **The licensed non-entry axes on this `NO_TRAIL` class are now exhausted** for both
+   exit-grid and partial-exit. Neither grid is to be widened, retuned (fraction/R/trail
+   parameters), or retested per name.
+2. **The entry-volatility axis remains DNR** from the Donchian transfer
+   (`H-CATALOG5-ABS-ATR-ENTRY-GATE-01`, per the shared entry-ATR asymmetry argument above).
+3. **Remaining §13 candidates need new inputs, not new cells:** either (a) new data —
+   order-flow/liquidity/open-interest features, which do not exist in this repo yet — or
+   (b) a *new strategy family* outside this `NO_TRAIL` trend/breakout class. Cross-asset or
+   market-structure context on the same OHLCV basket is not selected here, and any such
+   proposal must first show in writing it is not a repackaged entry-volatility/trend-strength
+   feature. This addendum does not select, pre-register, or invent any such family.
+4. **Profile status:** `EMA_50_200`, `BB_20_25_EMA200`, `EMA3_21_50_200`, `EMA3_13_50_200`,
+   and `BB_20_2_EMA200` move CONDITIONAL → **FREEZE** (not REJECT): they remain
+   aggregate-Train-1-positive at the sweep level but fail the protocol §7 monthly checklist
+   (0/10 series each) and have no licensed single-axis refinement left — the same basis on
+   which `DONCHIAN_55_NO_TRAIL` was frozen. Their "Allowed next experiments" now permit no
+   further catalog5 `NO_TRAIL` exit or entry-vol cells; only (a) or (b) above, pre-registered
+   under this note's budget and falsification discipline.
+5. Closed and not reopened by this addendum: HTFP / CASCADE (closed DNR set), ABS-ATR entry
+   gate (DNR), EXIT-CLASS-01 (FALSIFIED), PARTIAL-EXIT-01 (FALSIFIED), `DONCHIAN_55_NO_TRAIL`
+   (FREEZE).
