@@ -1,0 +1,60 @@
+{
+  "EMA_50_200": {
+    "concentration": {
+      "top10_winners_share_of_gross_wins": 0.7083,
+      "n_trades_to_reach_full_net_pnl": 2,
+      "n_train1": 330
+    },
+    "strategy": "EMA_50_200",
+    "n_train1": 330,
+    "net_sum": 587.385179,
+    "mean": 1.779955,
+    "wr": 0.206061,
+    "n_wins": 68,
+    "n_losses": 262,
+    "avg_winner": 20.110813,
+    "avg_loser": -2.977672,
+    "breakeven_win_rate_pct": 12.896784386880883,
+    "loss_months": 7,
+    "n_months": 12,
+    "exit_mix": {
+      "initial_sl": 213,
+      "signal_reverse": 112,
+      "end_of_data": 5
+    },
+    "calm_rate": 0.372727,
+    "atr_pct_mean_initial_sl": 1.746539,
+    "atr_pct_mean_signal_reverse": 1.059194,
+    "forward_agreement_wins": 0.735294,
+    "forward_agreement_losses": 0.477099
+  },
+  "BB_20_25_EMA200": {
+    "concentration": {
+      "top10_winners_share_of_gross_wins": 0.529,
+      "n_trades_to_reach_full_net_pnl": 4,
+      "n_train1": 512
+    },
+    "strategy": "BB_20_25_EMA200",
+    "n_train1": 512,
+    "net_sum": 709.849209,
+    "mean": 1.386424,
+    "wr": 0.25,
+    "n_wins": 128,
+    "n_losses": 384,
+    "avg_winner": 14.297046,
+    "avg_loser": -2.917116,
+    "breakeven_win_rate_pct": 16.946025509246144,
+    "loss_months": 7,
+    "n_months": 12,
+    "exit_mix": {
+      "initial_sl": 297,
+      "signal_reverse": 205,
+      "end_of_data": 10
+    },
+    "calm_rate": 0.5,
+    "atr_pct_mean_initial_sl": 1.703431,
+    "atr_pct_mean_signal_reverse": 1.064983,
+    "forward_agreement_wins": 0.804688,
+    "forward_agreement_losses": 0.445312
+  }
+}

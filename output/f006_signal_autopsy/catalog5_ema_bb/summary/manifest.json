@@ -1,0 +1,384 @@
+{
+  "family": "catalog5_ema_bb",
+  "script": "/home/limen/bot_traiding_daily/.bot_traiding_daily-limen-worktrees/2026-09-30-f006-catalog5-dual-autopsy-d3075593/scripts/f006_catalog5_ema_bb_autopsy.py",
+  "git_commit": "d32eda8ae2c3fe2b5c0ec35b6969123f12a562b5",
+  "run_started_utc": "2026-09-30T15:24:48.944926+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 30,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "EMA_50_200",
+    "BB_20_25_EMA200"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-catalog5-ema-bb-autopsy.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 30,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "phase_fit": null,
+  "h1_table": [
+    {
+      "strategy": "EMA_50_200",
+      "sum_net_pnl": 726.6931,
+      "mean_net_pnl": 72.6693,
+      "n_series": 10,
+      "n_profitable_series": 7,
+      "n_trades_total": 364,
+      "h1_pass": true
+    },
+    {
+      "strategy": "BB_20_25_EMA200",
+      "sum_net_pnl": 829.0026,
+      "mean_net_pnl": 82.9003,
+      "n_series": 10,
+      "n_profitable_series": 9,
+      "n_trades_total": 560,
+      "h1_pass": true
+    }
+  ],
+  "h1_names_passing": [
+    "EMA_50_200",
+    "BB_20_25_EMA200"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 8.323841,
+      "n_trades": 19,
+      "max_drawdown_pct": 17.8947,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 43.839241,
+      "n_trades": 25,
+      "max_drawdown_pct": 11.0818,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 8.634937,
+      "n_trades": 49,
+      "max_drawdown_pct": 8.2782,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 85.522585,
+      "n_trades": 80,
+      "max_drawdown_pct": 11.3961,
+      "n_neg_months": 3,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": -39.788822,
+      "n_trades": 19,
+      "max_drawdown_pct": 13.8146,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 16.878825,
+      "n_trades": 22,
+      "max_drawdown_pct": 10.1575,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 4.097449,
+      "n_trades": 56,
+      "max_drawdown_pct": 8.8101,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 30.386076,
+      "n_trades": 80,
+      "max_drawdown_pct": 9.1518,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": -17.214657,
+      "n_trades": 15,
+      "max_drawdown_pct": 10.6933,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 12.864551,
+      "n_trades": 24,
+      "max_drawdown_pct": 8.2546,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": -21.234842,
+      "n_trades": 66,
+      "max_drawdown_pct": 11.1577,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": -13.588079,
+      "n_trades": 83,
+      "max_drawdown_pct": 10.1127,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 299.735189,
+      "n_trades": 15,
+      "max_drawdown_pct": 20.1192,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 213.405353,
+      "n_trades": 29,
+      "max_drawdown_pct": 20.6602,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 247.626763,
+      "n_trades": 60,
+      "max_drawdown_pct": 20.1439,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 295.322632,
+      "n_trades": 88,
+      "max_drawdown_pct": 16.265,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 38.057393,
+      "n_trades": 13,
+      "max_drawdown_pct": 14.7012,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 111.903223,
+      "n_trades": 28,
+      "max_drawdown_pct": 18.1546,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "EMA_50_200",
+      "train1_net_pnl": 198.455864,
+      "n_trades": 52,
+      "max_drawdown_pct": 13.5956,
+      "n_neg_months": 3,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "BB_20_25_EMA200",
+      "train1_net_pnl": 32.468213,
+      "n_trades": 101,
+      "max_drawdown_pct": 25.1035,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 7.8,
+  "signal_autopsy": {
+    "freeze": {
+      "atr_bars": 14,
+      "percentile_bars": 100,
+      "forward_bars": 5,
+      "quick_reverse_bars": 3,
+      "calm_percentile_max": 0.5,
+      "agreement_strong_min": 0.5,
+      "calm_strong_min": 0.5,
+      "reverse_strong_max": 0.25,
+      "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+      "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+    },
+    "by_strategy": {
+      "EMA_50_200": {
+        "n_closed_trades": 364,
+        "n_train1_entries": 330,
+        "calm": {
+          "n": 330,
+          "n_true": 123,
+          "rate": 0.37272727272727274,
+          "tag": "weak"
+        },
+        "forward_agreement": {
+          "n": 330,
+          "n_true": 175,
+          "rate": 0.5303030303030303,
+          "tag": "strong"
+        },
+        "quick_reverse": {
+          "n": 330,
+          "n_true": 11,
+          "rate": 0.03333333333333333,
+          "tag": "strong"
+        }
+      },
+      "BB_20_25_EMA200": {
+        "n_closed_trades": 560,
+        "n_train1_entries": 512,
+        "calm": {
+          "n": 512,
+          "n_true": 256,
+          "rate": 0.5,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 512,
+          "n_true": 274,
+          "rate": 0.53515625,
+          "tag": "strong"
+        },
+        "quick_reverse": {
+          "n": 512,
+          "n_true": 0,
+          "rate": 0.0,
+          "tag": "strong"
+        }
+      },
+      "DONCHIAN_55": {
+        "n_closed_trades": 476,
+        "n_train1_entries": 447,
+        "calm": {
+          "n": 447,
+          "n_true": 225,
+          "rate": 0.5033557046979866,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 447,
+          "n_true": 204,
+          "rate": 0.4563758389261745,
+          "tag": "weak"
+        },
+        "quick_reverse": {
+          "n": 447,
+          "n_true": 0,
+          "rate": 0.0,
+          "tag": "strong"
+        }
+      }
+    }
+  }
+}
