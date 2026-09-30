@@ -103,12 +103,36 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Run_id
 
-_(filled after Train-1: producing commit + `output/f006_htf_gap_midfill/exit_grid/manifest.json`)_
+`python3 scripts/f006_htf_gap_midfill_exit_grid.py` at producing commit `7f2ee4a` (manifest `git_commit` 7f2ee4a4d759…; parent module tip `aaf00f5`, parent evidence tip `be71095`). 130 runs = 3 names × 10 series × 4 cells + DONCHIAN_55 × 10 on NO_TRAIL. Evidence: `output/f006_htf_gap_midfill/exit_grid/` (`results.csv`, `monthly.csv`, `trades.csv`, `rank_by_name.csv`, `rank_pooled.csv`, `manifest.json`, per-cell subdirs).
 
 ## Result
 
-_(empty until after Train-1)_
+Harness checks: NO_TRAIL reproduces the parent raw rows exactly (40/40 rows incl. control, 0 mismatches on n_calls/n_trades/n_wins/win_rate/net_pnl/train1_net_pnl/DD/final_equity/n_valid_months/legacy H2); DONCHIAN_55 control 10/10 vs trailing-boundary reference, mean Train-1 **+58.387**; one-shot violations 0. Entry masks computed once per series×name and shared by all cells (signal hashes in manifest).
+
+Per name × exit cell (win_rate = trade-weighted over all run trades; mean Train-1 over 10 series):
+
+| Name | Exit cell | WR % | mean Train-1 | H1 | trades/series | max DD % | legacy H2 | sparse H2 | §8 regression |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- |
+| HTF_FVG_MID_R1 | TRAIL_a0.03_t0.02 | 43.36 | −36.28 | fail | 45.9 | 18.01 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R1 | TP_x2 | 36.96 | −4.29 | fail | 44.1 | 9.52 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R1 | TRAIL_a0.06_t0.04 | 36.11 | −30.90 | fail | 43.2 | 13.92 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R1 | NO_TRAIL | 23.74 | **+26.71** | pass | 35.8 | 21.96 | 0/10 | 0/10 | — |
+| HTF_FVG_MID_R2 | TRAIL_a0.03_t0.02 | 43.85 | −41.59 | fail | 50.4 | 20.10 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R2 | TP_x2 | 37.45 | −6.20 | fail | 48.6 | 11.28 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R2 | TRAIL_a0.06_t0.04 | 36.61 | −35.26 | fail | 47.8 | 14.29 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R2 | NO_TRAIL | 24.69 | +23.75 | pass | 39.7 | 22.25 | 0/10 | 0/10 | — |
+| HTF_FVG_MID_R3 | TRAIL_a0.03_t0.02 | 43.61 | −42.41 | fail | 50.9 | 20.10 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R3 | TP_x2 | 37.20 | −6.89 | fail | 49.2 | 12.21 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R3 | TRAIL_a0.06_t0.04 | 36.36 | −35.96 | fail | 48.4 | 14.68 | 0/10 | 0/10 | yes |
+| HTF_FVG_MID_R3 | NO_TRAIL | 24.44 | +23.81 | pass | 40.1 | 22.25 | 0/10 | 0/10 | — |
+
+Pooled WR rank (descriptive): TRAIL_a0.03_t0.02 43.61% (−40.09) > TP_x2 37.21% (−5.79) > TRAIL_a0.06_t0.04 36.37% (−34.04) > NO_TRAIL 24.31% (+24.76).
+
+- **H1 per cell:** holds only under NO_TRAIL (3/3 names). Falsified under TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02 (0/3 names with mean Train-1 > 0).
+- **§8:** every TP/trail cell raises WR (+11.9 to +19.6 pp) while cutting mean Train-1 by −30 to −66 vs NO_TRAIL for the same name → all 9 non-baseline cells are regressions. Fat-winner example: DOGEUSDT 240 HTF_FVG_MID_R1 Train-1 +131.61 under NO_TRAIL (one 161-USDT winner) becomes −27.52 (TP_x2), −32.41 (a0.06/t0.04), −29.41 (a0.03/t0.02).
+- **H2 dual:** legacy 0/30 and `h2_sparse_absent_zero_trade` 0/30 in every cell. Sparse relief is irrelevant here: the family is not sparse (≈10.4–11.2 scored exit-months of 12 per series; 130 ABSENT series-months over all 130 runs), and every series in every cell has ≥4 losing scored exit-months (min 6 under NO_TRAIL). Not a single series has ≤1 losing month.
+- **Density note:** 35.8–50.9 trades/series; no density flag. TP/trail cells fill more of the same pre-computed one-shot calls (e.g. R1 358→441 trades) only because earlier exits free the position slot; n_calls and signal hashes are identical across cells, n_trades ≤ n_calls everywhere.
 
 ## Decision
 
-_(empty until after Train-1)_
+**Ordinary DNR for the exit-grid continuation.** H1 holds only on the NO_TRAIL baseline already recorded by the parent; no TP/trail cell survives H1, all are §8 regressions (WR up by clipping the fat winners that carry the mean). H2 is falsified under both legacy and sparse rules in all four cells — the uneven months are not an exit-geometry artefact (Y rejected). Entries stay frozen at `aaf00f5`; no R_MAX / bias / midfill / exit retune follows. Train-1 only; no Validation/holdout; no merge; no follow-up spawn from this note.

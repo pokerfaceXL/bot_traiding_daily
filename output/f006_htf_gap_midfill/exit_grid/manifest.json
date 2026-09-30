@@ -1,0 +1,123 @@
+{
+  "git_commit": "7f2ee4a4d759230cc9c7c7089bc265141fe3de8f",
+  "started_utc": "2026-09-30T21:46:07.113273+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "exit_grid": {
+    "NO_TRAIL": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TP_x2": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": 2.0
+    },
+    "TRAIL_a0.06_t0.04": {
+      "activate_pct": 0.06,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TRAIL_a0.03_t0.02": {
+      "activate_pct": 0.03,
+      "trail_pct": 0.02,
+      "take_profit_multiple": null
+    }
+  },
+  "candidate_names": [
+    "HTF_FVG_MID_R1",
+    "HTF_FVG_MID_R2",
+    "HTF_FVG_MID_R3"
+  ],
+  "hypothesis_note": "spec/research/F006-hypothesis-htf-gap-midfill-exit-grid-sparse.md",
+  "parent_evidence_tip": "be71095",
+  "parent_module_tip": "aaf00f5",
+  "n_runs": 130,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "signal_hashes": {
+    "SOLUSDT_240_HTF_FVG_MID_R1": "adce848c14ddbcce27ec314cfa1caa26a6b05f1eff723390c0c403481cf470a9",
+    "SOLUSDT_240_HTF_FVG_MID_R2": "61d1b0a5d1c979b25d9272bed923e7d60686ab407fe6bad02f484cc9b9c34c51",
+    "SOLUSDT_240_HTF_FVG_MID_R3": "61d1b0a5d1c979b25d9272bed923e7d60686ab407fe6bad02f484cc9b9c34c51",
+    "SOLUSDT_240_DONCHIAN_55": "462a2150f5cf2e2d435035079e6548ae44381a2eef7a77d16c1aedf8e21ff72f",
+    "ETHUSDT_240_HTF_FVG_MID_R1": "b425b8fb30eb7985039ea69f030a0bb31dcc0a30e9e65d1fa26057f5b5e92c8c",
+    "ETHUSDT_240_HTF_FVG_MID_R2": "7c010427ed4839d307dbb863916fac6291a980f341d17c6536f24bb97f8d6dce",
+    "ETHUSDT_240_HTF_FVG_MID_R3": "7c010427ed4839d307dbb863916fac6291a980f341d17c6536f24bb97f8d6dce",
+    "ETHUSDT_240_DONCHIAN_55": "b8504624d86bd69bd18d3a7c45f53cd44f2a885a8210b8fa9c5eccf57aa755ac",
+    "BTCUSDT_240_HTF_FVG_MID_R1": "3d83a8e2ec4fb1be71ec0423964e86bfbc315b5432c7487c87095e209214d45c",
+    "BTCUSDT_240_HTF_FVG_MID_R2": "11289ec84ac481700e17490fe2afa404071e14703dcb3744cc0a14bfebc4cd33",
+    "BTCUSDT_240_HTF_FVG_MID_R3": "06671e78082ae7f1d49f6a94d59956bf3443e08dc338e1d01c75ecedccccfd01",
+    "BTCUSDT_240_DONCHIAN_55": "a44cf17cc1daa7b6422ba86c3a68797eba41f84777747bf63051d8ac115bf1b6",
+    "XRPUSDT_240_HTF_FVG_MID_R1": "8fa5c3c4a1780c26fae530ba742c4b8b902cc1f9d88c65568f58c1350db1f541",
+    "XRPUSDT_240_HTF_FVG_MID_R2": "71d74cac727f437ff269da17275bef3fa74fea1e8684e7b9883062408993ccf5",
+    "XRPUSDT_240_HTF_FVG_MID_R3": "71d74cac727f437ff269da17275bef3fa74fea1e8684e7b9883062408993ccf5",
+    "XRPUSDT_240_DONCHIAN_55": "d34c54ea6203d892e224bd2a1e2aee3f3cb98727e884599d4d8e09e92cb5cc69",
+    "DOGEUSDT_240_HTF_FVG_MID_R1": "1038ca82cdebf1591f344f9d29bf44d53ab28b11a8c2f559fa86f091c8948aa9",
+    "DOGEUSDT_240_HTF_FVG_MID_R2": "34600fd6806b416f60377a17b0a512e772735085571daee7d5f6e6132d7bc278",
+    "DOGEUSDT_240_HTF_FVG_MID_R3": "34600fd6806b416f60377a17b0a512e772735085571daee7d5f6e6132d7bc278",
+    "DOGEUSDT_240_DONCHIAN_55": "08d36a26286aafb6ec81254958e944d85f0d9a6df611a2ff70c6130fb6017141",
+    "SOLUSDT_60_HTF_FVG_MID_R1": "4ae4ab0aeceeabdd653d17fd308b7605e927146c2fb8fa32ba033c97a32b86a4",
+    "SOLUSDT_60_HTF_FVG_MID_R2": "851b8edfbd09041ae0ce22389a1f7f0acbbecc0a07880e6bcd7967265333aad3",
+    "SOLUSDT_60_HTF_FVG_MID_R3": "851b8edfbd09041ae0ce22389a1f7f0acbbecc0a07880e6bcd7967265333aad3",
+    "SOLUSDT_60_DONCHIAN_55": "282f2d014d5a053567af04f4ff8beb952ad942c82e3585d893dd6610e70d9984",
+    "ETHUSDT_60_HTF_FVG_MID_R1": "647a3dbefcad085ac622beee83da57ece284d5dd713eb5bbbefc57d06a5427d9",
+    "ETHUSDT_60_HTF_FVG_MID_R2": "135413cfcc289483b784acf4fc54b6b3995c7cc13da14de2fb0a38629c934f32",
+    "ETHUSDT_60_HTF_FVG_MID_R3": "135413cfcc289483b784acf4fc54b6b3995c7cc13da14de2fb0a38629c934f32",
+    "ETHUSDT_60_DONCHIAN_55": "7dccbe6cee6b3bfb294797e0219b0acb70b95d8010835c0223e205d7ae4374a0",
+    "BTCUSDT_60_HTF_FVG_MID_R1": "1e43cc6406361eee9fe493af1bad6a1900efc203baae5196eb77146a732924d2",
+    "BTCUSDT_60_HTF_FVG_MID_R2": "6b1fe590864b10cce9f97493dfe59eb7b61bf78eca498c2ae8d339cabc49f4c8",
+    "BTCUSDT_60_HTF_FVG_MID_R3": "003de76aea0dc1f58ee3cbc0f822d6d05fa39c457a3a19d0e3ddadcfd67ab48d",
+    "BTCUSDT_60_DONCHIAN_55": "92e6edef3057c248fdd9428e4b41aa1d46b9207841b5a86fafd04dd409555011",
+    "XRPUSDT_60_HTF_FVG_MID_R1": "3f48216b1384233c248cfd425cf36731d6889b228b7d3f143cde3fad4393a9c4",
+    "XRPUSDT_60_HTF_FVG_MID_R2": "dffc3901754f7c4ed940fd818a517e1921372de4d358d7d2ff64cf7237376fdc",
+    "XRPUSDT_60_HTF_FVG_MID_R3": "dffc3901754f7c4ed940fd818a517e1921372de4d358d7d2ff64cf7237376fdc",
+    "XRPUSDT_60_DONCHIAN_55": "a2d2d1f582c85cf33757c1596e286ab802fccac31eac8869ec56b4242c46554c",
+    "DOGEUSDT_60_HTF_FVG_MID_R1": "5cbda4eb3fc6ff8d1dd4d1ea1c3279f6266543cdd1f06309a3a36398ef94f0af",
+    "DOGEUSDT_60_HTF_FVG_MID_R2": "76e51771767deb9df27359826ec4b9210ba212f45615da666e4d9dc96d7ea208",
+    "DOGEUSDT_60_HTF_FVG_MID_R3": "486745b1815abb78ae25df9393497db037160e39da6b867e64a4cbf591ea504c",
+    "DOGEUSDT_60_DONCHIAN_55": "e205dc904b9331e550058b64ea1c2d6a0c1d41ec0307a19bb4760af46527ac74"
+  },
+  "source_sha256": {
+    "htf_gap_midfill.py": "4fff79b6b4c1a34c982f01227856348e22b0017c8886115019d7afe820c3833a",
+    "backtest_engine.py": "92ead6efdbc0d20245135a3c22188a16c20f36af066de55add1f395286cbda66",
+    "f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "f006_htf_gap_midfill_exit_grid.py": "27e097d0373abd8857f0811c525827b852e074f59c2b40a30a6b9b6d4d46d955"
+  },
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "cooldown_candles": 0,
+    "mask": "one_shot"
+  },
+  "sparse_month_bucket": "exit month Europe/Warsaw; zero exits ABSENT; Train-1 months only",
+  "rank_metric": "trade-weighted win_rate; pooled excludes DONCHIAN_55",
+  "prior_no_trail_check": {
+    "rows_compared": 40,
+    "mismatches": 0
+  },
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "one_shot_violations": 0
+}
