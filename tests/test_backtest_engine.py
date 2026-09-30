@@ -507,3 +507,83 @@ def test_take_profit_defers_to_execution_pys_stop_loss_wins_on_ambiguity_rule(mo
     assert len(res.trades) == 1
     assert res.trades["exit_reason"].iloc[0] == "initial_sl"
     assert res.trades["exit_price"].iloc[0] == pytest.approx(97.0)
+
+
+# --- spec/research/F006-hypothesis-catalog5-partial-exit.md: partial scale-out ---
+
+def test_partial_exit_none_matches_call_without_the_parameters():
+    res_default = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240")
+    res_explicit_none = be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240",
+                                        partial_fraction=None, partial_r_multiple=None)
+    pd.testing.assert_frame_equal(res_default.trades, res_explicit_none.trades)
+    pd.testing.assert_frame_equal(res_default.equity_curve, res_explicit_none.equity_curve)
+    assert res_default.metrics == res_explicit_none.metrics
+    assert "leg" not in res_default.trades.columns
+
+
+def test_partial_exit_banks_fraction_at_r_multiple_and_remainder_runs(monkeypatch):
+    # Same frame as the take-profit test: R = 3.0, 2R = 106.0 touched on bar 2. Half closes
+    # there as partial_take; the remainder rides to the bar-5 signal_reverse close @115.0.
+    import strategy
+    df, signal_fn = _build_take_profit_frame()
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, TAKE_PROFIT_STRATEGY, signal_fn)
+    now = df.index[-1] + pd.Timedelta(hours=4)
+    kw = dict(interval="240", now=now, max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5)
+
+    full = be.run_backtest(df, TAKE_PROFIT_STRATEGY, **kw)
+    part = be.run_backtest(df, TAKE_PROFIT_STRATEGY, partial_fraction=0.5, partial_r_multiple=2.0, **kw)
+
+    t = part.trades[part.trades["parent_id"] == "p1"]
+    assert list(t["exit_reason"]) == ["partial_take", "signal_reverse"]
+    assert list(t["leg"]) == ["partial", "remainder"]
+    assert list(t["parent_id"]) == ["p1", "p1"]
+    assert t["exit_time"].iloc[0] == df.index[2]
+    assert t["exit_price"].iloc[0] == pytest.approx(106.0)
+    assert t["exit_price"].iloc[1] == pytest.approx(115.0)
+    assert t["stake"].sum() == pytest.approx(full.trades["stake"].iloc[0])
+    assert t["quantity"].iloc[0] == pytest.approx(full.trades["quantity"].iloc[0] / 2)
+    # gross splits exactly: half at +6, half at +15 (qty-weighted)
+    q = full.trades["quantity"].iloc[0]
+    assert t["gross_pnl"].sum() == pytest.approx(q * (0.5 * 6.0 + 0.5 * 15.0))
+    # split legs are realized through the same ledger as every other close
+    assert part.metrics["final_equity"] == pytest.approx(part.equity_curve["equity"].iloc[-1])
+    assert part.metrics["final_equity"] == pytest.approx(500.0 + part.trades["net_pnl"].sum())
+    assert t["net_pnl"].sum() < full.trades["net_pnl"].iloc[0]
+
+
+def test_partial_exit_remainder_still_stops_at_initial_sl_and_sl_wins_ambiguity(monkeypatch):
+    import strategy
+    idx = pd.date_range("2024-01-01", periods=5, freq="4h", tz="UTC")
+    rows = [
+        (100.0, 100.5, 99.5, 100.0),  # 0: arms entry
+        (100.0, 100.5, 99.5, 100.0),  # 1: fill @100, sl=97, 1R partial level=103
+        (100.0, 103.5, 99.5, 103.0),  # 2: partial at 103
+        (103.0, 103.5, 96.0, 97.5),   # 3: remainder stops at 97
+        (97.5, 98.0, 97.0, 97.5),
+    ]
+    df = pd.DataFrame(rows, columns=["open", "high", "low", "close"], index=idx)
+    df["volume"] = 1000.0
+    signal = pd.Series([1.0] * 5, index=idx)
+    monkeypatch.setitem(strategy.STRATEGY_CATALOG, TAKE_PROFIT_STRATEGY,
+                        lambda w: signal.reindex(w.index).fillna(0.0))
+    now = idx[-1] + pd.Timedelta(hours=4)
+    kw = dict(interval="240", now=now, max_sl_pct=0.03, activate_pct=10.0, trail_pct=0.5,
+              partial_fraction=0.5, partial_r_multiple=1.0)
+    res = be.run_backtest(df, TAKE_PROFIT_STRATEGY, **kw)
+    assert list(res.trades["exit_reason"])[:2] == ["partial_take", "initial_sl"]
+    assert res.trades["exit_price"].iloc[1] == pytest.approx(97.0)
+
+    # ambiguity bar (both 97 and 103 inside [low, high]): SL wins, no partial, one full row.
+    df2 = df.copy()
+    df2.iloc[2, :4] = [100.0, 104.0, 96.0, 100.0]
+    res2 = be.run_backtest(df2, TAKE_PROFIT_STRATEGY, **kw)
+    assert res2.trades["exit_reason"].iloc[0] == "initial_sl"
+    assert res2.trades["leg"].iloc[0] == "full"
+
+
+def test_partial_exit_rejects_take_profit_combo_and_half_set_params():
+    with pytest.raises(ValueError):
+        be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240",
+                        partial_fraction=0.5, partial_r_multiple=1.0, take_profit_multiple=2.0)
+    with pytest.raises(ValueError):
+        be.run_backtest(_load_fixture(), STRATEGY_NAME, interval="240", partial_fraction=0.5)

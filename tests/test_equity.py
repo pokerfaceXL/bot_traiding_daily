@@ -238,3 +238,15 @@ def test_open_position_duplicate_id_rejected():
     portfolio.open_position("p1", "SOLUSDT", direction=1, entry_price=20.0, entry_time=0, stake=100.0, leverage=5.0)
     with pytest.raises(ValueError):
         portfolio.open_position("p1", "SOLUSDT", direction=1, entry_price=21.0, entry_time=1, stake=100.0, leverage=5.0)
+
+
+def test_split_position_conserves_margin_quantity_and_equity():
+    p = equity.Portfolio(initial_equity=500.0)
+    p.open_position("a", "X", 1, 100.0, 0, stake=100.0, leverage=2.0)
+    before = (p.committed_margin, p.equity({"a": 110.0}))
+    part = p.split_position("a", 0.25, "a_part")
+    assert part.quantity == pytest.approx(0.5) and p.positions["a"].quantity == pytest.approx(1.5)
+    assert p.committed_margin == pytest.approx(before[0])
+    assert p.equity({"a": 110.0, "a_part": 110.0}) == pytest.approx(before[1])
+    with pytest.raises(ValueError):
+        p.split_position("a", 1.0, "b")

@@ -92,6 +92,23 @@ take-profit level is ever computed and `take_profit=None` is passed to
 `execution.resolve_stop_take_within_bar` exactly as before -- preserves
 prior behaviour exactly.
 
+Optional `partial_fraction` + `partial_r_multiple` (F006 partial scale-out
+research hook, spec/research/F006-hypothesis-catalog5-partial-exit.md): both
+None (the default) or both set. When set, at every entry fill a partial-take
+level is computed at `partial_r_multiple` times the trade's own initial stop
+distance R (`abs(entry_price - initial_sl)`), in the favourable direction,
+and passed as `take_profit` into `execution.resolve_stop_take_within_bar`
+until it is touched (same conservative SL-wins-on-ambiguity rule). A touch
+splits the open position (`equity.Portfolio.split_position`) and closes
+`partial_fraction` of it at the level fill with `exit_reason="partial_take"`;
+the remainder stays open under the unchanged initial-SL / trailing / signal-
+reverse / end-of-data rules. In this mode every trade row carries `leg`
+("partial"/"remainder"/"full") and `parent_id` (the entry's position_id) so
+per-entry PnL is attributable; engine metrics stay row-based (callers group
+by `parent_id` for per-entry win rate). The loss cooldown, if any, uses the
+entry's combined net_pnl. Mutually exclusive with `take_profit_multiple`.
+Default None emits no extra columns and preserves prior behaviour exactly.
+
 Zero network connections.
 """
 
@@ -166,6 +183,8 @@ def run_backtest(
     cooldown_candles: int = 0,
     loss_cooldown_candles: int = 0,
     take_profit_multiple: Optional[float] = None,
+    partial_fraction: Optional[float] = None,
+    partial_r_multiple: Optional[float] = None,
     commission_rate_bps: float = 10.0,
     half_spread_bps: float = 5.0,
     slippage_bps: float = 2.0,
@@ -185,6 +204,14 @@ def run_backtest(
     loop against a shared equity.Portfolio, with costs.py costs applied on
     every close. See module docstring for the full decision-logic contract.
     """
+    partial_mode = partial_fraction is not None or partial_r_multiple is not None
+    if partial_mode:
+        if partial_fraction is None or partial_r_multiple is None:
+            raise ValueError("partial_fraction and partial_r_multiple must be set together")
+        if take_profit_multiple is not None:
+            raise ValueError("partial scale-out and take_profit_multiple are mutually exclusive")
+        if not 0.0 < partial_fraction < 1.0 or partial_r_multiple <= 0:
+            raise ValueError("partial_fraction must be in (0, 1) and partial_r_multiple > 0")
     closed_df, _dropped = data_contract.filter_closed_candles(df, interval, now=now)
     work = strategy.add_indicators(closed_df)
     if strategy_name not in strategy.STRATEGY_CATALOG:
@@ -223,6 +250,9 @@ def run_backtest(
     best_price = 0.0
     trail_active = False
     active_position_id: Optional[str] = None
+    partial_price: Optional[float] = None
+    partial_taken = False
+    partial_net = 0.0
 
     pending_signal = 0
     cooldown_until = -1
@@ -233,9 +263,10 @@ def run_backtest(
     skipped_signals: List[dict] = []
     equity_rows: List[dict] = []
 
-    def _record_close(closed_trade: equity_module.ClosedTrade, exit_reason: str, is_gap_fill: bool) -> None:
+    def _record_close(closed_trade: equity_module.ClosedTrade, exit_reason: str, is_gap_fill: bool,
+                      leg: Optional[str] = None) -> None:
         p = closed_trade.position
-        trades.append({
+        row = {
             "position_id": p.position_id,
             "symbol": p.symbol,
             "direction": p.direction,
@@ -257,7 +288,11 @@ def run_backtest(
             "total_costs": closed_trade.total_costs,
             "funding_pnl": closed_trade.funding_pnl,
             "net_pnl": closed_trade.net_pnl,
-        })
+        }
+        if partial_mode:
+            row["leg"] = leg or ("remainder" if partial_taken else "full")
+            row["parent_id"] = active_position_id
+        trades.append(row)
 
     for i in range(n):
         bar_count = i + 1
@@ -291,6 +326,10 @@ def run_backtest(
                     take_profit_price = entry_price + pos * take_profit_multiple * sl_distance
                 else:
                     take_profit_price = None
+                if partial_mode:
+                    partial_price = entry_price + pos * partial_r_multiple * abs(entry_price - initial_sl)
+                    partial_taken = False
+                    partial_net = 0.0
                 trailing_sl = 0.0
                 best_price = entry_price
                 trail_active = False
@@ -309,8 +348,23 @@ def run_backtest(
                 pos, best_price, trailing_sl, trail_active, entry_price, bar.high, bar.low, activate_pct, trail_pct
             )
             active_sl = _active_sl(pos, initial_sl, trailing_sl, trail_active)
-            trigger = execution.resolve_stop_take_within_bar(pos, bar, stop_loss=active_sl, take_profit=take_profit_price)
-            if trigger.kind in (TriggerKind.STOP_LOSS, TriggerKind.TAKE_PROFIT):
+            level = partial_price if (partial_mode and not partial_taken) else take_profit_price
+            trigger = execution.resolve_stop_take_within_bar(pos, bar, stop_loss=active_sl, take_profit=level)
+            if partial_mode and trigger.kind == TriggerKind.TAKE_PROFIT:
+                part_id = f"{active_position_id}_partial"
+                portfolio.split_position(active_position_id, partial_fraction, part_id)
+                closed_part = portfolio.close_position(
+                    part_id, trigger.fill_price, idx,
+                    commission_rate_bps=commission_rate_bps,
+                    half_spread_bps=half_spread_bps,
+                    slippage_bps=slippage_bps,
+                    slippage_fixed=slippage_fixed,
+                    funding_events=funding_events,
+                )
+                _record_close(closed_part, "partial_take", trigger.is_gap_fill, leg="partial")
+                partial_taken = True
+                partial_net = closed_part.net_pnl
+            elif trigger.kind in (TriggerKind.STOP_LOSS, TriggerKind.TAKE_PROFIT):
                 if trigger.kind == TriggerKind.TAKE_PROFIT:
                     exit_reason = "take_profit"
                 else:
@@ -329,7 +383,7 @@ def run_backtest(
                 active_position_id = None
                 if exit_reason == "initial_sl" and cooldown_candles > 0:
                     cooldown_until = bar_count + cooldown_candles
-                if loss_cooldown_candles > 0 and closed_trade.net_pnl < 0:
+                if loss_cooldown_candles > 0 and closed_trade.net_pnl + partial_net < 0:
                     loss_cooldown_until = bar_count + loss_cooldown_candles
 
         # 3. Signal reversal: close the open position at this bar's close.
@@ -346,7 +400,7 @@ def run_backtest(
             pos = 0
             trail_active = False
             active_position_id = None
-            if loss_cooldown_candles > 0 and closed_trade.net_pnl < 0:
+            if loss_cooldown_candles > 0 and closed_trade.net_pnl + partial_net < 0:
                 loss_cooldown_until = bar_count + loss_cooldown_candles
 
         # 4. Queue an entry for the next bar's open.

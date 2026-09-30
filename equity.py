@@ -180,6 +180,35 @@ class Portfolio:
         self.committed_margin += margin
         return position
 
+    def split_position(self, position_id: str, fraction: float, new_position_id: str) -> Position:
+        """
+        Dzieli otwarta pozycje na dwie (F006 partial-exit research hook): nowa pozycja
+        `new_position_id` dostaje `fraction` stake/notional/margin/quantity, oryginal zachowuje
+        reszte. Ta sama cena/czas wejscia; committed_margin i equity bez zmian (koszty sa
+        liniowe w notional, wiec zamkniecie obu czesci kosztuje tyle co zamkniecie calosci).
+        """
+        if position_id not in self.positions:
+            raise KeyError(f"brak otwartej pozycji o id {position_id!r}")
+        if new_position_id in self.positions:
+            raise ValueError(f"position_id juz otwarty: {new_position_id!r}")
+        if not 0.0 < fraction < 1.0:
+            raise ValueError(f"fraction musi byc w (0, 1), otrzymano: {fraction!r}")
+        base = self.positions[position_id]
+        part = Position(
+            position_id=new_position_id, symbol=base.symbol, direction=base.direction,
+            entry_price=base.entry_price, entry_time=base.entry_time,
+            stake=base.stake * fraction, leverage=base.leverage,
+            notional=base.notional * fraction, margin=base.margin * fraction,
+            quantity=base.quantity * fraction,
+        )
+        keep = 1.0 - fraction
+        base.stake *= keep
+        base.notional *= keep
+        base.margin *= keep
+        base.quantity *= keep
+        self.positions[new_position_id] = part
+        return part
+
     def close_position(
         self,
         position_id: str,
