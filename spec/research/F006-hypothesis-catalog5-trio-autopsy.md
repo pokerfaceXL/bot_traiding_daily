@@ -92,11 +92,11 @@ note above).
 
 Because all five catalog5 NO_TRAIL leads now share the same fat-tail/`initial_sl`-dominated
 shape at the trade level — the identical shape already found for the FREEZE'd
-`DONCHIAN_55_NO_TRAIL` — a draft §13 family-insufficiency note covering the whole shared
-NO_TRAIL catalog fat-tail class (not just one name) is written at
-`spec/research/F006-catalog5-family-insufficiency-s13-draft.md`. It is **documentation only**:
-no profile in this job moves to FREEZE, no gate is implemented, and the note itself states it
-requires review/finalization before any status change relies on it.
+`DONCHIAN_55_NO_TRAIL` — a §13 family-insufficiency note covering the whole shared
+NO_TRAIL catalog fat-tail class (not just one name) was drafted here and later finalized at
+`spec/research/F006-catalog5-family-insufficiency-s13.md`. It is **documentation only**: no
+profile moves to FREEZE because of it; it updates the five profiles' "Allowed next
+experiments" gate (DNR on `H-CATALOG5-ABS-ATR-ENTRY-GATE-01`) but leaves status CONDITIONAL.
 
 ## Not retested (DNR)
 

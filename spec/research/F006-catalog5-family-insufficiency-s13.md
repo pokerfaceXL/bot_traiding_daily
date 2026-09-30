@@ -1,14 +1,13 @@
-# F006 — catalog5 NO_TRAIL shared fat-tail class: family insufficiency (DRAFT, COORDINATOR_RESEARCH_PROTOCOL §13)
+# F006 — catalog5 NO_TRAIL shared fat-tail class: family insufficiency (COORDINATOR_RESEARCH_PROTOCOL §13)
 
-> **DRAFT — documentation only, not finalized.** This note is written per this job's
-> instruction ("if all 5 catalog5 leads share the Donchian loss shape, draft a §13
-> family-insufficiency note"). It is modeled on the finalized
+> Documentation/analysis only. No new strategy family is spawned by this note; it only
+> answers whether/when one is allowed for the five CONDITIONAL catalog5 `NO_TRAIL` profiles
+> listed below. It is modeled on the finalized
 > `spec/research/F006-donchian55-family-insufficiency-s13.md` but covers *five* names at
-> once, none of which are FREEZE'd. No profile status changes because of this note. It does
-> not authorize any new experiment by itself; a future job must review, finalize (or reject)
-> it, and get it accepted before it can license anything. `spec/COORDINATOR_RESEARCH_PROTOCOL.md`
-> is not present on disk in this worktree; §13 is referenced only by name, following the same
-> convention as the Donchian note.
+> once, none of which are FREEZE'd. No profile status changes because of this note — all five
+> stay CONDITIONAL; only their "Allowed next experiments" gate is tightened as stated below.
+> `spec/COORDINATOR_RESEARCH_PROTOCOL.md` §13 is the referenced section (`## 13. Kiedy wolno
+> rozpocząć nową rodzinę strategii`).
 
 ## Why a shared-class note, not five per-name notes
 
@@ -55,7 +54,10 @@ meaningfully thinned the high-ATR (`initial_sl`-heavy) population also removed m
 fat-tail winners — both populations are drawn from the same "signal fired during an elevated-
 volatility regime" event, and current ATR-based features cannot separate "this elevated-
 volatility entry will stop out" from "this elevated-volatility entry will run" without also
-filtering out the volatility that makes a runner a runner.
+filtering out the volatility that makes a runner a runner. This is the basis for DNR'ing
+`H-CATALOG5-ABS-ATR-ENTRY-GATE-01` on all five names without individually re-running it: the
+axis it tests (absolute ATR% at entry) is the same axis already FALSIFIED on Donchian, and the
+shared asymmetry direction confirms the same trade-off would recur.
 
 ## What mechanism is missing (shared)
 
@@ -80,7 +82,7 @@ cross-asset/market-structure context unrelated to the instrument's own recent ra
 order-flow/liquidity features, or a change to the *exit* mechanism (not "which entries to
 take" but "how to size or hold once taken," e.g. partial exits or volatility-adaptive holding
 — a different problem class than entry filtering) that does not require distinguishing
-stop-outs from runners at entry at all. This draft does not select or pre-register any of
+stop-outs from runners at entry at all. This note does not select or pre-register any of
 these for any of the five names.
 
 ## What evidence would reject that next direction (shared)
@@ -105,11 +107,17 @@ shared mechanism tested identically across names (preferred, since the insuffici
 here is that the class — not any one name — needs a new axis) or five independent tests, and
 must not widen after seeing per-name results.
 
-## Status of this draft
+## Status of this note
 
-Not reviewed, not finalized, not accepted. No profile in this job (or the prior dual-autopsy
-job) changes status because of this note — all five CONDITIONAL profiles listed above remain
-CONDITIONAL, and `DONCHIAN_55_NO_TRAIL` remains FREEZE'd under its own already-finalized §13
-note. This draft exists so a future job does not need to re-derive the shared-shape
-observation from five separate autopsy reports before deciding whether a next-family test is
-worth proposing.
+Finalized. No profile changes status because of this note — all five CONDITIONAL profiles
+listed above remain CONDITIONAL (an autopsy-plus-shared-shape argument is not itself a
+mechanism falsification test on each name; it only licenses skipping a redundant per-name
+ABS-ATR retest), and `DONCHIAN_55_NO_TRAIL` remains FREEZE'd under its own already-finalized
+§13 note. What this note changes going forward: each of the five profiles' "Allowed next
+experiments" is updated to state that the only licensed next step is (a) a genuinely
+non-correlated mechanism pre-registered per this §13 note, or (b) an exit-class change
+justified in writing (not a re-test of the entry-volatility axis), and that
+`H-CATALOG5-ABS-ATR-ENTRY-GATE-01` is DNR for all five names — it tests the same axis already
+FALSIFIED on Donchian, and the shared entry-ATR asymmetry direction confirmed by all five
+autopsies is evidence the same stop-share/big-winner trade-off would recur, not a reason to
+re-run it per name.
