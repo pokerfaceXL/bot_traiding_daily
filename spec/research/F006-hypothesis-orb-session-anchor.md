@@ -184,9 +184,9 @@ runner's checksum check against F005 protocol section 6 passed for all 10 pairs.
 | Name | OR window (UTC) | mean train1_net_pnl | sum | profitable series | mean n_trades | mean on 60 only | max DD % | zero-trade series |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | `ORB_LON_1H` | `[07:00,08:00)` | -$54.07 | -$540.72 | 1/10 | 252.2 | -$108.14 | 43.60 | all 5 × `240` |
-| `ORB_LON_2H` | `[07:00,09:00)` | -$83.97 | -$839.72 | 1/10 | 327.5 | -$100.95 | 40.83 | none |
-| `ORB_LON_3H` | `[07:00,10:00)` | -$86.52 | -$865.17 | 1/10 | 303.9 | -$106.04 | 38.09 | none |
-| `ORB_NY_1H` | `[13:30,14:30)` | -$51.28 | -$512.77 | 0/10 | 149.4 | -$102.55 | 31.83 | all 5 × `240` |
+| `ORB_LON_2H` | `[07:00,09:00)` | -$83.97 | -$839.71 | 1/10 | 327.5 | -$100.95 | 40.83 | none |
+| `ORB_LON_3H` | `[07:00,10:00)` | -$86.52 | -$865.16 | 1/10 | 303.9 | -$106.04 | 38.09 | none |
+| `ORB_NY_1H` | `[13:30,14:30)` | -$51.28 | -$512.76 | 0/10 | 149.4 | -$102.55 | 31.83 | all 5 × `240` |
 | `ORB_NY_2H` | `[13:30,15:30)` | -$35.73 | -$357.26 | 2/10 | 114.7 | -$71.45 | 37.19 | all 5 × `240` |
 
 (`mean n_trades` includes the zero rows; on `60` alone it is 504.4 / 417.2 / 370.0 / 298.8 /
@@ -236,3 +236,4 @@ window rejected.
 | Command | Result |
 | --- | --- |
 | `python3 -m pytest -q tests/test_orb_session_anchor.py tests/test_signal_family_contract.py tests/test_donchian.py tests/test_sube_exit_grid.py` | 86 passed |
+| `python3 -m pytest -q tests/` (at evidence commit) | 298 passed, 7 skipped |
