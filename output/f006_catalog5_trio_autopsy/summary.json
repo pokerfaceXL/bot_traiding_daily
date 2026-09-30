@@ -1,0 +1,89 @@
+{
+  "EMA3_21_50_200": {
+    "concentration": {
+      "top10_winners_share_of_gross_wins": 0.6424,
+      "n_trades_to_reach_full_net_pnl": 4,
+      "n_train1": 402
+    },
+    "strategy": "EMA3_21_50_200",
+    "n_train1": 402,
+    "net_sum": 817.033643,
+    "mean": 2.032422,
+    "wr": 0.196517,
+    "n_wins": 79,
+    "n_losses": 323,
+    "avg_winner": 22.843591,
+    "avg_loser": -3.057616,
+    "breakeven_win_rate_pct": 11.804917690333966,
+    "loss_months": 7,
+    "n_months": 12,
+    "exit_mix": {
+      "initial_sl": 276,
+      "signal_reverse": 117,
+      "end_of_data": 9
+    },
+    "calm_rate": 0.432836,
+    "atr_pct_mean_initial_sl": 1.71329,
+    "atr_pct_mean_signal_reverse": 1.085323,
+    "forward_agreement_wins": 0.721519,
+    "forward_agreement_losses": 0.473684
+  },
+  "EMA3_13_50_200": {
+    "concentration": {
+      "top10_winners_share_of_gross_wins": 0.6381,
+      "n_trades_to_reach_full_net_pnl": 3,
+      "n_train1": 423
+    },
+    "strategy": "EMA3_13_50_200",
+    "n_train1": 423,
+    "net_sum": 771.283617,
+    "mean": 1.823366,
+    "wr": 0.189125,
+    "n_wins": 80,
+    "n_losses": 343,
+    "avg_winner": 22.756575,
+    "avg_loser": -3.059016,
+    "breakeven_win_rate_pct": 11.84948940810371,
+    "loss_months": 7,
+    "n_months": 12,
+    "exit_mix": {
+      "initial_sl": 292,
+      "signal_reverse": 122,
+      "end_of_data": 9
+    },
+    "calm_rate": 0.43026,
+    "atr_pct_mean_initial_sl": 1.766591,
+    "atr_pct_mean_signal_reverse": 1.099284,
+    "forward_agreement_wins": 0.7,
+    "forward_agreement_losses": 0.489796
+  },
+  "BB_20_2_EMA200": {
+    "concentration": {
+      "top10_winners_share_of_gross_wins": 0.5068,
+      "n_trades_to_reach_full_net_pnl": 4,
+      "n_train1": 756
+    },
+    "strategy": "BB_20_2_EMA200",
+    "n_train1": 756,
+    "net_sum": 834.347778,
+    "mean": 1.103635,
+    "wr": 0.248677,
+    "n_wins": 188,
+    "n_losses": 568,
+    "avg_winner": 12.499666,
+    "avg_loser": -2.668291,
+    "breakeven_win_rate_pct": 17.59163247261646,
+    "loss_months": 7,
+    "n_months": 12,
+    "exit_mix": {
+      "signal_reverse": 388,
+      "initial_sl": 358,
+      "end_of_data": 10
+    },
+    "calm_rate": 0.521164,
+    "atr_pct_mean_initial_sl": 1.76226,
+    "atr_pct_mean_signal_reverse": 1.079084,
+    "forward_agreement_wins": 0.723404,
+    "forward_agreement_losses": 0.401408
+  }
+}

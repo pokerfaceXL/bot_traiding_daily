@@ -1,0 +1,527 @@
+{
+  "family": "catalog5_trio",
+  "script": "/home/limen/bot_traiding_daily/.bot_traiding_daily-limen-worktrees/2026-09-30-f006-catalog5-trio-autopsy-1458bdf5/scripts/f006_catalog5_trio_autopsy.py",
+  "git_commit": "dba0b414b9d620e9b6923e37f6ad74c6a64bf79e",
+  "run_started_utc": "2026-09-30T15:33:55.461384+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 40,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "EMA3_21_50_200",
+    "EMA3_13_50_200",
+    "BB_20_2_EMA200"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-catalog5-trio-autopsy.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 40,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "phase_fit": null,
+  "h1_table": [
+    {
+      "strategy": "EMA3_21_50_200",
+      "sum_net_pnl": 957.2508,
+      "mean_net_pnl": 95.7251,
+      "n_series": 10,
+      "n_profitable_series": 6,
+      "n_trades_total": 437,
+      "h1_pass": true
+    },
+    {
+      "strategy": "EMA3_13_50_200",
+      "sum_net_pnl": 911.483,
+      "mean_net_pnl": 91.1483,
+      "n_series": 10,
+      "n_profitable_series": 6,
+      "n_trades_total": 459,
+      "h1_pass": true
+    },
+    {
+      "strategy": "BB_20_2_EMA200",
+      "sum_net_pnl": 953.218,
+      "mean_net_pnl": 95.3218,
+      "n_series": 10,
+      "n_profitable_series": 8,
+      "n_trades_total": 820,
+      "h1_pass": true
+    }
+  ],
+  "h1_names_passing": [
+    "EMA3_21_50_200",
+    "EMA3_13_50_200",
+    "BB_20_2_EMA200"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": -8.307659,
+      "n_trades": 24,
+      "max_drawdown_pct": 21.095,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": -14.947659,
+      "n_trades": 26,
+      "max_drawdown_pct": 22.1603,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 85.546141,
+      "n_trades": 33,
+      "max_drawdown_pct": 7.5441,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 57.310536,
+      "n_trades": 61,
+      "max_drawdown_pct": 9.1231,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 51.415953,
+      "n_trades": 66,
+      "max_drawdown_pct": 9.7156,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 46.410212,
+      "n_trades": 125,
+      "max_drawdown_pct": 11.0797,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": -35.123926,
+      "n_trades": 27,
+      "max_drawdown_pct": 16.5057,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": -35.123926,
+      "n_trades": 27,
+      "max_drawdown_pct": 16.5057,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 20.978395,
+      "n_trades": 38,
+      "max_drawdown_pct": 10.0889,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": -8.939433,
+      "n_trades": 66,
+      "max_drawdown_pct": 11.0488,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": -9.959234,
+      "n_trades": 66,
+      "max_drawdown_pct": 11.1198,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": -36.227902,
+      "n_trades": 130,
+      "max_drawdown_pct": 16.5834,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 20.679988,
+      "n_trades": 19,
+      "max_drawdown_pct": 10.1211,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 14.145977,
+      "n_trades": 21,
+      "max_drawdown_pct": 11.2645,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": -40.807672,
+      "n_trades": 41,
+      "max_drawdown_pct": 14.0546,
+      "n_neg_months": 9,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": -39.301571,
+      "n_trades": 69,
+      "max_drawdown_pct": 14.2487,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": -19.728587,
+      "n_trades": 67,
+      "max_drawdown_pct": 10.9,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 5.684958,
+      "n_trades": 110,
+      "max_drawdown_pct": 7.7984,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 300.015333,
+      "n_trades": 21,
+      "max_drawdown_pct": 20.4695,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 296.210985,
+      "n_trades": 22,
+      "max_drawdown_pct": 20.4695,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 219.531213,
+      "n_trades": 40,
+      "max_drawdown_pct": 20.2975,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 231.544601,
+      "n_trades": 72,
+      "max_drawdown_pct": 20.0121,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 219.415138,
+      "n_trades": 77,
+      "max_drawdown_pct": 20.5506,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 262.683742,
+      "n_trades": 126,
+      "max_drawdown_pct": 19.0609,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 225.928859,
+      "n_trades": 17,
+      "max_drawdown_pct": 20.0067,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 208.851384,
+      "n_trades": 22,
+      "max_drawdown_pct": 20.3005,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 253.761911,
+      "n_trades": 38,
+      "max_drawdown_pct": 17.6683,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "EMA3_21_50_200",
+      "train1_net_pnl": 213.444048,
+      "n_trades": 61,
+      "max_drawdown_pct": 14.9594,
+      "n_neg_months": 3,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "EMA3_13_50_200",
+      "train1_net_pnl": 201.202985,
+      "n_trades": 65,
+      "max_drawdown_pct": 15.4904,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "BB_20_2_EMA200",
+      "train1_net_pnl": 135.656989,
+      "n_trades": 139,
+      "max_drawdown_pct": 21.1115,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 10.3,
+  "signal_autopsy": {
+    "freeze": {
+      "atr_bars": 14,
+      "percentile_bars": 100,
+      "forward_bars": 5,
+      "quick_reverse_bars": 3,
+      "calm_percentile_max": 0.5,
+      "agreement_strong_min": 0.5,
+      "calm_strong_min": 0.5,
+      "reverse_strong_max": 0.25,
+      "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+      "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+    },
+    "by_strategy": {
+      "EMA3_21_50_200": {
+        "n_closed_trades": 437,
+        "n_train1_entries": 402,
+        "calm": {
+          "n": 402,
+          "n_true": 174,
+          "rate": 0.43283582089552236,
+          "tag": "weak"
+        },
+        "forward_agreement": {
+          "n": 402,
+          "n_true": 210,
+          "rate": 0.5223880597014925,
+          "tag": "strong"
+        },
+        "quick_reverse": {
+          "n": 402,
+          "n_true": 1,
+          "rate": 0.0024875621890547263,
+          "tag": "strong"
+        }
+      },
+      "EMA3_13_50_200": {
+        "n_closed_trades": 459,
+        "n_train1_entries": 423,
+        "calm": {
+          "n": 423,
+          "n_true": 182,
+          "rate": 0.4302600472813239,
+          "tag": "weak"
+        },
+        "forward_agreement": {
+          "n": 423,
+          "n_true": 224,
+          "rate": 0.5295508274231678,
+          "tag": "strong"
+        },
+        "quick_reverse": {
+          "n": 423,
+          "n_true": 1,
+          "rate": 0.002364066193853428,
+          "tag": "strong"
+        }
+      },
+      "BB_20_2_EMA200": {
+        "n_closed_trades": 820,
+        "n_train1_entries": 756,
+        "calm": {
+          "n": 756,
+          "n_true": 394,
+          "rate": 0.5211640211640212,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 756,
+          "n_true": 364,
+          "rate": 0.48148148148148145,
+          "tag": "weak"
+        },
+        "quick_reverse": {
+          "n": 756,
+          "n_true": 2,
+          "rate": 0.0026455026455026454,
+          "tag": "strong"
+        }
+      },
+      "DONCHIAN_55": {
+        "n_closed_trades": 476,
+        "n_train1_entries": 447,
+        "calm": {
+          "n": 447,
+          "n_true": 225,
+          "rate": 0.5033557046979866,
+          "tag": "strong"
+        },
+        "forward_agreement": {
+          "n": 447,
+          "n_true": 204,
+          "rate": 0.4563758389261745,
+          "tag": "weak"
+        },
+        "quick_reverse": {
+          "n": 447,
+          "n_true": 0,
+          "rate": 0.0,
+          "tag": "strong"
+        }
+      }
+    }
+  }
+}

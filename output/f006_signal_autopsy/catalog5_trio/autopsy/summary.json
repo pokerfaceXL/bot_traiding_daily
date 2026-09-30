@@ -1,0 +1,104 @@
+{
+  "freeze": {
+    "atr_bars": 14,
+    "percentile_bars": 100,
+    "forward_bars": 5,
+    "quick_reverse_bars": 3,
+    "calm_percentile_max": 0.5,
+    "agreement_strong_min": 0.5,
+    "calm_strong_min": 0.5,
+    "reverse_strong_max": 0.25,
+    "entry_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+    "excursions": "percent of fill; stop/TP exit-bar extremes excluded (lower bound)"
+  },
+  "by_strategy": {
+    "EMA3_21_50_200": {
+      "n_closed_trades": 437,
+      "n_train1_entries": 402,
+      "calm": {
+        "n": 402,
+        "n_true": 174,
+        "rate": 0.43283582089552236,
+        "tag": "weak"
+      },
+      "forward_agreement": {
+        "n": 402,
+        "n_true": 210,
+        "rate": 0.5223880597014925,
+        "tag": "strong"
+      },
+      "quick_reverse": {
+        "n": 402,
+        "n_true": 1,
+        "rate": 0.0024875621890547263,
+        "tag": "strong"
+      }
+    },
+    "EMA3_13_50_200": {
+      "n_closed_trades": 459,
+      "n_train1_entries": 423,
+      "calm": {
+        "n": 423,
+        "n_true": 182,
+        "rate": 0.4302600472813239,
+        "tag": "weak"
+      },
+      "forward_agreement": {
+        "n": 423,
+        "n_true": 224,
+        "rate": 0.5295508274231678,
+        "tag": "strong"
+      },
+      "quick_reverse": {
+        "n": 423,
+        "n_true": 1,
+        "rate": 0.002364066193853428,
+        "tag": "strong"
+      }
+    },
+    "BB_20_2_EMA200": {
+      "n_closed_trades": 820,
+      "n_train1_entries": 756,
+      "calm": {
+        "n": 756,
+        "n_true": 394,
+        "rate": 0.5211640211640212,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 756,
+        "n_true": 364,
+        "rate": 0.48148148148148145,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 756,
+        "n_true": 2,
+        "rate": 0.0026455026455026454,
+        "tag": "strong"
+      }
+    },
+    "DONCHIAN_55": {
+      "n_closed_trades": 476,
+      "n_train1_entries": 447,
+      "calm": {
+        "n": 447,
+        "n_true": 225,
+        "rate": 0.5033557046979866,
+        "tag": "strong"
+      },
+      "forward_agreement": {
+        "n": 447,
+        "n_true": 204,
+        "rate": 0.4563758389261745,
+        "tag": "weak"
+      },
+      "quick_reverse": {
+        "n": 447,
+        "n_true": 0,
+        "rate": 0.0,
+        "tag": "strong"
+      }
+    }
+  }
+}
