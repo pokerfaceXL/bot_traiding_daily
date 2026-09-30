@@ -1,5 +1,7 @@
 {
   "producing_commit": "71397054e407f99df348f9d43014039129ad17ba",
+  "packaging_tip_sha": "2b727e0f9ca0faf489e9f4a09c1b7bfee2de24bf",
+  "packaging_note": "Immutable evidence commit; this metadata-only successor records its SHA without a self-reference.",
   "digest": "output/f006_cross_family_digest.md",
   "digest_sha256": "a0fa2aa59905d38372e7ab52dfd3ae5e4d6f7471f98c9c622710273b7bca5215",
   "window": {
