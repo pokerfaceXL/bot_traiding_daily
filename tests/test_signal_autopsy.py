@@ -7,6 +7,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import f006_family_runner as runner
 import f006_signal_autopsy as audit
+import f006_signal_autopsy_batch as batch
 
 
 def bars(n=125):
@@ -90,3 +91,40 @@ def test_runner_autopsy_is_only_additive(tmp_path, monkeypatch):
     assert {k: v for k, v in on.items() if k not in ("seconds", "signal_autopsy")} == {k: v for k, v in off.items() if k != "seconds"}
     assert (tmp_path / on["signal_autopsy"]["blotter"]).is_file()
     pd.testing.assert_frame_equal(df, before)
+
+
+def test_summary_pools_observations_not_series_rates(tmp_path):
+    df = bars(125)
+    first = audit.write_series(tmp_path, df, trade(df, 114, 116), "60", "A", "TEST")
+    second_trades = pd.concat([trade(df, 120, 124), trade(df, 119, 124, -1)], ignore_index=True)
+    second = audit.write_series(tmp_path, df, second_trades, "60", "B", "TEST")
+    summary = audit.write_summary(tmp_path, [
+        {"strategy": "TEST", "signal_autopsy": first},
+        {"strategy": "TEST", "signal_autopsy": second},
+    ])["by_strategy"]["TEST"]
+    assert summary["n_train1_entries"] == 3
+    assert summary["forward_agreement"] == dict(n=2, n_true=1, rate=0.5, tag="strong")
+    assert summary["calm"]["n"] == 3
+
+
+def test_batch_replays_current_runner_with_autopsy_and_restores_catalog(tmp_path, monkeypatch):
+    calls = []
+    def fake_runner(**kwargs):
+        calls.append(kwargs)
+        if kwargs.get("catalog_entries"):
+            runner.register_catalog_entries(kwargs["catalog_entries"])
+        return {"checksums_used": {}, "signal_autopsy": {"freeze": audit.FREEZE, "by_strategy": {
+            name: audit.summarize(audit.build_blotter(bars(), pd.DataFrame(), "60"))
+            for name in [runner.CONTROL_NAME, *kwargs["candidate_names"]]
+        }}, "harness_control": {}, "h1_table": [], "h2_status": "falsified"}
+    name = batch.SEEDS["liq_range_eqh"][1]
+    monkeypatch.setattr(runner, "run_family", fake_runner)
+    monkeypatch.setattr(batch, "load_seed", lambda family, directory: (
+        {name: lambda df: pd.Series(0, index=df.index)}, {"strategy": name}))
+    monkeypatch.setattr(batch, "compare_control", lambda *args: {"rows_equal_excluding_seconds": 10})
+    manifest = batch.run_batch(tmp_path, ["liq_range_eqh"])
+    assert calls[0].get("autopsy", False) is False
+    assert all(call["autopsy"] for call in calls[1:])
+    assert [call["candidate_names"] for call in calls] == [[], [], [name]]
+    assert name not in runner.strategy.STRATEGY_CATALOG
+    assert manifest["window"]["end_exclusive"] == "2025-03-01T00:00:00+00:00"
