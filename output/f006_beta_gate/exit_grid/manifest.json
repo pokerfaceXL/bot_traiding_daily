@@ -1,0 +1,112 @@
+{
+  "git_commit": "f5062175b109f9e837f0e97d538339ae5a089833",
+  "started_utc": "2026-09-30T21:43:12.398246+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "exit_grid": {
+    "NO_TRAIL": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TP_x2": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": 2.0
+    },
+    "TRAIL_a0.06_t0.04": {
+      "activate_pct": 0.06,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TRAIL_a0.03_t0.02": {
+      "activate_pct": 0.03,
+      "trail_pct": 0.02,
+      "take_profit_multiple": null
+    }
+  },
+  "candidate_names": [
+    "BETA_GATE_DONCH20",
+    "BETA_GATE_MR_DONCH20"
+  ],
+  "hypothesis_note": "spec/research/F006-hypothesis-beta-gate-exit-grid-sparse.md",
+  "parent_evidence_tip": "54fd498",
+  "parent_prereg_tip": "b726db1",
+  "n_runs": 90,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "signal_hashes": {
+    "SOLUSDT_240_BETA_GATE_DONCH20": "a70b93c9984289e334b32be9ec20e281ad2acfaf31bfb606b25d60131bfd77ac",
+    "SOLUSDT_240_BETA_GATE_MR_DONCH20": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "SOLUSDT_240_DONCHIAN_55": "462a2150f5cf2e2d435035079e6548ae44381a2eef7a77d16c1aedf8e21ff72f",
+    "ETHUSDT_240_BETA_GATE_DONCH20": "de52d68015a033b6e7dafc007a0018794732411932570a0a6befbf092024c06e",
+    "ETHUSDT_240_BETA_GATE_MR_DONCH20": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "ETHUSDT_240_DONCHIAN_55": "b8504624d86bd69bd18d3a7c45f53cd44f2a885a8210b8fa9c5eccf57aa755ac",
+    "BTCUSDT_240_BETA_GATE_DONCH20": "e0844a0ad9062f3085c6b2dd54b7fefb44ae7f1ff302e6bc207bb78e9cad9f18",
+    "BTCUSDT_240_BETA_GATE_MR_DONCH20": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "BTCUSDT_240_DONCHIAN_55": "a44cf17cc1daa7b6422ba86c3a68797eba41f84777747bf63051d8ac115bf1b6",
+    "XRPUSDT_240_BETA_GATE_DONCH20": "a8afb2f3bcc8d8269ee12887cf9797226761b024f773e8817a84d35da2fa1c7e",
+    "XRPUSDT_240_BETA_GATE_MR_DONCH20": "3cdf55926c5e22df75a2a03f1ea762f29a038d1b6052f256ce80303146be74aa",
+    "XRPUSDT_240_DONCHIAN_55": "d34c54ea6203d892e224bd2a1e2aee3f3cb98727e884599d4d8e09e92cb5cc69",
+    "DOGEUSDT_240_BETA_GATE_DONCH20": "d4705c14681db0236ac269352ed47be45ba080023e59769178a2c8c8a2a049cd",
+    "DOGEUSDT_240_BETA_GATE_MR_DONCH20": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "DOGEUSDT_240_DONCHIAN_55": "08d36a26286aafb6ec81254958e944d85f0d9a6df611a2ff70c6130fb6017141",
+    "SOLUSDT_60_BETA_GATE_DONCH20": "6a20bab23264c201528653c1537ca5ce0e6959ffe0bef10c11ad3945331d7eae",
+    "SOLUSDT_60_BETA_GATE_MR_DONCH20": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "SOLUSDT_60_DONCHIAN_55": "282f2d014d5a053567af04f4ff8beb952ad942c82e3585d893dd6610e70d9984",
+    "ETHUSDT_60_BETA_GATE_DONCH20": "e663422d81644e81296af3ce6cc9a27bf18d6242e70117c5b52230a5ddcebea6",
+    "ETHUSDT_60_BETA_GATE_MR_DONCH20": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "ETHUSDT_60_DONCHIAN_55": "7dccbe6cee6b3bfb294797e0219b0acb70b95d8010835c0223e205d7ae4374a0",
+    "BTCUSDT_60_BETA_GATE_DONCH20": "d926225e5d26d0890296cf6b60c3ed6731e15040d4d0afcc1a6eecd9edc23ecf",
+    "BTCUSDT_60_BETA_GATE_MR_DONCH20": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "BTCUSDT_60_DONCHIAN_55": "92e6edef3057c248fdd9428e4b41aa1d46b9207841b5a86fafd04dd409555011",
+    "XRPUSDT_60_BETA_GATE_DONCH20": "eb911428d5ad5e76870e9528de33ad15ed74d7920f22061982e888bb9546246c",
+    "XRPUSDT_60_BETA_GATE_MR_DONCH20": "a337840f2db85149a190e827524d484c6697da24e562519ffbf3abe2344aa029",
+    "XRPUSDT_60_DONCHIAN_55": "a2d2d1f582c85cf33757c1596e286ab802fccac31eac8869ec56b4242c46554c",
+    "DOGEUSDT_60_BETA_GATE_DONCH20": "a92f8c1dd0aba72cd42e2121662e45460ebbf94e856e4fb07171708b2e810c91",
+    "DOGEUSDT_60_BETA_GATE_MR_DONCH20": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "DOGEUSDT_60_DONCHIAN_55": "e205dc904b9331e550058b64ea1c2d6a0c1d41ec0307a19bb4760af46527ac74"
+  },
+  "source_sha256": {
+    "beta_gate.py": "4f1f1bb43fd0eb9d6509a045c149b241d82fb2f38bd6b4877f9349b77e531656",
+    "backtest_engine.py": "92ead6efdbc0d20245135a3c22188a16c20f36af066de55add1f395286cbda66",
+    "f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "f006_beta_gate_exit_grid.py": "5227f81dc75bdddb62fe25e9108db27259a90510a935f47de224429fbb52baaf"
+  },
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "cooldown_candles": 0,
+    "mask": "one_shot"
+  },
+  "sparse_month_bucket": "exit month Europe/Warsaw; zero exits ABSENT; Train-1 months only",
+  "rank_metric": "trade-weighted win_rate; pooled excludes DONCHIAN_55",
+  "prior_no_trail_check": {
+    "rows_compared": 30,
+    "mismatches": 0
+  },
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "one_shot_violations": 0
+}

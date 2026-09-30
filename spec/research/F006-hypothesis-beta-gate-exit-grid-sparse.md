@@ -4,7 +4,7 @@
 id: H-BETA-GATE-EXIT-GRID-SPARSE-01
 ticket: S7-EXIT-GRID
 name: BETA-GATE standing exit grid + dual sparse H2 (entries frozen)
-status: open_prereg (pre-registered on base d016659 before any exit-grid code)
+status: closed_dnr (prereg a09f3a3 on base d016659; harness+producing commit f506217)
 parent: H-BETA-GATE-01 tip 54fd498 / limen/2026-09-29-f006-beta-gate-33f3dc36 (module+hyp+tests on tip b726db1; Train-1 NO_TRAIL evidence on tip 54fd498 / origin/main output/; manifest git_commit b726db1)
 universe: BTC/ETH/SOL/XRP/DOGE USDT perps × {60,240}
 data_needs: [ohlcv, cross_symbol]
@@ -108,8 +108,36 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Result
 
-_(empty until after Train-1)_
+Train-1 only, run 2026-09-30. Harness `scripts/f006_beta_gate_exit_grid.py` at producing commit `f506217` (manifest `git_commit`); evidence `output/f006_beta_gate/exit_grid/` (results / monthly / trades / rank_by_name / rank_pooled / per-cell dirs / manifest). 90 runs = 2 names × 10 series × 4 cells + DONCHIAN_55 × 10 on NO_TRAIL.
+
+Checks: parent NO_TRAIL reproduction **30/30 rows, 0 mismatches** (n_calls, n_trades, n_wins, win_rate, net_pnl, train1_net_pnl, DD, final_equity, n_valid_months, month sign, legacy H2 vs parent `promotion_pass`; 20 BETA rows + 10 DONCHIAN_55 rows against `output/f006_beta_gate/raw/*`); DONCHIAN_55 harness control 10/10, 0 mismatches, mean Train-1 **+58.387**; one-shot violations 0; `n_calls` identical across cells (2840 per cell for BETA_GATE_DONCH20 = parent). `beta_gate.py` byte-identical to `b726db1` and to `output/f006_signal_autopsy/sources/beta_gate.py`.
+
+Per name × cell (trade-weighted WR; mean Train-1 over 10 series; legacy/sparse H2 = series passing):
+
+| Name | Cell | WR % | mean Train-1 | H1 | trades/series | max DD % | legacy H2 | sparse H2 | §8 regression |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- |
+| BETA_GATE_DONCH20 | TRAIL_a0.03_t0.02 | 36.18 | −173.76 | fail | 182.4 | 74.37 | 0 | 0 | yes |
+| BETA_GATE_DONCH20 | TP_x2 | 32.64 | −30.82 | fail | 164.5 | 38.09 | 0 | 0 | yes |
+| BETA_GATE_DONCH20 | TRAIL_a0.06_t0.04 | 30.93 | −114.03 | fail | 160.7 | 53.93 | 0 | 0 | yes |
+| BETA_GATE_DONCH20 | NO_TRAIL | 26.65 | **+31.40** | pass | 136.2 | 31.97 | 0 | 0 | — |
+| BETA_GATE_MR_DONCH20 | TP_x2 | 9.09 | −2.75 | fail | 1.1 | 3.47 | 0 | 0 | no (PnL up, still < 0) |
+| BETA_GATE_MR_DONCH20 | TRAIL_a0.03_t0.02 | 9.09 | −2.61 | fail | 1.1 | 3.77 | 0 | 0 | no (PnL up, still < 0) |
+| BETA_GATE_MR_DONCH20 | TRAIL_a0.06_t0.04 | 9.09 | −2.87 | fail | 1.1 | 4.01 | 0 | 0 | no (PnL up, still < 0) |
+| BETA_GATE_MR_DONCH20 | NO_TRAIL | 0.00 | −3.65 | fail | 1.1 | 5.55 | 0 | 0 | — |
+
+Pooled (descriptive, two BETA names, 20 series): TRAIL_a0.03_t0.02 WR 36.02 / mean −88.19; TP_x2 32.49 / −16.78; TRAIL_a0.06_t0.04 30.78 / −58.45; NO_TRAIL 26.44 / +13.87.
+
+- **WR rank winner** (policy primary key): TRAIL_a0.03_t0.02 for BETA_GATE_DONCH20 (+9.5 pp WR) — but every non-NO_TRAIL cell drives mean Train-1 below zero.
+- **H1 per cell:** NO_TRAIL holds (BETA_GATE_DONCH20 +31.40, parent reproduced). TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02 each **falsified** (no name > 0). Interval split for BETA_GATE_DONCH20 (mean Train-1, 60m / 240m): NO_TRAIL −13.49 / +76.29; TP_x2 −81.57 / +19.94; TRAIL_a0.06_t0.04 −165.75 / −62.31; TRAIL_a0.03_t0.02 −250.50 / −97.03.
+- **H2 dual:** legacy 0/80 name×series×cell; `h2_sparse_absent_zero_trade` 0/80. Under NO_TRAIL BETA_GATE_DONCH20 scores all 12 exit-months on every series (0 ABSENT) and has 5–10 losing scored months per series; TP_x2 3–10, TRAIL_a0.06_t0.04 7–12, TRAIL_a0.03_t0.02 10–12. The sparse rule changes nothing: the family is dense and losing months are traded months. All 460 ABSENT months belong to BETA_GATE_MR_DONCH20 (11 trades total over 10 series), which fails on Train-1 PnL < 0 regardless.
+- **§8:** all 3 TP/trail cells for BETA_GATE_DONCH20 are WR-for-PnL regressions (WR +4.3…+9.5 pp, mean Train-1 −62.2…−205.2 vs NO_TRAIL). Exit mix confirms fat-winner truncation (BETA_GATE_DONCH20 winners from `trades.csv`): NO_TRAIL 363 winners, mean +8.54 (354 on `signal_reverse` at +8.40); TP_x2 537 winners, mean +5.01 (462 `take_profit` at +5.68); TRAIL_a0.06_t0.04 497, mean +3.59 (400 `trailing_sl` at +3.98); TRAIL_a0.03_t0.02 660, mean +1.44 (651 `trailing_sl` at +1.45).
+- **Density note:** NO_TRAIL trades/series 136.2 (DONCH20) / 1.1 (MR; mechanism-degenerate, not an H1-clearer). TP/trail raise realized trades/series (136.2 → 182.4) without new signal opportunities: `n_calls` unchanged, positions free up earlier for later one-shot calls already in the mask (n_trades ≤ n_calls everywhere).
 
 ## Decision
 
-_(empty until after Train-1)_
+**Ordinary DNR for the BETA-GATE exit-grid continuation** (same outcome shape as closed btc_filter / liq_range_eqh / vol_regime_wrap / multi_tf_pa exit-grids).
+
+- H1: holds only under NO_TRAIL (parent reproduced exactly; BETA_GATE_DONCH20 +31.40). Falsified under TP_x2, TRAIL_a0.06_t0.04, TRAIL_a0.03_t0.02.
+- H2: falsified under both legacy and `h2_sparse_absent_zero_trade` for the sole H1-clearer in every cell.
+- §8: every TP/trail cell is a WR-for-PnL regression; no exit cell is promoted. Uneven months are **not** explained by exit geometry — hypothesis Y (nierówne miesiące przez exit geometry) is rejected for this frozen entry set.
+- No entry retune (W / β_min / β_low / Donchian n / BTC bias unchanged), no new name, no holdout, no merge. Entries stay frozen at `b726db1`. Parent H-BETA-GATE-01 Decision (H1 trend gate / H2 falsified) stands unchanged.
