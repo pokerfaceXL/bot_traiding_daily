@@ -1,0 +1,231 @@
+{
+  "family": "orb_session_anchor",
+  "script": "scripts/f006_orb_session_anchor_experiment.py",
+  "git_commit": "689fee3a2b76cce283187e5d6d35e168a838cd98",
+  "run_started_utc": "2026-09-30T20:01:23.223929+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 60,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "ORB_LON_1H",
+    "ORB_LON_2H",
+    "ORB_LON_3H",
+    "ORB_NY_1H",
+    "ORB_NY_2H"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-orb-session-anchor.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 60,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "phase_fit": null,
+  "h1_table": [
+    {
+      "strategy": "ORB_LON_1H",
+      "sum_net_pnl": -540.7235,
+      "mean_net_pnl": -54.0724,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 2522,
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_LON_2H",
+      "sum_net_pnl": -839.7099,
+      "mean_net_pnl": -83.971,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 3275,
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_LON_3H",
+      "sum_net_pnl": -865.1602,
+      "mean_net_pnl": -86.516,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 3039,
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_NY_1H",
+      "sum_net_pnl": -512.7578,
+      "mean_net_pnl": -51.2758,
+      "n_series": 10,
+      "n_profitable_series": 0,
+      "n_trades_total": 1494,
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_NY_2H",
+      "sum_net_pnl": -357.2595,
+      "mean_net_pnl": -35.726,
+      "n_series": 10,
+      "n_profitable_series": 2,
+      "n_trades_total": 1147,
+      "h1_pass": false
+    }
+  ],
+  "h1_names_passing": [],
+  "h1_falsified": true,
+  "h2_table": [],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "not_applicable_h1_failed",
+  "elapsed_seconds": 11.0,
+  "card": "/tmp/F006-card-H-ORB-SESSION-ANCHOR-01.md",
+  "session_windows_utc_half_open_on_bar_open": {
+    "ORB_LON_1H": [
+      "07:00",
+      "08:00"
+    ],
+    "ORB_LON_2H": [
+      "07:00",
+      "09:00"
+    ],
+    "ORB_LON_3H": [
+      "07:00",
+      "10:00"
+    ],
+    "ORB_NY_1H": [
+      "13:30",
+      "14:30"
+    ],
+    "ORB_NY_2H": [
+      "13:30",
+      "15:30"
+    ]
+  },
+  "per_name_report": [
+    {
+      "strategy": "ORB_LON_1H",
+      "or_window_utc": [
+        "07:00",
+        "08:00"
+      ],
+      "mean_train1_net_pnl": -54.0724,
+      "sum_train1_net_pnl": -540.7235,
+      "n_profitable_series": 1,
+      "mean_n_trades": 252.2,
+      "mean_win_rate": 14.812,
+      "max_drawdown_pct_max": 43.5956,
+      "zero_trade_series": [
+        "SOLUSDT/240",
+        "ETHUSDT/240",
+        "BTCUSDT/240",
+        "XRPUSDT/240",
+        "DOGEUSDT/240"
+      ],
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_LON_2H",
+      "or_window_utc": [
+        "07:00",
+        "09:00"
+      ],
+      "mean_train1_net_pnl": -83.971,
+      "sum_train1_net_pnl": -839.7099,
+      "n_profitable_series": 1,
+      "mean_n_trades": 327.5,
+      "mean_win_rate": 28.338,
+      "max_drawdown_pct_max": 40.834,
+      "zero_trade_series": [],
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_LON_3H",
+      "or_window_utc": [
+        "07:00",
+        "10:00"
+      ],
+      "mean_train1_net_pnl": -86.516,
+      "sum_train1_net_pnl": -865.1602,
+      "n_profitable_series": 1,
+      "mean_n_trades": 303.9,
+      "mean_win_rate": 28.102,
+      "max_drawdown_pct_max": 38.0876,
+      "zero_trade_series": [],
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_NY_1H",
+      "or_window_utc": [
+        "13:30",
+        "14:30"
+      ],
+      "mean_train1_net_pnl": -51.2758,
+      "sum_train1_net_pnl": -512.7578,
+      "n_profitable_series": 0,
+      "mean_n_trades": 149.4,
+      "mean_win_rate": 15.312,
+      "max_drawdown_pct_max": 31.8286,
+      "zero_trade_series": [
+        "SOLUSDT/240",
+        "ETHUSDT/240",
+        "BTCUSDT/240",
+        "XRPUSDT/240",
+        "DOGEUSDT/240"
+      ],
+      "h1_pass": false
+    },
+    {
+      "strategy": "ORB_NY_2H",
+      "or_window_utc": [
+        "13:30",
+        "15:30"
+      ],
+      "mean_train1_net_pnl": -35.726,
+      "sum_train1_net_pnl": -357.2595,
+      "n_profitable_series": 2,
+      "mean_n_trades": 114.7,
+      "mean_win_rate": 14.602,
+      "max_drawdown_pct_max": 37.1879,
+      "zero_trade_series": [
+        "SOLUSDT/240",
+        "ETHUSDT/240",
+        "BTCUSDT/240",
+        "XRPUSDT/240",
+        "DOGEUSDT/240"
+      ],
+      "h1_pass": false
+    }
+  ],
+  "h2_dual_status": "not_applicable_h1_failed",
+  "h2_dual_scope": "H1-clearing names only for the verdict; all 50 cells reported in h2_dual.csv",
+  "h2_dual_legacy_series": [],
+  "h2_dual_sparse_series": [],
+  "sparse_month_bucket": "exit month Europe/Warsaw; zero exits ABSENT; Train-1 months only"
+}

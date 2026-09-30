@@ -1,0 +1,6252 @@
+[
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -57.405828,
+    "n_trades": 242,
+    "win_rate": 29.34,
+    "max_drawdown_pct": 22.712,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -3.792087502865874,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.1261261678540109
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -27.63642764365188,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -34.70666948995455
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 7.464509362789698,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.15475500681498
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -14.406556052791819,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.912655651349894
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 7.866348386426813,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 14.038314534326105
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 23.802209515980273,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 29.828426405143603
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -37.38149421821049,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -51.57021177643122
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -15.531086380900422,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.214147410601186
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -11.395371849569152,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.774849880740817
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -28.096577568172698,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.034038507300295
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 27.68164748019948,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 27.099721914559154
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 19.229727600664358,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 19.811653166304666
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -57.405828,
+    "n_trades": 242,
+    "win_rate": 29.34,
+    "max_drawdown_pct": 22.712,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -3.792087502865874,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.1261261678540109
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -27.63642764365188,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -34.70666948995455
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 7.464509362789698,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.15475500681498
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -14.406556052791819,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.912655651349894
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 7.866348386426813,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 14.038314534326105
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 23.802209515980273,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 29.828426405143603
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -37.38149421821049,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -51.57021177643122
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -15.531086380900422,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.214147410601186
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -11.395371849569152,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.774849880740817
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -28.096577568172698,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.034038507300295
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 27.68164748019948,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 27.099721914559154
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 19.229727600664358,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 19.811653166304666
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "SOLUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -116.312188,
+    "n_trades": 507,
+    "win_rate": 32.54,
+    "max_drawdown_pct": 34.2647,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -13.617568356871612,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.008045506056305
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": -0.10237096486392483,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.271286612455299
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": 41.72965628211379,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 36.72761479509148
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 42,
+        "net_pnl": -27.14250389742372,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.921561127851305
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -16.850026769808597,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.449988649640432
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": 1.1246224252896728,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.6914405999564224
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 44,
+        "net_pnl": -52.251136928206385,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -52.93120772707567
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": -23.963928845399373,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.673673069601477
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 44,
+        "net_pnl": -17.942128075692917,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.54409198572864
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -8.496193127702677,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.78521113143853
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 41,
+        "net_pnl": 5.429728058023074,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.697276623916196
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 39,
+        "net_pnl": -16.23094910588845,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.003146433678012
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -72.549161,
+    "n_trades": 409,
+    "win_rate": 33.01,
+    "max_drawdown_pct": 29.2377,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -42.2162832707129,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -35.37583493753107
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": 14.942734929265473,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 11.531736807540767
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": 33.13768191919026,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 28.68937064884534
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": 0.5225439271297543,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 2.953616044824514
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -1.777711344727615,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.7432361810001
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": 8.003947766864815,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.1431540120631212
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -45.416305921523836,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -46.096376720393096
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": -34.59052249685374,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -32.30026672105589
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": -27.473218434475307,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -28.075182344511006
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -15.518531366666313,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.919483115266758
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 38.320850873784224,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 39.54083722816097
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 33,
+        "net_pnl": -11.21616509209999,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -0.09765973184408949
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -79.728945,
+    "n_trades": 364,
+    "win_rate": 32.42,
+    "max_drawdown_pct": 30.8994,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -20.77580287401391,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.986401265482073
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": 12.008703175329611,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.599889397772301
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 20.04088717262994,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 16.590391558117574
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 3.8477894241236115,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.278861541818344
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -1.1487942059094833,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.372153319818324
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 9.192163935173186,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 13.912704816694884
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -36.21132232607078,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -50.85717534896531
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -40.035188479879906,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -37.646793140506475
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -35.190217510659124,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -35.79218142069476
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -14.987592498735342,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.3885442473358
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": 34.036367115187225,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 35.256353469563976
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -10.348460003788597,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -0.06820330203152025
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -131.797179,
+    "n_trades": 319,
+    "win_rate": 33.86,
+    "max_drawdown_pct": 30.4939,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": -39.672590378152805,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -44.52605807730333
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -17.35956530486395,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.992981115220573
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -14.763466522621249,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.315135495169898
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -19.992390420495628,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -19.95747436813849
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 11,
+        "net_pnl": 4.4991901914349,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 11.062262876284535
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": 25.26263893308485,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 17.863355555145972
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -22.479104811012355,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.146821001442277
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 9.734257851520834,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 15.618536414559344
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -44.537976772423704,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -47.89919905028091
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -26.116567650838693,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.79621270846218
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -3.161054557532561,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.8362032943751956
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": 22.929855554316383,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 19.12875084243359
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "SOLUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -65.839946,
+    "n_trades": 243,
+    "win_rate": 33.33,
+    "max_drawdown_pct": 22.3835,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -34.25763181395175,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -37.68669576793803
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -15.01947050990939,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.652886320265964
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -5.73457609577794,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.28624506832665
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -13.473010907906017,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.640450990124634
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": -4.187651893979027,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.515722575938014
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 7.77228221798709,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 10.723597551555827
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -4.138522128933384,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.236682857644894
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 13,
+        "net_pnl": 6.940733653975107,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 12.966912393296013
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -25.090404311473463,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -28.451626589330658
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -21.599188475217638,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.27883353284119
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 25.24832068273318,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 26.573171945890635
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 11,
+        "net_pnl": 21.737760886041876,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 18.614071158578554
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "ETHUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "ETHUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -88.83559,
+    "n_trades": 222,
+    "win_rate": 28.83,
+    "max_drawdown_pct": 25.8832,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 2.0097431940444506,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.2305893005635653
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -1.6930275552148415,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.5051541983145853
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 20.699465688928466,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 21.00298009464882
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -21.464629515441707,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -19.995205478856292
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 15.395398976962781,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 16.557249552911003
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -21.070321086285325,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.72992708072661
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -24.350315699587455,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.85996813944911
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -14.35476136918572,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.316049921461968
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -19.367207255550316,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.0225770033436
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -14.227659673256657,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.717006254345677
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -10.8058464925703,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.423465626515906
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 2.3253258276802073,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.9429449616258125
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "ETHUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -88.83559,
+    "n_trades": 222,
+    "win_rate": 28.83,
+    "max_drawdown_pct": 25.8832,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 2.0097431940444506,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.2305893005635653
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -1.6930275552148415,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.5051541983145853
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 20.699465688928466,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 21.00298009464882
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -21.464629515441707,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -19.995205478856292
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 15.395398976962781,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 16.557249552911003
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -21.070321086285325,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.72992708072661
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -24.350315699587455,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.85996813944911
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -14.35476136918572,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.316049921461968
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -19.367207255550316,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.0225770033436
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -14.227659673256657,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.717006254345677
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -10.8058464925703,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.423465626515906
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 2.3253258276802073,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.9429449616258125
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "ETHUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "ETHUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -161.827166,
+    "n_trades": 504,
+    "win_rate": 29.37,
+    "max_drawdown_pct": 43.5956,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": 20.005456750226,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 16.11364735329323
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": 2.731906412538564,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.67120631339435
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": 3.5840934783357303,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.6153312704472569
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -31.60140676609989,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -32.199696160820906
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 42,
+        "net_pnl": -20.07388734361149,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.17841549716394
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 44,
+        "net_pnl": -14.02347357166291,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.973841393328541
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 42,
+        "net_pnl": -32.88082004205023,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -32.925872654598436
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": -10.791750962535437,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.524188664789108
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": -12.51657750262292,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.972917584454422
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 41,
+        "net_pnl": -27.82368050009868,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -27.314601594967996
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 46,
+        "net_pnl": -37.01740826781425,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -38.40611863153748
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": -1.3168537054924174,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.2683012209822664
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -162.095391,
+    "n_trades": 424,
+    "win_rate": 30.9,
+    "max_drawdown_pct": 40.7763,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": 2.280838419070057,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.6109709778627348
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -0.8334297446330585,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.5148347424902227
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 3.5464641173846982,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 2.168737323228811
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -25.836636393828964,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.43492578855006
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -2.232717513580052,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.0520617330465711
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": -11.108936089514188,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.746015549381696
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": -38.5493037407953,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -38.29695211532072
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -11.371404717858631,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.2133318476014665
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -24.710790362382053,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -30.057641016724403
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 39,
+        "net_pnl": -35.796587706736716,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -35.28750880160618
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -13.250553785878106,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.129127632830546
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -4.129569180384245,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.0545507706804074
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -140.252752,
+    "n_trades": 362,
+    "win_rate": 30.94,
+    "max_drawdown_pct": 36.0628,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": 4.262405194782116,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.543886530007569
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 8.671328973701094,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.528519386086032
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 0.7428038427842045,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.6828603912084077
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -25.165504473269877,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.763793867990955
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -4.434308461620757,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.1495292149941747
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -8.90542342622472,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.542502886092166
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -34.43298252498381,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -34.230616941830135
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -12.57771177238088,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.369652859802784
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 33,
+        "net_pnl": -27.985006442035072,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -33.33185709637746
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -19.693348925479537,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -19.184270020349004
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -6.348186286043048,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.532788424075022
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -13.199761430339162,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.903006629940307
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -110.563411,
+    "n_trades": 285,
+    "win_rate": 32.63,
+    "max_drawdown_pct": 25.7266,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": -28.869740478335547,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -34.08310476704821
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -14.32737974746011,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.986740967465096
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": 7.404160027711214,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.1248554763513425
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -10.272374481709676,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.63990552031862
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 2.2931594353139824,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 4.413276013527593
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": 2.4875800916805124,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.015163300226049614
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -23.591608062094295,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.74170931379041
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -3.752171273101431,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 2.808383306904034
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -8.463669083541296,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.970330078633594
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -7.116259381623834,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.479973640111723
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -22.142728269154464,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.73504423896162
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -0.4099835112041257,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.2882803893682535
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "ETHUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -135.410949,
+    "n_trades": 235,
+    "win_rate": 30.21,
+    "max_drawdown_pct": 29.1909,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": -41.481771591267695,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -46.695135879980285
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -24.508485552554248,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.167846772559244
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 4.055665197330894,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 4.4378449327293765
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": -9.55644568384989,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.58546100921717
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -11.334298561099331,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.340841850093113
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 9.236283374530668,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.8905264502835735
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": -11.617170458154314,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.050880135475609
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 11,
+        "net_pnl": 7.637909943309522,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 13.911399696650903
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -13.42434916398257,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.360336906785562
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -8.054217188404795,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.876815041547161
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -16.455700691632067,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.589133066784882
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -15.797398220649729,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.984268990236558
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "BTCUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "BTCUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -130.970375,
+    "n_trades": 226,
+    "win_rate": 25.22,
+    "max_drawdown_pct": 29.134,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -24.475910005541678,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.93151172143331
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -29.33554452540347,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.524018477225013
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 6.641257503823359,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.980390042508759
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -25.539176296173174,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.820031947348582
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 10.912277859863853,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 10.60907267355907
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -25.73949081600243,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.181184033912302
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -30.53543478285998,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -31.020143088406826
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": -7.643856206640267,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.554704980880501
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 11.062434448053269,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 9.84152118535809
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -3.690402951101766,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.503493936284087
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -17.70042805824459,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.897996195841984
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 5.889303867142892,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.031725026858055
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "BTCUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -130.970375,
+    "n_trades": 226,
+    "win_rate": 25.22,
+    "max_drawdown_pct": 29.134,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -24.475910005541678,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.93151172143331
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -29.33554452540347,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.524018477225013
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 6.641257503823359,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.980390042508759
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -25.539176296173174,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.820031947348582
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 10.912277859863853,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 10.60907267355907
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -25.73949081600243,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.181184033912302
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -30.53543478285998,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -31.020143088406826
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": -7.643856206640267,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.554704980880501
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 11.062434448053269,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 9.84152118535809
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -3.690402951101766,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.503493936284087
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -17.70042805824459,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.897996195841984
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 5.889303867142892,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.031725026858055
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "BTCUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "BTCUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -167.533146,
+    "n_trades": 519,
+    "win_rate": 29.09,
+    "max_drawdown_pct": 36.9709,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 42,
+        "net_pnl": -19.706079138403503,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.6045734400559
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -16.927066089786717,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.803188359217927
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": 8.534881157632197,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.649632911470178
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -30.734009104734085,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -30.849162709942505
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": 8.733797373086592,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 9.348365245416176
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 47,
+        "net_pnl": -22.53071888586797,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.983023585520755
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 46,
+        "net_pnl": -30.003091970748763,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -27.996471333106797
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": -19.599832789153343,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.340001974332722
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": 10.378086838926293,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 8.150417261097857
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 47,
+        "net_pnl": -34.99427528831009,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -35.43126121463615
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 44,
+        "net_pnl": -16.120397712269828,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.322877165163334
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -7.7532019048423795,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.3510014620238735
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -179.830169,
+    "n_trades": 436,
+    "win_rate": 28.44,
+    "max_drawdown_pct": 40.834,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -28.01694925541711,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.21619575098231
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -16.232918343388608,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.175675330598153
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 11.044480952275983,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 8.52661961780501
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -24.26034397636452,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.375497581572915
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": 8.003811580058349,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 8.618379452387956
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 41,
+        "net_pnl": -19.78514056616335,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.237445265816177
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": -33.517332763970686,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -32.74798061478913
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -23.106202865856122,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.609103562575115
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -0.447951888956743,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.6756214667851737
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 41,
+        "net_pnl": -40.08191898436925,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -42.27130048409566
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -12.733511040259998,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.18359491975309
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -3.8849530851222394,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.5172473576961352
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -166.471237,
+    "n_trades": 379,
+    "win_rate": 31.13,
+    "max_drawdown_pct": 37.839,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -23.325919046924884,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.52516554249013
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -10.892095342634224,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.553923187168152
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 9.037855531584066,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.23906505443756
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": -27.035708174672035,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -27.150861779880415
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": 4.652714272911782,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.267282145241381
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 33,
+        "net_pnl": -11.836061530089328,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.096003363969373
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -28.519449548723316,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.00376036715454
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -27.854921608813438,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.29652220369246
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -2.336133104773498,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.5638026826018745
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -31.739928335075774,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -33.92930983480221
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -9.370338232019947,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.820422111513096
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -9.845946830298553,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.037812720428917
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -148.590434,
+    "n_trades": 269,
+    "win_rate": 31.23,
+    "max_drawdown_pct": 31.8286,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -26.072946758876753,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -27.684126289947528
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -21.702834759948608,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.40263173311996
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": -13.346832674532216,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.142951058165522
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 13,
+        "net_pnl": -4.356754259781428,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.024677794360059
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -10.560509752255228,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.43060942001722
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -8.467469784822052,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.189681643106155
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -4.003208361110353,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.3182079841002405
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -3.3314036415607733,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.341028730059918
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -27.437496830692922,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -27.73443661077664
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -16.40621585085513,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.542344934500477
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -12.065899281391292,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.154314512035683
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 0.5404783015371812,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.3745768555882023
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "BTCUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -179.794778,
+    "n_trades": 220,
+    "win_rate": 27.73,
+    "max_drawdown_pct": 37.1879,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -36.99982788876241,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -38.61100741983313
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -38.87426089570474,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -38.57405786887614
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": -7.565435427345683,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.828432298246696
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 10,
+        "net_pnl": -4.402301625012487,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.603346672323369
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -16.085205922647827,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.955305590409864
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 14,
+        "net_pnl": 0.49780581505227595,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.775593956768148
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 11,
+        "net_pnl": 3.422588935312854,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.3832996288815593
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": 2.3302625929167204,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 2.811526445622178
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -27.90201882447395,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -28.198958604557617
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -23.97668449250062,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.11281357614604
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -16.613041994957335,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.701457225601757
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -11.68408422432935,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.413219560043672
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "XRPUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "XRPUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.827522,
+    "n_trades": 236,
+    "win_rate": 23.31,
+    "max_drawdown_pct": 38.0876,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -39.53779027898704,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -39.47423768921897
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -25.34750179990413,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.411054389672188
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -10.9046831990206,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.276373044705508
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -27.308706725001983,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.937016879317127
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -10.435168819310121,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -8.761660767526052
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -21.550114332445677,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.311899220388
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -19.42200773398608,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.329519689535005
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -11.057898246451115,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.80760671394512
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 91.77009524808342,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 123.53992505206327
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 42.46567480513164,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 10.441342260352997
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 4.625821545609558,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 4.480640564318151
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 27.52980133064825,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 27.674982311939686
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "XRPUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.827522,
+    "n_trades": 236,
+    "win_rate": 23.31,
+    "max_drawdown_pct": 38.0876,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -39.53779027898704,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -39.47423768921897
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -25.34750179990413,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.411054389672188
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -10.9046831990206,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.276373044705508
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -27.308706725001983,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -25.937016879317127
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -10.435168819310121,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -8.761660767526052
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -21.550114332445677,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.311899220388
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -19.42200773398608,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.329519689535005
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -11.057898246451115,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.80760671394512
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 91.77009524808342,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 123.53992505206327
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 42.46567480513164,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 10.441342260352997
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 4.625821545609558,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 4.480640564318151
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 27.52980133064825,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 27.674982311939686
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "XRPUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "XRPUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "XRPUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -98.902878,
+    "n_trades": 481,
+    "win_rate": 26.2,
+    "max_drawdown_pct": 34.6564,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -11.390606379240356,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.708268386864233
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": 4.38411798487464,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.4803785151577245
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -22.784253207213712,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.989125707784183
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -18.732641522029603,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.22205051207783
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -5.342099672462935,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.813305558457216
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -25.92905750149458,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.630601615351225
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 44,
+        "net_pnl": -40.30871390321349,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -38.5317848015859
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": -10.150671265692239,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.100586252765083
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": 97.79193363019085,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 97.05335248344647
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 54,
+        "net_pnl": -63.48198039139126,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -62.87688793326362
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -20.14196880357942,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.007873410931268
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": 13.1592903326799,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 17.443874890321922
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "XRPUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -56.978002,
+    "n_trades": 389,
+    "win_rate": 27.76,
+    "max_drawdown_pct": 32.3755,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -20.978795246774844,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.10673594932075
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -6.495145700835245,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -5.407462647242653
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -17.64474278084943,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.030759109807377
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -23.86942847870011,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.35883746874839
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -5.396044287156973,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.867250173151206
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -22.315470965337372,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.017015079193982
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -13.384291262849114,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.607362161221374
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -8.858234622717408,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.808149609790291
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": 92.33602497333058,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 91.59744382658613
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 39,
+        "net_pnl": -27.94579849734346,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -30.111217694255345
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": -23.829016486670874,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.92440943898316
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": 17.379169024845893,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 21.663753582487857
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "XRPUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -91.579775,
+    "n_trades": 351,
+    "win_rate": 24.79,
+    "max_drawdown_pct": 33.5543,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -25.50059779241365,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.62853849495957
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -3.6264914473837297,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.5388083937911006
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -21.89990271367228,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -22.28591904263027
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -21.796849305815435,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.286258295863718
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -12.954712510905374,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.425918396899647
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -14.403811310844967,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.016922456891166
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -19.86659552879802,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.97572693191603
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -11.11124638606659,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.263533836204147
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 75.64667949208105,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 74.90809834533661
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -18.9668337560687,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.132252952980537
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 34,
+        "net_pnl": -35.84397760490977,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -33.93937055722205
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 15.649889399121946,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 19.00537639023281
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "XRPUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -52.281951,
+    "n_trades": 307,
+    "win_rate": 27.69,
+    "max_drawdown_pct": 26.7824,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -49.19018436996446,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -51.205896142215124
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -34.24624805751724,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -33.92858604989334
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -11.437950858264164,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -11.322321642615691
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": -2.2980553569784026,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.3714726688700125
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": 17.89636542010949,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 18.467264662398804
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": 28.485933551796293,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 27.60845864121012
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -28.324601586160938,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -28.967267300079016
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -22.22916546308404,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -19.101190168045434
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -4.9930317397260655,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 22.099979861740053
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 51.24437897686031,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 23.88352813049829
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -1.6320429845642028,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.84596170547303
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 6.61609300233288,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.401513652675646
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "XRPUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 19.697516,
+    "n_trades": 217,
+    "win_rate": 26.73,
+    "max_drawdown_pct": 22.349,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 26,
+        "net_pnl": -48.40971094925412,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -50.42542272150479
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -29.42894052739506,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.11127851977119
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": -2.57460291623478,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -2.4589737005862844
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 8,
+        "net_pnl": 1.5638873404966398,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.4904700286050456
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 30.532254927962967,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 31.10315417025231
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 9,
+        "net_pnl": 46.07592527263073,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 45.56895246021264
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 9,
+        "net_pnl": -3.7533734902856093,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.859511823913749
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -33.76127974845603,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -34.53081408152627
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 40.48640793259473,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 70.56989968371158
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": 19.7415798009711,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.18892365551676
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -3.6543108761220644,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -4.298576986905005
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": 4.577728532010402,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 4.838540681234576
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "DOGEUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "DOGEUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -58.552272,
+    "n_trades": 263,
+    "win_rate": 24.33,
+    "max_drawdown_pct": 24.2915,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -32.79134456535586,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.213703645794055
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -7.664281723686797,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.482428972362584
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -6.255272348105692,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -8.514255554469003
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -26.496672942661153,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.374609021672825
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 25.49212415563603,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 32.11570595828147
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -18.82692636587323,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.437363345602023
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -29.518085096400956,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.973960341183556
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 8.752389756637271,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.2217119077492953
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 41.9405154498549,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 40.07258067035838
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -36.71031345612488,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -37.49154479138542
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -7.9393168188274466,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.939316818827422
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": 31.464911842579923,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 31.46491184257991
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "DOGEUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -58.552272,
+    "n_trades": 263,
+    "win_rate": 24.33,
+    "max_drawdown_pct": 24.2915,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -32.79134456535586,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.213703645794055
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -7.664281723686797,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -10.482428972362584
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 20,
+        "net_pnl": -6.255272348105692,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -8.514255554469003
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -26.496672942661153,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.374609021672825
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 25.49212415563603,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 32.11570595828147
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 23,
+        "net_pnl": -18.82692636587323,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -26.437363345602023
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -29.518085096400956,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.973960341183556
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 8.752389756637271,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 3.2217119077492953
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": 41.9405154498549,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 40.07258067035838
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -36.71031345612488,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -37.49154479138542
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -7.9393168188274466,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.939316818827422
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 16,
+        "net_pnl": 31.464911842579923,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 31.46491184257991
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "DOGEUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "DOGEUSDT",
+    "interval": "240",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 0.0,
+    "n_trades": 0,
+    "win_rate": 0.0,
+    "max_drawdown_pct": 0.0,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": true,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 0,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "ABSENT",
+        "n_trades": 0,
+        "net_pnl": null,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 0.0
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_1H",
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 3.851858,
+    "n_trades": 511,
+    "win_rate": 30.92,
+    "max_drawdown_pct": 22.8399,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": 17.144187119178785,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 12.996136071592446
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": 20.18305008891652,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 21.103170897259474
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": 17.904396611346545,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 11.34403642073812
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -19.02056382162057,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.00654171431222
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -9.953470623430915,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.7064369004864375
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -20.145789962606322,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -29.256978524800445
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": 10.79023832742286,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 16.96322851765825
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 36,
+        "net_pnl": 5.762110408523689,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 5.668910705910548
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 47,
+        "net_pnl": 44.15383510955706,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 38.752929249913336
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -40.44685629227159,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -40.44522497491914
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 43,
+        "net_pnl": -23.174302971220264,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -23.480367188768696
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 38,
+        "net_pnl": 1.8855360471641536,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 8.918995432325232
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_2H",
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -33.320637,
+    "n_trades": 428,
+    "win_rate": 32.24,
+    "max_drawdown_pct": 22.9993,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": 1.4864104292371807,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -1.740524800182925
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -4.153795314074971,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.697911582164579
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": 17.40009423734399,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 11.30397112316814
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -17.674229387447717,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.072427666859994
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 33,
+        "net_pnl": -1.101582316369122,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.557671793295867
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -13.265980425856625,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -21.314516621259997
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": 1.2192055293173834,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.329543352761959
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -5.278165406502415,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.3491283147533295
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": 47.654549795024934,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 44.231407141019076
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 40,
+        "net_pnl": -59.77713935994078,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -62.19233907338855
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": 1.7808830974403889,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 2.9054796419340505
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 37,
+        "net_pnl": -1.3014914644212716,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.718138189498006
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_LON_3H",
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -52.190973,
+    "n_trades": 394,
+    "win_rate": 30.71,
+    "max_drawdown_pct": 23.4448,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": 2.4729502329100916,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -0.7539849965099847
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 25,
+        "net_pnl": 13.261230729084005,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 13.717114460994367
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 32,
+        "net_pnl": -3.6798256599812422,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.775948774157087
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -25.712324252682198,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -24.110522532094365
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": 4.943728416294084,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 13.602982525959078
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": -4.432325835844191,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -12.63876196216637
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -9.087555404136312,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -3.819317649772927
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -15.099750710830923,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.17071361908188
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": 44.79028758160824,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 41.36714492760234
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -30.913134753879515,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -33.328334467327295
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 30,
+        "net_pnl": -22.05517282421507,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.395355868979948
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -5.1954484797041935,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 1.1147252764055224
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_1H",
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": -69.524853,
+    "n_trades": 314,
+    "win_rate": 27.71,
+    "max_drawdown_pct": 26.8771,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 35,
+        "net_pnl": -60.97436320142223,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -65.76035868875567
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -35.06086304542225,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -37.661917833403436
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 29,
+        "net_pnl": -17.59340040284122,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -18.20959642864682
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -13.533741014755392,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.036208100144165
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": -2.6458942866540873,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 6.131204887913498
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 18,
+        "net_pnl": 16.24676690071086,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.00579177865086
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -21.52443116730571,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -16.020274804862083
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": 25.976093376296696,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 21.631459512079516
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 31,
+        "net_pnl": 48.53150592317677,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 46.18150193949617
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 28,
+        "net_pnl": -17.998215736362027,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -15.572160351548746
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 27,
+        "net_pnl": -15.675395769926087,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -17.20535176929434
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 30.81925284907383,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 32.99105725561287
+      }
+    ]
+  },
+  {
+    "strategy": "ORB_NY_2H",
+    "symbol": "DOGEUSDT",
+    "interval": "60",
+    "h1_clearing_name": false,
+    "train1_net_pnl": 4.088643,
+    "n_trades": 232,
+    "win_rate": 28.02,
+    "max_drawdown_pct": 17.5218,
+    "n_valid_months": 12,
+    "all_valid_months_nonnegative": false,
+    "legacy_h2": false,
+    "h2_sparse_absent_zero_trade": false,
+    "n_scored_months": 12,
+    "monthly": [
+      {
+        "year": 2024,
+        "month": 3,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": -40.27402233752338,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -47.76048559228548
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -20.857915514169864,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -20.758502534722425
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "status": "scored",
+        "n_trades": 19,
+        "net_pnl": -5.416899481373218,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -6.033095507178814
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -14.694074567613299,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -14.877316975757026
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": -1.529739996196163,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 7.218941296499111
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "status": "scored",
+        "n_trades": 12,
+        "net_pnl": 32.19208237584657,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 23.660300458413815
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "status": "scored",
+        "n_trades": 17,
+        "net_pnl": -13.480390436333147,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -7.976234073889486
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "status": "scored",
+        "n_trades": 11,
+        "net_pnl": 50.927260516051035,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 46.58262665183378
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "status": "scored",
+        "n_trades": 24,
+        "net_pnl": 36.15549384775214,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 33.805489864071546
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "status": "scored",
+        "n_trades": 22,
+        "net_pnl": -15.895507079801629,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -13.46945169498838
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "status": "scored",
+        "n_trades": 21,
+        "net_pnl": -8.001563477769501,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": -9.531519477137635
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "status": "scored",
+        "n_trades": 15,
+        "net_pnl": 12.702574529836781,
+        "legacy_is_valid": true,
+        "legacy_equity_net_pnl": 13.227890938469386
+      }
+    ]
+  }
+]

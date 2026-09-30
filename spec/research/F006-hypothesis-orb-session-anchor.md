@@ -164,16 +164,75 @@ runner's `DONCHIAN_55` harness control. No Validation/holdout. No merge from thi
 
 ## Run_id
 
-_(placeholder)_
+`scripts/f006_orb_session_anchor_experiment.py`, system Python 3.10.12 (pandas 2.3.3), single
+pass, ~21s: `f006_family_runner.run_family` over 5 candidate names × 5 symbols × 2 intervals
+(50 rows) + the runner's frozen `DONCHIAN_55` 10-row harness control, then a second engine pass
+over the same 50 cells for legacy + sparse H2 (pass-2 `net_pnl`/`train1_net_pnl` asserted equal
+to pass 1 row for row). Producing commit (in `manifest.json`):
+`689fee3a2b76cce283187e5d6d35e168a838cd98`. Evidence: `output/f006_orb_session_anchor/`
+(`summary/results.csv`, `summary/manifest.json`, `summary/h2_dual.{csv,json}`, `raw/*.json`).
+
+The git-ignored frozen Train-1 CSVs (`data_cache/*_20240126T000000Z_20250301T000000Z.csv`) were
+**copied** (not symlinked) into this worktree from the host checkout's `data_cache/`; the
+runner's checksum check against F005 protocol section 6 passed for all 10 pairs.
 
 ## Result
 
-_(placeholder)_
+**H1 is falsified. All 5 names have negative mean `train1_net_pnl` over their 10-series pool at
+`NO_TRAIL`:**
+
+| Name | OR window (UTC) | mean train1_net_pnl | sum | profitable series | mean n_trades | mean on 60 only | max DD % | zero-trade series |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `ORB_LON_1H` | `[07:00,08:00)` | -$54.07 | -$540.72 | 1/10 | 252.2 | -$108.14 | 43.60 | all 5 × `240` |
+| `ORB_LON_2H` | `[07:00,09:00)` | -$83.97 | -$839.72 | 1/10 | 327.5 | -$100.95 | 40.83 | none |
+| `ORB_LON_3H` | `[07:00,10:00)` | -$86.52 | -$865.17 | 1/10 | 303.9 | -$106.04 | 38.09 | none |
+| `ORB_NY_1H` | `[13:30,14:30)` | -$51.28 | -$512.77 | 0/10 | 149.4 | -$102.55 | 31.83 | all 5 × `240` |
+| `ORB_NY_2H` | `[13:30,15:30)` | -$35.73 | -$357.26 | 2/10 | 114.7 | -$71.45 | 37.19 | all 5 × `240` |
+
+(`mean n_trades` includes the zero rows; on `60` alone it is 504.4 / 417.2 / 370.0 / 298.8 /
+229.4.) The only profitable series: `ORB_LON_1H` DOGE/60 +$3.85; `ORB_LON_2H` and `ORB_LON_3H`
+XRP/240 +$0.83 (same row, see below); `ORB_NY_2H` DOGE/60 +$4.09 and XRP/60 +$19.70. Mean
+win rate across the 50 cells is 20.2% (max 33.9%).
+
+Checks (all recorded in `manifest.json`): harness control `DONCHIAN_55` 10 rows vs
+`output/f006_trailing_boundary/summary/results.csv` — 0 mismatches; `NO_TRAIL` mechanism —
+0/60 runs had a `trailing_sl` exit; one-shot — 0 violations.
+
+**Structure artifacts, exactly as pre-stated in Mechanism (not adjusted):** on `240` (bars open
+00/04/08/12/16/20 UTC) no bar opens in `[07:00,08:00)`, `[13:30,14:30)` or `[13:30,15:30)`, so
+`ORB_LON_1H`, `ORB_NY_1H` and `ORB_NY_2H` never arm on any `240` series (10/10 zero-trade rows,
+contributing $0 to their means), and `ORB_LON_2H/240` ≡ `ORB_LON_3H/240` (single `08:00` OR bar;
+identical rows). The zeros *flatter* those three names' means; restricted to `60` alone every
+name is still ≤ -$71 mean, so H1 would fail with or without the `240` rows.
+
+**H2: not applicable — H1 failed** for every one of the 5 names. For completeness
+`summary/h2_dual.csv` scores all 50 cells anyway: 0/50 clear legacy H2 and 0/50 clear
+`h2_sparse_absent_zero_trade` (the latter bucketed by exit month, Europe/Warsaw, zero-exit
+months ABSENT).
 
 ## Decision
 
-_(placeholder)_
+**Close the session-anchored ORB family (`ORB_LON_*` / `ORB_NY_*`) at `NO_TRAIL` on the Train-1
+5×2 basket.** Together with `ORB_UTC_*` (tip `239d3cf`) this closes opening-range breakout as a
+generator on this basket: moving the anchor from the UTC day start to the London or NY open did
+not turn any cell aggregate-positive — on `60` every name loses about $70–110 per series, the same
+magnitude as `ORB_UTC_1..4`. The license named in `239d3cf`'s Decision has been used; this note
+names **no** further ORB follow-up (no other anchors, OR lengths, gates, or exit grid on these
+entries — an exit grid cannot add entries and the sparse-H2 pass already finds 0/50 cells).
+`ORB_UTC_*` and every other DNR family listed in the card stay closed and untouched.
 
 ## Tests
 
-_(placeholder)_
+`tests/test_orb_session_anchor.py` (new, 9 tests, all passing): frozen names exact (no
+`ORB_UTC_*`); London 2H arming on hand-built hourly day (pre-window bars and OR bars stay 0,
+breakout +1/−1, strict equality at `or_high` and `or_low` stays 0); NY half-hour anchor on
+hourly bars (`[13:30,14:30)` = the 14:00 bar only; 2H needs the 16:00 bar to trade); never-arm
+on a 4h grid for `[07:00,08:00)` and `[13:30,15:30)` while `[07:00,09:00)` arms on the 08:00 bar;
+new-day reset with a day missing its OR bar never arming; causality (truncation at 3 points ×
+5 names, signal prefix unchanged); fixture 4h structure (LON_1H/NY_* all-zero, LON_2H fires and
+equals LON_3H); import does not mutate `STRATEGY_CATALOG` (runtime registration only); invalid
+window rejected.
+
+| Command | Result |
+| --- | --- |
+| `python3 -m pytest -q tests/test_orb_session_anchor.py tests/test_signal_family_contract.py tests/test_donchian.py tests/test_sube_exit_grid.py` | 86 passed |
