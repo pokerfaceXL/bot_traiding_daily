@@ -1,0 +1,19 @@
+# H-SIGNAL-AUTOPSY-01 — optional per-entry quality audit
+
+## Observation
+
+The source card `/tmp/F006-card-H-SIGNAL-AUTOPSY-01.md` requests an analytics-only audit of closed limen tips: optional trade blotter, entry calmness, forward agreement, and quick reversals. Aggregate PnL alone does not explain entry quality. The referenced analytics-gap note was unavailable at both supplied locations. This is not a trading alpha family or a promotion test.
+
+## Method
+
+Freeze copied from the card: OHLCV only; closed tips from scoreboard/digest; Train-1 only, never Validation/holdout; use `scripts/f006_family_runner.py` / `run_family`; retain existing exits and H1/H2 / `train1_net_pnl` semantics. Autopsy defaults off. When enabled persist entry/exit times and prices, existing `exit_reason`, `net_pnl`, MFE/MAE, and per-entry diagnostics under `output/f006_signal_autopsy/`. Do not retune strategies, rename alpha freezes, edit production strategy code, or reopen DNR geometries.
+
+The card leaves numerical diagnostic windows unspecified. Freeze these descriptive conventions before replay: ATR is the simple mean of 14 true ranges; entry ATR% and its percentile use only bars completed before the entry-fill bar. Percentile compares that ATR% with the preceding 100 completed ATR% observations (strict full-window warmup); calm means percentile <= 0.5. Missing history stays null, never calm/weak by default. Forward agreement compares the close of fill bar + 5 with entry fill price, signed by entry side; positive is agreement, zero is not. Missing forward bars stay null. Quick reverse means existing `signal_reverse` exit within 3 elapsed interval bars, inclusive. Forward diagnostics are retrospective only, never inputs to signals.
+
+MFE/MAE are unsigned favorable/adverse price excursions in percent of entry fill price, over observed in-position OHLCV bars. Include entry bar and exit bar for close-based `signal_reverse` / `end_of_data` exits. For intrabar SL/TP exits, exclude exit-bar extremes because their order relative to the fill is unknown; include the exit fill price as an endpoint. Same-bar SL/TP round trips use fill prices only. These stop-exit excursions are conservative observed lower bounds, explicitly flagged, rather than fabricated intrabar paths. These are price excursions, not net PnL or intrabar path estimates. Blotters retain warmup trades with an explicit entry-period flag; family tags use only entries in March 2024–February 2025. This entry cohort must not be confused with daily equity-based `train1_net_pnl`.
+
+Pool per-entry diagnostics by existing strategy name across ten series. Report counts/denominators and agreement/calm/quick-reverse rates. Descriptive tags: agreement strong >= 0.5, otherwise weak; calm strong >= 0.5, otherwise weak; reverse strong <= 0.25, otherwise weak. No eligible observations gives unknown. Tags do not affect gates.
+
+## Checks and evidence
+
+Test empty trades, ATR/percentile warmup nulls, forward edge nulls, long/short excursions, quick-reverse boundary, and autopsy off/on economic equivalence. Replay at least the closed DONCHIAN_55 control from the digest; additional closed strategies only with exact current-main implementations and source provenance. Record producing commit, source tips, data checksums, frozen parameters, and packaging tip SHA in evidence. Off-path control must retain approximately +58.387 mean Train-1 PnL and the existing ten-series reference comparison. Run pytest after packaging; stop without merge or follow-up spawn.
