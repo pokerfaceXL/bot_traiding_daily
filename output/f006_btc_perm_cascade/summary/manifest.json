@@ -1,0 +1,221 @@
+{
+  "family": "btc_perm_cascade",
+  "script": "scripts/f006_btc_perm_cascade_experiment.py",
+  "git_commit": "e4f6dc63ae57c7cfbb33aea3efce66fd67fb4e48",
+  "run_started_utc": "2026-09-30T05:46:29.445909+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "n_series": 60,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "candidate_names": [
+    "BPC_R15_V25_C75",
+    "BPC_R18_V20_C75",
+    "BPC_R18_V30_C75",
+    "BPC_R15_V25_NOGATE",
+    "BPC_R15_V25_ER40"
+  ],
+  "control_name": "DONCHIAN_55",
+  "hypothesis_note": "spec/research/F006-hypothesis-btc-perm-cascade.md",
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "no_trail_mechanism_check": {
+    "runs": 60,
+    "runs_with_a_trailing_exit": 0
+  },
+  "one_shot_violations": 0,
+  "phase_fit": null,
+  "h1_table": [
+    {
+      "strategy": "BPC_R15_V25_C75",
+      "sum_net_pnl": -97.9505,
+      "mean_net_pnl": -9.7951,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 67,
+      "h1_pass": false
+    },
+    {
+      "strategy": "BPC_R18_V20_C75",
+      "sum_net_pnl": -109.2449,
+      "mean_net_pnl": -10.9245,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 79,
+      "h1_pass": false
+    },
+    {
+      "strategy": "BPC_R18_V30_C75",
+      "sum_net_pnl": -75.5212,
+      "mean_net_pnl": -7.5521,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 50,
+      "h1_pass": false
+    },
+    {
+      "strategy": "BPC_R15_V25_NOGATE",
+      "sum_net_pnl": 269.9753,
+      "mean_net_pnl": 26.9975,
+      "n_series": 10,
+      "n_profitable_series": 4,
+      "n_trades_total": 174,
+      "h1_pass": true
+    },
+    {
+      "strategy": "BPC_R15_V25_ER40",
+      "sum_net_pnl": -56.1354,
+      "mean_net_pnl": -5.6135,
+      "n_series": 10,
+      "n_profitable_series": 1,
+      "n_trades_total": 45,
+      "h1_pass": false
+    }
+  ],
+  "h1_names_passing": [
+    "BPC_R15_V25_NOGATE"
+  ],
+  "h1_falsified": false,
+  "h2_table": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "240",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": -17.194959,
+      "n_trades": 8,
+      "max_drawdown_pct": 11.7442,
+      "n_neg_months": 5,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 50.881544,
+      "n_trades": 33,
+      "max_drawdown_pct": 14.3078,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "240",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 31.529287,
+      "n_trades": 7,
+      "max_drawdown_pct": 5.9628,
+      "n_neg_months": 4,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": -0.074033,
+      "n_trades": 36,
+      "max_drawdown_pct": 9.5501,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "240",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 0.0,
+      "n_trades": 0,
+      "max_drawdown_pct": 0.0,
+      "n_neg_months": 0,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "240",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": -13.395047,
+      "n_trades": 14,
+      "max_drawdown_pct": 8.3923,
+      "n_neg_months": 8,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 93.089283,
+      "n_trades": 31,
+      "max_drawdown_pct": 11.1611,
+      "n_neg_months": 10,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "240",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": -29.383704,
+      "n_trades": 11,
+      "max_drawdown_pct": 7.3429,
+      "n_neg_months": 7,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "BPC_R15_V25_NOGATE",
+      "train1_net_pnl": 154.522908,
+      "n_trades": 34,
+      "max_drawdown_pct": 8.3468,
+      "n_neg_months": 6,
+      "n_valid_months": 12,
+      "promotion_pass": false
+    }
+  ],
+  "h2_names_with_a_passing_series": [],
+  "h2_status": "falsified",
+  "elapsed_seconds": 12.3
+}
