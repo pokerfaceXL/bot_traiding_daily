@@ -38,6 +38,7 @@ import backtest_engine  # noqa: E402
 import data_contract  # noqa: E402
 import entry_masks  # noqa: E402
 import f006_phase_fit_audit  # noqa: E402
+import f006_signal_autopsy  # noqa: E402
 import regularity  # noqa: E402
 import strategy  # noqa: E402
 import trade_stats  # noqa: E402
@@ -159,6 +160,7 @@ def _net_pnl_for_months(days, months_set) -> float:
 def _run_one(
     train1_df, mask, symbol, interval, strategy_name, n_calls,
     phase_labels=None, phase_legs=(), expected_phase_legs=None,
+    autopsy_dir=None,
 ) -> dict:
     t0 = time.time()
     result = backtest_engine.run_backtest(
@@ -224,7 +226,14 @@ def _run_one(
             phase_labels, trades, legs=phase_legs, expected_legs=expected_phase_legs,
         )
 
+    diagnostics = {}
+    if autopsy_dir is not None:
+        diagnostics["signal_autopsy"] = f006_signal_autopsy.write_series(
+            autopsy_dir, train1_df, trades, interval, symbol, strategy_name,
+        )
+
     return {
+        **diagnostics,
         "symbol": symbol, "interval": interval, "strategy": strategy_name,
         "n_calls": n_calls,
         "net_pnl": m["total_net_pnl"],
@@ -336,6 +345,7 @@ def run_family(
     phase_legs: Sequence[str] = (),
     phase_expected_legs: Optional[Mapping[str, Sequence[str]]] = None,
     phase_label_source: Optional[str] = None,
+    autopsy: bool = False,
 ) -> dict:
     """Runs the frozen F006 NO_TRAIL Train-1 sweep for one signal family and writes
     output/f006_<family>/{raw,summary}/. Returns the manifest dict (also written to
@@ -355,13 +365,16 @@ def run_family(
     A regime/wrap/switch caller may also provide a causal ``phase_labeler`` plus its
     fixed ``phase_legs`` and per-strategy expected legs. Labels are attached to
     completed trades at their entry-fill bar for diagnostics only; H1/H2 are untouched.
+    ``autopsy=True`` additionally writes blotters and per-entry quality diagnostics
+    under output/f006_signal_autopsy/<family>/; defaults off and never changes gates.
     """
     if phase_labeler is None and (phase_legs or phase_expected_legs or phase_label_source):
         raise ValueError("phase_legs, phase_expected_legs, and phase_label_source require phase_labeler")
     if phase_labeler is not None and not phase_legs:
         raise ValueError("phase_labeler requires the complete fixed phase_legs list")
     t_start = time.time()
-    output_dir = output_dir or f"output/f006_{family}"
+    output_dir = output_dir or (f"output/f006_signal_autopsy/{family}" if autopsy else f"output/f006_{family}")
+    autopsy_dir = f"{output_dir}/autopsy" if autopsy else None
     try:
         commit_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     except Exception:
@@ -399,6 +412,7 @@ def run_family(
                 row = _run_one(
                     train1_df, mask, symbol, interval, name, n_calls,
                     phase_labels=labels, phase_legs=phase_legs, expected_phase_legs=expected_legs,
+                    autopsy_dir=autopsy_dir,
                 )
                 rows.append(row)
                 with open(f"{output_dir}/raw/{symbol}_{interval}_{name}.json", "w") as f:
@@ -483,6 +497,8 @@ def run_family(
         "h2_status": h2_status,
         "elapsed_seconds": round(time.time() - t_start, 1),
     }
+    if autopsy:
+        manifest_out["signal_autopsy"] = f006_signal_autopsy.write_summary(autopsy_dir, rows)
     with open(f"{output_dir}/summary/manifest.json", "w") as f:
         json.dump(manifest_out, f, indent=2, default=str)
 
