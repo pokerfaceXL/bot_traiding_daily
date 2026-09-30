@@ -2,6 +2,8 @@
   "family": "btc_perm_cascade",
   "script": "scripts/f006_btc_perm_cascade_experiment.py",
   "git_commit": "e4f6dc63ae57c7cfbb33aea3efce66fd67fb4e48",
+  "producing_commit": "e4f6dc63ae57c7cfbb33aea3efce66fd67fb4e48",
+  "packaging_tip_sha": "d717101153e4b874a2fe8314e8bbce2613151efc",
   "run_started_utc": "2026-09-30T05:46:29.445909+00:00",
   "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
   "pandas": "2.3.3",

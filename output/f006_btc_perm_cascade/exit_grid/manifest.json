@@ -1,6 +1,6 @@
 {
   "producing_commit": "e4f6dc63ae57c7cfbb33aea3efce66fd67fb4e48",
-  "packaging_tip_sha": null,
+  "packaging_tip_sha": "d717101153e4b874a2fe8314e8bbce2613151efc",
   "packaging_note": "Set after evidence packaging commit; final metadata commit records that immutable tip.",
   "base_commit": "eaf4add",
   "candidate_names": [
