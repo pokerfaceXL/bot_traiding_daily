@@ -1,0 +1,127 @@
+{
+  "hypothesis": "H-BTC-FILTER-EXIT-GRID-SPARSE-01",
+  "hypothesis_note": "spec/research/F006-hypothesis-btc-filter-exit-grid-sparse.md",
+  "parent": "H-BTC-FILTER-01 tip e518682; baseline output/f006_btc_filter/raw",
+  "git_commit": "853ec736dcc3c24b325f47fe2b89ad32feb7ffdb",
+  "started_utc": "2026-09-30T20:30:34.434777+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "exit_grid": {
+    "NO_TRAIL": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TP_x2": {
+      "activate_pct": 10.0,
+      "trail_pct": 0.04,
+      "take_profit_multiple": 2.0
+    },
+    "TRAIL_a0.06_t0.04": {
+      "activate_pct": 0.06,
+      "trail_pct": 0.04,
+      "take_profit_multiple": null
+    },
+    "TRAIL_a0.03_t0.02": {
+      "activate_pct": 0.03,
+      "trail_pct": 0.02,
+      "take_profit_multiple": null
+    }
+  },
+  "candidate_names": [
+    "BTC_FILTER_ER20_DONCHIAN_5",
+    "BTC_FILTER_ER20_DONCHIAN_10",
+    "BTC_FILTER_ER20_DONCHIAN_20"
+  ],
+  "n_runs": 130,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "signal_hashes": {
+    "SOLUSDT_240_BTC_FILTER_ER20_DONCHIAN_5": "da79d30166cc9f2ec3538d604a35b75c40bfc8d5d3b27ba72b159167e10524b0",
+    "SOLUSDT_240_BTC_FILTER_ER20_DONCHIAN_10": "694aa00fbbc2e746becb85714a92b11819c526bb0cf1a0c8eb1c634bcf7f0e3c",
+    "SOLUSDT_240_BTC_FILTER_ER20_DONCHIAN_20": "fef0913f16c01d40fbb79c7ee3896ae3dcb4ef4b5f0b71015329a93a08390fc6",
+    "SOLUSDT_240_DONCHIAN_55": "462a2150f5cf2e2d435035079e6548ae44381a2eef7a77d16c1aedf8e21ff72f",
+    "ETHUSDT_240_BTC_FILTER_ER20_DONCHIAN_5": "a605215172b7637e4547815049a949c97e58641af60f11af94a7a231bb7fcd2c",
+    "ETHUSDT_240_BTC_FILTER_ER20_DONCHIAN_10": "d3146a8f099b301d464cbcf742224d45d46e635b3a7d915b20cfd683d539f08f",
+    "ETHUSDT_240_BTC_FILTER_ER20_DONCHIAN_20": "e38ba6e51d7ec7146f0ad0b3559624cb8edb4d67c6ffe5e82f1db4d6f7abb1b0",
+    "ETHUSDT_240_DONCHIAN_55": "b8504624d86bd69bd18d3a7c45f53cd44f2a885a8210b8fa9c5eccf57aa755ac",
+    "BTCUSDT_240_BTC_FILTER_ER20_DONCHIAN_5": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "BTCUSDT_240_BTC_FILTER_ER20_DONCHIAN_10": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "BTCUSDT_240_BTC_FILTER_ER20_DONCHIAN_20": "528e1386adbf032329275a32289830145a1eb4c11eda5a09bbaaeec196bfa377",
+    "BTCUSDT_240_DONCHIAN_55": "a44cf17cc1daa7b6422ba86c3a68797eba41f84777747bf63051d8ac115bf1b6",
+    "XRPUSDT_240_BTC_FILTER_ER20_DONCHIAN_5": "b7058852c2fe131cf01aa2c21460b5a8b858c830a30efa708212ed20717492c9",
+    "XRPUSDT_240_BTC_FILTER_ER20_DONCHIAN_10": "3bd72c1e2bdeb1343055852a8f31d7ba320544ef75fa84199dee2684edfa5c90",
+    "XRPUSDT_240_BTC_FILTER_ER20_DONCHIAN_20": "1480fafed358908c3fa456f3ad580a3d1e704dddd83eba6a6b45ca1b376fe953",
+    "XRPUSDT_240_DONCHIAN_55": "d34c54ea6203d892e224bd2a1e2aee3f3cb98727e884599d4d8e09e92cb5cc69",
+    "DOGEUSDT_240_BTC_FILTER_ER20_DONCHIAN_5": "b1fa0d6ead6be46abf8ba1c653f4690bf28f3409cd4021edd937153ffba80b6f",
+    "DOGEUSDT_240_BTC_FILTER_ER20_DONCHIAN_10": "d3fc03e906e5c5b86a9d9a0d6611f2c79f531e5d42ab6b4f81f90dcf60f5fa79",
+    "DOGEUSDT_240_BTC_FILTER_ER20_DONCHIAN_20": "c678cb12b33ba9329d7dd98747b5daf3685a32af94a144c586bd83188d5f489b",
+    "DOGEUSDT_240_DONCHIAN_55": "08d36a26286aafb6ec81254958e944d85f0d9a6df611a2ff70c6130fb6017141",
+    "SOLUSDT_60_BTC_FILTER_ER20_DONCHIAN_5": "051e80a754db28e4993d62fa1fb4683b4ec83abbf4fd5261e30bdf34c8a61673",
+    "SOLUSDT_60_BTC_FILTER_ER20_DONCHIAN_10": "3e8f266ca401c9aba7b92df189e20fc3620f62ca1ed1c37d36e5df68ce262e55",
+    "SOLUSDT_60_BTC_FILTER_ER20_DONCHIAN_20": "128eda0c60efb749cf33941da272e45a73accd890e890abc6374ec624a93c406",
+    "SOLUSDT_60_DONCHIAN_55": "282f2d014d5a053567af04f4ff8beb952ad942c82e3585d893dd6610e70d9984",
+    "ETHUSDT_60_BTC_FILTER_ER20_DONCHIAN_5": "0c6bd14487b5933cdfde2f894edd5ea79f2ef818390c0a51139158c57c26dabd",
+    "ETHUSDT_60_BTC_FILTER_ER20_DONCHIAN_10": "65d9059785f85b83ac506fec9f642d642e64f66a8fc7aaef883025c140fa84df",
+    "ETHUSDT_60_BTC_FILTER_ER20_DONCHIAN_20": "678032d5e7e49883968894e8ea05a9804ba1cda0779edb5365511d195b892716",
+    "ETHUSDT_60_DONCHIAN_55": "7dccbe6cee6b3bfb294797e0219b0acb70b95d8010835c0223e205d7ae4374a0",
+    "BTCUSDT_60_BTC_FILTER_ER20_DONCHIAN_5": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "BTCUSDT_60_BTC_FILTER_ER20_DONCHIAN_10": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "BTCUSDT_60_BTC_FILTER_ER20_DONCHIAN_20": "5d7a6fe43f6e2df23fcad10a4a57af222ccad5ca1db32569ca6286d8b0efedb1",
+    "BTCUSDT_60_DONCHIAN_55": "92e6edef3057c248fdd9428e4b41aa1d46b9207841b5a86fafd04dd409555011",
+    "XRPUSDT_60_BTC_FILTER_ER20_DONCHIAN_5": "d5cde454102b10a14cab5d01a55046990a70e39309b487fc4b6a015ef38c1e49",
+    "XRPUSDT_60_BTC_FILTER_ER20_DONCHIAN_10": "73a552cdb1181c4d63d1c41de1fabaaf381678acbddba25654056b86784b4542",
+    "XRPUSDT_60_BTC_FILTER_ER20_DONCHIAN_20": "8f31c0ca7e63fb886c0ac71cc3eda09dfd1ae87e966d7f7005e7a84f47ff3968",
+    "XRPUSDT_60_DONCHIAN_55": "a2d2d1f582c85cf33757c1596e286ab802fccac31eac8869ec56b4242c46554c",
+    "DOGEUSDT_60_BTC_FILTER_ER20_DONCHIAN_5": "a804991a7ea8b20c2d730aff6c6a85a9147c925e8339ebbb754f0f663b61067a",
+    "DOGEUSDT_60_BTC_FILTER_ER20_DONCHIAN_10": "4c93ce22277fe2ceddcc7bea1b6eccdac3127278035f9c9541f10cf9612bf0b0",
+    "DOGEUSDT_60_BTC_FILTER_ER20_DONCHIAN_20": "9a805089b64a6f31ec7286fe3676a9599e0dc06f86e724609cf6c7f1603e3f71",
+    "DOGEUSDT_60_DONCHIAN_55": "e205dc904b9331e550058b64ea1c2d6a0c1d41ec0307a19bb4760af46527ac74"
+  },
+  "source_sha256": {
+    "btc_filter.py": "b2926e7cb518ba5bafafce698bf669908e3e920377f6cf3a276ef6bb713b6b71",
+    "backtest_engine.py": "92ead6efdbc0d20245135a3c22188a16c20f36af066de55add1f395286cbda66",
+    "f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "f006_sube_inv_fvg_exit_grid.py": "1c8025f3befdb2178c736bd737f5b5422f141cf977ad96d64cabaf6fb33c6b7a",
+    "f006_btc_filter_exit_grid.py": "cb315a9a4efea35611f46b69f9f546d2ebddda8a9c48582ba344cbd1ca89ef49"
+  },
+  "train1_end": "2025-03-01 00:00:00+00:00",
+  "warmup_start": "2024-01-26T00:00:00Z",
+  "fixed_params": {
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0,
+    "max_sl_pct": 0.03,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "cooldown_candles": 0,
+    "mask": "one_shot"
+  },
+  "sparse_month_bucket": "exit month Europe/Warsaw; zero exits ABSENT; Train-1 months only",
+  "h1_basis": "ten-row mean train1_net_pnl (BTC rows forced flat), as parent",
+  "rank_metric": "trade-weighted win_rate; pooled excludes DONCHIAN_55",
+  "s8_regression": "non-NO_TRAIL cell with higher WR but lower mean Train-1 than NO_TRAIL, same name",
+  "prior_no_trail_check": {
+    "rows_compared": 40,
+    "mismatches": 0
+  },
+  "harness_control": {
+    "rows_compared": 10,
+    "n_mismatches": 0,
+    "source": "output/f006_trailing_boundary/summary/results.csv"
+  },
+  "one_shot_violations": 0,
+  "btc_trades_under_candidates": 0
+}

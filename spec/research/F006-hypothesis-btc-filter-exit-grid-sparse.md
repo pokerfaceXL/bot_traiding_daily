@@ -79,12 +79,73 @@ Use existing engine hooks only. Entries computed once; exits do not add signal o
 
 ## Run_id
 
-_(empty until after Train-1)_
+`f006_btc_filter/exit_grid`, producing commit `853ec73` (recorded in
+`output/f006_btc_filter/exit_grid/manifest.json`), script
+`scripts/f006_btc_filter_exit_grid.py`, bounded Train-1 cache checksums as in the
+parent manifest; executed 2026-09-30. 130 runs = 3 names × 4 cells × 10 series +
+DONCHIAN_55 × NO_TRAIL × 10.
 
 ## Result
 
-_(empty until after Train-1)_
+Integrity: NO_TRAIL reproduced all 30 parent candidate rows plus 10 DONCHIAN_55
+rows exactly (40/40 compared, 0 mismatches on n_calls, trades, wins, WR, net and
+Train-1 PnL, DD, final equity, valid months, month sign, legacy H2). DONCHIAN_55
+harness control 10/10 matched `output/f006_trailing_boundary` (mean Train-1
+`+58.387`). No one-shot violation; BTC rows had zero calls and zero trades in every cell.
+
+Rank by trade-weighted win_rate (ten-row mean Train-1 PnL, H1; Δ vs NO_TRAIL same name):
+
+| Name | Cell | WR % | mean Train-1 | H1 | Δ vs NO_TRAIL | trades/series | max DD % | §8 regression |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | --- |
+| N5 | TP_x2 | 35.34 | −14.85 | fail | −59.44 | 124.8 | 21.2 | yes |
+| N5 | TRAIL_a0.03_t0.02 | 34.74 | −161.12 | fail | −205.71 | 149.4 | 62.7 | yes |
+| N5 | TRAIL_a0.06_t0.04 | 30.83 | −106.06 | fail | −150.65 | 115.8 | 37.8 | yes |
+| N5 | NO_TRAIL | 26.92 | +44.59 | pass | 0 | 79.5 | 20.8 | — |
+| N10 | TP_x2 | 36.11 | −8.10 | fail | −68.67 | 108.0 | 19.2 | yes |
+| N10 | TRAIL_a0.03_t0.02 | 34.97 | −137.51 | fail | −198.07 | 128.4 | 55.2 | yes |
+| N10 | TRAIL_a0.06_t0.04 | 31.54 | −90.68 | fail | −151.25 | 100.5 | 33.6 | yes |
+| N10 | NO_TRAIL | 26.83 | +60.57 | pass | 0 | 69.7 | 20.6 | — |
+| N20 | TP_x2 | 36.33 | −3.21 | fail | −76.86 | 95.8 | 21.1 | yes |
+| N20 | TRAIL_a0.03_t0.02 | 35.86 | −118.17 | fail | −191.82 | 114.9 | 49.6 | yes |
+| N20 | TRAIL_a0.06_t0.04 | 30.79 | −79.17 | fail | −152.82 | 89.0 | 34.9 | yes |
+| N20 | NO_TRAIL | 26.76 | +73.65 | pass | 0 | 59.8 | 20.7 | — |
+
+- **H1 per cell:** passes only under NO_TRAIL (all three names). TP_x2,
+  TRAIL_a0.06_t0.04 and TRAIL_a0.03_t0.02 are H1-falsified for every name.
+- **§8 exit regression:** every TP/trail cell raises WR (+4 to +9.5 pp) while
+  cutting mean Train-1 PnL below NO_TRAIL for the same name — all nine are
+  regressions. Mechanism is the suspected one, inverted: N20 NO_TRAIL has 27 trades
+  > $20 (largest `+267.64`, XRP/240); no TP/trail cell has any trade > $20 (largest
+  `+5.69` TP_x2, `+16.16` a0.06). The edge *is* the fat winners that NO_TRAIL's
+  signal-reverse exit lets run. Earlier exits free the one-shot slot sooner, so
+  realized trades rise (n_calls unchanged, trades ≤ calls verified) — exits do not
+  add entry opportunities.
+- **H2 (dual) for H1-clearers (NO_TRAIL × 3 names):** legacy H2 0/10 series per
+  name (reproduces parent). `h2_sparse_absent_zero_trade` also 0/10: alt series
+  score 11–12 exit months under NO_TRAIL (density 60–80 trades/series; no sparsity
+  to forgive) and the best series still have 3 losing exit-months (N10 DOGE/60,
+  N10 ETH/60, N20 DOGE/60). BTC rows fail sparse H2 by rule (zero trades).
+  Density note: not sparse — mean 59.8–79.5 trades/series under NO_TRAIL;
+  density is not a DNR reason here.
+
+Evidence: `output/f006_btc_filter/exit_grid/` (`results.csv`, `rank_by_name.csv`,
+`rank_pooled.csv`, `monthly.csv` with scored/ABSENT exit months and legacy equity
+months, `trades.csv`, per-cell `*/results.csv`, `manifest.json`).
 
 ## Decision
 
-_(empty until after Train-1)_
+H1 holds only under NO_TRAIL; H2 is falsified under both legacy and sparse rules
+for every H1-clearing name × cell. All three TP/trail cells are §8 regressions
+(WR up by killing fat winners). The uneven-month problem is not an exit-geometry
+artifact recoverable within the frozen grid, and it is not a sparse-H2 artifact
+(series are dense, months are scored and negative). Close
+H-BTC-FILTER-EXIT-GRID-SPARSE-01: do not promote any BTC-FILTER name × exit cell,
+do not add further exit cells or retune entries on this family from this result,
+and do not touch Validation/holdout. H-BTC-FILTER-01 stays at its parent verdict
+(H1 pass / H2 fail, NO_TRAIL).
+
+## Tests
+
+`python3 scripts/f006_btc_filter_exit_grid.py` at `853ec73`: prior NO_TRAIL
+40/40 rows matched, control 10/10 matched. `python3 -m pytest
+tests/test_btc_filter_exit_grid.py tests/test_btc_filter.py -q`: 8 passed.
