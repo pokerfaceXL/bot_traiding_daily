@@ -70,6 +70,29 @@ def sig_donchian_breakout(df: pd.DataFrame, n: int) -> pd.Series:
     return state.ffill().fillna(0.0).astype(int)
 
 
+def atr_pct_entry_gate(closed_bars: pd.DataFrame, threshold: float | None) -> pd.Series:
+    """Entry permission at signal-bar close; never alters persistent exit signals.
+
+    Percentage points (1.0 means 1%), SMA true range over 14 bars, matching
+    the autopsy's entry ATR after its one-bar shift to the next-open fill.
+    Caller filters closed candles and intersects with the original one-shot mask;
+    a rejected call must not become a delayed entry when volatility subsides.
+    None forces the gate off, including during ATR warm-up.
+    """
+    if threshold is None:
+        return pd.Series(True, index=closed_bars.index)
+    if not np.isfinite(threshold) or threshold <= 0:
+        raise ValueError("ATR% threshold must be finite and positive")
+    previous = closed_bars.close.shift(1)
+    tr = pd.concat([
+        closed_bars.high - closed_bars.low,
+        (closed_bars.high - previous).abs(),
+        (closed_bars.low - previous).abs(),
+    ], axis=1).max(axis=1)
+    atr_pct = 100 * tr.rolling(14).mean() / closed_bars.close
+    return atr_pct.le(threshold) & np.isfinite(atr_pct) & closed_bars.close.gt(0)
+
+
 def sig_donchian_pullback(df: pd.DataFrame, n: int) -> pd.Series:
     """Enter in the breakout's direction only on a re-cross of the channel midline.
 
