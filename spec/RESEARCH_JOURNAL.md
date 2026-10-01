@@ -93,6 +93,56 @@ entry-vol and direction axes on this name's own trades and pointed to one remain
 - **Do not** run a broad search or a new family: protocol §13 gate is not cleared (no written
   non-correlated-mechanism justification with budget + falsification exists yet).
 
+## Coordinator operating model
+
+- **Work is delegated through Limen**, not done inline. Coordinator writes the pre-registration
+  note + a ticket in `spec/features/active/FNNN-slug/ticket.md`, then `limen spawn` a worker;
+  reviews the candidate branch; merges or rejects. The coordinator does the *thinking*
+  (autopsy, hypothesis design, decision); workers do the *implementation + runs*.
+- **Max 2 workers at once.** Check `limen jobs --running` before spawning.
+- **Model-level economy.** Implementation/backtest workers that follow a precise spec run on
+  the **codex** provider (`--provider openai-codex`, e.g. `gpt-5.6-sol` for causality-sensitive
+  code, `gpt-5.3-codex-spark` for routine) to spare the Claude subscription. Reserve Claude
+  engine for review or genuinely hard reasoning. Pick the lowest level that will get it right.
+- **§15 report home:** the mandatory end-of-series Coordinator report (protocol §15, Q1–10)
+  is recorded in the **§15 Coordinator report** section just below, updated at the end of each
+  series, and also delivered to the human in chat.
+
+## §15 Coordinator report (updated 2026-10-01, after EMA3_21 protocol pass)
+
+1. **Best strategy now?** None promotable. Best-evidenced CONDITIONAL base = `EMA3_21_50_200`
+   (highest full-slice net, 3/12 monthly floor). `DONCHIAN_55_NO_TRAIL` FREEZE (exhausted).
+2. **Why best?** Widest aggregate-positive span + best monthly floor of the catalog5 class; but
+   "best" = best surviving screen, not validated (0/10 series clear §7).
+3. **Edge from many trades or few big wins?** Few big wins. EMA3_21: 4 of 402 trades = full net;
+   2024-11 alone = +813 of +817; top-3 winners = 97% of net.
+4. **Earns when?** High-conviction long breakouts that run to the opposite EMA extreme
+   (`signal_reverse`), concentrated in Oct–Nov 2024; longs carry (+875), shorts don't (−58).
+5. **Loses when?** Shared basket regime — 6/12 months have ≥4/5 symbols net-negative together
+   (Aug/Sep 2024 = 5/5); 68.7% of trades die at the fixed stop (0% WR).
+6. **Rejected hypotheses?** Per-name: entry-vol/abs-ATR gate (now falsified on EMA3_21's own
+   trades, not by transfer), exit-class, partial-exit, long-only (expectancy up but regularity
+   worse). Class/sibling: take-profit, trailing, EMA-trend confirm, cross-symbol agreement,
+   loss-cooldown, vol-inverse sizing, BTC-ER permission filter (btc_filter, H2-falsified),
+   ~20 swarm families (all H2-falsified).
+7. **Unresolved problem?** Monthly regularity: the losses are a shared basket regime, and every
+   lever that cuts them also cuts the fat-tail winners that are the entire edge (long-only and
+   the vol gate both demonstrated this tension).
+8. **Next experiment & why?** `H-CATALOG5-BREADTH-REGIME-01` — a causal basket-breadth veto on
+   EMA3_21 (fraction of 5 symbols above own EMA200 at the decision bar), because the one
+   untested lever the autopsy points to is portfolio-level regime, and it must not be closed
+   "by transfer" from the Donchian btc_filter result (same discipline that reopened catalog5).
+   Pre-registered with a tail-retention falsifier so it cannot repeat the long-only mistake.
+9. **Why not a random search?** §13 gate is not cleared: no written non-correlated-mechanism
+   justification with budget + falsification exists, and the per-name axes are not all closed
+   on their own evidence yet (regime axis is the last licensed one). Random widening is
+   forbidden by §9/§13.
+10. **What result confirms/refutes the next hypothesis?** Confirm: some breadth threshold
+    lowers the pooled losing-month floor below 7/12 AND keeps ≥50% of big-winner PnL AND holds
+    for ≥2 carrying symbols. Refute (any one): no threshold improves the floor; the best-floor
+    threshold removes >50% of big-winner PnL; improvement is single-symbol; or n_trades drops
+    >60% (starvation).
+
 ## Chronological log
 
 - **2026-10-01** — Merged all outstanding research branches to `main` (FF of 11 commits +
