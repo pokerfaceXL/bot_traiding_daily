@@ -76,20 +76,40 @@ is a portfolio-level regime mechanism (§8 regime filter / F007) or a per-name e
 
 ## Next planned step (not yet run)
 
-1. **Independent protocol autopsy of `EMA3_21_50_200`** (best CONDITIONAL base: highest
-   full-slice net, best monthly floor) on its *own* per-trade table
-   (`output/f006_catalog5_trio_autopsy/trades/EMA3_21_50_200_train1_trades.csv` and the
-   per-series autopsy CSVs under `output/f006_signal_autopsy/catalog5_trio/autopsy/`), to test
-   whether the entry axis really transfers from Donchian or whether this name has a separable
-   entry-time signature the Donchian analogy missed.
-2. From that autopsy, formulate **one** pre-registered hypothesis (format in protocol §2/§8),
-   fixed metrics + falsification condition, Train-1 only, no holdout tuning.
-3. Run one small experiment; log the decision here.
+The `EMA3_21_50_200` protocol pass is **done** (autopsy + one experiment, below). It closed the
+entry-vol and direction axes on this name's own trades and pointed to one remaining lever:
+
+- **Causal regime signal, class-wide (F007 territory).** The losing months are shared across
+  the basket (autopsy §4: 6/12 months have ≥4/5 symbols net-negative together), so a per-name,
+  single-axis entry/exit/sizing refinement cannot fix monthly regularity. The only licensed
+  next step is a **separately pre-registered** causal regime signal (portfolio-level veto or
+  weight, no look-ahead; protocol §8 regime filter / §13), defined with metrics + falsification
+  **before** implementation. It is scoped against the whole catalog5 NO_TRAIL class, not one
+  profile. **Not yet written** — next coordinator action is to draft that pre-registration.
+- Before committing to the regime axis, consider whether the same autopsy (direction asymmetry,
+  shared-regime months) reproduces on a second catalog5 name (e.g. `EMA_50_200`, which shares
+  the 3/12 floor) — if it does, the regime lever is the right class-wide bet; if direction
+  asymmetry does *not* reproduce, revisit.
+- **Do not** run a broad search or a new family: protocol §13 gate is not cleared (no written
+  non-correlated-mechanism justification with budget + falsification exists yet).
 
 ## Chronological log
 
 - **2026-10-01** — Merged all outstanding research branches to `main` (FF of 11 commits +
   6 exit-grid-sparse merges + XS_RS/ORB_UTC cherry-picks + integration fixups; 460 tests
   pass). Pushed to `origin/main`. See `build.md` NOW.
-- **2026-10-01** — Protocol made binding. Corrected catalog5 FREEZE → CONDITIONAL (this
-  entry). Started this journal. Next: independent protocol autopsy of `EMA3_21_50_200`.
+- **2026-10-01** — Protocol made binding. Corrected catalog5 FREEZE → CONDITIONAL. Started
+  this journal. Next: independent protocol autopsy of `EMA3_21_50_200`.
+- **2026-10-01** — **`EMA3_21_50_200` autopsy done** (`spec/research/F006-ema3-21-autopsy.md`,
+  `scripts/f006_ema3_21_autopsy.py`). Findings: (1) entry-vol axis independently FALSIFIED on
+  its own trades (atr_percentile/calm identical for initial_sl vs signal_reverse) — confirms
+  the Donchian transfer, now earned; (2) NEW causal direction asymmetry (longs +875 / shorts
+  −58, all big winners long); (3) losing months are shared-regime (6/12 with ≥4/5 symbols
+  down together).
+- **2026-10-01** — **H-EMA3-21-LONG-ONLY-01 = FALSIFIED**
+  (`spec/research/F006-hypothesis-ema3-21-long-only.md`). Long-only raises expectancy
+  (+2.03→+4.61/trade) and keeps 96.8% of fat tails, but worsens the losing-month floor
+  (7→9/12) because the short book partially hedged long-losing months — expectancy and daily
+  regularity are in tension. Kept as a higher-EV **F007 portfolio-component** input, not a
+  regularity fix. `EMA3_21_50_200` stays **CONDITIONAL**; entry-vol + direction now both closed
+  on its own trades; remaining lever = class-wide causal regime signal (see Next planned step).
