@@ -1,0 +1,10 @@
+{
+  "git_commit": "d332457a74a30b83622bad5b7af7452e6ab0742d",
+  "exit_cell": "NO_TRAIL",
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "take_profit_multiple": null
+  },
+  "shared_manifest": "../manifest.json"
+}
