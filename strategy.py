@@ -484,6 +484,16 @@ import donchian as _donchian  # noqa: E402
 
 STRATEGY_CATALOG.update(_donchian.catalog_entries())
 
+# F006 — realized-vol-percentile regime wrap around the frozen Donchian(20) breakout
+# trigger (H-VOL-REGIME-WRAP-01). Depends only on donchian.py (already-merged sibling
+# family above), self-contained ATR/percentile math otherwise, no add_indicators
+# dependency. Zadne istniejace wpisy/funkcje powyzej nie sa zmieniane. Kontrakt
+# wejscia/wyjscia identyczny: callable(df) -> Series.
+# Uzasadnienie: spec/research/F006-hypothesis-vol-regime-wrap.md.
+import vol_regime_wrap as _vol_regime_wrap  # noqa: E402
+
+STRATEGY_CATALOG.update(_vol_regime_wrap.catalog_entries())
+
 
 # ──────────────────────────────────────────────────────────────
 #  SILNIK BACKTESTOW z trailing stop (ATR-based + aktywacja)
