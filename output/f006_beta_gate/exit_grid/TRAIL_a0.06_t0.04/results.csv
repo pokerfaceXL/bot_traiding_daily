@@ -1,0 +1,21 @@
+symbol,interval,strategy,exit_cell,n_calls,net_pnl,train1_net_pnl,win_rate,n_trades,n_wins,max_drawdown_pct,final_equity,n_valid_months,all_valid_months_nonnegative,legacy_h2,h2_sparse_absent_zero_trade,n_scored_months,train1_exit_n_trades,train1_exit_net_pnl,exit_mix
+SOLUSDT,240,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,100,-78.588937,-75.330315,35.44,79,28,17.5422,421.411063,12,False,False,False,12,73,-75.33031492381514,"{""initial_sl"": 48, ""signal_reverse"": 2, ""trailing_sl"": 29}"
+SOLUSDT,240,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+ETHUSDT,240,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,105,-39.741121,-66.240101,41.1,73,30,13.6032,460.258879,12,False,False,False,12,71,-66.24010143779583,"{""initial_sl"": 40, ""signal_reverse"": 1, ""trailing_sl"": 32}"
+ETHUSDT,240,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,240,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,100,-0.243187,-15.717996,36.36,66,24,6.3251,499.756813,12,False,False,False,12,64,-15.71799556880045,"{""initial_sl"": 32, ""signal_reverse"": 9, ""trailing_sl"": 25}"
+BTCUSDT,240,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+XRPUSDT,240,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,110,-47.761803,-46.526661,35.06,77,27,10.3508,452.238197,12,False,False,False,12,71,-46.52666113612432,"{""initial_sl"": 34, ""signal_reverse"": 7, ""trailing_sl"": 36}"
+XRPUSDT,240,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,4,-13.28,-13.28,0.0,4,0,2.656,486.72,12,False,False,False,2,4,-13.27999999999999,"{""initial_sl"": 4}"
+DOGEUSDT,240,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,105,-106.497234,-107.722733,28.92,83,24,22.0592,393.502766,12,False,False,False,12,78,-107.7227332932103,"{""initial_sl"": 52, ""trailing_sl"": 31}"
+DOGEUSDT,240,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+SOLUSDT,60,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,467,-206.495123,-182.658323,32.47,271,88,43.4332,293.504877,12,False,False,False,12,241,-183.3381276327902,"{""end_of_data"": 1, ""initial_sl"": 130, ""signal_reverse"": 65, ""trailing_sl"": 75}"
+SOLUSDT,60,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+ETHUSDT,60,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,466,-149.393476,-161.159932,30.26,228,69,32.3285,350.606524,12,False,False,False,12,214,-160.85520888531548,"{""end_of_data"": 1, ""initial_sl"": 76, ""signal_reverse"": 108, ""trailing_sl"": 43}"
+ETHUSDT,60,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+BTCUSDT,60,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,457,-85.097952,-71.95642,29.03,217,63,19.575,414.902048,12,False,False,False,12,195,-71.29825882351274,"{""end_of_data"": 1, ""initial_sl"": 38, ""signal_reverse"": 152, ""trailing_sl"": 26}"
+BTCUSDT,60,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
+XRPUSDT,60,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,475,-261.528093,-233.425723,24.37,238,58,53.9281,238.471907,12,False,False,False,12,216,-233.0166381544564,"{""end_of_data"": 1, ""initial_sl"": 109, ""signal_reverse"": 77, ""trailing_sl"": 51}"
+XRPUSDT,60,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,7,-15.465968,-15.465968,14.29,7,1,4.0083,484.534032,12,False,False,False,3,7,-15.46596842105263,"{""initial_sl"": 6, ""trailing_sl"": 1}"
+DOGEUSDT,60,BETA_GATE_DONCH20,TRAIL_a0.06_t0.04,455,-218.229647,-179.545209,31.27,275,86,46.6075,281.770353,12,False,False,False,12,250,-178.21685943995612,"{""end_of_data"": 1, ""initial_sl"": 137, ""signal_reverse"": 50, ""trailing_sl"": 87}"
+DOGEUSDT,60,BETA_GATE_MR_DONCH20,TRAIL_a0.06_t0.04,0,0.0,0.0,0.0,0,0,0.0,500.0,12,True,False,False,0,0,0.0,{}
