@@ -1,5 +1,17 @@
 # F006 — catalog5 NO_TRAIL shared fat-tail class: family insufficiency (COORDINATOR_RESEARCH_PROTOCOL §13)
 
+> **CORRECTION 2026-10-01 (read first; overrides the FREEZE addendum below).** The five
+> catalog5 profiles are back to **CONDITIONAL**, not FREEZE. The 2026-09-30 move to FREEZE
+> rested on closing the *entry* axis as DNR **by transfer** from `DONCHIAN_55` — i.e. by
+> analogy, never by an independent protocol autopsy of each catalog5 name's own trades. Under
+> the now-binding `spec/COORDINATOR_RESEARCH_PROTOCOL.md` that transfer does not count as a
+> research pass, so the entry axis is reopened for these five. What genuinely stays closed:
+> the *exit* axis (`H-CATALOG5-EXIT-CLASS-01`, `H-CATALOG5-PARTIAL-EXIT-01`, both FALSIFIED on
+> these names' own runs). Only `DONCHIAN_55_NO_TRAIL` remains FREEZE (it was exhausted on its
+> own trades, incl. its own abs-ATR entry gate). Single source of truth for current status:
+> `spec/RESEARCH_JOURNAL.md` + `spec/research/strategy_profiles/*.md`. Everything below this
+> banner is kept verbatim as the historical (pre-protocol) record.
+
 > Documentation/analysis only. No new strategy family is spawned by this note; it only
 > answers whether/when one is allowed for the five CONDITIONAL catalog5 `NO_TRAIL` profiles
 > listed below. It is modeled on the finalized

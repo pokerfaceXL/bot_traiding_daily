@@ -3,6 +3,14 @@
 Mandatory end-of-series report, covering the Donchian autopsy + catalog5 dual/trio autopsy +
 this job's §13 finalization series.
 
+> **CORRECTION 2026-10-01 (read first).** This report's answer to Q1–Q3 treats the five
+> catalog5 names as FROZEN/not-promotable; that FREEZE is **withdrawn** — they are back to
+> **CONDITIONAL**. Their entry axis was only ever closed as DNR *by transfer* from Donchian,
+> never by an independent protocol autopsy of each name's own trades, so under the now-binding
+> protocol it is reopened. The exit axis stays closed (EXIT-CLASS/PARTIAL-EXIT FALSIFIED on
+> these names). Only `DONCHIAN_55_NO_TRAIL` stays FREEZE. This report remains valid as the
+> history of the pre-protocol series; current status lives in `spec/RESEARCH_JOURNAL.md`.
+
 > **Update (2026-09-30):** after this report, `H-CATALOG5-EXIT-CLASS-01` (tip `923de9c`,
 > FALSIFIED (a)(b)(c)) and `H-CATALOG5-PARTIAL-EXIT-01` (tip `3d4edd4`, FALSIFIED (a)(b))
 > exhausted the licensed exit-grid and partial-exit axes, with the entry-vol axis already DNR.
