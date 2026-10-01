@@ -159,8 +159,8 @@ def test_catalog_gained_five_xs_rs_entries_and_left_the_other_83_bit_identical()
     for name in xsrs.NAME_GRID:
         assert callable(strategy.STRATEGY_CATALOG[name])
     # 79 F005 baseline + 2 Lorentzian (F006) + 4 Donchian (F006) + 3 vol-regime-wrap
-    # (F006, merged earlier) + 5 XS_RS (this slice)
-    assert len(strategy.STRATEGY_CATALOG) == 93
+    # + 5 XS_RS + 5 ORB_UTC (F006 slices merged onto this line)
+    assert len(strategy.STRATEGY_CATALOG) == 98
 
     with open(PRE_XSRS_FINGERPRINTS) as f:
         expected = json.load(f)
