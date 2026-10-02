@@ -24,7 +24,7 @@
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
-| `BB_20_25_EMA200` | **CONDITIONAL** | partial (entry-vol own-trades now done; sizing open) | entry-vol/abs-ATR FALSIFIED on own trades (`3788f11`); stay CONDITIONAL — sizing next | `strategy_profiles/BB_20_25_EMA200.md` |
+| `BB_20_25_EMA200` | **CONDITIONAL** | partial (entry-vol FALSIFIED; xsym sizing Train-1 passed, validation open) | causal xsym-agree sizing NOT FALSIFIED on own Train-1 trades (`1c9ff7e`, floor 7/12 to 5/12); stay CONDITIONAL — Validation-1 next; do not FREEZE | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_2_EMA200.md` |
@@ -104,13 +104,16 @@ idiosyncratic failures. This **blocks** §8 in-class portfolio diversification (
 regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
 blocks portfolio combination.
 
-**Next = continue protocol loop on CONDITIONAL catalog5** (one name, one hypothesis, on an
-open axis), NOT owner §13-only gate. Highest priority remains `BB_20_25_EMA200` (§7
-develop-not-abandon). Entry-vol/abs-ATR now **closed** on this name (`H-BB-20-25-ABS-ATR-ENTRY-GATE-01`
-FALSIFIED tip `3788f11`). Next open axis = **position sizing** — pre-registered
-`H-BB-20-25-XSYM-AGREE-SIZING-01` (cross-symbol agreement via `stake_series`, orthogonal to ATR).
-Do not invent new OHLCV axes; do not start another catalog search; do not jump to §13
-non-correlated data until the per-name loop on CONDITIONAL names is further along.
+**Next = Validation-1 of the sizing formula that just passed Train-1**, not a new name and
+not FREEZE. Highest priority remains `BB_20_25_EMA200` (§7 develop-not-abandon). Entry-vol
+is closed (FALSIFIED tip `3788f11`). `H-BB-20-25-XSYM-AGREE-SIZING-01` is **NOT FALSIFIED**
+on this name's own Train-1 trades (causal tip `1c9ff7e`: mean +82.90 to +147.71, pooled
+entry-month floor 7/12 to 5/12, mult gap +0.119). The first FALSIFIED (b) / 11/12 claim was
+a wrong floor union plus lookahead and is withdrawn. §11 still requires chronological
+validation before any promotion. Next pre-reg =
+`H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01` (same frozen causal formula, Validation-1 entries
+only, 2025-03-01 <= entry < 2025-06-01). Holdout stays closed to F006. Do not invent a new
+OHLCV axis in parallel; do not jump to §13.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
@@ -144,7 +147,11 @@ non-correlated data until the per-name loop on CONDITIONAL names is further alon
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-02 evening, after catalog5 FREEZE→CONDITIONAL correction)
+## §15 Coordinator report (updated 2026-10-03 early, after BB_20_25 xsym sizing Train-1 pass)
+
+Short series report: `spec/research/F006-coordinator-series-report-bb-20-25-xsym-agree-sizing.md`.
+Status stays **CONDITIONAL**. Do not FREEZE. Sizing passed Train-1 only.
+
 
 1. **Best strategy now?** None promotable. Among CONDITIONAL, `BB_20_25_EMA200` / `EMA_50_200`
    (best monthly floors 3/12 on one series each, best series-positive rates in catalog5).
@@ -169,21 +176,19 @@ non-correlated data until the per-name loop on CONDITIONAL names is further alon
    (systematically confirmed H-CATALOG5-SHARED-LOSING-MONTHS-01: 6/12 months with ≥4/5 names
    losing together, phi 0.79, Pearson 0.96). On `EMA3_21_50_200` (full protocol pass), every
    expectancy-raising lever leaves floor ≥7/12 because the regime makes both losses and runners.
-   On the four CONDITIONAL catalog5 names, entry+sizing axes remain open (not independently
-   tested on own trades). In-class portfolio combination (§8) is BLOCKED — losses strongly
+   On `BB_20_25_EMA200`, entry-vol is FALSIFIED and xsym sizing passed Train-1 only (validation open). The other three CONDITIONAL names still have entry-vol and sizing untested on their own trades. In-class portfolio combination (§8) is BLOCKED — losses strongly
    correlated.
-8. **Next experiment & why?** Continue protocol loop on CONDITIONAL catalog5 (one name, one hyp,
-   one open axis). Highest priority: `BB_20_25_EMA200` (best monthly floor / journal cite),
-   open axis = entry-vol/abs-ATR own-trades gate (or position sizing). NOT owner §13-only gate.
-   Finish per-name protocol pass before moving to non-correlated data.
-9. **Why not a random search?** §7 develop-before-abandon. Finish the per-name protocol loop
-   first on CONDITIONAL catalog5. §13 (non-correlated data) remains an option after that, but
-   requires written non-correlated-mechanism justification + budget + falsification. Random
-   widening remains forbidden by §9/§13.
-10. **What result confirms/refutes the next hypothesis?** Same bar as before: falsified unless,
-    on the frozen Train-1 basket, it lowers the pooled losing-month floor below baseline (7/12
-    for most catalog5 names under class-closure; name-specific baseline from autopsy) while
-    keeping ≥50% of big-winner PnL and holding for ≥2 carrying symbols.
+8. **Next experiment & why?** `H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01` on `BB_20_25_EMA200`.
+   The causal xsym-agree stake passed Train-1 (tip `1c9ff7e`) and must be checked on
+   Validation-1 before any new axis, another name, or FREEZE. Same formula, no retune, no holdout.
+9. **Why not a random search?** §11: a Train-1 pass is not evidence until chronological
+   validation. One frozen formula. §13 and a new entry structure wait until that validation
+   is decided.
+10. **What result confirms/refutes the next hypothesis?** On Validation-1 entries only
+    (2025-03-01 <= entry < 2025-06-01), falsified if sized mean net <= uniform control, OR the
+    pooled losing-month count out of those 3 months is worse than control, OR the pooled
+    winner-loser mult gap <= 0, OR the trade-count invariant breaks, OR stake_cv <= 0.05.
+    Confirm only if none of those fire. Holdout is not opened.
 
 ## Chronological log
 
@@ -245,3 +250,11 @@ non-correlated data until the per-name loop on CONDITIONAL names is further alon
   position sizing on same name; cross-symbol agreement stake via `stake_series`; orthogonal to
   ATR). Ticket `spec/features/active/F006-bb-20-25-xsym-agree-sizing/ticket.md`.
 
+
+- **2026-10-03 early** — **H-BB-20-25-XSYM-AGREE-SIZING-01 = NOT FALSIFIED** (Train-1 only).
+  Tip `1c9ff7e` FF-merged to `origin/main`. Reviews: metric/lookahead FAIL then causal PASS
+  `2026-10-02-f006-bb2025-xsym-agree-sizing-re-ca2e09d0`. Control +82.90, n=512, floor 7/12;
+  causal sized +147.71, floor 5/12, mult gap +0.119, stake_cv 0.526. The first FALSIFIED (b)
+  at 11/12 is withdrawn (union floor + lookahead). Decision = **REFINE**. `BB_20_25_EMA200`
+  stays **CONDITIONAL** (do not FREEZE; validation still open; entry-vol remains FALSIFIED).
+  Next = `H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01`.

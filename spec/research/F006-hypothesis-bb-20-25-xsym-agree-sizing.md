@@ -152,4 +152,25 @@ This is a Train-1 result only; validation and any profile decision remain outsid
 
 ## Decision
 
-(empty — coordinator only after Result)
+**REFINE** (2026-10-03 early, Europe/Warsaw). Coordinator confirms the corrected Result:
+**NOT FALSIFIED** on `BB_20_25_EMA200` own Train-1 trades. The first worker claim
+FALSIFIED (b) at a 11/12 floor is **rejected**. That figure was the union of months where
+any single series lost, not the pre-registered pooled entry-month floor (control is 7/12),
+and the stake series looked one bar ahead of the fill. Review
+`2026-10-02-f006-bb2025-xsym-agree-sizing-re-de672b47` FAILed those defects. After the
+cohort fix and a causal shift (fill bar `i` uses agreement from closed bar `i-1`), review
+`2026-10-02-f006-bb2025-xsym-agree-sizing-re-ca2e09d0` **PASS** on tip `1c9ff7e`
+(FF-merged to `origin/main`).
+
+Causal Train-1 evidence (number_of_trials = 1, formula frozen):
+
+- control mean **+82.90**, Train-1-entry n=512, net **+709.85**, pooled entry-month floor **7/12**
+- sized mean **+147.71**, n=512, net **+1344.18**, floor **5/12**
+- pooled mean(mult|winner)−mean(mult|loser) **+0.119**, stake_cv **0.526** (every series > 0.05)
+- n_trades invariant held (560 closed and 512 Train-1-entry)
+
+Conditions (a)–(e) do not fire. This is not a FREEZE and not a promotion. Entry-vol stays
+FALSIFIED (a) on this name (`3788f11`). Direction and breadth stay closed on this name's
+own class-closure cells. The sizing formula is earned on Train-1 only. §11 validation is
+still open; F006 holdout stays closed. Status remains **CONDITIONAL**. Next =
+`H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01` (same causal formula, Validation-1 only).
