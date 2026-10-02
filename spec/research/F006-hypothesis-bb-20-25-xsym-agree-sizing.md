@@ -101,7 +101,58 @@ decision_if_fail: keep CONDITIONAL; mark position-sizing (xsym-agree formula) cl
 
 ## Result
 
-(empty — fill after T0 run)
+**Run_id:** `scripts/f006_bb_20_25_xsym_agree_sizing.py` @ `e6858fc`, 2026-10-02T21:45:13Z  
+**Artifacts:** `output/f006_bb_20_25_xsym_agree_sizing/`  
+**Outcome:** FALSIFIED on condition (b) — pooled losing-month floor did not improve.  
+**number_of_trials:** 1 (single pre-registered formula).
+
+### Control arm (stake_series=None, uniform 100)
+
+- mean train1_net_pnl: **+82.90** across 10 series (SOLUSDT/ETHUSDT/BTCUSDT/XRPUSDT/DOGEUSDT × 240/60m)  
+- pooled entry cohort: n=560, net=**+829.00** (net/trade ≈ +1.48)  
+- pooled losing-month floor: **11/12** (only 2025-01 non-negative across all series)  
+- Baseline reproduction confirmed: control matches catalog5 / abs-ATR-gate ungated figures exactly.
+
+### Sized arm (mult=clip(0.5+0.375*n_agree,0.5,2.0))
+
+- mean train1_net_pnl: **+103.00** across 10 series (+24.3% vs control)  
+- pooled entry cohort: n=560, net=**+1029.97** (+24.2% vs control, net/trade ≈ +1.84)  
+- pooled losing-month floor: **11/12** (same as baseline — NO IMPROVEMENT)  
+  - Only 2025-01 remains non-negative across all series under sizing.
+  - Individual series: 2 improved (SOLUSDT/60 worsened 3→5, XRPUSDT/60 worsened 6→7), 8 unchanged.
+- mean(mult|winner) - mean(mult|loser): **+0.201** (mechanism working: winners received higher mult)  
+- stake_cv: all 10 series > 0.05 (range 0.37–0.63); genuinely varying weights, not degenerate uniform.
+- n_trades invariant: PASS — all series 560→560 total; per-series and per-month counts unchanged.
+
+### Falsification assessment
+
+Pre-declared falsification conditions:
+
+(a) mean train1_net_pnl ≤ baseline → **PASS** (103.00 > 82.90)  
+(b) pooled losing-month floor does not improve → **FAIL** (11/12 ≥ 11/12)  
+(c) mean(mult|winner) - mean(mult|loser) ≤ 0 → **PASS** (+0.201 > 0)  
+(d) n_trades invariant broken → **PASS** (560 == 560)  
+(e) stake_cv ≤ 0.05 → **PASS** (all series > 0.05)  
+
+**Verdict:** FALSIFIED on (b). Cross-symbol agreement sizing raised mean PnL and correctly weighted
+winners higher than losers, but left the losing-month floor unchanged — the same 11 months that
+lost under uniform stake also lost under sized weights. This falsifies the hypothesis that
+agreement-based sizing would "strictly lower the pooled losing-month floor" by reweighting months
+without removing runners.
+
+### Mechanism interpretation
+
+The positive mean(mult|winner−loser) gap demonstrates the intended mechanism: entries with higher
+cross-symbol agreement do skew toward winners. However, the shared-basket regime structure means
+agreement weights correlate with the same months that already lose — high-agreement entries
+concentrate in the same drawdown months, and low-agreement entries concentrate in the same
+winning months. Raising relative weight on consensus breakouts amplified both sides of the
+regime-aligned distribution, increasing mean PnL without addressing the losing-month floor.
+
+This result closes position-sizing (xsym-agree formula) on BB_20_25_EMA200. ATR-magnitude levers
+(abs-ATR entry gate, ATR%-inverse sizing) were already closed on this name (tips `3788f11`, F006
+vol-inverse FALSIFIED on related NO_TRAIL leads). No non-ATR sizing signal has cleared monthly
+regularity on this name under protocol.
 
 ## Decision
 

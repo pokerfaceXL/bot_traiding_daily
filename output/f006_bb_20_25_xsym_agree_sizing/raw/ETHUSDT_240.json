@@ -1,0 +1,216 @@
+{
+  "symbol": "ETHUSDT",
+  "interval": "240",
+  "n_trades_baseline": 22,
+  "n_trades_sized": 22,
+  "train1_net_pnl_baseline": 16.878825,
+  "train1_net_pnl_sized": 39.931072,
+  "pooled_losing_month_floor_baseline": 6,
+  "pooled_losing_month_floor_sized": 6,
+  "losing_months_baseline": [
+    [
+      2024,
+      4
+    ],
+    [
+      2024,
+      6
+    ],
+    [
+      2024,
+      7
+    ],
+    [
+      2024,
+      9
+    ],
+    [
+      2024,
+      10
+    ],
+    [
+      2024,
+      12
+    ]
+  ],
+  "losing_months_sized": [
+    [
+      2024,
+      4
+    ],
+    [
+      2024,
+      6
+    ],
+    [
+      2024,
+      7
+    ],
+    [
+      2024,
+      9
+    ],
+    [
+      2024,
+      10
+    ],
+    [
+      2024,
+      12
+    ]
+  ],
+  "stake_cv": 0.520127,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 0.828125,
+  "mean_mult_losers": 0.6875,
+  "mean_mult_gap": 0.140625,
+  "baseline_monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 12.893200780514007
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -25.670938971874648
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": 6.081233417032877
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -10.894593174463466
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -8.687554582450616
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 20.929149077493094
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -8.779533374571542
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -5.976017231607443
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 42.21739276777305
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -14.366675453150037
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": 1.7830802047791394
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": 7.350081797482744
+    }
+  ],
+  "sized_monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "net_pnl": 6.446600390257004
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "net_pnl": -14.082156985937331
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "net_pnl": 10.094916771291082
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "net_pnl": -12.560635496875875
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "net_pnl": -7.51659520483571
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "net_pnl": 10.464574538746547
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "net_pnl": -4.389766687285714
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "net_pnl": -4.386740105329579
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "net_pnl": 69.14721000286829
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "net_pnl": -23.34584761136864
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "net_pnl": 6.384471445482745
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "net_pnl": 3.675040898741372
+    }
+  ],
+  "seconds": 0.14
+}

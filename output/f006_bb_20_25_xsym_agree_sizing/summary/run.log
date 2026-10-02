@@ -1,0 +1,20 @@
+F006 H-BB-20-25-XSYM-AGREE-SIZING-01
+Run started: 2026-10-02T21:45:13.462450+00:00
+Commit: e6858fc38256c6f545f035939a58ca5af45dc136
+
+Control arm (stake_series=None, uniform 100):
+  mean train1_net_pnl: 82.90 (across 10 series)
+  pooled entry cohort: n=560, net=829.00
+  pooled losing-month floor: 11/12
+
+Sized arm (mult=clip(0.5+0.375*n_agree,0.5,2.0)):
+  mean train1_net_pnl: 103.00
+  pooled entry cohort: n=560, net=1029.97
+  pooled losing-month floor: 11/12
+  mean(mult|winner) - mean(mult|loser): 0.201284
+
+Falsification status: True
+Conditions violated:
+  - (b) pooled losing-month floor did not improve (11 >= 11)
+
+Elapsed: 6.6s
