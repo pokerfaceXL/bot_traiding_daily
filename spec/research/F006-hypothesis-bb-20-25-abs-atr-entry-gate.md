@@ -143,4 +143,23 @@ next open lever = position sizing or a §8 entry structure with a new written me
 
 ## Decision
 
-(empty — coordinator only after Result)
+**FALSIFIED** (condition (a); confirmed by review PASS on tip `3788f11`, FF-merged to
+`origin/main` 2026-10-02 ~23:40 Europe/Warsaw). All five pre-registered thresholds reduced mean
+Train-1 net PnL below the ungated control (+82.90). Best stop-share drop (T=1.0%, −14.1pp) still
+underperformed by 45.54 mean PnL and retained only 35% of baseline big-winner PnL. Loose T=2.0%
+kept 85% of big-winner PnL but still fell 9.14 mean PnL short. Reviewer nonblocking note stands:
+cells that reached 6/12 floors retained ≥23.9 trades/series (above the thin cutoff) — failure is
+lost big-winner retention / lower total PnL, not sample starvation.
+
+**Strategy status:** keep **CONDITIONAL**. Do **not** FREEZE. Entry-vol / abs-ATR axis is now
+**closed on this name's own trades** (was DNR-by-transfer; now formally evaluated and rejected).
+
+**reason:** falsifier (a) hit at every T; causal keep-low-ATR gate removes essential
+`signal_reverse` runners along with `initial_sl` noise — same family shape as Donchian/EMA3_21
+entry-vol, now earned here.
+
+**next_action:** continue §7 develop-not-abandon on `BB_20_25_EMA200`. Next open axis =
+**position sizing** (never tested on this name under protocol). Prefer a sizing signal
+**orthogonal to ATR magnitude** (vol-inverse already FALSIFIED on related NO_TRAIL leads;
+abs-ATR gate just FALSIFIED here). Pre-register
+`H-BB-20-25-XSYM-AGREE-SIZING-01` (cross-symbol agreement stake via `stake_series`).

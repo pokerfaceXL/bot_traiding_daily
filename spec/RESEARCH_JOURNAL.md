@@ -24,7 +24,7 @@
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
-| `BB_20_25_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_25_EMA200.md` |
+| `BB_20_25_EMA200` | **CONDITIONAL** | partial (entry-vol own-trades now done; sizing open) | entry-vol/abs-ATR FALSIFIED on own trades (`3788f11`); stay CONDITIONAL — sizing next | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_2_EMA200.md` |
@@ -105,10 +105,12 @@ regularity. However, this diagnostic finding does **not** license class-wide FRE
 blocks portfolio combination.
 
 **Next = continue protocol loop on CONDITIONAL catalog5** (one name, one hypothesis, on an
-open axis), NOT owner §13-only gate. Highest priority: `BB_20_25_EMA200`, open axis =
-entry-vol/abs-ATR own-trades gate (or position sizing). Do not invent new OHLCV axes; do not
-start another catalog search. But do **not** jump to §13 non-correlated data — finish the
-per-name protocol pass first on the CONDITIONAL names.
+open axis), NOT owner §13-only gate. Highest priority remains `BB_20_25_EMA200` (§7
+develop-not-abandon). Entry-vol/abs-ATR now **closed** on this name (`H-BB-20-25-ABS-ATR-ENTRY-GATE-01`
+FALSIFIED tip `3788f11`). Next open axis = **position sizing** — pre-registered
+`H-BB-20-25-XSYM-AGREE-SIZING-01` (cross-symbol agreement via `stake_series`, orthogonal to ATR).
+Do not invent new OHLCV axes; do not start another catalog search; do not jump to §13
+non-correlated data until the per-name loop on CONDITIONAL names is further along.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
@@ -233,3 +235,13 @@ per-name protocol pass first on the CONDITIONAL names.
   {median, 1.0%, 1.25%, 1.5%, 2.0%}; big-winner freeze net≥29.9; expect possible falsification
   (Donchian+EMA3_21 entry-vol both failed), but this axis was never independently run on BB's
   own trades.
+- **2026-10-02 night** — **H-BB-20-25-ABS-ATR-ENTRY-GATE-01 = FALSIFIED (a)** (tip `3788f11`,
+  review PASS `2026-10-02-f006-bb2025-entry-vol-review-45b3ee8a`, FF-merged to `origin/main`).
+  Control mean +82.90 reproduced; all 5 T below baseline. Entry-vol axis closed on
+  `BB_20_25_EMA200` own trades. Status stays **CONDITIONAL** (do not FREEZE). Decision +
+  profile + §15 report
+  `spec/research/F006-coordinator-series-report-bb-20-25-abs-atr-entry-gate.md` filled.
+- **2026-10-02 night** — **H-BB-20-25-XSYM-AGREE-SIZING-01 pre-registered** (next open axis =
+  position sizing on same name; cross-symbol agreement stake via `stake_series`; orthogonal to
+  ATR). Ticket `spec/features/active/F006-bb-20-25-xsym-agree-sizing/ticket.md`.
+
