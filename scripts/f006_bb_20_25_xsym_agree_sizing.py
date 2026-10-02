@@ -101,7 +101,12 @@ def compute_agreement_multiplier_series(
     others_train1_dfs: dict[str, pd.DataFrame],
     interval: str,
 ) -> pd.Series:
-    """Return the frozen agreement multiplier on the engine-aligned signal index."""
+    """Return the causal frozen multiplier aligned to the engine's fill-bar index.
+
+    A signal observed at bar i close queues an entry filled at bar i+1 open. The engine reads
+    stake_series at that fill bar, so shift the closed-bar agreement forward one row. The first
+    bar has no prior closed-bar agreement and therefore uses the uniform 1.0 multiplier.
+    """
     own = entry_masks.normalized_signal(
         entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=NOW)
     )
@@ -111,7 +116,8 @@ def compute_agreement_multiplier_series(
             entry_masks.strategy_signal_series(df, NAME, interval=interval, now=NOW)
         ).reindex(own.index).fillna(0)
         n_agree += ((other == own) & (own != 0)).astype(int)
-    return (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)
+    closed_bar_mult = (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)
+    return closed_bar_mult.shift(1).fillna(1.0)
 
 
 def _net_pnl_for_months(days) -> float:
@@ -395,6 +401,7 @@ def main():
             "initial_equity": INITIAL_EQUITY,
             "base_stake": BASE_STAKE,
             "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+            "stake_alignment": "fill bar uses multiplier from prior closed bar; leading fillna(1.0)",
             **FIXED_PARAMS,
         },
         "cell_summary": cell_summary,
