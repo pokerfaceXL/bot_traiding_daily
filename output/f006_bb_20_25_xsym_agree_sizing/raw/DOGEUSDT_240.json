@@ -7,16 +7,16 @@
   "n_trades_train1_entry_sized": 24,
   "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 111.903223,
-  "train1_net_pnl_sized": 134.549824,
+  "train1_net_pnl_sized": 64.633039,
   "train1_entry_net_pnl_baseline": 54.322109,
-  "train1_entry_net_pnl_sized": 62.573432,
+  "train1_entry_net_pnl_sized": -7.343353,
   "losing_month_floor_baseline": 6,
   "losing_month_floor_sized": 6,
-  "stake_cv": 0.449743,
+  "stake_cv": 0.516815,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.875,
-  "mean_mult_losers": 0.6875,
-  "mean_mult_gap": 0.1875,
+  "mean_mult_winners": 0.6875,
+  "mean_mult_losers": 1.11875,
+  "mean_mult_gap": -0.43125,
   "baseline_entry_monthly": [
     {
       "month": "2024-03",
@@ -74,11 +74,11 @@
     },
     {
       "month": "2024-04",
-      "net_pnl": -3.3245
+      "net_pnl": -8.31125
     },
     {
       "month": "2024-05",
-      "net_pnl": -3.32
+      "net_pnl": -7.053313
     },
     {
       "month": "2024-06",
@@ -90,19 +90,19 @@
     },
     {
       "month": "2024-08",
-      "net_pnl": -10.381188
+      "net_pnl": -19.111375
     },
     {
       "month": "2024-09",
-      "net_pnl": -12.037813
+      "net_pnl": -14.527813
     },
     {
       "month": "2024-10",
-      "net_pnl": -6.216562
+      "net_pnl": -9.9465
     },
     {
       "month": "2024-11",
-      "net_pnl": 59.924846
+      "net_pnl": 28.559055
     },
     {
       "month": "2024-12",
@@ -110,7 +110,7 @@
     },
     {
       "month": "2025-01",
-      "net_pnl": 27.665195
+      "net_pnl": 12.784388
     },
     {
       "month": "2025-02",

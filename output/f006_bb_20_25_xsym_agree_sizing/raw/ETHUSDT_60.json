@@ -7,16 +7,16 @@
   "n_trades_train1_entry_sized": 77,
   "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 30.386076,
-  "train1_net_pnl_sized": 83.864186,
+  "train1_net_pnl_sized": 76.417551,
   "train1_entry_net_pnl_baseline": 27.602804,
-  "train1_entry_net_pnl_sized": 79.983798,
+  "train1_entry_net_pnl_sized": 73.580891,
   "losing_month_floor_baseline": 6,
-  "losing_month_floor_sized": 4,
-  "stake_cv": 0.574424,
+  "losing_month_floor_sized": 6,
+  "stake_cv": 0.472091,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.875,
-  "mean_mult_losers": 0.6180555555555556,
-  "mean_mult_gap": 0.256944,
+  "mean_mult_winners": 1.0380434782608696,
+  "mean_mult_losers": 0.9583333333333334,
+  "mean_mult_gap": 0.07971,
   "baseline_entry_monthly": [
     {
       "month": "2024-03",
@@ -70,51 +70,51 @@
   "sized_entry_monthly": [
     {
       "month": "2024-03",
-      "net_pnl": -8.013836
+      "net_pnl": -12.419141
     },
     {
       "month": "2024-04",
-      "net_pnl": 2.228843
+      "net_pnl": -8.833431
     },
     {
       "month": "2024-05",
-      "net_pnl": 2.332819
+      "net_pnl": 11.956133
     },
     {
       "month": "2024-06",
-      "net_pnl": -4.73945
+      "net_pnl": -5.616029
     },
     {
       "month": "2024-07",
-      "net_pnl": 13.032135
+      "net_pnl": 35.822574
     },
     {
       "month": "2024-08",
-      "net_pnl": 6.655501
+      "net_pnl": 4.67433
     },
     {
       "month": "2024-09",
-      "net_pnl": 11.920769
+      "net_pnl": 6.505114
     },
     {
       "month": "2024-10",
-      "net_pnl": -4.670877
+      "net_pnl": -3.218489
     },
     {
       "month": "2024-11",
-      "net_pnl": 36.807868
+      "net_pnl": 35.564555
     },
     {
       "month": "2024-12",
-      "net_pnl": 0.146323
+      "net_pnl": -6.920743
     },
     {
       "month": "2025-01",
-      "net_pnl": -2.142017
+      "net_pnl": -1.352031
     },
     {
       "month": "2025-02",
-      "net_pnl": 26.425721
+      "net_pnl": 17.418049
     }
   ],
   "seconds": 0.36

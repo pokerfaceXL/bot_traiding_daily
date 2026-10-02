@@ -7,16 +7,16 @@
   "n_trades_train1_entry_sized": 73,
   "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 85.522585,
-  "train1_net_pnl_sized": 142.039452,
+  "train1_net_pnl_sized": 160.158432,
   "train1_entry_net_pnl_baseline": 103.393923,
-  "train1_entry_net_pnl_sized": 158.075498,
+  "train1_entry_net_pnl_sized": 175.397228,
   "losing_month_floor_baseline": 3,
-  "losing_month_floor_sized": 2,
-  "stake_cv": 0.595082,
+  "losing_month_floor_sized": 3,
+  "stake_cv": 0.488767,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.993421052631579,
-  "mean_mult_losers": 0.5972222222222222,
-  "mean_mult_gap": 0.396199,
+  "mean_mult_winners": 1.3092105263157894,
+  "mean_mult_losers": 0.9444444444444444,
+  "mean_mult_gap": 0.364766,
   "baseline_entry_monthly": [
     {
       "month": "2024-03",
@@ -70,52 +70,52 @@
   "sized_entry_monthly": [
     {
       "month": "2024-03",
-      "net_pnl": 6.178358
+      "net_pnl": 0.766837
     },
     {
       "month": "2024-04",
-      "net_pnl": 11.407433
+      "net_pnl": 2.848496
     },
     {
       "month": "2024-05",
-      "net_pnl": -9.010506
+      "net_pnl": -26.437131
     },
     {
       "month": "2024-06",
-      "net_pnl": 14.886721
+      "net_pnl": 9.818844
     },
     {
       "month": "2024-07",
-      "net_pnl": 25.130078
+      "net_pnl": 45.117827
     },
     {
       "month": "2024-08",
-      "net_pnl": 12.792658
+      "net_pnl": 8.156694
     },
     {
       "month": "2024-09",
-      "net_pnl": 17.643464
+      "net_pnl": 12.670214
     },
     {
       "month": "2024-10",
-      "net_pnl": 0.00532
+      "net_pnl": -4.536042
     },
     {
       "month": "2024-11",
-      "net_pnl": 15.004541
+      "net_pnl": 57.619432
     },
     {
       "month": "2024-12",
-      "net_pnl": -14.114081
+      "net_pnl": -21.539605
     },
     {
       "month": "2025-01",
-      "net_pnl": 70.463744
+      "net_pnl": 66.712242
     },
     {
       "month": "2025-02",
-      "net_pnl": 7.687768
+      "net_pnl": 24.19942
     }
   ],
-  "seconds": 0.37
+  "seconds": 0.38
 }

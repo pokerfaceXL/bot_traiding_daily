@@ -101,10 +101,14 @@ decision_if_fail: keep CONDITIONAL; mark position-sizing (xsym-agree formula) cl
 
 ## Result
 
-**Run_id:** `scripts/f006_bb_20_25_xsym_agree_sizing.py` @ `10e41d3`, 2026-10-02T22:17:25Z
+**Run_id:** `scripts/f006_bb_20_25_xsym_agree_sizing.py` @ `bbbbbb4`, 2026-10-02T22:25:11Z
 **Artifacts:** `output/f006_bb_20_25_xsym_agree_sizing/`
-**Outcome:** NOT FALSIFIED — the sized arm passes every pre-registered condition (a)–(e).
+**Outcome:** NOT FALSIFIED — the causal sized arm passes every pre-registered condition (a)–(e).
 **number_of_trials:** 1 (single pre-registered formula).
+
+The sized stake at fill bar i uses agreement observed at the prior bar i-1 close, when the entry
+was queued. The leading stake is filled with the uniform $100 base stake. No fill uses its own
+bar's close.
 
 ### Control arm (stake_series=None, uniform 100)
 
@@ -113,38 +117,38 @@ decision_if_fail: keep CONDITIONAL; mark position-sizing (xsym-agree formula) cl
 - Train-1-entry cohort: n=512, net=**+709.85**, net/trade=+1.386.
 - pooled entry-month losing floor: **7/12**, exactly reproducing the abs-ATR ungated control.
 
-### Sized arm (mult=clip(0.5+0.375*n_agree,0.5,2.0))
+### Causal sized arm (mult=clip(0.5+0.375*n_agree,0.5,2.0))
 
-- mean train1_net_pnl: **+103.00** across 10 series (+24.2% versus control).
+- mean train1_net_pnl: **+147.71** across 10 series (+78.2% versus control).
 - all closed trades including warmup: n=560.
-- Train-1-entry cohort: n=512, net=**+906.18**, net/trade=+1.770.
-- pooled entry-month losing floor: **4/12**, improving by three months from the 7/12 control.
-- pooled mean(mult|winner) - mean(mult|loser): **+0.169922** (0.798828 - 0.628906).
-- Train-1-entry stake_cv: **0.543649** pooled; every series exceeds 0.05 (range 0.375971–0.636071).
+- Train-1-entry cohort: n=512, net=**+1344.18**, net/trade=+2.625.
+- pooled entry-month losing floor: **5/12**, improving by two months from the 7/12 control.
+- pooled mean(mult|winner) - mean(mult|loser): **+0.119141** (1.059570 - 0.940430).
+- Train-1-entry stake_cv: **0.525656** pooled; every series exceeds 0.05 (range 0.433378–0.612771).
 - trade-count invariant: PASS for every series, both total closed trades (560=560) and
   Train-1-entry trades (512=512), with matching entry keys.
-- per-series entry-month floors: SOL/240 7→7, ETH/240 7→6, BTC/240 6→6, XRP/240 9→8,
-  DOGE/240 6→6, SOL/60 3→2, ETH/60 6→4, BTC/60 9→8, XRP/60 7→7, DOGE/60 5→3.
-  Six series improve and four are unchanged; none worsens.
+- per-series entry-month floors: SOL/240 7→7, ETH/240 7→6, BTC/240 6→6, XRP/240 9→10,
+  DOGE/240 6→6, SOL/60 3→3, ETH/60 6→6, BTC/60 9→8, XRP/60 7→6, DOGE/60 5→6.
+  Three series improve, five are unchanged, and two worsen; the pooled basket still improves.
 
 ### Big-winner contribution (Train-1-entry cohort, net_pnl >= 29.9)
 
 - baseline: 10 trades, net **+968.02**.
-- sized arm by its own threshold: 9 trades, net **+892.70**.
-- sized PnL on the baseline big-winner entry keys: **+864.35**.
+- sized arm by its own threshold: 12 trades, net **+1574.74**.
+- sized PnL on the baseline big-winner entry keys: **+1468.61**.
 
 ### Falsification assessment
 
-(a) mean train1_net_pnl <= baseline: does not fire (103.00 > 82.90).
-(b) pooled losing-month floor does not improve: does not fire (4/12 < 7/12).
-(c) pooled mean(mult|winner) - mean(mult|loser) <= 0: does not fire (+0.169922).
+(a) mean train1_net_pnl <= baseline: does not fire (147.71 > 82.90).
+(b) pooled losing-month floor does not improve: does not fire (5/12 < 7/12).
+(c) pooled mean(mult|winner) - mean(mult|loser) <= 0: does not fire (+0.119141).
 (d) n_trades invariant broken: does not fire (all per-series invariants pass).
-(e) stake_cv <= 0.05: does not fire (pooled 0.543649; every series > 0.05).
+(e) stake_cv <= 0.05: does not fire (pooled 0.525656; every series > 0.05).
 
-**Verdict:** NOT FALSIFIED / passes the pre-registered bar. The frozen agreement formula raises
-mean Train-1 net PnL, reduces the correctly pooled entry-month losing floor from 7/12 to 4/12,
-and assigns higher average multipliers to winners while retaining every trade. This is a Train-1
-result only; validation and any profile decision remain outside this run.
+**Verdict:** NOT FALSIFIED / passes the pre-registered bar. With causal fill alignment, the frozen
+agreement formula raises mean Train-1 net PnL, reduces the pooled entry-month losing floor from
+7/12 to 5/12, and assigns higher average multipliers to winners while retaining every trade.
+This is a Train-1 result only; validation and any profile decision remain outside this run.
 
 ## Decision
 

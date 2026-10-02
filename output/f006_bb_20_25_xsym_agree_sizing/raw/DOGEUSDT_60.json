@@ -7,16 +7,16 @@
   "n_trades_train1_entry_sized": 89,
   "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 32.468213,
-  "train1_net_pnl_sized": 36.093728,
+  "train1_net_pnl_sized": 33.799148,
   "train1_entry_net_pnl_baseline": 8.874371,
-  "train1_entry_net_pnl_sized": 24.296807,
+  "train1_entry_net_pnl_sized": 21.450147,
   "losing_month_floor_baseline": 5,
-  "losing_month_floor_sized": 3,
-  "stake_cv": 0.541532,
+  "losing_month_floor_sized": 6,
+  "stake_cv": 0.502747,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.7708333333333334,
-  "mean_mult_losers": 0.6373239436619719,
-  "mean_mult_gap": 0.133509,
+  "mean_mult_winners": 1.1041666666666667,
+  "mean_mult_losers": 1.0017605633802817,
+  "mean_mult_gap": 0.102406,
   "baseline_entry_monthly": [
     {
       "month": "2024-03",
@@ -70,27 +70,27 @@
   "sized_entry_monthly": [
     {
       "month": "2024-03",
-      "net_pnl": -17.41875
+      "net_pnl": -23.645438
     },
     {
       "month": "2024-04",
-      "net_pnl": 6.28119
+      "net_pnl": -4.556162
     },
     {
       "month": "2024-05",
-      "net_pnl": -22.336296
+      "net_pnl": -24.95785
     },
     {
       "month": "2024-06",
-      "net_pnl": 9.522656
+      "net_pnl": 23.366113
     },
     {
       "month": "2024-07",
-      "net_pnl": 8.985076
+      "net_pnl": 18.330201
     },
     {
       "month": "2024-08",
-      "net_pnl": 2.765137
+      "net_pnl": 4.053564
     },
     {
       "month": "2024-09",
@@ -98,24 +98,24 @@
     },
     {
       "month": "2024-10",
-      "net_pnl": 0.630219
+      "net_pnl": -8.002541
     },
     {
       "month": "2024-11",
-      "net_pnl": 24.370061
+      "net_pnl": 42.640857
     },
     {
       "month": "2024-12",
-      "net_pnl": 4.281812
+      "net_pnl": -27.849149
     },
     {
       "month": "2025-01",
-      "net_pnl": 1.618746
+      "net_pnl": 10.27637
     },
     {
       "month": "2025-02",
-      "net_pnl": -7.673682
+      "net_pnl": -1.476458
     }
   ],
-  "seconds": 0.38
+  "seconds": 0.37
 }

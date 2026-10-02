@@ -61,76 +61,76 @@
     "pooled_losing_month_floor": 7
   },
   "sized": {
-    "mean_train1_net_pnl": 102.996882,
+    "mean_train1_net_pnl": 147.71034,
     "total_closed_trades": 560,
     "train1_entry_trades": 512,
-    "train1_entry_net_pnl": 906.181245,
-    "train1_entry_net_per_trade": 1.769885,
+    "train1_entry_net_pnl": 1344.175223,
+    "train1_entry_net_per_trade": 2.625342,
     "pooled_entry_month_net_pnl": [
       {
         "month": "2024-03",
-        "net_pnl": -55.673647
+        "net_pnl": -77.324512
       },
       {
         "month": "2024-04",
-        "net_pnl": 18.554812
+        "net_pnl": -30.704805
       },
       {
         "month": "2024-05",
-        "net_pnl": -40.882296
+        "net_pnl": -61.178648
       },
       {
         "month": "2024-06",
-        "net_pnl": 6.943915
+        "net_pnl": 14.514858
       },
       {
         "month": "2024-07",
-        "net_pnl": 54.431467
+        "net_pnl": 103.572218
       },
       {
         "month": "2024-08",
-        "net_pnl": -22.532554
+        "net_pnl": -64.606564
       },
       {
         "month": "2024-09",
-        "net_pnl": 20.309666
+        "net_pnl": 4.720768
       },
       {
         "month": "2024-10",
-        "net_pnl": 10.223234
+        "net_pnl": 38.248336
       },
       {
         "month": "2024-11",
-        "net_pnl": 809.128303
+        "net_pnl": 1362.752345
       },
       {
         "month": "2024-12",
-        "net_pnl": -32.425776
+        "net_pnl": -93.117082
       },
       {
         "month": "2025-01",
-        "net_pnl": 88.820828
+        "net_pnl": 78.688417
       },
       {
         "month": "2025-02",
-        "net_pnl": 49.283294
+        "net_pnl": 68.609893
       }
     ],
-    "pooled_losing_month_floor": 4,
-    "pooled_stake_cv": 0.543649,
+    "pooled_losing_month_floor": 5,
+    "pooled_stake_cv": 0.525656,
     "all_series_stake_cv_gt_0_05": true,
-    "mean_mult_winners": 0.798828125,
-    "mean_mult_losers": 0.62890625,
-    "mean_mult_winner_minus_loser": 0.169922
+    "mean_mult_winners": 1.0595703125,
+    "mean_mult_losers": 0.9404296875,
+    "mean_mult_winner_minus_loser": 0.119141
   },
   "trade_count_invariant_all_series": true,
   "big_winner_contribution": {
     "threshold_net_pnl": 29.9,
     "baseline_count": 10,
     "baseline_pnl_sum": 968.020732,
-    "sized_count": 9,
-    "sized_pnl_sum": 892.702131,
-    "sized_pnl_on_baseline_big_winner_entry_keys": 864.352204
+    "sized_count": 12,
+    "sized_pnl_sum": 1574.742126,
+    "sized_pnl_on_baseline_big_winner_entry_keys": 1468.606666
   },
   "falsified": false,
   "falsification_conditions_fired": []
