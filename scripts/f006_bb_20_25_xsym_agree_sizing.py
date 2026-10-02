@@ -1,19 +1,9 @@
-"""
-F006 -- cross-symbol agreement position sizing for BB_20_25_EMA200 NO_TRAIL.
+"""Run the pre-registered cross-symbol agreement sizing test for BB_20_25_EMA200.
 
-Tests the hypothesis in spec/research/F006-hypothesis-bb-20-25-xsym-agree-sizing.md: whether
-scaling each trade's stake by the count of other basket symbols showing the same-direction
-BB_20_25_EMA200 signal at entry causes mean Train-1 net PnL to rise versus uniform stake=100
-AND strictly lowers the pooled losing-month floor, with mean(mult|winner) > mean(mult|loser).
-
-Single pre-registered formula: mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0), where n_agree
-is the count (0-4) of other symbols whose BB_20_25_EMA200 persistent signal matches the traded
-symbol's nonzero direction on the same closed bar.
-
-Adapts stake_series pattern from scripts/f006_position_sizing_vol_inverse_experiment.py and
-agreement inputs from scripts/f006_entry_cross_symbol_experiment.py.
-
-Single pass, .venv_test only. Writes only output/f006_bb_20_25_xsym_agree_sizing/.
+The only sized arm uses the frozen formula
+``mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)``. Metrics that describe the
+entry cohort use trades entered from 2024-03-01 through 2025-02-28 UTC; the
+backtest itself retains the earlier warmup so indicators are unchanged.
 """
 from __future__ import annotations
 
@@ -41,10 +31,10 @@ NAME = "BB_20_25_EMA200"
 
 WARMUP_START = "2024-01-26T00:00:00Z"
 HOLDOUT_END = "2026-09-01T00:00:00Z"
+TRAIN1_START = pd.Timestamp("2024-03-01T00:00:00Z")
 TRAIN1_END = pd.Timestamp("2025-03-01T00:00:00Z")
 NOW = TRAIN1_END
 
-# spec/research/F005-validation-protocol.md section 6, duplicated not imported.
 EXPECTED_CHECKSUMS = {
     ("SOLUSDT", "240"): "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
     ("SOLUSDT", "60"): "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
@@ -58,9 +48,8 @@ EXPECTED_CHECKSUMS = {
     ("DOGEUSDT", "60"): "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff",
 }
 
-# NO_TRAIL cell, identical to other F006 scripts.
 ACTIVATE_PCT = 10.0
-TRAIL_PCT = 0.04  # moot -- trail never arms, recorded as None
+TRAIL_PCT = 0.04
 MAX_SL_PCT = 0.03
 COOLDOWN = 0
 FIXED_PARAMS = dict(
@@ -72,16 +61,14 @@ FIXED_PARAMS = dict(
 )
 INITIAL_EQUITY = 500.0
 BASE_STAKE = 100.0
-
-# Pre-registered formula from spec/research/F006-hypothesis-bb-20-25-xsym-agree-sizing.md.
 MULT_LO, MULT_HI = 0.5, 2.0
+BIG_WINNER_THRESHOLD = 29.9
 
 TRAIN1_MONTHS = [
     (2024, 3), (2024, 4), (2024, 5), (2024, 6), (2024, 7), (2024, 8),
     (2024, 9), (2024, 10), (2024, 11), (2024, 12), (2025, 1), (2025, 2),
 ]
 TRAIN1_MONTHS_SET = set(TRAIN1_MONTHS)
-
 OUT_DIR = "output/f006_bb_20_25_xsym_agree_sizing"
 
 
@@ -111,173 +98,161 @@ def load_train1(symbol: str, interval: str):
 
 def compute_agreement_multiplier_series(
     own_train1_df: pd.DataFrame,
-    others_train1_dfs: dict,
+    others_train1_dfs: dict[str, pd.DataFrame],
     interval: str,
-    traded_symbol: str,
 ) -> pd.Series:
-    """Compute stake multiplier series based on cross-symbol agreement count.
-    
-    For each bar where this symbol's BB_20_25_EMA200 signal is nonzero, count how many of the
-    other 4 symbols have the same-direction signal on that bar. Apply the pre-registered formula:
-        n_agree ∈ {0,1,2,3,4}
-        mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)
-    
-    Returns a multiplier series aligned to the engine's work index (via strategy_signal_series).
-    """
-    own_signal = entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=NOW)
-    own_normalized = entry_masks.normalized_signal(own_signal)
-    
-    other_signals = {}
-    for sym, df in others_train1_dfs.items():
-        sig = entry_masks.strategy_signal_series(df, NAME, interval=interval, now=NOW)
-        other_signals[sym] = entry_masks.normalized_signal(sig).reindex(own_normalized.index).fillna(0)
-    
-    # Count agreement: how many others match own's nonzero direction on each bar.
-    n_agree = pd.Series(0, index=own_normalized.index, dtype=int)
-    for other_sig in other_signals.values():
-        n_agree = n_agree + ((other_sig == own_normalized) & (own_normalized != 0)).astype(int)
-    
-    # Apply pre-registered formula.
-    mult = (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)
-    
-    return mult
+    """Return the frozen agreement multiplier on the engine-aligned signal index."""
+    own = entry_masks.normalized_signal(
+        entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=NOW)
+    )
+    n_agree = pd.Series(0, index=own.index, dtype=int)
+    for df in others_train1_dfs.values():
+        other = entry_masks.normalized_signal(
+            entry_masks.strategy_signal_series(df, NAME, interval=interval, now=NOW)
+        ).reindex(own.index).fillna(0)
+        n_agree += ((other == own) & (own != 0)).astype(int)
+    return (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)
 
 
-def _net_pnl_for_month(days, year: int, month: int) -> float:
-    total = 0.0
-    for d in days:
-        if d.day.year == year and d.day.month == month and d.status != "missing":
-            total += d.pnl
-    return total
+def _net_pnl_for_months(days) -> float:
+    return sum(
+        d.pnl for d in days
+        if (d.day.year, d.day.month) in TRAIN1_MONTHS_SET and d.status != "missing"
+    )
 
 
-def _net_pnl_for_months(days, months_set) -> float:
-    total = 0.0
-    for d in days:
-        if (d.day.year, d.day.month) in months_set and d.status != "missing":
-            total += d.pnl
-    return total
+def _equity_train1_net_pnl(result) -> float:
+    days, _months = regularity.compute_regularity(result.equity_curve)
+    return round(_net_pnl_for_months(days), 6)
 
 
-def _n_trades_per_month(trades: pd.DataFrame) -> dict:
+def _train1_entry_trades(trades: pd.DataFrame) -> pd.DataFrame:
+    result = trades.copy()
+    entry_times = pd.to_datetime(result["entry_time"], utc=True)
+    result = result.loc[(entry_times >= TRAIN1_START) & (entry_times < TRAIN1_END)].copy()
+    result["entry_time"] = pd.to_datetime(result["entry_time"], utc=True)
+    return result.reset_index(drop=True)
+
+
+def _entry_month_rows(trades: pd.DataFrame) -> list[dict]:
     if trades.empty:
-        return {}
-    entry_times = pd.DatetimeIndex(trades["entry_time"])
-    counts = {}
-    for (y, m) in TRAIN1_MONTHS:
-        counts[(y, m)] = int(((entry_times.year == y) & (entry_times.month == m)).sum())
-    return counts
+        pnl_by_month = pd.Series(dtype=float)
+    else:
+        keys = trades["entry_time"].dt.strftime("%Y-%m")
+        pnl_by_month = trades.groupby(keys)["net_pnl"].sum()
+    return [
+        {
+            "month": f"{year}-{month:02d}",
+            "net_pnl": round(float(pnl_by_month.get(f"{year}-{month:02d}", 0.0)), 6),
+        }
+        for year, month in TRAIN1_MONTHS
+    ]
 
 
-def _evaluate(result, symbol, interval) -> dict:
-    days, months = regularity.compute_regularity(result.equity_curve)
-    months_by_key = {(m.year, m.month): m for m in months}
+def _losing_floor(monthly_rows: list[dict]) -> int:
+    return sum(row["net_pnl"] < 0 for row in monthly_rows)
 
-    monthly_rows = []
-    losing_months = []
-    for (year, month) in TRAIN1_MONTHS:
-        mr = months_by_key.get((year, month))
-        if mr is None:
-            monthly_rows.append({
-                "year": year, "month": month, "is_valid": False, "net_pnl": None,
-            })
-            continue
-        net_pnl = _net_pnl_for_month(days, year, month) if mr.is_valid else None
-        monthly_rows.append({"year": year, "month": month, "is_valid": mr.is_valid, "net_pnl": net_pnl})
-        if mr.is_valid and net_pnl is not None and net_pnl < 0:
-            losing_months.append((year, month))
 
-    train1_net_pnl = _net_pnl_for_months(days, TRAIN1_MONTHS_SET)
-    n_valid_months = sum(1 for r in monthly_rows if r["is_valid"])
-    pooled_losing_month_floor = len(losing_months)
-
+def _stake_stats(trades: pd.DataFrame) -> dict:
+    applied_mult = (trades["stake"] / BASE_STAKE).to_numpy()
+    mean_mult = float(np.mean(applied_mult))
+    cv = float(np.std(applied_mult) / mean_mult) if mean_mult else 0.0
+    wins = trades["net_pnl"] > 0
+    mean_winners = float(applied_mult[wins.to_numpy()].mean()) if wins.any() else None
+    mean_losers = float(applied_mult[(~wins).to_numpy()].mean()) if (~wins).any() else None
+    gap = mean_winners - mean_losers if mean_winners is not None and mean_losers is not None else None
     return {
-        "n_trades": int(len(result.trades)),
-        "train1_net_pnl": round(train1_net_pnl, 6),
-        "n_valid_months": n_valid_months,
-        "pooled_losing_month_floor": pooled_losing_month_floor,
-        "losing_months": losing_months,
-        "monthly": monthly_rows,
-        "n_trades_per_month": {f"{y}-{m:02d}": c for (y, m), c in _n_trades_per_month(result.trades).items()},
+        "stake_cv": round(cv, 6),
+        "stake_cv_ok": cv > 0.05,
+        "mean_mult_winners": mean_winners,
+        "mean_mult_losers": mean_losers,
+        "mean_mult_gap": round(gap, 6) if gap is not None else None,
     }
 
 
-def _run_one(train1_df, mask, mult_series, symbol, interval) -> dict:
+def _run_one(train1_df, mask, mult_series, symbol: str, interval: str):
     t0 = time.time()
-    
-    # Control arm: stake_series=None (uniform 100).
+    common = dict(
+        interval=interval,
+        now=NOW,
+        symbol=symbol,
+        initial_equity=INITIAL_EQUITY,
+        stake=BASE_STAKE,
+        max_sl_pct=MAX_SL_PCT,
+        activate_pct=ACTIVATE_PCT,
+        trail_pct=TRAIL_PCT,
+        cooldown_candles=COOLDOWN,
+        entry_regime_mask=mask,
+        **FIXED_PARAMS,
+    )
     baseline_result = backtest_engine.run_backtest(
-        train1_df, NAME, interval=interval, now=NOW, symbol=symbol,
-        initial_equity=INITIAL_EQUITY, stake=BASE_STAKE, max_sl_pct=MAX_SL_PCT,
-        activate_pct=ACTIVATE_PCT, trail_pct=TRAIL_PCT, cooldown_candles=COOLDOWN,
-        entry_regime_mask=mask, stake_series=None, **FIXED_PARAMS,
+        train1_df, NAME, stake_series=None, **common
     )
-    
-    # Sized arm: stake_series = BASE_STAKE * mult.
-    stake_series = BASE_STAKE * mult_series
     sized_result = backtest_engine.run_backtest(
-        train1_df, NAME, interval=interval, now=NOW, symbol=symbol,
-        initial_equity=INITIAL_EQUITY, stake=BASE_STAKE, max_sl_pct=MAX_SL_PCT,
-        activate_pct=ACTIVATE_PCT, trail_pct=TRAIL_PCT, cooldown_candles=COOLDOWN,
-        entry_regime_mask=mask, stake_series=stake_series, **FIXED_PARAMS,
+        train1_df, NAME, stake_series=BASE_STAKE * mult_series, **common
     )
 
-    baseline_eval = _evaluate(baseline_result, symbol, interval)
-    sized_eval = _evaluate(sized_result, symbol, interval)
-
-    n_trades_baseline = baseline_eval["n_trades"]
-    n_trades_sized = sized_eval["n_trades"]
-    trade_count_invariant_ok = (n_trades_baseline == n_trades_sized) and (
-        baseline_eval["n_trades_per_month"] == sized_eval["n_trades_per_month"]
-    )
-    if not trade_count_invariant_ok:
+    baseline_all = baseline_result.trades.copy()
+    sized_all = sized_result.trades.copy()
+    baseline_cohort = _train1_entry_trades(baseline_all)
+    sized_cohort = _train1_entry_trades(sized_all)
+    baseline_keys = list(pd.to_datetime(baseline_cohort["entry_time"], utc=True))
+    sized_keys = list(pd.to_datetime(sized_cohort["entry_time"], utc=True))
+    invariant_ok = len(baseline_all) == len(sized_all) and baseline_keys == sized_keys
+    if not invariant_ok:
         raise SystemExit(
             f"STOP: trade-count invariant violated for {symbol}/{interval}: "
-            f"baseline n_trades={n_trades_baseline} n_trades_per_month="
-            f"{baseline_eval['n_trades_per_month']}, sized n_trades={n_trades_sized} "
-            f"n_trades_per_month={sized_eval['n_trades_per_month']}"
+            f"total {len(baseline_all)} != {len(sized_all)} or Train-1-entry keys differ "
+            f"({len(baseline_cohort)} vs {len(sized_cohort)})"
         )
 
-    # Per-trade multiplier actually applied (read from sized trades' stake column).
-    sized_trades = sized_result.trades
-    if len(sized_trades) > 0:
-        applied_mult = (sized_trades["stake"] / BASE_STAKE).to_numpy()
-        stake_cv = float(np.std(applied_mult) / np.mean(applied_mult)) if np.mean(applied_mult) != 0 else 0.0
-        
-        wins = sized_trades["net_pnl"] > 0
-        mean_mult_winners = float(applied_mult[wins.to_numpy()].mean()) if wins.any() else None
-        mean_mult_losers = float(applied_mult[(~wins).to_numpy()].mean()) if (~wins).any() else None
-        mean_mult_gap = (
-            round(mean_mult_winners - mean_mult_losers, 6)
-            if mean_mult_winners is not None and mean_mult_losers is not None
-            else None
-        )
-        
-        # stake_cv > 0.05 genuineness check.
-        stake_cv_ok = stake_cv > 0.05
-    else:
-        stake_cv, mean_mult_winners, mean_mult_losers, mean_mult_gap = 0.0, None, None, None
-        stake_cv_ok = False
-
-    return {
+    baseline_monthly = _entry_month_rows(baseline_cohort)
+    sized_monthly = _entry_month_rows(sized_cohort)
+    stats = _stake_stats(sized_cohort)
+    row = {
         "symbol": symbol,
         "interval": interval,
-        "n_trades_baseline": n_trades_baseline,
-        "n_trades_sized": n_trades_sized,
-        "train1_net_pnl_baseline": baseline_eval["train1_net_pnl"],
-        "train1_net_pnl_sized": sized_eval["train1_net_pnl"],
-        "pooled_losing_month_floor_baseline": baseline_eval["pooled_losing_month_floor"],
-        "pooled_losing_month_floor_sized": sized_eval["pooled_losing_month_floor"],
-        "losing_months_baseline": baseline_eval["losing_months"],
-        "losing_months_sized": sized_eval["losing_months"],
-        "stake_cv": round(stake_cv, 6),
-        "stake_cv_ok": stake_cv_ok,
-        "mean_mult_winners": mean_mult_winners,
-        "mean_mult_losers": mean_mult_losers,
-        "mean_mult_gap": mean_mult_gap,
-        "baseline_monthly": baseline_eval["monthly"],
-        "sized_monthly": sized_eval["monthly"],
+        "n_trades_total_baseline": int(len(baseline_all)),
+        "n_trades_total_sized": int(len(sized_all)),
+        "n_trades_train1_entry_baseline": int(len(baseline_cohort)),
+        "n_trades_train1_entry_sized": int(len(sized_cohort)),
+        "trade_count_invariant_ok": invariant_ok,
+        "train1_net_pnl_baseline": _equity_train1_net_pnl(baseline_result),
+        "train1_net_pnl_sized": _equity_train1_net_pnl(sized_result),
+        "train1_entry_net_pnl_baseline": round(float(baseline_cohort["net_pnl"].sum()), 6),
+        "train1_entry_net_pnl_sized": round(float(sized_cohort["net_pnl"].sum()), 6),
+        "losing_month_floor_baseline": _losing_floor(baseline_monthly),
+        "losing_month_floor_sized": _losing_floor(sized_monthly),
+        **stats,
+        "baseline_entry_monthly": baseline_monthly,
+        "sized_entry_monthly": sized_monthly,
         "seconds": round(time.time() - t0, 2),
+    }
+    for cohort in (baseline_cohort, sized_cohort):
+        cohort["symbol"] = symbol
+        cohort["interval"] = interval
+    return row, baseline_cohort, sized_cohort
+
+
+def _pooled_monthly(trades: pd.DataFrame) -> list[dict]:
+    return _entry_month_rows(trades)
+
+
+def _big_winner_metrics(baseline: pd.DataFrame, sized: pd.DataFrame) -> dict:
+    key_columns = ["symbol", "interval", "entry_time"]
+    baseline_big = baseline.loc[baseline["net_pnl"] >= BIG_WINNER_THRESHOLD]
+    sized_big = sized.loc[sized["net_pnl"] >= BIG_WINNER_THRESHOLD]
+    baseline_keys = baseline_big[key_columns]
+    sized_on_baseline_keys = sized.merge(baseline_keys, on=key_columns, how="inner")
+    return {
+        "threshold_net_pnl": BIG_WINNER_THRESHOLD,
+        "baseline_count": int(len(baseline_big)),
+        "baseline_pnl_sum": round(float(baseline_big["net_pnl"].sum()), 6),
+        "sized_count": int(len(sized_big)),
+        "sized_pnl_sum": round(float(sized_big["net_pnl"].sum()), 6),
+        "sized_pnl_on_baseline_big_winner_entry_keys": round(
+            float(sized_on_baseline_keys["net_pnl"].sum()), 6
+        ),
     }
 
 
@@ -288,151 +263,181 @@ def main():
     except Exception:
         commit_sha = None
 
-    assert NAME in strategy.STRATEGY_CATALOG, f"strategy {NAME!r} not in strategy.STRATEGY_CATALOG"
-
+    assert NAME in strategy.STRATEGY_CATALOG
     os.makedirs(f"{OUT_DIR}/summary", exist_ok=True)
     os.makedirs(f"{OUT_DIR}/raw", exist_ok=True)
 
     rows = []
+    baseline_cohorts = []
+    sized_cohorts = []
     checksums_used = {}
-    
     for interval in INTERVALS:
-        # Load all 5 symbols once per interval (needed for cross-symbol agreement).
         frames = {}
         for symbol in SYMBOLS:
-            train1_df, manifest = load_train1(symbol, interval)
-            frames[symbol] = train1_df
+            frames[symbol], manifest = load_train1(symbol, interval)
             checksums_used[f"{symbol}_{interval}"] = manifest.checksum_sha256
 
-        # Index-equality precondition check (defensive, following f006_entry_cross_symbol pattern).
         ref_idx = pd.DatetimeIndex(frames["BTCUSDT"].index)
         for symbol in SYMBOLS:
             if not pd.DatetimeIndex(frames[symbol].index).equals(ref_idx):
                 raise SystemExit(
-                    f"STOP: index-equality precondition violated for {symbol}/{interval} vs BTCUSDT"
+                    f"STOP: index-equality precondition violated for {symbol}/{interval}"
                 )
 
         for symbol in SYMBOLS:
             own_df = frames[symbol]
-            others_dfs = {s: frames[s] for s in SYMBOLS if s != symbol}
-            
-            mult_series = compute_agreement_multiplier_series(own_df, others_dfs, interval, symbol)
-            sig = entry_masks.strategy_signal_series(own_df, NAME, interval=interval, now=NOW)
-            mask = entry_masks.one_shot_entry_mask(sig)
-            
-            row = _run_one(own_df, mask, mult_series, symbol, interval)
+            others = {other: frames[other] for other in SYMBOLS if other != symbol}
+            mult_series = compute_agreement_multiplier_series(own_df, others, interval)
+            signal = entry_masks.strategy_signal_series(own_df, NAME, interval=interval, now=NOW)
+            mask = entry_masks.one_shot_entry_mask(signal)
+            row, baseline_cohort, sized_cohort = _run_one(
+                own_df, mask, mult_series, symbol, interval
+            )
             rows.append(row)
-            
+            baseline_cohorts.append(baseline_cohort)
+            sized_cohorts.append(sized_cohort)
             with open(f"{OUT_DIR}/raw/{symbol}_{interval}.json", "w") as f:
                 json.dump(row, f, indent=2, default=str)
-        
-        print(f"done interval={interval} ({len(rows)} series so far, {time.time() - t_start:.1f}s elapsed)")
+        print(
+            f"done interval={interval} ({len(rows)} series so far, "
+            f"{time.time() - t_start:.1f}s elapsed)"
+        )
+
+    baseline_pool = pd.concat(baseline_cohorts, ignore_index=True)
+    sized_pool = pd.concat(sized_cohorts, ignore_index=True)
+    baseline_monthly = _pooled_monthly(baseline_pool)
+    sized_monthly = _pooled_monthly(sized_pool)
+    pooled_stats = _stake_stats(sized_pool)
+    big_winners = _big_winner_metrics(baseline_pool, sized_pool)
 
     summary_rows = [
-        {k: v for k, v in r.items() if k not in ("baseline_monthly", "sized_monthly", "losing_months_baseline", "losing_months_sized")}
-        for r in rows
+        {
+            key: value for key, value in row.items()
+            if key not in ("baseline_entry_monthly", "sized_entry_monthly")
+        }
+        for row in rows
     ]
     summary_df = pd.DataFrame(summary_rows)
     summary_df.to_csv(f"{OUT_DIR}/summary/results.csv", index=False)
 
-    # Aggregate metrics for the Result section.
-    mean_train1_net_pnl_baseline = summary_df["train1_net_pnl_baseline"].mean()
-    mean_train1_net_pnl_sized = summary_df["train1_net_pnl_sized"].mean()
-    
-    # Pooled entry cohort: sum all trades across all series.
-    pooled_n_trades_baseline = int(summary_df["n_trades_baseline"].sum())
-    pooled_net_pnl_baseline = summary_df["train1_net_pnl_baseline"].sum()
-    pooled_n_trades_sized = int(summary_df["n_trades_sized"].sum())
-    pooled_net_pnl_sized = summary_df["train1_net_pnl_sized"].sum()
-    
-    # Pooled losing-month floor: count unique losing months across all series.
-    all_losing_baseline = set()
-    all_losing_sized = set()
-    for r in rows:
-        all_losing_baseline.update(r["losing_months_baseline"])
-        all_losing_sized.update(r["losing_months_sized"])
-    pooled_losing_floor_baseline = len(all_losing_baseline)
-    pooled_losing_floor_sized = len(all_losing_sized)
-    
-    # Mean mult gap across series.
-    gaps = [r["mean_mult_gap"] for r in rows if r["mean_mult_gap"] is not None]
-    mean_gap = round(np.mean(gaps), 6) if gaps else None
-    
-    # Falsification checks.
-    falsified = []
-    if mean_train1_net_pnl_sized <= mean_train1_net_pnl_baseline:
-        falsified.append("(a) mean train1_net_pnl_sized <= baseline")
-    if pooled_losing_floor_sized >= pooled_losing_floor_baseline:
-        falsified.append(f"(b) pooled losing-month floor did not improve ({pooled_losing_floor_sized} >= {pooled_losing_floor_baseline})")
-    if mean_gap is not None and mean_gap <= 0:
-        falsified.append(f"(c) mean(mult|winner) - mean(mult|loser) <= 0 ({mean_gap})")
-    if not all(r["stake_cv_ok"] for r in rows if r["n_trades_sized"] > 0):
-        falsified.append("(e) stake_cv <= 0.05 on some series (degenerate uniform)")
+    mean_baseline = float(summary_df["train1_net_pnl_baseline"].mean())
+    mean_sized = float(summary_df["train1_net_pnl_sized"].mean())
+    floor_baseline = _losing_floor(baseline_monthly)
+    floor_sized = _losing_floor(sized_monthly)
+    total_invariant = bool(summary_df["trade_count_invariant_ok"].all())
+    all_series_cv_ok = bool(summary_df["stake_cv_ok"].all())
+    mean_gap = pooled_stats["mean_mult_gap"]
 
-    manifest_out = {
+    falsified = []
+    if mean_sized <= mean_baseline:
+        falsified.append("(a) mean train1_net_pnl_sized <= baseline")
+    if floor_sized >= floor_baseline:
+        falsified.append(
+            f"(b) pooled losing-month floor did not improve ({floor_sized} >= {floor_baseline})"
+        )
+    if mean_gap is None or mean_gap <= 0:
+        falsified.append(f"(c) pooled winner-minus-loser mean multiplier <= 0 ({mean_gap})")
+    if not total_invariant:
+        falsified.append("(d) trade-count invariant broken")
+    if pooled_stats["stake_cv"] <= 0.05 or not all_series_cv_ok:
+        falsified.append("(e) Train-1-entry stake_cv <= 0.05")
+
+    cell_summary = {
+        "experiment_id": "H-BB-20-25-XSYM-AGREE-SIZING-01",
+        "strategy": NAME,
+        "number_of_trials": 1,
+        "control": {
+            "mean_train1_net_pnl": round(mean_baseline, 6),
+            "total_closed_trades": int(summary_df["n_trades_total_baseline"].sum()),
+            "train1_entry_trades": int(len(baseline_pool)),
+            "train1_entry_net_pnl": round(float(baseline_pool["net_pnl"].sum()), 6),
+            "train1_entry_net_per_trade": round(float(baseline_pool["net_pnl"].mean()), 6),
+            "pooled_entry_month_net_pnl": baseline_monthly,
+            "pooled_losing_month_floor": floor_baseline,
+        },
+        "sized": {
+            "mean_train1_net_pnl": round(mean_sized, 6),
+            "total_closed_trades": int(summary_df["n_trades_total_sized"].sum()),
+            "train1_entry_trades": int(len(sized_pool)),
+            "train1_entry_net_pnl": round(float(sized_pool["net_pnl"].sum()), 6),
+            "train1_entry_net_per_trade": round(float(sized_pool["net_pnl"].mean()), 6),
+            "pooled_entry_month_net_pnl": sized_monthly,
+            "pooled_losing_month_floor": floor_sized,
+            "pooled_stake_cv": pooled_stats["stake_cv"],
+            "all_series_stake_cv_gt_0_05": all_series_cv_ok,
+            "mean_mult_winners": pooled_stats["mean_mult_winners"],
+            "mean_mult_losers": pooled_stats["mean_mult_losers"],
+            "mean_mult_winner_minus_loser": mean_gap,
+        },
+        "trade_count_invariant_all_series": total_invariant,
+        "big_winner_contribution": big_winners,
+        "falsified": bool(falsified),
+        "falsification_conditions_fired": falsified,
+    }
+    with open(f"{OUT_DIR}/summary/cell_summary.json", "w") as f:
+        json.dump(cell_summary, f, indent=2)
+
+    manifest = {
         "script": "scripts/f006_bb_20_25_xsym_agree_sizing.py",
-        "git_commit": commit_sha,
+        "git_commit_at_run": commit_sha,
         "run_started_utc": datetime.now(timezone.utc).isoformat(),
         "python": sys.version,
         "pandas": pd.__version__,
         "numpy": np.__version__,
         "n_series": len(rows),
-        "strategy": NAME,
         "checksums_used": checksums_used,
         "params": {
-            "activate_pct": ACTIVATE_PCT, "trail_pct": TRAIL_PCT, "max_sl_pct": MAX_SL_PCT,
-            "cooldown_candles": COOLDOWN, "mask_mode": "one_shot",
-            "initial_equity": INITIAL_EQUITY, "base_stake": BASE_STAKE,
-            "mult_lo": MULT_LO, "mult_hi": MULT_HI,
+            "activate_pct": ACTIVATE_PCT,
+            "trail_pct": TRAIL_PCT,
+            "max_sl_pct": MAX_SL_PCT,
+            "cooldown_candles": COOLDOWN,
+            "mask_mode": "one_shot",
+            "initial_equity": INITIAL_EQUITY,
+            "base_stake": BASE_STAKE,
             "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
             **FIXED_PARAMS,
         },
-        "results": {
-            "mean_train1_net_pnl_baseline": round(mean_train1_net_pnl_baseline, 6),
-            "mean_train1_net_pnl_sized": round(mean_train1_net_pnl_sized, 6),
-            "pooled_n_trades_baseline": pooled_n_trades_baseline,
-            "pooled_net_pnl_baseline": round(pooled_net_pnl_baseline, 6),
-            "pooled_n_trades_sized": pooled_n_trades_sized,
-            "pooled_net_pnl_sized": round(pooled_net_pnl_sized, 6),
-            "pooled_losing_month_floor_baseline": pooled_losing_floor_baseline,
-            "pooled_losing_month_floor_sized": pooled_losing_floor_sized,
-            "mean_mult_gap": mean_gap,
-            "number_of_trials": 1,
-        },
-        "falsification": {
-            "falsified": len(falsified) > 0,
-            "conditions_violated": falsified,
-        },
+        "cell_summary": cell_summary,
         "seconds": round(time.time() - t_start, 2),
     }
     with open(f"{OUT_DIR}/summary/manifest.json", "w") as f:
-        json.dump(manifest_out, f, indent=2)
+        json.dump(manifest, f, indent=2)
 
+    verdict = "FALSIFIED" if falsified else "NOT FALSIFIED"
     with open(f"{OUT_DIR}/summary/run.log", "w") as f:
-        f.write(f"F006 H-BB-20-25-XSYM-AGREE-SIZING-01\n")
-        f.write(f"Run started: {manifest_out['run_started_utc']}\n")
-        f.write(f"Commit: {commit_sha}\n\n")
-        f.write(f"Control arm (stake_series=None, uniform 100):\n")
-        f.write(f"  mean train1_net_pnl: {mean_train1_net_pnl_baseline:.2f} (across {len(rows)} series)\n")
-        f.write(f"  pooled entry cohort: n={pooled_n_trades_baseline}, net={pooled_net_pnl_baseline:.2f}\n")
-        f.write(f"  pooled losing-month floor: {pooled_losing_floor_baseline}/12\n\n")
-        f.write(f"Sized arm (mult=clip(0.5+0.375*n_agree,0.5,2.0)):\n")
-        f.write(f"  mean train1_net_pnl: {mean_train1_net_pnl_sized:.2f}\n")
-        f.write(f"  pooled entry cohort: n={pooled_n_trades_sized}, net={pooled_net_pnl_sized:.2f}\n")
-        f.write(f"  pooled losing-month floor: {pooled_losing_floor_sized}/12\n")
-        f.write(f"  mean(mult|winner) - mean(mult|loser): {mean_gap}\n\n")
-        f.write(f"Falsification status: {manifest_out['falsification']['falsified']}\n")
-        if falsified:
-            f.write(f"Conditions violated:\n")
-            for cond in falsified:
-                f.write(f"  - {cond}\n")
-        f.write(f"\nElapsed: {time.time() - t_start:.1f}s\n")
+        f.write("H-BB-20-25-XSYM-AGREE-SIZING-01\n")
+        f.write(f"Run started: {manifest['run_started_utc']}\n")
+        f.write(f"Commit at run: {commit_sha}\n")
+        f.write(f"Control mean Train-1 net PnL: {mean_baseline:.6f}\n")
+        f.write(
+            f"Control trades: total={cell_summary['control']['total_closed_trades']}, "
+            f"Train-1-entry={len(baseline_pool)}, "
+            f"entry net={baseline_pool['net_pnl'].sum():.6f}\n"
+        )
+        f.write(f"Control pooled losing-month floor: {floor_baseline}/12\n")
+        f.write(f"Sized mean Train-1 net PnL: {mean_sized:.6f}\n")
+        f.write(
+            f"Sized trades: total={cell_summary['sized']['total_closed_trades']}, "
+            f"Train-1-entry={len(sized_pool)}, entry net={sized_pool['net_pnl'].sum():.6f}\n"
+        )
+        f.write(f"Sized pooled losing-month floor: {floor_sized}/12\n")
+        f.write(f"Pooled stake CV: {pooled_stats['stake_cv']:.6f}\n")
+        f.write(f"Pooled winner-minus-loser mean multiplier: {mean_gap:.6f}\n")
+        f.write(f"Verdict: {verdict}\n")
+        for condition in falsified:
+            f.write(f"  {condition}\n")
 
-    print(f"\n{len(rows)} series in {time.time() - t_start:.1f}s -> {OUT_DIR}/summary/")
-    print(f"Control: mean train1_net_pnl={mean_train1_net_pnl_baseline:.2f}, pooled losing floor={pooled_losing_floor_baseline}/12")
-    print(f"Sized: mean train1_net_pnl={mean_train1_net_pnl_sized:.2f}, pooled losing floor={pooled_losing_floor_sized}/12")
-    print(f"mean(mult|winner) - mean(mult|loser) = {mean_gap}")
-    print(f"Falsified: {manifest_out['falsification']['falsified']} {falsified if falsified else ''}")
+    print(f"\n{len(rows)} series -> {OUT_DIR}/summary/")
+    print(
+        f"Control: mean={mean_baseline:.2f}, entry cohort n={len(baseline_pool)}, "
+        f"net={baseline_pool['net_pnl'].sum():.2f}, floor={floor_baseline}/12"
+    )
+    print(
+        f"Sized: mean={mean_sized:.2f}, entry cohort n={len(sized_pool)}, "
+        f"net={sized_pool['net_pnl'].sum():.2f}, floor={floor_sized}/12"
+    )
+    print(f"Pooled winner-minus-loser multiplier gap={mean_gap:.6f}")
+    print(f"Verdict: {verdict} {falsified}")
 
 
 if __name__ == "__main__":
