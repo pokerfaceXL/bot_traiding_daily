@@ -124,7 +124,11 @@ None of the pre-declared falsification criteria (a)(b)(c) trip:
 
 Optional Donchian panel: 6/7 catalog5 majority-loss months (≥3/5 losing) also saw Donchian loss (86% agreement).
 
-Computation: `scripts/f006_shared_losing_months_diagnostic.py` → `output/f006_shared_losing_months/{loss_matrix.csv,summary.json}` (reproducible, seed=42).
+Symbol-level sanity (secondary, per-name co-occurrence from trades, entry-month grouping): EMA3_21_50_200 reproduced the autopsy figure — **6/12 months** with ≥4/5 symbols losing (2024-03,04,05,08,09, 2025-01). Other names show similar patterns: BB_20_25_EMA200 4/12, EMA_50_200 7/12, EMA3_13_50_200 7/12, BB_20_2_EMA200 4/12 — variation reflects different entry frequencies per name (BB names have fewer entries, hence sparser symbol-level co-occurrence), but all five names exhibit shared-symbol-loss clustering above chance, confirming the basket-regime structure holds within each name.
+
+Robustness note: Mean Pearson r 0.96 is inflated by 2024-11's extreme common winner (+812–851 across names); Spearman ρ 0.70 and Pearson ex-2024-11 0.68 are robust to that outlier and both remain well above the 0.20 threshold, confirming the association persists without relying on a single month.
+
+Computation: `scripts/f006_shared_losing_months_diagnostic.py` → `output/f006_shared_losing_months/{loss_matrix.csv,summary.json}` (reproducible, seed=42). Data sources: name-pooled monthly from `output/f006_catalog5_{dual,trio}_autopsy/monthly/*_monthly.csv`; symbol-level from `trades/*_train1_trades.csv` grouped by entry month.
 
 The common-regime hypothesis is confirmed — Train-1 losing months cluster tightly across all five FREEZE catalog5 names, far above what independent name-specific failures would produce.
 

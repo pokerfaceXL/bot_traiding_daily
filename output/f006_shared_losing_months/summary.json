@@ -44,8 +44,10 @@
     }
   },
   "pairwise_net_correlations": {
-    "mean": 0.9611956856662468,
-    "values": [
+    "mean_pearson": 0.9611956856662468,
+    "mean_spearman": 0.7027972027972029,
+    "mean_pearson_ex_2024_11": 0.6800389417699947,
+    "pearson_values": [
       {
         "pair": "BB_20_25_EMA200 vs EMA_50_200",
         "correlation": 0.9572606267217026
@@ -85,6 +87,48 @@
       {
         "pair": "EMA3_13_50_200 vs BB_20_2_EMA200",
         "correlation": 0.9699468838898487
+      }
+    ],
+    "spearman_values": [
+      {
+        "pair": "BB_20_25_EMA200 vs EMA_50_200",
+        "spearman_rho": 0.5104895104895105
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_21_50_200",
+        "spearman_rho": 0.44055944055944063
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_13_50_200",
+        "spearman_rho": 0.5104895104895105
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs BB_20_2_EMA200",
+        "spearman_rho": 0.8741258741258742
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_21_50_200",
+        "spearman_rho": 0.9720279720279721
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_13_50_200",
+        "spearman_rho": 0.9860139860139862
+      },
+      {
+        "pair": "EMA_50_200 vs BB_20_2_EMA200",
+        "spearman_rho": 0.5804195804195805
+      },
+      {
+        "pair": "EMA3_21_50_200 vs EMA3_13_50_200",
+        "spearman_rho": 0.9720279720279721
+      },
+      {
+        "pair": "EMA3_21_50_200 vs BB_20_2_EMA200",
+        "spearman_rho": 0.5594405594405596
+      },
+      {
+        "pair": "EMA3_13_50_200 vs BB_20_2_EMA200",
+        "spearman_rho": 0.6223776223776225
       }
     ]
   },
@@ -194,6 +238,133 @@
     "catalog5_majority_loss_months": 7,
     "donchian_also_lost": 6,
     "agreement_rate": 0.8571428571428571
+  },
+  "symbol_level_metrics": {
+    "BB_20_25_EMA200": {
+      "n_symbols": 5,
+      "n_months": 12,
+      "cooccurrence": {
+        "ge_4_of_5": {
+          "count": 4,
+          "months": [
+            "2024-03",
+            "2024-04",
+            "2024-08",
+            "2024-12"
+          ]
+        },
+        "ge_5_of_5": {
+          "count": 1,
+          "months": [
+            "2024-12"
+          ]
+        }
+      }
+    },
+    "EMA_50_200": {
+      "n_symbols": 5,
+      "n_months": 12,
+      "cooccurrence": {
+        "ge_4_of_5": {
+          "count": 7,
+          "months": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-08",
+            "2024-09",
+            "2024-12",
+            "2025-01"
+          ]
+        },
+        "ge_5_of_5": {
+          "count": 6,
+          "months": [
+            "2024-03",
+            "2024-04",
+            "2024-08",
+            "2024-09",
+            "2024-12",
+            "2025-01"
+          ]
+        }
+      }
+    },
+    "EMA3_21_50_200": {
+      "n_symbols": 5,
+      "n_months": 12,
+      "cooccurrence": {
+        "ge_4_of_5": {
+          "count": 6,
+          "months": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-08",
+            "2024-09",
+            "2025-01"
+          ]
+        },
+        "ge_5_of_5": {
+          "count": 2,
+          "months": [
+            "2024-08",
+            "2024-09"
+          ]
+        }
+      }
+    },
+    "EMA3_13_50_200": {
+      "n_symbols": 5,
+      "n_months": 12,
+      "cooccurrence": {
+        "ge_4_of_5": {
+          "count": 7,
+          "months": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-08",
+            "2024-09",
+            "2024-12",
+            "2025-01"
+          ]
+        },
+        "ge_5_of_5": {
+          "count": 1,
+          "months": [
+            "2024-08"
+          ]
+        }
+      }
+    },
+    "BB_20_2_EMA200": {
+      "n_symbols": 5,
+      "n_months": 12,
+      "cooccurrence": {
+        "ge_4_of_5": {
+          "count": 4,
+          "months": [
+            "2024-03",
+            "2024-08",
+            "2024-09",
+            "2024-12"
+          ]
+        },
+        "ge_5_of_5": {
+          "count": 2,
+          "months": [
+            "2024-09",
+            "2024-12"
+          ]
+        }
+      }
+    }
+  },
+  "ema3_21_sanity_check": {
+    "months_ge4_of5_symbols": 6,
+    "expected_from_journal": 6,
+    "passes": true
   },
   "falsification_criteria": {
     "a_months_above_chance": {

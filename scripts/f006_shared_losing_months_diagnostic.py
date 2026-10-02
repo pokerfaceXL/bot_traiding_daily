@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 F006 shared-losing-months diagnostic (H-CATALOG5-SHARED-LOSING-MONTHS-01).
 
@@ -13,6 +14,7 @@ import pandas as pd
 from pathlib import Path
 from scipy.stats import pearsonr
 from itertools import combinations
+from scipy.stats import spearmanr
 
 
 def load_monthly_data():
@@ -42,6 +44,37 @@ def load_donchian_monthly():
     df = pd.read_csv(filepath)
     df['month'] = pd.to_datetime(df['month'])
     return df
+
+
+def load_symbol_level_data():
+    """Load symbol-level monthly data from trades CSVs, grouped by entry month."""
+    # Catalog5 names and their trades file paths
+    trades_files = {
+        "BB_20_25_EMA200": Path("output/f006_catalog5_dual_autopsy/trades/BB_20_25_EMA200_train1_trades.csv"),
+        "EMA_50_200": Path("output/f006_catalog5_dual_autopsy/trades/EMA_50_200_train1_trades.csv"),
+        "EMA3_21_50_200": Path("output/f006_catalog5_trio_autopsy/trades/EMA3_21_50_200_train1_trades.csv"),
+        "EMA3_13_50_200": Path("output/f006_catalog5_trio_autopsy/trades/EMA3_13_50_200_train1_trades.csv"),
+        "BB_20_2_EMA200": Path("output/f006_catalog5_trio_autopsy/trades/BB_20_2_EMA200_train1_trades.csv"),
+    }
+    
+    data = {}
+    for name, filepath in trades_files.items():
+        if not filepath.exists():
+            data[name] = pd.DataFrame()
+            continue
+        
+        # Read trades and extract entry month
+        df = pd.read_csv(filepath)
+        df['entry_time'] = pd.to_datetime(df['entry_time'])
+        df['entry_month'] = df['entry_time'].dt.to_period('M').dt.to_timestamp()
+        
+        # Group by entry_month and symbol, sum net_pnl
+        monthly_symbol = df.groupby(['entry_month', 'symbol'])[['net_pnl']].sum().reset_index()
+        monthly_symbol.rename(columns={'entry_month': 'month'}, inplace=True)
+        
+        data[name] = monthly_symbol
+    
+    return data
 
 
 def build_loss_matrix(monthly_data):
@@ -212,6 +245,83 @@ def analyze_donchian(donchian_df, loss_matrix, losses_per_month):
     }
 
 
+def compute_symbol_level_metrics(symbol_data):
+    """Compute per-name symbol-level co-occurrence metrics."""
+    results = {}
+    
+    for name, df in symbol_data.items():
+        if df.empty:
+            continue
+        
+        # Build month × symbol loss matrix
+        months = sorted(df['month'].unique())
+        symbols = sorted(df['symbol'].unique())
+        n_symbols = len(symbols)
+        
+        symbol_loss_matrix = pd.DataFrame(index=months, columns=symbols, dtype=int)
+        for _, row in df.iterrows():
+            month = row['month']
+            symbol = row['symbol']
+            is_loss = 1 if row['net_pnl'] < 0 else 0
+            symbol_loss_matrix.loc[month, symbol] = is_loss
+        
+        # Count symbols losing per month
+        symbols_losing_per_month = symbol_loss_matrix.sum(axis=1)
+        
+        # Count months with ≥k/n symbols losing
+        cooccurrence = {}
+        for k in range(n_symbols - 1, n_symbols + 1):  # ≥4/5 and 5/5
+            months_with_k = (symbols_losing_per_month >= k).sum()
+            months_list = symbol_loss_matrix.index[symbols_losing_per_month >= k].tolist()
+            cooccurrence[f"ge_{k}_of_{n_symbols}"] = {
+                "count": int(months_with_k),
+                "months": [m.strftime('%Y-%m') for m in months_list]
+            }
+        
+        results[name] = {
+            "n_symbols": n_symbols,
+            "n_months": len(months),
+            "cooccurrence": cooccurrence,
+            "symbol_loss_matrix": symbol_loss_matrix
+        }
+    
+    return results
+
+
+def compute_spearman_correlation(net_matrix):
+    """Compute pairwise Spearman correlation of month-net across names."""
+    names = list(net_matrix.columns)
+    pairs = list(combinations(names, 2))
+    
+    correlations = []
+    for name1, name2 in pairs:
+        rho, _ = spearmanr(net_matrix[name1], net_matrix[name2])
+        correlations.append({
+            "pair": f"{name1} vs {name2}",
+            "spearman_rho": float(rho)
+        })
+    
+    mean_rho = np.mean([c['spearman_rho'] for c in correlations])
+    return correlations, float(mean_rho)
+
+
+def compute_pearson_excluding_outlier(net_matrix, outlier_month='2024-11-01'):
+    """Compute mean pairwise Pearson correlation excluding a specific month."""
+    outlier_ts = pd.Timestamp(outlier_month)
+    filtered_matrix = net_matrix[net_matrix.index != outlier_ts]
+    
+    names = list(filtered_matrix.columns)
+    pairs = list(combinations(names, 2))
+    
+    correlations = []
+    for name1, name2 in pairs:
+        r, _ = pearsonr(filtered_matrix[name1], filtered_matrix[name2])
+        correlations.append(float(r))
+    
+    mean_corr = np.mean(correlations)
+    return float(mean_corr)
+
+
 def apply_falsification_criteria(observed_ge4, expected_ge4, mean_phi, mean_net_corr, mean_jaccard):
     """Apply pre-declared falsification criteria (a)(b)(c)."""
     criteria = {}
@@ -288,14 +398,34 @@ def main():
         observed_ge4, expected_ge4, mean_phi, mean_net_corr, mean_jaccard
     )
     
+    # Symbol-level metrics
+    print("Computing symbol-level metrics...")
+    symbol_data = load_symbol_level_data()
+    symbol_metrics = compute_symbol_level_metrics(symbol_data)
+    
+    # EMA3_21 sanity check
+    ema3_21_months_ge4 = symbol_metrics.get("EMA3_21_50_200", {}).get(
+        "cooccurrence", {}).get("ge_4_of_5", {}).get("count", 0)
+    
+    # Spearman correlation (robust to outliers)
+    print("Computing Spearman correlations...")
+    spearman_correlations, mean_spearman = compute_spearman_correlation(net_matrix)
+    
+    # Pearson excluding 2024-11 outlier
+    print("Computing Pearson excluding 2024-11...")
+    mean_pearson_ex_nov = compute_pearson_excluding_outlier(net_matrix)
+    
     # Compile results
     results = {
         "train_period": "2024-03 to 2025-02 (12 months)",
         "catalog5_names": list(monthly_data.keys()),
         "cooccurrence": cooccurrence,
         "pairwise_net_correlations": {
-            "mean": mean_net_corr,
-            "values": net_correlations
+            "mean_pearson": mean_net_corr,
+            "mean_spearman": mean_spearman,
+            "mean_pearson_ex_2024_11": mean_pearson_ex_nov,
+            "pearson_values": net_correlations,
+            "spearman_values": spearman_correlations
         },
         "pairwise_phi_coefficients": {
             "mean": mean_phi,
@@ -307,6 +437,19 @@ def main():
         },
         "chance_baseline": chance_baseline,
         "donchian_panel": donchian_analysis,
+        "symbol_level_metrics": {
+            name: {
+                "n_symbols": metrics["n_symbols"],
+                "n_months": metrics["n_months"],
+                "cooccurrence": metrics["cooccurrence"]
+            }
+            for name, metrics in symbol_metrics.items()
+        },
+        "ema3_21_sanity_check": {
+            "months_ge4_of5_symbols": ema3_21_months_ge4,
+            "expected_from_journal": 6,
+            "passes": ema3_21_months_ge4 == 6
+        },
         "falsification_criteria": criteria,
         "verdict": verdict
     }
@@ -325,13 +468,24 @@ def main():
     print(f"Observed - Expected: {observed_ge4 - expected_ge4:.2f}")
     print(f"\nMean pairwise phi (loss flags): {mean_phi:.4f}")
     print(f"Mean pairwise Pearson r (month-net): {mean_net_corr:.4f}")
+    print(f"Mean pairwise Spearman rho (month-net): {mean_spearman:.4f}")
+    print(f"Mean Pearson r excluding 2024-11: {mean_pearson_ex_nov:.4f}")
     print(f"Mean Jaccard (losing-month sets): {mean_jaccard:.4f}")
+    print(f"\nEMA3_21 sanity check: {ema3_21_months_ge4}/12 months with ≥4/5 symbols losing")
+    print(f"Expected from journal: 6/12 — {'PASS' if ema3_21_months_ge4 == 6 else 'FAIL'}")
     print(f"\nFalsification criteria:")
     print(f"  (a) months ≤ chance: {criteria['a_months_above_chance']['tripped']}")
     print(f"  (b) low association: {criteria['b_low_association']['tripped']}")
     print(f"  (c) low Jaccard: {criteria['c_low_jaccard']['tripped']}")
     print(f"\nOutputs written to: {output_dir}")
     print("=" * 60)
+    
+    # Sanity gate: EMA3_21 must reproduce journal figure
+    if ema3_21_months_ge4 != 6:
+        print("\n*** WARNING: EMA3_21 sanity check FAILED ***")
+        print("Expected 6/12 months with ≥4/5 symbols losing, got", ema3_21_months_ge4)
+        print("STOP: Data/definition mismatch — do not force verdict.")
+        return None
     
     return results
 
