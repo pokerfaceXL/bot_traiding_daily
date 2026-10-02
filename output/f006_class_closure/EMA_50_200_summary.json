@@ -1,0 +1,148 @@
+[
+  {
+    "cell": "BASELINE",
+    "n_trades": 330,
+    "net": 587.39,
+    "mean_per_trade": 1.78,
+    "pooled_losing_months": 7,
+    "big_winner_pnl": 843.76,
+    "big_winner_pnl_retained_pct": 100.0,
+    "n_trades_vs_baseline_pct": 100.0,
+    "symbols_net_positive": 3,
+    "persym_net": {
+      "SOLUSDT": 8.84,
+      "ETHUSDT": -48.09,
+      "BTCUSDT": -58.9,
+      "XRPUSDT": 548.3,
+      "DOGEUSDT": 137.24
+    },
+    "persym_losing_months": {
+      "SOLUSDT": 8,
+      "ETHUSDT": 8,
+      "BTCUSDT": 8,
+      "XRPUSDT": 9,
+      "DOGEUSDT": 7
+    },
+    "exit_mix": {
+      "initial_sl": 213,
+      "signal_reverse": 112,
+      "end_of_data": 5
+    }
+  },
+  {
+    "cell": "LONG_ONLY",
+    "n_trades": 160,
+    "net": 694.88,
+    "mean_per_trade": 4.343,
+    "pooled_losing_months": 9,
+    "big_winner_pnl": 843.76,
+    "big_winner_pnl_retained_pct": 100.0,
+    "n_trades_vs_baseline_pct": 48.5,
+    "symbols_net_positive": 3,
+    "persym_net": {
+      "SOLUSDT": 50.13,
+      "ETHUSDT": -12.21,
+      "BTCUSDT": -36.61,
+      "XRPUSDT": 577.34,
+      "DOGEUSDT": 116.23
+    },
+    "persym_losing_months": {
+      "SOLUSDT": 7,
+      "ETHUSDT": 9,
+      "BTCUSDT": 9,
+      "XRPUSDT": 9,
+      "DOGEUSDT": 8
+    },
+    "exit_mix": {
+      "initial_sl": 112,
+      "signal_reverse": 48
+    }
+  },
+  {
+    "cell": "B40",
+    "n_trades": 199,
+    "net": 555.69,
+    "mean_per_trade": 2.7924,
+    "pooled_losing_months": 8,
+    "big_winner_pnl": 705.67,
+    "big_winner_pnl_retained_pct": 83.6,
+    "n_trades_vs_baseline_pct": 60.3,
+    "symbols_net_positive": 3,
+    "persym_net": {
+      "SOLUSDT": 51.59,
+      "ETHUSDT": -34.28,
+      "BTCUSDT": -33.89,
+      "XRPUSDT": 547.88,
+      "DOGEUSDT": 24.4
+    },
+    "persym_losing_months": {
+      "SOLUSDT": 8,
+      "ETHUSDT": 9,
+      "BTCUSDT": 8,
+      "XRPUSDT": 9,
+      "DOGEUSDT": 8
+    },
+    "exit_mix": {
+      "initial_sl": 129,
+      "signal_reverse": 70
+    }
+  },
+  {
+    "cell": "B60",
+    "n_trades": 160,
+    "net": 568.72,
+    "mean_per_trade": 3.5545,
+    "pooled_losing_months": 8,
+    "big_winner_pnl": 705.67,
+    "big_winner_pnl_retained_pct": 83.6,
+    "n_trades_vs_baseline_pct": 48.5,
+    "symbols_net_positive": 3,
+    "persym_net": {
+      "SOLUSDT": 61.56,
+      "ETHUSDT": -32.53,
+      "BTCUSDT": -36.07,
+      "XRPUSDT": 563.26,
+      "DOGEUSDT": 12.51
+    },
+    "persym_losing_months": {
+      "SOLUSDT": 7,
+      "ETHUSDT": 9,
+      "BTCUSDT": 8,
+      "XRPUSDT": 8,
+      "DOGEUSDT": 6
+    },
+    "exit_mix": {
+      "initial_sl": 109,
+      "signal_reverse": 51
+    }
+  },
+  {
+    "cell": "B80",
+    "n_trades": 123,
+    "net": 590.77,
+    "mean_per_trade": 4.803,
+    "pooled_losing_months": 8,
+    "big_winner_pnl": 653.45,
+    "big_winner_pnl_retained_pct": 77.4,
+    "n_trades_vs_baseline_pct": 37.3,
+    "symbols_net_positive": 3,
+    "persym_net": {
+      "SOLUSDT": 19.29,
+      "ETHUSDT": -9.28,
+      "BTCUSDT": -20.21,
+      "XRPUSDT": 578.79,
+      "DOGEUSDT": 22.18
+    },
+    "persym_losing_months": {
+      "SOLUSDT": 6,
+      "ETHUSDT": 8,
+      "BTCUSDT": 7,
+      "XRPUSDT": 7,
+      "DOGEUSDT": 7
+    },
+    "exit_mix": {
+      "initial_sl": 85,
+      "signal_reverse": 38
+    }
+  }
+]

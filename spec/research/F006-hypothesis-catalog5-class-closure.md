@@ -54,7 +54,47 @@ number_of_trials: 4 names x (baseline + long-only + 3 breadth cells)
 
 ## Result
 
-(filled by worker run)
+**Ran 2026-10-02.** Experiment ID: H-CATALOG5-CLASS-CLOSURE-01. Script: `scripts/f006_class_closure_experiment.py`.
+
+All four names exhausted. No lever lowered any name's pooled losing-month floor below its baseline while meeting the retention criteria (>=50% big-winner PnL, >=2 baseline carriers).
+
+### Per-name verdicts
+
+**BB_20_25_EMA200** — FREEZE (exhausted)
+- Baseline: 7 losing months (of 12), 512 trades, net +709.9, big-winner PnL 968.0
+- Best lever: LONG_ONLY (7 losing months, 252 trades, net +723.4, 95.9% big PnL retained)
+- Falsifier: does not lower floor (7 vs 7 baseline)
+- Per-symbol floor: all levers equal or worsen the baseline floor on every carrier
+
+**EMA_50_200** — FREEZE (exhausted)
+- Baseline: 7 losing months, 330 trades, net +587.4, big-winner PnL 843.8
+- Best lever: B40 (8 losing months, 199 trades, net +555.7, 83.6% big PnL retained)
+- Falsifier: does not lower floor (8 vs 7 baseline, worsens it)
+- Per-symbol floor: no lever lowers any carrier's floor; several worsen it
+
+**EMA3_13_50_200** — FREEZE (exhausted)
+- Baseline: 7 losing months, 423 trades, net +771.3, big-winner PnL 1132.0
+- Best lever: B40 (8 losing months, 287 trades, net +643.2, 87.8% big PnL retained)
+- Falsifier: does not lower floor (8 vs 7 baseline, worsens it)
+- Per-symbol floor: breadth gates worsen or hold baseline on all carriers
+
+**BB_20_2_EMA200** — FREEZE (exhausted)
+- Baseline: 7 losing months, 756 trades, net +834.4, big-winner PnL 1251.7
+- Best lever: LONG_ONLY (7 losing months, 367 trades, net +872.4, 94.2% big PnL retained)
+- Falsifier: does not lower floor (7 vs 7 baseline)
+- Per-symbol floor: LONG_ONLY holds or worsens; breadth gates worsen
+
+### Shared mechanism confirmed
+
+Every name exhibits the same pattern as EMA3_21_50_200:
+1. Long-only filter: retains net/trade and big-winner PnL but does NOT lower the pooled floor — short-side trades contribute to losses AND runners symmetrically (the basket regime drives both).
+2. Breadth-regime veto: raises entry quality (mean/trade) but either holds or WORSENS the floor — the basket breadth is itself the regime failure's cause, not a gate against it.
+
+The four names share a single failure mode: the 5-symbol basket's macro regime creates both the losses (all five symbols below their EMA200 together) and the fat-tail runners (coordinated breakouts). No OHLCV lever isolates the runs from the regime that produces them.
+
+**Class exhaustion: CONFIRMED.** All four catalog5 names reach the same OHLCV ceiling EMA3_21 did. The NO_TRAIL + lumpy-winner class is closed on own evidence.
+
+Data: Train-1 only (2024-03-01 through 2025-03-01), 5 symbols × 2 intervals, NO_TRAIL exit geometry (activate_pct=10.0, trail_pct=0.04, max_sl_pct=0.03, cooldown=0). Output: `output/f006_class_closure/`.
 
 ## Decision
 

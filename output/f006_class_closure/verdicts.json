@@ -1,0 +1,59 @@
+[
+  {
+    "name": "BB_20_25_EMA200",
+    "baseline_losing_months": 7,
+    "best_cell": "LONG_ONLY",
+    "best_losing_months": 7,
+    "verdict": "FREEZE (exhausted)",
+    "reason": "best cell LONG_ONLY does not lower floor (7 vs 7 baseline)",
+    "baseline_carriers": [
+      "SOLUSDT",
+      "ETHUSDT",
+      "XRPUSDT",
+      "DOGEUSDT"
+    ],
+    "baseline_big_pnl": 968.02
+  },
+  {
+    "name": "EMA_50_200",
+    "baseline_losing_months": 7,
+    "best_cell": "B40",
+    "best_losing_months": 8,
+    "verdict": "FREEZE (exhausted)",
+    "reason": "best cell B40 does not lower floor (8 vs 7 baseline)",
+    "baseline_carriers": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "DOGEUSDT"
+    ],
+    "baseline_big_pnl": 843.76
+  },
+  {
+    "name": "EMA3_13_50_200",
+    "baseline_losing_months": 7,
+    "best_cell": "B40",
+    "best_losing_months": 8,
+    "verdict": "FREEZE (exhausted)",
+    "reason": "best cell B40 does not lower floor (8 vs 7 baseline)",
+    "baseline_carriers": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "DOGEUSDT"
+    ],
+    "baseline_big_pnl": 1131.96
+  },
+  {
+    "name": "BB_20_2_EMA200",
+    "baseline_losing_months": 7,
+    "best_cell": "LONG_ONLY",
+    "best_losing_months": 7,
+    "verdict": "FREEZE (exhausted)",
+    "reason": "best cell LONG_ONLY does not lower floor (7 vs 7 baseline)",
+    "baseline_carriers": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "DOGEUSDT"
+    ],
+    "baseline_big_pnl": 1251.65
+  }
+]
