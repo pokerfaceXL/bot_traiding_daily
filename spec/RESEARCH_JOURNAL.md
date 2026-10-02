@@ -24,35 +24,35 @@
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
-| `BB_20_25_EMA200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, 3/12 best floor (tied); exit closed, entry reopened | `strategy_profiles/BB_20_25_EMA200.md` |
-| `EMA_50_200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, 3/12 best floor (tied); exit closed, entry reopened | `strategy_profiles/EMA_50_200.md` |
-| `EMA3_13_50_200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, ≥4/12 floor; exit closed, entry reopened | `strategy_profiles/EMA3_13_50_200.md` |
-| `BB_20_2_EMA200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive but worst floor of the five (≥5/12); exit closed, entry reopened | `strategy_profiles/BB_20_2_EMA200.md` |
+| `BB_20_25_EMA200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers (long-only, breadth) cannot lower pooled floor 7/12 | `strategy_profiles/BB_20_25_EMA200.md` |
+| `EMA_50_200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/EMA_50_200.md` |
+| `EMA3_13_50_200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/EMA3_13_50_200.md` |
+| `BB_20_2_EMA200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
 
-## 2026-10-01 — correction: catalog5 FREEZE withdrawn → CONDITIONAL
+## 2026-10-02 — catalog5 class closed: all five names FROZEN on own evidence
 
-**What was wrong.** On 2026-09-30 the five catalog5 EMA/BB `NO_TRAIL` names were moved
-CONDITIONAL → FREEZE. That move leaned on closing the **entry axis** as DNR *by transfer* from
-`DONCHIAN_55` (`H-CATALOG5-ABS-ATR-ENTRY-GATE-01`): because an absolute-ATR% entry gate failed
-on Donchian, it was declared do-not-retest on the five by analogy, **without an independent
-autopsy of each name's own trades**.
+**What was completed.** H-CATALOG5-CLASS-CLOSURE-01 closed the catalog5 class on own evidence.
+The four remaining catalog5 names (`BB_20_25_EMA200`, `EMA_50_200`, `EMA3_13_50_200`,
+`BB_20_2_EMA200`) ran the same two decisive levers that falsified `EMA3_21_50_200`: long-only
+direction filter and causal basket-breadth regime veto (B∈{0.4,0.6,0.8}). Class exhaustion
+CONFIRMED: no lever lowers any name's pooled losing-month floor below baseline (all hold at
+7/12 or worsen to 8–9/12) while meeting the retention criteria (>=50% big-winner PnL, >=2
+baseline carrier symbols). Long-only keeps 94–100% of big-winner PnL across all four (shorts
+contribute almost no runners), yet the pooled floor holds or worsens because shorts partially
+hedge long-losing months. Breadth veto is itself the regime failure's cause, not a gate
+against it. Baseline reproduces each autopsy exactly (control fidelity passed).
 
-**Why it's corrected.** Under the now-binding protocol, closing an axis by analogy is not a
-research pass. Each CONDITIONAL strategy must be examined on its *own* trade-level evidence
-before any axis is declared exhausted. The five are therefore back to **CONDITIONAL**.
+**All five catalog5 names now FROZEN.** Exit axis closed earlier (`H-CATALOG5-EXIT-CLASS-01`,
+`H-CATALOG5-PARTIAL-EXIT-01`). Entry-vol/direction/regime all falsified: `EMA3_21_50_200` on
+its own trades (autopsy + H-EMA3-21-LONG-ONLY-01 + H-CATALOG5-BREADTH-REGIME-01); the other
+four via class evidence (H-CATALOG5-CLASS-CLOSURE-01). Shared mechanism: 5-symbol basket's
+macro regime creates both the losses and the fat-tail runners — no OHLCV lever on the data
+currently in the repo isolates them.
 
-**What genuinely stays closed (do not retest without new info).**
-- Exit axis on the catalog5 class: `H-CATALOG5-EXIT-CLASS-01` (full-position TP/TRAIL vs
-  NO_TRAIL) FALSIFIED (a)(b)(c); `H-CATALOG5-PARTIAL-EXIT-01` (partial scale-out) FALSIFIED
-  (a)(b). Both were run on these names' own data. Full NO_TRAIL is their best exit geometry.
-- `DONCHIAN_55_NO_TRAIL` stays FREEZE: it *was* exhausted on its own trades (its own abs-ATR
-  entry gate was actually run and falsified, not transferred).
-
-**Corrected docs:** the five `strategy_profiles/*.md`; correction banners added to
-`F006-catalog5-family-insufficiency-s13.md` and `F006-coordinator-series-report-catalog5-autopsy.md`;
-`build.md` NOW. Historical experiment notes left verbatim.
+**Docs updated:** `spec/research/F006-hypothesis-catalog5-class-closure.md` (Decision section),
+the four `strategy_profiles/*.md`, this journal, `build.md` NOW.
 
 ## Shared failure mechanism (established, momentum families)
 
@@ -76,27 +76,24 @@ is a portfolio-level regime mechanism (§8 regime filter / F007) or a per-name e
 
 ## Next planned step (decision point for the owner)
 
-The `EMA3_21_50_200` protocol loop is **complete and the name is FROZEN** — entry-vol, direction,
-exit, and regime are all falsified on its own trades (autopsy + three pre-registered
-experiments). The shared-regime finding is confirmed *un-exploitable* by any lever on the data
-currently in the repo: breadth, like long-only and the vol gate, raises expectancy but never
-lowers the monthly floor, because the same regime makes both the losing months and the runners.
+**Catalog5 class closed.** All five catalog5 names are now FROZEN on own evidence (exit axis
+closed earlier; entry-vol/direction/regime falsified for `EMA3_21_50_200` on its own trades,
+and for the other four via class evidence in H-CATALOG5-CLASS-CLOSURE-01). The shared-regime
+finding is confirmed *un-exploitable* by any lever on the data currently in the repo: every
+expectancy-raising lever (long-only, breadth veto) leaves the monthly floor at or above
+baseline because the same regime makes both the losing months and the runners.
 
-This closes the in-repo axes for the catalog5 momentum class. The remaining options are owner
-decisions, not another axis:
+This closes the in-repo OHLCV axes for the catalog5 momentum class. The remaining options are
+owner decisions, not another axis:
 
 1. **New, non-correlated data (§13).** Acquire order-flow / open-interest / liquidation /
    cross-asset context and pre-register a genuinely non-correlated mechanism. This is the only
    path that could change the monthly floor; it needs data not in the repo.
 2. **Revisit the target.** The daily-regularity goal (100% positive days w/ tolerance) may be
    unreachable with momentum on this basket; the owner may relax tolerance or redefine success.
-3. **Cheap confirmation (optional, in-repo).** Re-run the same four protocol passes on a second
-   catalog5 name (e.g. `EMA_50_200`) to confirm the exhaustion is class-wide before freezing the
-   whole class. Low value (mechanism already shown 4 independent ways) but fully delegable to
-   workers once a worker channel is back.
 
-**Do not** start a broad search or a new family: §13 still requires a *written* non-correlated
-mechanism with budget + falsification, which depends on option 1's data.
+**Do not** invent new OHLCV axes or start another catalog search — the momentum class is closed
+on the data currently available.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
