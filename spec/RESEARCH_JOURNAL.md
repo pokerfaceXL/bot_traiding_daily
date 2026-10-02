@@ -228,3 +228,8 @@ per-name protocol pass first on the CONDITIONAL names.
   loop on CONDITIONAL catalog5 (one name, one hyp), highest priority `BB_20_25_EMA200`. Docs:
   four strategy profiles, RESEARCH_JOURNAL, build.md, new §15 report
   `F006-coordinator-series-report-catalog5-class-closure-correction.md`.
+- **2026-10-02** — **H-BB-20-25-ABS-ATR-ENTRY-GATE-01 pre-registered** (entry-vol own-trades
+  gate on highest-priority CONDITIONAL `BB_20_25_EMA200`). Five-threshold Train-1 ablation
+  {median, 1.0%, 1.25%, 1.5%, 2.0%}; big-winner freeze net≥29.9; expect possible falsification
+  (Donchian+EMA3_21 entry-vol both failed), but this axis was never independently run on BB's
+  own trades.
