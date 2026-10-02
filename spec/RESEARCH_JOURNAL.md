@@ -114,6 +114,12 @@ mechanism with budget + falsification, which depends on option 1's data.
   the **codex** provider (`--provider openai-codex`, e.g. `gpt-5.6-sol` for causality-sensitive
   code, `gpt-5.3-codex-spark` for routine) to spare the Claude subscription. Reserve Claude
   engine for review or genuinely hard reasoning. Pick the lowest level that will get it right.
+- **Two worker channels; test by spawning, not by `pi auth check`.** `--provider openai-codex`
+  (separate quota) and `--provider claude-bridge --model claude-sonnet-4-5` (economical Claude)
+  both merge. `pi auth check --provider claude-bridge` can falsely report `not_ready` even while
+  the bridge is serving the live session — do NOT trust it; the only real test is a spawn. If
+  codex returns "usage limit reached", fall back to `claude-bridge` (sonnet-4-5) rather than
+  stalling or running inline.
 - **§15 report home:** the mandatory end-of-series Coordinator report (protocol §15, Q1–10)
   is recorded in the **§15 Coordinator report** section just below, updated at the end of each
   series, and also delivered to the human in chat.
