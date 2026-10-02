@@ -1,200 +1,121 @@
 {
   "symbol": "SOLUSDT",
   "interval": "60",
-  "n_trades_baseline": 80,
-  "n_trades_sized": 80,
+  "n_trades_total_baseline": 80,
+  "n_trades_total_sized": 80,
+  "n_trades_train1_entry_baseline": 73,
+  "n_trades_train1_entry_sized": 73,
+  "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 85.522585,
   "train1_net_pnl_sized": 142.039452,
-  "pooled_losing_month_floor_baseline": 3,
-  "pooled_losing_month_floor_sized": 5,
-  "losing_months_baseline": [
-    [
-      2024,
-      5
-    ],
-    [
-      2024,
-      10
-    ],
-    [
-      2024,
-      12
-    ]
-  ],
-  "losing_months_sized": [
-    [
-      2024,
-      3
-    ],
-    [
-      2024,
-      5
-    ],
-    [
-      2024,
-      7
-    ],
-    [
-      2024,
-      10
-    ],
-    [
-      2024,
-      12
-    ]
-  ],
-  "stake_cv": 0.601908,
+  "train1_entry_net_pnl_baseline": 103.393923,
+  "train1_entry_net_pnl_sized": 158.075498,
+  "losing_month_floor_baseline": 3,
+  "losing_month_floor_sized": 2,
+  "stake_cv": 0.595082,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.9464285714285714,
-  "mean_mult_losers": 0.6334745762711864,
-  "mean_mult_gap": 0.312954,
-  "baseline_monthly": [
+  "mean_mult_winners": 0.993421052631579,
+  "mean_mult_losers": 0.5972222222222222,
+  "mean_mult_gap": 0.396199,
+  "baseline_entry_monthly": [
     {
-      "year": 2024,
-      "month": 3,
-      "is_valid": true,
-      "net_pnl": 4.788095912087499
+      "month": "2024-03",
+      "net_pnl": 17.343467
     },
     {
-      "year": 2024,
-      "month": 4,
-      "is_valid": true,
-      "net_pnl": 12.796229688455583
+      "month": "2024-04",
+      "net_pnl": 3.255424
     },
     {
-      "year": 2024,
-      "month": 5,
-      "is_valid": true,
-      "net_pnl": -33.32985237143811
+      "month": "2024-05",
+      "net_pnl": -17.410078
     },
     {
-      "year": 2024,
-      "month": 6,
-      "is_valid": true,
-      "net_pnl": 3.5190070708821395
+      "month": "2024-06",
+      "net_pnl": 3.519007
     },
     {
-      "year": 2024,
-      "month": 7,
-      "is_valid": true,
-      "net_pnl": 5.491799298279886
+      "month": "2024-07",
+      "net_pnl": 21.229512
     },
     {
-      "year": 2024,
-      "month": 8,
-      "is_valid": true,
-      "net_pnl": 14.993710088716512
+      "month": "2024-08",
+      "net_pnl": 1.118509
     },
     {
-      "year": 2024,
-      "month": 9,
-      "is_valid": true,
-      "net_pnl": 10.265166085087003
+      "month": "2024-09",
+      "net_pnl": 5.604621
     },
     {
-      "year": 2024,
-      "month": 10,
-      "is_valid": true,
-      "net_pnl": -2.884568850619189
+      "month": "2024-10",
+      "net_pnl": -2.432029
     },
     {
-      "year": 2024,
-      "month": 11,
-      "is_valid": true,
-      "net_pnl": 29.667708699956393
+      "month": "2024-11",
+      "net_pnl": 30.009082
     },
     {
-      "year": 2024,
-      "month": 12,
-      "is_valid": true,
-      "net_pnl": -30.232281756822772
+      "month": "2024-12",
+      "net_pnl": -28.228162
     },
     {
-      "year": 2025,
-      "month": 1,
-      "is_valid": true,
-      "net_pnl": 44.510212276049174
+      "month": "2025-01",
+      "net_pnl": 54.009034
     },
     {
-      "year": 2025,
-      "month": 2,
-      "is_valid": true,
-      "net_pnl": 25.937359166607962
+      "month": "2025-02",
+      "net_pnl": 15.375536
     }
   ],
-  "sized_monthly": [
+  "sized_entry_monthly": [
     {
-      "year": 2024,
-      "month": 3,
-      "is_valid": true,
-      "net_pnl": -7.199704319582054
+      "month": "2024-03",
+      "net_pnl": 6.178358
     },
     {
-      "year": 2024,
-      "month": 4,
-      "is_valid": true,
-      "net_pnl": 16.17783556070208
+      "month": "2024-04",
+      "net_pnl": 11.407433
     },
     {
-      "year": 2024,
-      "month": 5,
-      "is_valid": true,
-      "net_pnl": -16.970392903881418
+      "month": "2024-05",
+      "net_pnl": -9.010506
     },
     {
-      "year": 2024,
-      "month": 6,
-      "is_valid": true,
-      "net_pnl": 14.8867213397657
+      "month": "2024-06",
+      "net_pnl": 14.886721
     },
     {
-      "year": 2024,
-      "month": 7,
-      "is_valid": true,
-      "net_pnl": -0.4437053896636485
+      "month": "2024-07",
+      "net_pnl": 25.130078
     },
     {
-      "year": 2024,
-      "month": 8,
-      "is_valid": true,
-      "net_pnl": 35.33985909708599
+      "month": "2024-08",
+      "net_pnl": 12.792658
     },
     {
-      "year": 2024,
-      "month": 9,
-      "is_valid": true,
-      "net_pnl": 25.216849127835644
+      "month": "2024-09",
+      "net_pnl": 17.643464
     },
     {
-      "year": 2024,
-      "month": 10,
-      "is_valid": true,
-      "net_pnl": -1.6096173451144296
+      "month": "2024-10",
+      "net_pnl": 0.00532
     },
     {
-      "year": 2024,
-      "month": 11,
-      "is_valid": true,
-      "net_pnl": 13.074734564068535
+      "month": "2024-11",
+      "net_pnl": 15.004541
     },
     {
-      "year": 2024,
-      "month": 12,
-      "is_valid": true,
-      "net_pnl": -15.116140878411443
+      "month": "2024-12",
+      "net_pnl": -14.114081
     },
     {
-      "year": 2025,
-      "month": 1,
-      "is_valid": true,
-      "net_pnl": 51.46610040304961
+      "month": "2025-01",
+      "net_pnl": 70.463744
     },
     {
-      "year": 2025,
-      "month": 2,
-      "is_valid": true,
-      "net_pnl": 27.216912341924512
+      "month": "2025-02",
+      "net_pnl": 7.687768
     }
   ],
-  "seconds": 0.38
+  "seconds": 0.37
 }

@@ -1,231 +1,120 @@
 {
   "symbol": "DOGEUSDT",
   "interval": "240",
-  "n_trades_baseline": 28,
-  "n_trades_sized": 28,
+  "n_trades_total_baseline": 28,
+  "n_trades_total_sized": 28,
+  "n_trades_train1_entry_baseline": 24,
+  "n_trades_train1_entry_sized": 24,
+  "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 111.903223,
   "train1_net_pnl_sized": 134.549824,
-  "pooled_losing_month_floor_baseline": 8,
-  "pooled_losing_month_floor_sized": 8,
-  "losing_months_baseline": [
-    [
-      2024,
-      4
-    ],
-    [
-      2024,
-      5
-    ],
-    [
-      2024,
-      7
-    ],
-    [
-      2024,
-      8
-    ],
-    [
-      2024,
-      9
-    ],
-    [
-      2024,
-      10
-    ],
-    [
-      2024,
-      12
-    ],
-    [
-      2025,
-      1
-    ]
-  ],
-  "losing_months_sized": [
-    [
-      2024,
-      4
-    ],
-    [
-      2024,
-      5
-    ],
-    [
-      2024,
-      7
-    ],
-    [
-      2024,
-      8
-    ],
-    [
-      2024,
-      9
-    ],
-    [
-      2024,
-      10
-    ],
-    [
-      2024,
-      12
-    ],
-    [
-      2025,
-      1
-    ]
-  ],
-  "stake_cv": 0.453114,
+  "train1_entry_net_pnl_baseline": 54.322109,
+  "train1_entry_net_pnl_sized": 62.573432,
+  "losing_month_floor_baseline": 6,
+  "losing_month_floor_sized": 6,
+  "stake_cv": 0.449743,
   "stake_cv_ok": true,
-  "mean_mult_winners": 0.95,
-  "mean_mult_losers": 0.6630434782608695,
-  "mean_mult_gap": 0.286957,
-  "baseline_monthly": [
+  "mean_mult_winners": 0.875,
+  "mean_mult_losers": 0.6875,
+  "mean_mult_gap": 0.1875,
+  "baseline_entry_monthly": [
     {
-      "year": 2024,
-      "month": 3,
-      "is_valid": true,
-      "net_pnl": 115.76875492070633
+      "month": "2024-03",
+      "net_pnl": 0.0
     },
     {
-      "year": 2024,
-      "month": 4,
-      "is_valid": true,
-      "net_pnl": -48.811545378304345
+      "month": "2024-04",
+      "net_pnl": -6.649
     },
     {
-      "year": 2024,
-      "month": 5,
-      "is_valid": true,
-      "net_pnl": -22.665096056854736
+      "month": "2024-05",
+      "net_pnl": -6.64
     },
     {
-      "year": 2024,
-      "month": 6,
-      "is_valid": true,
-      "net_pnl": 16.04263644336504
+      "month": "2024-06",
+      "net_pnl": 8.794373
     },
     {
-      "year": 2024,
-      "month": 7,
-      "is_valid": true,
-      "net_pnl": -10.563763509411046
+      "month": "2024-07",
+      "net_pnl": -3.3155
     },
     {
-      "year": 2024,
-      "month": 8,
-      "is_valid": true,
-      "net_pnl": -13.288999999999987
+      "month": "2024-08",
+      "net_pnl": -13.289
     },
     {
-      "year": 2024,
-      "month": 9,
-      "is_valid": true,
-      "net_pnl": -12.6098059964728
+      "month": "2024-09",
+      "net_pnl": -16.5955
     },
     {
-      "year": 2024,
-      "month": 10,
-      "is_valid": true,
-      "net_pnl": -8.507442345807021
+      "month": "2024-10",
+      "net_pnl": -9.9465
     },
     {
-      "year": 2024,
-      "month": 11,
-      "is_valid": true,
-      "net_pnl": 83.8631635555023
+      "month": "2024-11",
+      "net_pnl": 67.06461
     },
     {
-      "year": 2024,
-      "month": 12,
-      "is_valid": true,
-      "net_pnl": -6.647256449478618
+      "month": "2024-12",
+      "net_pnl": 1.856476
     },
     {
-      "year": 2025,
-      "month": 1,
-      "is_valid": true,
-      "net_pnl": -18.248575013029154
+      "month": "2025-01",
+      "net_pnl": 33.042151
     },
     {
-      "year": 2025,
-      "month": 2,
-      "is_valid": true,
-      "net_pnl": 37.57115256356815
+      "month": "2025-02",
+      "net_pnl": 0.0
     }
   ],
-  "sized_monthly": [
+  "sized_entry_monthly": [
     {
-      "year": 2024,
-      "month": 3,
-      "is_valid": true,
-      "net_pnl": 144.71094365088288
+      "month": "2024-03",
+      "net_pnl": 0.0
     },
     {
-      "year": 2024,
-      "month": 4,
-      "is_valid": true,
-      "net_pnl": -68.04650376552149
+      "month": "2024-04",
+      "net_pnl": -3.3245
     },
     {
-      "year": 2024,
-      "month": 5,
-      "is_valid": true,
-      "net_pnl": -11.332548028427368
+      "month": "2024-05",
+      "net_pnl": -3.32
     },
     {
-      "year": 2024,
-      "month": 6,
-      "is_valid": true,
-      "net_pnl": 20.05329555420633
+      "month": "2024-06",
+      "net_pnl": 10.992966
     },
     {
-      "year": 2024,
-      "month": 7,
-      "is_valid": true,
-      "net_pnl": -10.718079386763861
+      "month": "2024-07",
+      "net_pnl": -1.65775
     },
     {
-      "year": 2024,
-      "month": 8,
-      "is_valid": true,
-      "net_pnl": -10.38118750000001
+      "month": "2024-08",
+      "net_pnl": -10.381188
     },
     {
-      "year": 2024,
-      "month": 9,
-      "is_valid": true,
-      "net_pnl": -10.044965498236365
+      "month": "2024-09",
+      "net_pnl": -12.037813
     },
     {
-      "year": 2024,
-      "month": 10,
-      "is_valid": true,
-      "net_pnl": -3.4627518012584915
+      "month": "2024-10",
+      "net_pnl": -6.216562
     },
     {
-      "year": 2024,
-      "month": 11,
-      "is_valid": true,
-      "net_pnl": 74.62358061106465
+      "month": "2024-11",
+      "net_pnl": 59.924846
     },
     {
-      "year": 2024,
-      "month": 12,
-      "is_valid": true,
-      "net_pnl": -11.65736783756006
+      "month": "2024-12",
+      "net_pnl": 0.928238
     },
     {
-      "year": 2025,
-      "month": 1,
-      "is_valid": true,
-      "net_pnl": -12.069350520121475
+      "month": "2025-01",
+      "net_pnl": 27.665195
     },
     {
-      "year": 2025,
-      "month": 2,
-      "is_valid": true,
-      "net_pnl": 32.87475849312216
+      "month": "2025-02",
+      "net_pnl": 0.0
     }
   ],
   "seconds": 0.14
