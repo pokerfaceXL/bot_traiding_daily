@@ -1,0 +1,216 @@
+{
+  "train_period": "2024-03 to 2025-02 (12 months)",
+  "catalog5_names": [
+    "BB_20_25_EMA200",
+    "EMA_50_200",
+    "EMA3_21_50_200",
+    "EMA3_13_50_200",
+    "BB_20_2_EMA200"
+  ],
+  "cooccurrence": {
+    "ge_3_of_5": {
+      "count": 7,
+      "months": [
+        "2024-03",
+        "2024-04",
+        "2024-05",
+        "2024-08",
+        "2024-09",
+        "2024-12",
+        "2025-01"
+      ]
+    },
+    "ge_4_of_5": {
+      "count": 6,
+      "months": [
+        "2024-03",
+        "2024-04",
+        "2024-05",
+        "2024-08",
+        "2024-09",
+        "2024-12"
+      ]
+    },
+    "ge_5_of_5": {
+      "count": 6,
+      "months": [
+        "2024-03",
+        "2024-04",
+        "2024-05",
+        "2024-08",
+        "2024-09",
+        "2024-12"
+      ]
+    }
+  },
+  "pairwise_net_correlations": {
+    "mean": 0.9611956856662468,
+    "values": [
+      {
+        "pair": "BB_20_25_EMA200 vs EMA_50_200",
+        "correlation": 0.9572606267217026
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_21_50_200",
+        "correlation": 0.924290665157983
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_13_50_200",
+        "correlation": 0.9228117651250263
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs BB_20_2_EMA200",
+        "correlation": 0.9744305657327135
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_21_50_200",
+        "correlation": 0.9674940652769425
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_13_50_200",
+        "correlation": 0.967391345450528
+      },
+      {
+        "pair": "EMA_50_200 vs BB_20_2_EMA200",
+        "correlation": 0.9586735361063828
+      },
+      {
+        "pair": "EMA3_21_50_200 vs EMA3_13_50_200",
+        "correlation": 0.999385446777965
+      },
+      {
+        "pair": "EMA3_21_50_200 vs BB_20_2_EMA200",
+        "correlation": 0.9702719564233748
+      },
+      {
+        "pair": "EMA3_13_50_200 vs BB_20_2_EMA200",
+        "correlation": 0.9699468838898487
+      }
+    ]
+  },
+  "pairwise_phi_coefficients": {
+    "mean": 0.7942857142857143,
+    "values": [
+      {
+        "pair": "BB_20_25_EMA200 vs EMA_50_200",
+        "phi": 0.6571428571428571
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_21_50_200",
+        "phi": 0.6571428571428571
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_13_50_200",
+        "phi": 0.6571428571428571
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs BB_20_2_EMA200",
+        "phi": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_21_50_200",
+        "phi": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_13_50_200",
+        "phi": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs BB_20_2_EMA200",
+        "phi": 0.6571428571428571
+      },
+      {
+        "pair": "EMA3_21_50_200 vs EMA3_13_50_200",
+        "phi": 1.0
+      },
+      {
+        "pair": "EMA3_21_50_200 vs BB_20_2_EMA200",
+        "phi": 0.6571428571428571
+      },
+      {
+        "pair": "EMA3_13_50_200 vs BB_20_2_EMA200",
+        "phi": 0.6571428571428571
+      }
+    ]
+  },
+  "pairwise_jaccard_similarity": {
+    "mean": 0.85,
+    "values": [
+      {
+        "pair": "BB_20_25_EMA200 vs EMA_50_200",
+        "jaccard": 0.75
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_21_50_200",
+        "jaccard": 0.75
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs EMA3_13_50_200",
+        "jaccard": 0.75
+      },
+      {
+        "pair": "BB_20_25_EMA200 vs BB_20_2_EMA200",
+        "jaccard": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_21_50_200",
+        "jaccard": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs EMA3_13_50_200",
+        "jaccard": 1.0
+      },
+      {
+        "pair": "EMA_50_200 vs BB_20_2_EMA200",
+        "jaccard": 0.75
+      },
+      {
+        "pair": "EMA3_21_50_200 vs EMA3_13_50_200",
+        "jaccard": 1.0
+      },
+      {
+        "pair": "EMA3_21_50_200 vs BB_20_2_EMA200",
+        "jaccard": 0.75
+      },
+      {
+        "pair": "EMA3_13_50_200 vs BB_20_2_EMA200",
+        "jaccard": 0.75
+      }
+    ]
+  },
+  "chance_baseline": {
+    "p_loss": {
+      "BB_20_25_EMA200": 0.5833333333333334,
+      "EMA_50_200": 0.5833333333333334,
+      "EMA3_21_50_200": 0.5833333333333334,
+      "EMA3_13_50_200": 0.5833333333333334,
+      "BB_20_2_EMA200": 0.5833333333333334
+    },
+    "expected_months_ge4": 3.7023,
+    "std_months_ge4": 1.599335708974198,
+    "n_simulations": 10000
+  },
+  "donchian_panel": {
+    "catalog5_majority_loss_months": 7,
+    "donchian_also_lost": 6,
+    "agreement_rate": 0.8571428571428571
+  },
+  "falsification_criteria": {
+    "a_months_above_chance": {
+      "observed_ge4": 6,
+      "expected_ge4": 3.7023,
+      "observed_minus_expected": 2.2977,
+      "tripped": false
+    },
+    "b_low_association": {
+      "mean_phi": 0.7942857142857143,
+      "mean_net_corr": 0.9611956856662468,
+      "tripped": false
+    },
+    "c_low_jaccard": {
+      "mean_jaccard": 0.85,
+      "tripped": false
+    }
+  },
+  "verdict": "CONFIRMED"
+}

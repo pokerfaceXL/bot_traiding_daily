@@ -106,7 +106,27 @@ number_of_trials: 1 (single frozen diagnostic; Donchian panel is descriptive onl
 
 ## Result
 
-_(worker fills)_
+**CONFIRMED** — losing months are common across FREEZE catalog5 names (basket regime), not idiosyncratic.
+
+Train-1 (2024-03 to 2025-02, 12 months) loss co-occurrence from existing autopsy monthly tables (BB_20_25_EMA200, EMA_50_200, EMA3_21_50_200, EMA3_13_50_200, BB_20_2_EMA200):
+
+- **6/12 months** with ≥4/5 names losing (observed) vs **3.70** expected by chance (Monte Carlo, n=10,000)
+- **6/12 months** with 5/5 names ALL losing: 2024-03, 2024-04, 2024-05, 2024-08, 2024-09, 2024-12
+- **Mean pairwise phi** (loss flags): **0.79** (» 0.10 threshold)
+- **Mean pairwise Pearson r** (month-net): **0.96** (» 0.20 threshold)
+- **Mean Jaccard** (losing-month sets): **0.85** (» 0.35 threshold)
+- **Observed − expected**: +2.30 months (» 0)
+
+None of the pre-declared falsification criteria (a)(b)(c) trip:
+- **(a)** observed − expected = +2.30 > 0 ✓
+- **(b)** mean phi = 0.79 > 0.10 AND mean corr = 0.96 > 0.20 ✓
+- **(c)** mean Jaccard = 0.85 > 0.35 ✓
+
+Optional Donchian panel: 6/7 catalog5 majority-loss months (≥3/5 losing) also saw Donchian loss (86% agreement).
+
+Computation: `scripts/f006_shared_losing_months_diagnostic.py` → `output/f006_shared_losing_months/{loss_matrix.csv,summary.json}` (reproducible, seed=42).
+
+The common-regime hypothesis is confirmed — Train-1 losing months cluster tightly across all five FREEZE catalog5 names, far above what independent name-specific failures would produce.
 
 ## Decision
 
