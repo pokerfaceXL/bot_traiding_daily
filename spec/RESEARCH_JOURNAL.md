@@ -24,35 +24,45 @@
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
-| `BB_20_25_EMA200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers (long-only, breadth) cannot lower pooled floor 7/12 | `strategy_profiles/BB_20_25_EMA200.md` |
-| `EMA_50_200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/EMA_50_200.md` |
-| `EMA3_13_50_200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/EMA3_13_50_200.md` |
-| `BB_20_2_EMA200` | **FREEZE** | yes (class evidence) | all axes falsified on catalog5 class evidence via H-CATALOG5-CLASS-CLOSURE-01; exit closed earlier, decisive levers cannot lower pooled floor 7/12 | `strategy_profiles/BB_20_2_EMA200.md` |
+| `BB_20_25_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_25_EMA200.md` |
+| `EMA_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA_50_200.md` |
+| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
+| `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
 
-## 2026-10-02 — catalog5 class closed: all five names FROZEN on own evidence
+## 2026-10-02 evening — CORRECTION: catalog5 FREEZE withdrawn (four names → CONDITIONAL)
 
-**What was completed.** H-CATALOG5-CLASS-CLOSURE-01 closed the catalog5 class on own evidence.
-The four remaining catalog5 names (`BB_20_25_EMA200`, `EMA_50_200`, `EMA3_13_50_200`,
-`BB_20_2_EMA200`) ran the same two decisive levers that falsified `EMA3_21_50_200`: long-only
-direction filter and causal basket-breadth regime veto (B∈{0.4,0.6,0.8}). Class exhaustion
-CONFIRMED: no lever lowers any name's pooled losing-month floor below baseline (all hold at
-7/12 or worsen to 8–9/12) while meeting the retention criteria (>=50% big-winner PnL, >=2
-baseline carrier symbols). Long-only keeps 94–100% of big-winner PnL across all four (shorts
-contribute almost no runners), yet the pooled floor holds or worsens because shorts partially
-hedge long-losing months. Breadth veto is itself the regime failure's cause, not a gate
-against it. Baseline reproduces each autopsy exactly (control fidelity passed).
+**FREEZE of the four catalog5 names was WRONG** (owner-locked correction, 2026-10-02 ~22:50
+Europe/Warsaw). The binding protocol loop (2026-10-01) requires a full per-name
+Observation→Problem→Mechanism→Hypothesis pass. Class-closure ran long-only + breadth levers on
+the four remaining names and shared-losing confirmed basket regime — but that does **not**
+substitute a full protocol loop on each name for every axis. Remaining names never got that
+full pass. FREEZE only when all axes are exhausted on that name's **own** trades under protocol.
 
-**All five catalog5 names now FROZEN.** Exit axis closed earlier (`H-CATALOG5-EXIT-CLASS-01`,
-`H-CATALOG5-PARTIAL-EXIT-01`). Entry-vol/direction/regime all falsified: `EMA3_21_50_200` on
-its own trades (autopsy + H-EMA3-21-LONG-ONLY-01 + H-CATALOG5-BREADTH-REGIME-01); the other
-four via class evidence (H-CATALOG5-CLASS-CLOSURE-01). Shared mechanism: 5-symbol basket's
-macro regime creates both the losses and the fat-tail runners — no OHLCV lever on the data
-currently in the repo isolates them.
+**Four names unfrozen to CONDITIONAL.** `BB_20_25_EMA200`, `EMA_50_200`, `EMA3_13_50_200`,
+`BB_20_2_EMA200` are now **CONDITIONAL** (2026-10-02 evening). Only axes actually tested on
+each name's own trades stay closed: exit (H-CATALOG5-EXIT-CLASS-01, H-CATALOG5-PARTIAL-EXIT-01
+ran on these series); direction lever (long-only cell of H-CATALOG5-CLASS-CLOSURE-01 has
+own-trade numbers for each name); regime lever (breadth B40/B60/B80 cells have own-trade
+numbers). **Open on these four:** entry-vol/abs-ATR gate (only DNR-by-transfer, never
+independently run), position sizing (never tested), other §8 entry structure not yet
+pre-registered.
 
-**Docs updated:** `spec/research/F006-hypothesis-catalog5-class-closure.md` (Decision section),
-the four `strategy_profiles/*.md`, this journal, `build.md` NOW.
+**`EMA3_21_50_200` FREEZE kept.** This name completed a full independent protocol pass on its
+own trades (entry-vol autopsy, long-only, breadth-regime), so it remains **FREEZE**.
+
+**Shared-losing-months CONFIRMED still stands** (H-CATALOG5-SHARED-LOSING-MONTHS-01) as a
+diagnostic finding (basket regime), but does **not** license class-wide FREEZE — it only
+blocks in-class portfolio combination (§8 precondition "losses not strongly correlated" fails).
+
+**Docs corrected:** four `strategy_profiles/*.md`, this journal, `build.md` NOW, new §15
+coordinator series report `F006-coordinator-series-report-catalog5-class-closure-correction.md`.
+
+**Historical context (2026-10-02 morning, now superseded by this correction):**
+H-CATALOG5-CLASS-CLOSURE-01 completed: long-only + breadth levers on the four remaining names.
+No lever lowered pooled floor below 7/12 while meeting retention criteria. That result is
+still valid, but it does not exhaust the per-name protocol loop for those four names.
 
 ## Shared failure mechanism (established, momentum families)
 
@@ -80,32 +90,25 @@ target revisit (see Next planned step).
 
 ## Next planned step (decision point for the owner)
 
-**Catalog5 class closed; shared-losing-months question systematically confirmed.** All five
-catalog5 names are now FROZEN on own evidence (exit axis closed earlier; entry-vol/direction/
-regime falsified for `EMA3_21_50_200` on its own trades, and for the other four via class
-evidence in H-CATALOG5-CLASS-CLOSURE-01). The shared-regime finding is now systematically
-confirmed (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1 losing months cluster far above chance
-across all five names (6/12 with ≥4/5 losing vs 3.70 expected; phi 0.79, Pearson 0.96, Jaccard
-0.85) — a common basket regime, not idiosyncratic failures. This is *un-exploitable* by any
-lever on the data currently in the repo: every expectancy-raising lever (long-only, breadth
-veto) leaves the monthly floor at or above baseline because the same regime makes both the
-losing months and the runners.
+**Catalog5 correction complete.** Four names (`BB_20_25_EMA200`, `EMA_50_200`, `EMA3_13_50_200`,
+`BB_20_2_EMA200`) are now **CONDITIONAL** (FREEZE withdrawn 2026-10-02 evening); `EMA3_21_50_200`
+and `DONCHIAN_55_NO_TRAIL` remain **FREEZE** (full protocol pass on own trades). Among
+CONDITIONAL catalog5, highest priority = `BB_20_25_EMA200` (best monthly floor 3/12 on one
+series, best series-positive rate 9/10, cited in catalog5 monthly note as nearest to checklist).
 
-**In-class portfolio diversification (F007 direction) is BLOCKED.** The shared-losing-months
-CONFIRMED result blocks §8 portfolio combination within catalog5 — the precondition "losses
-not strongly correlated" fails. Combining these five names would not improve monthly regularity.
+**Shared-losing-months CONFIRMED still stands** (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1
+losing months cluster far above chance across all five catalog5 names (6/12 with ≥4/5 losing
+vs 3.70 expected; phi 0.79, Pearson 0.96, Jaccard 0.85) — a common basket regime, not
+idiosyncratic failures. This **blocks** §8 in-class portfolio diversification (precondition
+"losses not strongly correlated" fails). Combining catalog5 names would not improve monthly
+regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
+blocks portfolio combination.
 
-This closes the in-repo OHLCV axes for the catalog5 momentum class. The remaining options are
-owner decisions, not another axis:
-
-1. **New, non-correlated data (§13).** Acquire order-flow / open-interest / liquidation /
-   cross-asset context and pre-register a genuinely non-correlated mechanism. This is the only
-   path that could change the monthly floor; it needs data not in the repo.
-2. **Revisit the target.** The daily-regularity goal (100% positive days w/ tolerance) may be
-   unreachable with momentum on this basket; the owner may relax tolerance or redefine success.
-
-**Do not** invent new OHLCV axes or start another catalog search — the momentum class is closed
-on the data currently available.
+**Next = continue protocol loop on CONDITIONAL catalog5** (one name, one hypothesis, on an
+open axis), NOT owner §13-only gate. Highest priority: `BB_20_25_EMA200`, open axis =
+entry-vol/abs-ATR own-trades gate (or position sizing). Do not invent new OHLCV axes; do not
+start another catalog search. But do **not** jump to §13 non-correlated data — finish the
+per-name protocol pass first on the CONDITIONAL names.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
@@ -139,14 +142,13 @@ on the data currently available.
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-02, after EMA3_21 breadth-regime pass)
+## §15 Coordinator report (updated 2026-10-02 evening, after catalog5 FREEZE→CONDITIONAL correction)
 
-1. **Best strategy now?** None promotable. `EMA3_21_50_200` is now **FROZEN** (all axes
-   falsified on its own trades), as is `DONCHIAN_55_NO_TRAIL`. The best-evidenced remaining
-   CONDITIONAL names are `BB_20_25_EMA200` / `EMA_50_200` (3/12 floor) — but their axes have not
-   been individually run; the EMA3_21 result makes it very likely they freeze the same way.
-2. **Why best?** Widest aggregate-positive span + best monthly floor of the catalog5 class; but
-   "best" = best surviving screen, not validated (0/10 series clear §7).
+1. **Best strategy now?** None promotable. Among CONDITIONAL, `BB_20_25_EMA200` / `EMA_50_200`
+   (best monthly floors 3/12 on one series each, best series-positive rates in catalog5).
+   `EMA3_21_50_200` and `DONCHIAN_55_NO_TRAIL` remain **FREEZE** (full protocol pass).
+2. **Why best?** Best surviving screen + best monthly floor of the catalog5 class; but not
+   validated (0/10 series clear §7).
 3. **Edge from many trades or few big wins?** Few big wins. EMA3_21: 4 of 402 trades = full net;
    2024-11 alone = +813 of +817; top-3 winners = 97% of net.
 4. **Earns when?** High-conviction long breakouts that run to the opposite EMA extreme
@@ -155,32 +157,31 @@ on the data currently available.
    not just EMA3_21 within-name hint) — 6/12 Train-1 months have ≥4/5 catalog5 names losing
    together (vs 3.70 chance; phi 0.79, Pearson 0.96); 68.7% of trades die at the fixed stop
    (0% WR by construction).
-6. **Rejected hypotheses?** Per-name: entry-vol/abs-ATR gate (now falsified on EMA3_21's own
-   trades, not by transfer), exit-class, partial-exit, long-only (expectancy up but regularity
-   worse). Class/sibling: take-profit, trailing, EMA-trend confirm, cross-symbol agreement,
-   loss-cooldown, vol-inverse sizing, BTC-ER permission filter (btc_filter, H2-falsified),
-   ~20 swarm families (all H2-falsified).
-7. **Unresolved problem?** Monthly regularity — and it is now shown *un-fixable by any in-repo
-   lever*. The losses are a shared basket regime (systematically confirmed H-CATALOG5-SHARED-LOSING-MONTHS-01:
-   6/12 months with ≥4/5 names losing together, phi 0.79, Pearson 0.96 — not idiosyncratic);
-   every expectancy-raising lever (long-only, vol gate, breadth regime) leaves the floor ≥7/12
-   because the same regime makes both the losses and the runners. In-class portfolio combination
-   (§8) is BLOCKED — losses strongly correlated. Fixing it needs a genuinely non-correlated
-   signal, i.e. new data.
-8. **Next experiment & why?** None in-repo is licensed. The open question (shared vs
-   idiosyncratic losing months) is systematically ANSWERED: CONFIRMED basket regime
-   (H-CATALOG5-SHARED-LOSING-MONTHS-01), which BLOCKS §8 in-class portfolio diversification.
-   The decision is the owner's: acquire non-correlated data (order-flow / OI / liquidation /
-   cross-asset, §13) or revisit the daily-regularity target. Do not invent new OHLCV axes or
-   another catalog5 entry family.
-9. **Why not a random search?** §13 now largely holds (the failure shares one mechanism across
-   four independent axes), but it still requires a *written* non-correlated-mechanism
-   justification + budget + falsification, which depends on data not yet in the repo. Random
+6. **Rejected hypotheses?** On `EMA3_21_50_200` own trades: entry-vol/abs-ATR gate, exit-class,
+   partial-exit, long-only, breadth regime (all independently falsified). On catalog5 class:
+   exit-class, partial-exit (ran on all five series); long-only + breadth levers (class-closure
+   ran on four names, but that does NOT exhaust per-name protocol pass). Wider class: take-profit,
+   trailing, EMA-trend confirm, cross-symbol agreement, loss-cooldown, vol-inverse sizing,
+   BTC-ER filter (btc_filter H2-falsified), ~20 swarm families (all H2-falsified).
+7. **Unresolved problem?** Monthly regularity. The losses are a shared basket regime
+   (systematically confirmed H-CATALOG5-SHARED-LOSING-MONTHS-01: 6/12 months with ≥4/5 names
+   losing together, phi 0.79, Pearson 0.96). On `EMA3_21_50_200` (full protocol pass), every
+   expectancy-raising lever leaves floor ≥7/12 because the regime makes both losses and runners.
+   On the four CONDITIONAL catalog5 names, entry+sizing axes remain open (not independently
+   tested on own trades). In-class portfolio combination (§8) is BLOCKED — losses strongly
+   correlated.
+8. **Next experiment & why?** Continue protocol loop on CONDITIONAL catalog5 (one name, one hyp,
+   one open axis). Highest priority: `BB_20_25_EMA200` (best monthly floor / journal cite),
+   open axis = entry-vol/abs-ATR own-trades gate (or position sizing). NOT owner §13-only gate.
+   Finish per-name protocol pass before moving to non-correlated data.
+9. **Why not a random search?** §7 develop-before-abandon. Finish the per-name protocol loop
+   first on CONDITIONAL catalog5. §13 (non-correlated data) remains an option after that, but
+   requires written non-correlated-mechanism justification + budget + falsification. Random
    widening remains forbidden by §9/§13.
-10. **What result confirms/refutes the next hypothesis?** For option 1 (new-data mechanism): it
-    is falsified unless, on the frozen Train-1 basket, it lowers the pooled losing-month floor
-    below 7/12 while keeping ≥50% of big-winner PnL and holding for ≥2 carrying symbols — the
-    same bar every in-repo lever has failed.
+10. **What result confirms/refutes the next hypothesis?** Same bar as before: falsified unless,
+    on the frozen Train-1 basket, it lowers the pooled losing-month floor below baseline (7/12
+    for most catalog5 names under class-closure; name-specific baseline from autopsy) while
+    keeping ≥50% of big-winner PnL and holding for ≥2 carrying symbols.
 
 ## Chronological log
 
@@ -216,8 +217,14 @@ on the data currently available.
   Diagnostic answered the open question: Train-1 losing months are SHARED across all five FREEZE
   catalog5 names (basket regime), not idiosyncratic. 6/12 months with ≥4/5 names losing (vs 3.70
   chance), mean phi 0.79, Pearson 0.96, Jaccard 0.85. Symbol-level panel + Donchian sanity
-  checks PASS. This CONFIRMED result licenses the portfolio / F007 *direction* in principle
-  (§8), BUT **blocks in-class diversification** — losses ARE strongly correlated, so combining
-  catalog5 names cannot improve monthly regularity. Owner decision required: §13 non-correlated
-  data or target revisit. Do not invent OHLCV cards. Decision docs filled (hypothesis card,
-  journal, build.md NOW).
+  checks PASS. This CONFIRMED result **blocks in-class diversification** (§8 precondition
+  "losses not strongly correlated" fails), but does NOT license class-wide FREEZE. Decision docs
+  filled (hypothesis card, journal, build.md NOW).
+- **2026-10-02 evening** — catalog5 FREEZE→CONDITIONAL correction (owner-locked). Four names
+  unfrozen: `BB_20_25_EMA200`, `EMA_50_200`, `EMA3_13_50_200`, `BB_20_2_EMA200` now
+  **CONDITIONAL**; `EMA3_21_50_200` FREEZE kept (full loop on own trades). Class-closure/
+  shared-months do NOT substitute full per-name protocol pass; only axes independently tested
+  on each name's own trades stay closed. Entry+sizing still open on the four. Next = protocol
+  loop on CONDITIONAL catalog5 (one name, one hyp), highest priority `BB_20_25_EMA200`. Docs:
+  four strategy profiles, RESEARCH_JOURNAL, build.md, new §15 report
+  `F006-coordinator-series-report-catalog5-class-closure-correction.md`.
