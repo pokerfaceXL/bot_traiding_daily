@@ -96,7 +96,50 @@ decision_if_fail: keep CONDITIONAL; mark entry-vol/abs-ATR axis closed on this n
 
 ## Result
 
-(empty — fill after T0 run)
+Ran 2026-10-02. Base: a77fc9c. Script: `scripts/f006_bb_20_25_abs_atr_gate.py`.
+Artifacts: `output/f006_bb_20_25_abs_atr_gate/`.
+
+Control reproduced catalog5 harness baseline exactly: mean Train-1 net PnL = +82.90 across
+10 series (pooled entry cohort n=512, net=+709.85). Frozen median entry ATR% = 1.165%
+(computed on ungated cohort before any gated eval).
+
+```text
+Threshold  Mean     Pooled   Entry-n  SL%   ΔSL(pp)  BigWin  Retain%  Floor  Pass
+─────────────────────────────────────────────────────────────────────────────────
+control    +82.90   +829.00   512     58.0%   —       10/968   100%     7/12   —
+median     +43.14   +431.42   296     48.3%   +9.7    1/336     35%     7/12   ✗
+1.0%       +37.36   +373.57   239     43.9%  +14.1    1/336     35%     6/12   ✗
+1.25%      +47.19   +471.93   314     48.4%   +9.6    3/409     42%     6/12   ✗
+1.5%       +49.13   +491.31   363     49.9%   +8.1    3/409     42%     7/12   ✗
+2.0%       +73.76   +737.59   435     54.9%   +3.1    7/824     85%     7/12   ✗
+```
+
+*BigWin = count/pooled_pnl of net≥29.9 trades; Retain% = gated_big_pnl / baseline_big_pnl;*
+*Floor = losing entry-months out of 12.*
+
+**Verdict: FALSIFIED** (all 5 T fail)
+
+Every threshold reduced mean Train-1 net PnL below the ungated baseline (+82.90), violating
+pre-declared falsifier (a). Even T=1.0%, which achieved the largest initial_sl share drop
+(14.1pp) and the lowest losing-month floor (6/12), still underperformed the baseline by
+45.54 mean PnL. The gate correctly reduced stop-outs, but the filtered-out trades included
+essential fat-tail winners: baseline had 10 big winners (net≥29.9) contributing +968 pooled
+PnL; T=1.0% retained only 1 (+336, 35% of baseline big-winner PnL). The median and tight
+thresholds destroyed >60% of big-winner economics; even the loose T=2.0% retained 85% of
+big-winner PnL but still fell 9.14 mean PnL short of the baseline, and its sl share
+improvement was only 3.1pp (below the 10pp target).
+
+The directional shape observed in the dual autopsy (mean entry ATR% higher on initial_sl
+exits than on signal_reverse exits) was real, but the causal mechanism failed: removing
+high-ATR entries filtered essential signal_reverse runners, not just noise. The losing-month
+floor remained 7/12 at most thresholds (same as ungated), and the one threshold that reached
+6/12 (T=1.0% and 1.25%) did so by collapsing trade count and destroying mean expectancy, not
+by improving monthly regularity.
+
+Conclusion: abs-ATR entry gate **FALSIFIED** on BB_20_25_EMA200's own trades. The entry-vol
+axis remains closed for this name (was DNR-by-transfer from Donchian/EMA3_21, now formally
+evaluated and rejected). Monthly promotion (§7) and the 7/12 pooled floor remain unresolved;
+next open lever = position sizing or a §8 entry structure with a new written mechanism.
 
 ## Decision
 
