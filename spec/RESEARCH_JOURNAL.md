@@ -65,23 +65,35 @@ that carry all the aggregate PnL. The unresolved question is whether an **entry-
 (no look-ahead)** can separate `initial_sl` deaths from `signal_reverse` runners *without*
 being just another proxy for the entry's own volatility/trend state.
 
-## Open question the record cannot yet answer
+## Answered questions (systematic evidence)
 
-Are the **losing months shared across the frozen/conditional families** (a common market
-regime when all breakout momentum fails) or idiosyncratic per name/symbol? The
-portfolio-diversification exploration hinted the two worst months were correlated on 5
-hand-picked series, but this has never been tested systematically across all catalog5 names ×
-symbols from the per-trade autopsy tables. The answer decides whether the next licensed step
-is a portfolio-level regime mechanism (§8 regime filter / F007) or a per-name entry autopsy.
+**Are the losing months shared across catalog5 names (basket regime) or idiosyncratic?**
+ANSWERED (2026-10-02, H-CATALOG5-SHARED-LOSING-MONTHS-01, tip dc9818e): **CONFIRMED shared /
+basket regime.** Train-1 losing months cluster tightly across all five FREEZE catalog5 names:
+6/12 months with ≥4/5 names losing (vs 3.70 expected by chance), mean pairwise phi 0.79, mean
+Pearson r 0.96 (robust ex-outlier 0.68), mean Jaccard 0.85. Symbol-level panel and optional
+Donchian sanity checks agree. This is a common basket-regime failure, not name-specific
+microstructure. The portfolio-diversification exploration's two-month hint is now systematically
+confirmed. However, this **blocks** §8 in-class portfolio combination — the precondition
+"losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
+target revisit (see Next planned step).
 
 ## Next planned step (decision point for the owner)
 
-**Catalog5 class closed.** All five catalog5 names are now FROZEN on own evidence (exit axis
-closed earlier; entry-vol/direction/regime falsified for `EMA3_21_50_200` on its own trades,
-and for the other four via class evidence in H-CATALOG5-CLASS-CLOSURE-01). The shared-regime
-finding is confirmed *un-exploitable* by any lever on the data currently in the repo: every
-expectancy-raising lever (long-only, breadth veto) leaves the monthly floor at or above
-baseline because the same regime makes both the losing months and the runners.
+**Catalog5 class closed; shared-losing-months question systematically confirmed.** All five
+catalog5 names are now FROZEN on own evidence (exit axis closed earlier; entry-vol/direction/
+regime falsified for `EMA3_21_50_200` on its own trades, and for the other four via class
+evidence in H-CATALOG5-CLASS-CLOSURE-01). The shared-regime finding is now systematically
+confirmed (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1 losing months cluster far above chance
+across all five names (6/12 with ≥4/5 losing vs 3.70 expected; phi 0.79, Pearson 0.96, Jaccard
+0.85) — a common basket regime, not idiosyncratic failures. This is *un-exploitable* by any
+lever on the data currently in the repo: every expectancy-raising lever (long-only, breadth
+veto) leaves the monthly floor at or above baseline because the same regime makes both the
+losing months and the runners.
+
+**In-class portfolio diversification (F007 direction) is BLOCKED.** The shared-losing-months
+CONFIRMED result blocks §8 portfolio combination within catalog5 — the precondition "losses
+not strongly correlated" fails. Combining these five names would not improve monthly regularity.
 
 This closes the in-repo OHLCV axes for the catalog5 momentum class. The remaining options are
 owner decisions, not another axis:
@@ -139,21 +151,28 @@ on the data currently available.
    2024-11 alone = +813 of +817; top-3 winners = 97% of net.
 4. **Earns when?** High-conviction long breakouts that run to the opposite EMA extreme
    (`signal_reverse`), concentrated in Oct–Nov 2024; longs carry (+875), shorts don't (−58).
-5. **Loses when?** Shared basket regime — 6/12 months have ≥4/5 symbols net-negative together
-   (Aug/Sep 2024 = 5/5); 68.7% of trades die at the fixed stop (0% WR).
+5. **Loses when?** Shared basket regime (now systematically confirmed H-CATALOG5-SHARED-LOSING-MONTHS-01,
+   not just EMA3_21 within-name hint) — 6/12 Train-1 months have ≥4/5 catalog5 names losing
+   together (vs 3.70 chance; phi 0.79, Pearson 0.96); 68.7% of trades die at the fixed stop
+   (0% WR by construction).
 6. **Rejected hypotheses?** Per-name: entry-vol/abs-ATR gate (now falsified on EMA3_21's own
    trades, not by transfer), exit-class, partial-exit, long-only (expectancy up but regularity
    worse). Class/sibling: take-profit, trailing, EMA-trend confirm, cross-symbol agreement,
    loss-cooldown, vol-inverse sizing, BTC-ER permission filter (btc_filter, H2-falsified),
    ~20 swarm families (all H2-falsified).
 7. **Unresolved problem?** Monthly regularity — and it is now shown *un-fixable by any in-repo
-   lever*. The losses are a shared basket regime; every expectancy-raising lever (long-only, vol
-   gate, breadth regime) leaves the floor ≥7/12 because the same regime makes both the losses and
-   the runners. Fixing it needs a genuinely non-correlated signal, i.e. new data.
-8. **Next experiment & why?** None in-repo is licensed. The decision is the owner's: acquire
-   non-correlated data (order-flow / OI / liquidation / cross-asset, §13) or revisit the
-   daily-regularity target. Optional low-value in-repo step: reproduce the four protocol passes
-   on `EMA_50_200` to confirm class-wide exhaustion (delegable once a worker channel is back).
+   lever*. The losses are a shared basket regime (systematically confirmed H-CATALOG5-SHARED-LOSING-MONTHS-01:
+   6/12 months with ≥4/5 names losing together, phi 0.79, Pearson 0.96 — not idiosyncratic);
+   every expectancy-raising lever (long-only, vol gate, breadth regime) leaves the floor ≥7/12
+   because the same regime makes both the losses and the runners. In-class portfolio combination
+   (§8) is BLOCKED — losses strongly correlated. Fixing it needs a genuinely non-correlated
+   signal, i.e. new data.
+8. **Next experiment & why?** None in-repo is licensed. The open question (shared vs
+   idiosyncratic losing months) is systematically ANSWERED: CONFIRMED basket regime
+   (H-CATALOG5-SHARED-LOSING-MONTHS-01), which BLOCKS §8 in-class portfolio diversification.
+   The decision is the owner's: acquire non-correlated data (order-flow / OI / liquidation /
+   cross-asset, §13) or revisit the daily-regularity target. Do not invent new OHLCV axes or
+   another catalog5 entry family.
 9. **Why not a random search?** §13 now largely holds (the failure shares one mechanism across
    four independent axes), but it still requires a *written* non-correlated-mechanism
    justification + budget + falsification, which depends on data not yet in the repo. Random
@@ -192,3 +211,13 @@ on the data currently available.
   trades (not by transfer). **`EMA3_21_50_200` → FREEZE** (all axes exhausted on own trades). Run
   **inline by the coordinator** because both worker channels were down (codex quota exhausted,
   claude-bridge not_ready). Next = owner decision on non-correlated data / target (see above).
+- **2026-10-02** — **H-CATALOG5-SHARED-LOSING-MONTHS-01 = CONFIRMED** (branch
+  limen/2026-10-02-f006-shared-losing-months-decision-prep, FF-merged to origin/main dc9818e).
+  Diagnostic answered the open question: Train-1 losing months are SHARED across all five FREEZE
+  catalog5 names (basket regime), not idiosyncratic. 6/12 months with ≥4/5 names losing (vs 3.70
+  chance), mean phi 0.79, Pearson 0.96, Jaccard 0.85. Symbol-level panel + Donchian sanity
+  checks PASS. This CONFIRMED result licenses the portfolio / F007 *direction* in principle
+  (§8), BUT **blocks in-class diversification** — losses ARE strongly correlated, so combining
+  catalog5 names cannot improve monthly regularity. Owner decision required: §13 non-correlated
+  data or target revisit. Do not invent OHLCV cards. Decision docs filled (hypothesis card,
+  journal, build.md NOW).

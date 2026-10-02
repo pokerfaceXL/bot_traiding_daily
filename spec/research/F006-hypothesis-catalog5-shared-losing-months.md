@@ -134,4 +134,37 @@ The common-regime hypothesis is confirmed — Train-1 losing months cluster tigh
 
 ## Decision
 
-_(coordinator fills after review)_
+```yaml
+experiment_id: H-CATALOG5-SHARED-LOSING-MONTHS-01
+date: 2026-10-02
+outcome: CONFIRMED
+
+reasoning: |
+  Train-1 losing months co-occur far above chance across all five FREEZE catalog5 names:
+  6/12 months with ≥4/5 names losing (observed) vs 3.70 expected by chance (binomial Monte
+  Carlo, n=10,000). Mean pairwise phi coefficient of loss flags = 0.79 (» 0.10 threshold),
+  mean pairwise Pearson correlation of month-net = 0.96 (» 0.20 threshold, robust check
+  ex-2024-11 outlier = 0.68, Spearman ρ = 0.70), mean Jaccard similarity of losing-month
+  sets = 0.85 (» 0.35 threshold). None of the pre-declared falsification criteria (a)(b)(c)
+  trip. Symbol-level panel confirms the basket-regime structure holds within each name
+  (EMA3_21 reproduced 6/12 months ≥4/5 symbols losing; other names 4–7/12 with variation
+  reflecting entry frequency). Optional Donchian panel: 6/7 catalog5 majority-loss months
+  also saw Donchian loss (86% agreement). This is a common basket regime, not idiosyncratic
+  name failures.
+
+next_action: |
+  CONFIRMED licenses the portfolio / F007 *direction* in principle (§8 Portfolio combination),
+  BUT in-class diversification / combining these catalog5 names is BLOCKED because losses ARE
+  strongly correlated — exactly the §8 portfolio-combination precondition that fails. Owner
+  decision required: (1) acquire genuinely non-correlated data (§13 — order-flow, open
+  interest, liquidation data, or cross-asset context) and pre-register a non-correlated
+  mechanism, or (2) revisit the daily-regularity target/tolerance. Do NOT start a new OHLCV
+  entry family or invent another in-repo catalog5 lever — the class is already closed on own
+  evidence (H-CATALOG5-CLASS-CLOSURE-01).
+
+artifacts:
+  - output/f006_shared_losing_months/loss_matrix.csv
+  - output/f006_shared_losing_months/net_matrix.csv
+  - output/f006_shared_losing_months/summary.json
+  - scripts/f006_shared_losing_months_diagnostic.py
+```
