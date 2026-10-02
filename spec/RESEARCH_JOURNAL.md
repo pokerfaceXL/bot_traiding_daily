@@ -23,7 +23,7 @@
 | strategy | status | researched under protocol? | one-line reason | profile |
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
-| `EMA3_21_50_200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-Train-1-positive, best monthly floor of the batch (3/12); exit axis genuinely closed, entry axis never autopsied on its own trades | `strategy_profiles/EMA3_21_50_200.md` |
+| `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, 3/12 best floor (tied); exit closed, entry reopened | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, 3/12 best floor (tied); exit closed, entry reopened | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | no (entry axis only DNR-by-transfer) | aggregate-positive, ≥4/12 floor; exit closed, entry reopened | `strategy_profiles/EMA3_13_50_200.md` |
@@ -74,24 +74,34 @@ hand-picked series, but this has never been tested systematically across all cat
 symbols from the per-trade autopsy tables. The answer decides whether the next licensed step
 is a portfolio-level regime mechanism (§8 regime filter / F007) or a per-name entry autopsy.
 
-## Next planned step (not yet run)
+## Next planned step (decision point for the owner)
 
-The `EMA3_21_50_200` protocol pass is **done** (autopsy + one experiment, below). It closed the
-entry-vol and direction axes on this name's own trades and pointed to one remaining lever:
+The `EMA3_21_50_200` protocol loop is **complete and the name is FROZEN** — entry-vol, direction,
+exit, and regime are all falsified on its own trades (autopsy + three pre-registered
+experiments). The shared-regime finding is confirmed *un-exploitable* by any lever on the data
+currently in the repo: breadth, like long-only and the vol gate, raises expectancy but never
+lowers the monthly floor, because the same regime makes both the losing months and the runners.
 
-- **Causal regime signal, class-wide (F007 territory).** The losing months are shared across
-  the basket (autopsy §4: 6/12 months have ≥4/5 symbols net-negative together), so a per-name,
-  single-axis entry/exit/sizing refinement cannot fix monthly regularity. The only licensed
-  next step is a **separately pre-registered** causal regime signal (portfolio-level veto or
-  weight, no look-ahead; protocol §8 regime filter / §13), defined with metrics + falsification
-  **before** implementation. It is scoped against the whole catalog5 NO_TRAIL class, not one
-  profile. **Not yet written** — next coordinator action is to draft that pre-registration.
-- Before committing to the regime axis, consider whether the same autopsy (direction asymmetry,
-  shared-regime months) reproduces on a second catalog5 name (e.g. `EMA_50_200`, which shares
-  the 3/12 floor) — if it does, the regime lever is the right class-wide bet; if direction
-  asymmetry does *not* reproduce, revisit.
-- **Do not** run a broad search or a new family: protocol §13 gate is not cleared (no written
-  non-correlated-mechanism justification with budget + falsification exists yet).
+This closes the in-repo axes for the catalog5 momentum class. The remaining options are owner
+decisions, not another axis:
+
+1. **New, non-correlated data (§13).** Acquire order-flow / open-interest / liquidation /
+   cross-asset context and pre-register a genuinely non-correlated mechanism. This is the only
+   path that could change the monthly floor; it needs data not in the repo.
+2. **Revisit the target.** The daily-regularity goal (100% positive days w/ tolerance) may be
+   unreachable with momentum on this basket; the owner may relax tolerance or redefine success.
+3. **Cheap confirmation (optional, in-repo).** Re-run the same four protocol passes on a second
+   catalog5 name (e.g. `EMA_50_200`) to confirm the exhaustion is class-wide before freezing the
+   whole class. Low value (mechanism already shown 4 independent ways) but fully delegable to
+   workers once a worker channel is back.
+
+**Do not** start a broad search or a new family: §13 still requires a *written* non-correlated
+mechanism with budget + falsification, which depends on option 1's data.
+
+> **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
+> exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
+> executed **inline by the coordinator** as a fallback. Restore a worker channel before the next
+> experiment so §16 delegation applies.
 
 ## Coordinator operating model
 
@@ -114,10 +124,12 @@ entry-vol and direction axes on this name's own trades and pointed to one remain
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-01, after EMA3_21 protocol pass)
+## §15 Coordinator report (updated 2026-10-02, after EMA3_21 breadth-regime pass)
 
-1. **Best strategy now?** None promotable. Best-evidenced CONDITIONAL base = `EMA3_21_50_200`
-   (highest full-slice net, 3/12 monthly floor). `DONCHIAN_55_NO_TRAIL` FREEZE (exhausted).
+1. **Best strategy now?** None promotable. `EMA3_21_50_200` is now **FROZEN** (all axes
+   falsified on its own trades), as is `DONCHIAN_55_NO_TRAIL`. The best-evidenced remaining
+   CONDITIONAL names are `BB_20_25_EMA200` / `EMA_50_200` (3/12 floor) — but their axes have not
+   been individually run; the EMA3_21 result makes it very likely they freeze the same way.
 2. **Why best?** Widest aggregate-positive span + best monthly floor of the catalog5 class; but
    "best" = best surviving screen, not validated (0/10 series clear §7).
 3. **Edge from many trades or few big wins?** Few big wins. EMA3_21: 4 of 402 trades = full net;
@@ -131,23 +143,22 @@ entry-vol and direction axes on this name's own trades and pointed to one remain
    worse). Class/sibling: take-profit, trailing, EMA-trend confirm, cross-symbol agreement,
    loss-cooldown, vol-inverse sizing, BTC-ER permission filter (btc_filter, H2-falsified),
    ~20 swarm families (all H2-falsified).
-7. **Unresolved problem?** Monthly regularity: the losses are a shared basket regime, and every
-   lever that cuts them also cuts the fat-tail winners that are the entire edge (long-only and
-   the vol gate both demonstrated this tension).
-8. **Next experiment & why?** `H-CATALOG5-BREADTH-REGIME-01` — a causal basket-breadth veto on
-   EMA3_21 (fraction of 5 symbols above own EMA200 at the decision bar), because the one
-   untested lever the autopsy points to is portfolio-level regime, and it must not be closed
-   "by transfer" from the Donchian btc_filter result (same discipline that reopened catalog5).
-   Pre-registered with a tail-retention falsifier so it cannot repeat the long-only mistake.
-9. **Why not a random search?** §13 gate is not cleared: no written non-correlated-mechanism
-   justification with budget + falsification exists, and the per-name axes are not all closed
-   on their own evidence yet (regime axis is the last licensed one). Random widening is
-   forbidden by §9/§13.
-10. **What result confirms/refutes the next hypothesis?** Confirm: some breadth threshold
-    lowers the pooled losing-month floor below 7/12 AND keeps ≥50% of big-winner PnL AND holds
-    for ≥2 carrying symbols. Refute (any one): no threshold improves the floor; the best-floor
-    threshold removes >50% of big-winner PnL; improvement is single-symbol; or n_trades drops
-    >60% (starvation).
+7. **Unresolved problem?** Monthly regularity — and it is now shown *un-fixable by any in-repo
+   lever*. The losses are a shared basket regime; every expectancy-raising lever (long-only, vol
+   gate, breadth regime) leaves the floor ≥7/12 because the same regime makes both the losses and
+   the runners. Fixing it needs a genuinely non-correlated signal, i.e. new data.
+8. **Next experiment & why?** None in-repo is licensed. The decision is the owner's: acquire
+   non-correlated data (order-flow / OI / liquidation / cross-asset, §13) or revisit the
+   daily-regularity target. Optional low-value in-repo step: reproduce the four protocol passes
+   on `EMA_50_200` to confirm class-wide exhaustion (delegable once a worker channel is back).
+9. **Why not a random search?** §13 now largely holds (the failure shares one mechanism across
+   four independent axes), but it still requires a *written* non-correlated-mechanism
+   justification + budget + falsification, which depends on data not yet in the repo. Random
+   widening remains forbidden by §9/§13.
+10. **What result confirms/refutes the next hypothesis?** For option 1 (new-data mechanism): it
+    is falsified unless, on the frozen Train-1 basket, it lowers the pooled losing-month floor
+    below 7/12 while keeping ≥50% of big-winner PnL and holding for ≥2 carrying symbols — the
+    same bar every in-repo lever has failed.
 
 ## Chronological log
 
@@ -169,3 +180,12 @@ entry-vol and direction axes on this name's own trades and pointed to one remain
   regularity are in tension. Kept as a higher-EV **F007 portfolio-component** input, not a
   regularity fix. `EMA3_21_50_200` stays **CONDITIONAL**; entry-vol + direction now both closed
   on its own trades; remaining lever = class-wide causal regime signal (see Next planned step).
+- **2026-10-02** — **H-CATALOG5-BREADTH-REGIME-01 = FALSIFIED**
+  (`spec/research/F006-hypothesis-catalog5-breadth-regime.md`, `scripts/f006_breadth_regime_experiment.py`,
+  `output/f006_breadth_regime/`). Causal basket-breadth veto (frac of 5 symbols above own EMA200)
+  at B∈{0.4,0.6,0.8}: control reproduced baseline exactly (+817/402/7); no B lowers the pooled
+  losing-month floor below 7/12 (falsifier a). Expectancy up (2.03→3.06) but tails cut (B80 keeps
+  59% big-winner PnL) and per-symbol floors mostly worsen. Regime axis closed on EMA3_21's own
+  trades (not by transfer). **`EMA3_21_50_200` → FREEZE** (all axes exhausted on own trades). Run
+  **inline by the coordinator** because both worker channels were down (codex quota exhausted,
+  claude-bridge not_ready). Next = owner decision on non-correlated data / target (see above).

@@ -79,8 +79,55 @@ number_of_trials: 3 (single breadth gate, 3 frozen thresholds)
 
 ## Result
 
-(filled by worker run)
+Train-1 pooled, `python3 scripts/f006_breadth_regime_experiment.py`
+(`output/f006_breadth_regime/`). **Control passed:** the BASELINE cell reproduces the EMA3_21
+autopsy exactly (402 trades, +817.0 net, 7/12 losing months, +1100 big-winner PnL, 3/5 symbols
+positive), so the harness replication is sound.
+
+| cell | n | net | mean/trade | pooled losing mo | big-winner PnL | big kept % | n_trades vs base % | #sym net+ |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| BASELINE | 402 | +817.0 | 2.03 | 7 | 1100.0 | 100 | 100 | 3 |
+| B40 | 269 | +691.7 | 2.57 | 8 | 926.5 | 84.2 | 66.9 | 3 |
+| B60 | 230 | +689.7 | 3.00 | 9 | 926.5 | 84.2 | 57.2 | 3 |
+| B80 | 185 | +566.3 | 3.06 | **7** | 653.5 | 59.4 | 46.0 | 3 |
+
+Per-symbol losing-month floor (baseline → B80): SOL 5→4, ETH 7→8, BTC 7→7, XRP 9→8,
+DOGE 6→7 — worse or flat for 3 of 5; the two carriers (XRP, DOGE) do not both improve.
+
+**Falsifier (a) tripped:** no threshold lowers the pooled losing-month floor below the baseline
+7/12 (best is B80, still 7). Same mechanism as long-only and the vol gate: breadth is another
+volatility/trend-state proxy, so gating on it raises expectancy (2.03 → 3.06/trade) by thinning
+marginal entries but does not separate the losing months from the runner months — the shared
+regime produces both. B80 already trims 41% of big-winner PnL (falsifier (b) would trip for any
+lower floor).
 
 ## Decision
 
-(filled by coordinator after review)
+```yaml
+experiment_id: H-CATALOG5-BREADTH-REGIME-01
+date: 2026-10-02
+base_strategy: EMA3_21_50_200 (NO_TRAIL)
+hypothesis: causal basket-breadth entry veto lowers the losing-month floor without cutting the long fat-tail winners
+change_tested: entry veto, take entry only if breadth(i) >= B; breadth = frac of 5 symbols with close>own EMA200 at bar i (causal)
+parameters: B in {0.4, 0.6, 0.8}
+data_split: Train-1 only (2024-03..2025-02 entry cohort); validation/holdout untouched
+baseline: EMA3_21_50_200 NO_TRAIL both-dir Train-1 (reproduced exactly as control)
+metrics_before: {net: 817.0, mean_per_trade: 2.03, n_trades: 402, pooled_losing_months: 7, big_winner_pnl: 1100.0, symbols_net_positive: 3}
+metrics_after: {best_floor_cell: B80, net: 566.3, mean_per_trade: 3.06, n_trades: 185, pooled_losing_months: 7, big_winner_pnl: 653.5, big_kept_pct: 59.4}
+oos_result: not run (failed Train-1 gate)
+cost_model: unchanged (commission 10bps, half-spread 5bps, slippage 2bps, leverage 1, stake 100, equity 500)
+number_of_trials: 3
+result: no threshold lowers the pooled losing-month floor below 7/12; expectancy up, regularity unchanged, tails partly cut
+decision: FALSIFIED
+reason: >
+  Falsifier (a): no B lowers the pooled losing-month floor below baseline (7/12). Breadth is a
+  volatility/trend proxy; it raises expectancy by thinning entries but cannot separate the
+  losing months from the runner months because the shared basket regime produces both. Closed
+  on EMA3_21's OWN trades (not by transfer from btc_filter), per the no-transfer discipline.
+next_action: >
+  EMA3_21_50_200 -> FREEZE: entry-vol (own autopsy), direction/long-only, exit-class,
+  partial-exit, and now breadth-regime are all falsified on its own trades. The only remaining
+  licensed lever is a genuinely NON-correlated mechanism (order-flow / open-interest /
+  liquidation / cross-asset context) that needs data not in the repo -- an owner decision
+  (acquire data) or a target/tolerance revisit, not another entry/exit/sizing/regime axis.
+```
