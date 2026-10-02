@@ -444,3 +444,62 @@ Na koniec każdej serii badań Coordinator musi odpowiedzieć:
 10. Jaki wynik potwierdziłby lub obalił następną hipotezę?
 
 Jeśli Coordinator nie potrafi odpowiedzieć na pytania 4–9, nie może rozpocząć szerokiego searchu.
+
+---
+
+## 16. Podział pracy na workerów (delegacja powtarzalnego potoku po-testowego)
+
+Coordinator jest modelem wysokiego poziomu i jego tokeny są drogie. Dlatego **nie wykonuje
+ręcznie powtarzalnej pracy po-testowej** — rozdrabnia ją na małe, niezależne tickety i zleca je
+workerom na możliwie **najniższym modelu/poziomie myślenia**, który poprawnie wykona zadanie.
+
+### 16.1 Podział ról
+
+- **Coordinator (model wysoki, thinking high)** robi wyłącznie pracę wymagającą osądu:
+  autopsja, projekt hipotezy (§2/§8), wartość pola `decision` (§14), raport §15, ocena czy
+  falsyfikatory zostały spełnione, wybór następnego kroku.
+- **Worker (model niski / codex, thinking low–medium)** robi pracę mechaniczną i
+  deterministyczną: uruchomienie backtestu wg zamrożonej specyfikacji, liczenie metryk, budowa
+  tabel, wypełnianie szkieletu rejestru, aktualizacja profilu z policzonych liczb, regeneracja
+  digestu.
+
+### 16.2 Reguły zlecania
+
+- Maksymalnie **2 workery naraz**. Przed spawnem sprawdź `limen jobs --running`.
+- **Ekonomia modelu:** zadania wg precyzyjnej specyfikacji idą na provider **codex**
+  (`--provider openai-codex`): `gpt-5.3-codex-spark` dla rutyny (czysta pandas/formatowanie),
+  `gpt-5.6-sol` dla zadań wrażliwych na przyczynowość lub kod silnika. Silnik Claude rezerwuj
+  do review i trudnego rozumowania. Dobieraj **najniższy poziom, który poprawnie wykona
+  zadanie.**
+- Ticket to wskaźnik, nie prompt — instrukcja spawn jest krótka, pełna specyfikacja leży w
+  pliku ticketu.
+
+### 16.3 Standardowy potok po-testowy (po każdym eksperymencie)
+
+Gdy worker T0 wyprodukuje surowe wyniki (`output/f006_<exp>/{results,monthly,trades}.csv`),
+Coordinator **nie liczy metryk sam** — kopiuje gotowe szablony z `spec/features/_post_test/`,
+podstawia placeholdery i spawn-uje workery (szczegóły i komendy: `spec/features/_post_test/DISPATCH.md`).
+
+| ticket | co robi | §protokołu | model |
+| --- | --- | --- | --- |
+| T0-run | implementuje + uruchamia eksperyment wg zamrożonej pre-rejestracji | §8/§9/§11 | codex sol |
+| T1-metrics | net po kosztach, PnL/trade, n_trades, % dod. mies., stratne mies., maxDD, koszt%brutto, koncentracja top-N, stabilność symbol/interwał/okres | §10 | codex spark |
+| T2-monthly | tabela miesięczna + klasyfikacja stratnych miesięcy (opisowo z danych, pyt. §6.1–8) | §6 | codex spark |
+| T3-registry | szkielet rejestru §14 wypełniony z T1/T2; `decision/reason/next_action` zostają puste dla Coordinatora | §14 | codex spark |
+| T4-profile | aktualizacja wierszy profilu (Core metrics, Stability, Tested modifications) z T1/T2; status zostaje dla Coordinatora | §4 | codex spark |
+| T5-digest | regeneracja cross-family digest + kontrola sanity | — | codex spark |
+
+T1–T5 są wzajemnie niezależne poza kolejnością danych (T3/T4 czytają wynik T1/T2), więc przy
+limicie 2 workerów puszczaj je parami (np. T1+T2, potem T3+T4, potem T5).
+
+### 16.4 Czego NIGDY nie delegować
+
+Wartość pola `decision` (§14), raport §15, projekt następnej hipotezy, ocena czy wynik
+spełnia/obala kryterium falsyfikacji. To jest nieredukowalna praca Coordinatora.
+
+### 16.5 Brak ponownego wyprowadzania
+
+Szablony ticketów i gotowe komendy spawn żyją w `spec/features/_post_test/`. Coordinator **nie
+projektuje tych ticketów od nowa** — kopiuje szablon do `spec/features/active/<exp>-<Tn>/`,
+podstawia `{{EXPERIMENT_ID}} / {{OUTPUT_DIR}} / {{PROFILE}} / {{BASELINE}}` i spawn-uje. To jest
+proces powtarzalny; jedyną zmienną jest nazwa eksperymentu.

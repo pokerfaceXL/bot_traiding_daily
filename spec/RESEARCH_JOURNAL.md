@@ -107,6 +107,12 @@ entry-vol and direction axes on this name's own trades and pointed to one remain
 - **§15 report home:** the mandatory end-of-series Coordinator report (protocol §15, Q1–10)
   is recorded in the **§15 Coordinator report** section just below, updated at the end of each
   series, and also delivered to the human in chat.
+- **Post-test pipeline is pre-decomposed (protocol §16).** The repeatable work after every
+  experiment (metrics §10, monthly §6, registry §14, profile rows, digest) is NOT recomputed by
+  hand — copy the ready tickets from `spec/features/_post_test/`, fill four placeholders, and
+  dispatch per `spec/features/_post_test/DISPATCH.md` (codex spark, max 2 workers). Reserved for
+  the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
+  `status:` line.
 
 ## §15 Coordinator report (updated 2026-10-01, after EMA3_21 protocol pass)
 
