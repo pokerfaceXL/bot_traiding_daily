@@ -105,7 +105,7 @@ def compute_agreement_multiplier_series(
 
     A signal observed at bar i close queues an entry filled at bar i+1 open. The engine reads
     stake_series at that fill bar, so shift the closed-bar agreement forward one row. The first
-    bar has no prior closed-bar agreement and therefore uses the uniform 1.0 multiplier.
+    bar has no prior closed-bar agreement; _run_one fills its final stake with BASE_STAKE.
     """
     own = entry_masks.normalized_signal(
         entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=NOW)
@@ -117,7 +117,7 @@ def compute_agreement_multiplier_series(
         ).reindex(own.index).fillna(0)
         n_agree += ((other == own) & (own != 0)).astype(int)
     closed_bar_mult = (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)
-    return closed_bar_mult.shift(1).fillna(1.0)
+    return closed_bar_mult.shift(1)
 
 
 def _net_pnl_for_months(days) -> float:
@@ -194,8 +194,9 @@ def _run_one(train1_df, mask, mult_series, symbol: str, interval: str):
     baseline_result = backtest_engine.run_backtest(
         train1_df, NAME, stake_series=None, **common
     )
+    stake_series = (BASE_STAKE * mult_series).fillna(BASE_STAKE)
     sized_result = backtest_engine.run_backtest(
-        train1_df, NAME, stake_series=BASE_STAKE * mult_series, **common
+        train1_df, NAME, stake_series=stake_series, **common
     )
 
     baseline_all = baseline_result.trades.copy()
@@ -401,7 +402,7 @@ def main():
             "initial_equity": INITIAL_EQUITY,
             "base_stake": BASE_STAKE,
             "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
-            "stake_alignment": "fill bar uses multiplier from prior closed bar; leading fillna(1.0)",
+            "stake_alignment": "fill bar uses multiplier from prior closed bar; leading fillna(100.0)",
             **FIXED_PARAMS,
         },
         "cell_summary": cell_summary,
