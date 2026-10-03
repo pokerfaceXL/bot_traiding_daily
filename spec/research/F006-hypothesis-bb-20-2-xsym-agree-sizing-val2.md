@@ -170,7 +170,71 @@ decision_if_fail: close this xsym-agree formula on BB_20_2_EMA200 (the
 
 ## Result
 
-(empty — worker fills after the run)
+**NOT FALSIFIED — none of (a)–(e) fired.** number_of_trials = 1.
+
+Script `scripts/f006_bb_20_2_xsym_agree_sizing_val2.py` was run at commit `11f02d8`
+with `F006_DATA_CACHE` pointing at the main-checkout `data_cache`. Artifacts are under
+`output/f006_bb_20_2_xsym_agree_sizing_val2/`: `summary/results.csv`,
+`summary/cell_summary.json`, `summary/manifest.json`, `summary/run.log`, and `raw/`.
+The shared long protocol caches (2024-01-26 .. 2026-09-01) were verified against
+`EXPECTED_CHECKSUMS` in `scripts/f006_bb_20_25_xsym_agree_sizing.py` (OHLCV identity).
+Engine bars were 2024-01-26 <= ts < 2025-09-01, with one continuous backtest per series
+and `now=2025-09-01`. Scored entries: 2025-06-01 <= entry_time < 2025-09-01. No holdout
+row was loaded into the engine or printed. Validation-3/4 were not scored.
+
+Gate (control arm, Train-1 slice; checked before any Validation-2 scoring):
+
+| check | reference | observed | tolerance | pass |
+|---|---|---|---|---|
+| mean train1_net_pnl (10 series) | 95.3217987 | 95.463371 (diff 0.141572) | relative 0.0025 (0.2383045) | yes |
+| Train-1-entry n | 756 | 756 | exact | yes |
+
+The observed gate mean is identical to the Validation-1 continuous run, as expected: the
+Train-1 slice is causal and unaffected by extending the engine end. The reference was not
+retargeted.
+
+Validation-2 entries, 10 series:
+
+| metric | control (stake 100) | sized | falsifier |
+|---|---|---|---|
+| mean val2-entry net PnL | +2.331879 | +2.551244 | (a) sized > control: not fired |
+| val2-entry net total | +23.318789 | +25.512441 | |
+| val2-entry n / total closed | 195 / 1226 | 195 / 1226 | (d) invariant holds on all series: not fired |
+| pooled entry-month net 2025-06 / 07 / 08 | -130.72 / +225.17 / -71.13 | -140.07 / +237.28 / -71.70 | |
+| pooled losing months (of 3) | 2 | 2 | (b) 2 <= 2: not fired |
+| pooled mean mult winners / losers | | 1.066667 / 1.035000 | |
+| pooled mult gap | | **+0.031667** | (c) > 0: not fired |
+| stake_cv pooled / series min | | 0.514115 / 0.428358 | (e) all > 0.05: not fired |
+| big winners at net >= 29.9 (info) | 4, sum 199.52 | 3, sum 161.54 (168.27 on control's keys) | |
+
+Entry-net difference by month (sized − control, informational): 2025-06 −9.35,
+2025-07 +12.11, 2025-08 −0.57.
+
+Per series, val2-entry net (control -> sized; series mult gap):
+
+| series | n | control | sized | gap |
+|---|---|---|---|---|
+| SOL 240 | 11 | -2.89 | +18.60 | +0.563 |
+| ETH 240 | 7 | +47.87 | +8.99 | -0.750 |
+| BTC 240 | 12 | -25.95 | -30.93 | -0.273 |
+| XRP 240 | 17 | -27.27 | -39.78 | -0.525 |
+| DOGE 240 | 10 | -5.26 | +15.70 | +0.938 |
+| SOL 60 | 29 | -14.52 | -7.83 | +0.112 |
+| ETH 60 | 27 | +32.74 | +81.57 | +0.257 |
+| BTC 60 | 34 | -26.13 | -25.34 | -0.143 |
+| XRP 60 | 26 | +25.97 | -3.18 | -0.286 |
+| DOGE 60 | 22 | +18.77 | +7.72 | +0.208 |
+
+Seven series have one Validation-2 `end_of_data` exit at the 2025-09-01 engine cut
+(SOL/ETH/BTC/XRP 240, BTC/XRP 60); DOGE 240 and SOL/ETH/DOGE 60 have none.
+
+Reading: by the pre-declared rule the frozen weights survive Validation-2 on this name.
+Caveats (not falsifiers, not grounds to change the verdict): the edge is thin — sized
+beats control by +0.219 per series mean (+2.19 total on 195 entries); only 5/10 series
+improve and the series mult gap is negative on 5/10; the pooled gap is small (+0.032);
+the whole entry-net gain is 2025-07 (+12.11), with 2025-06 and 2025-08 slightly worse
+under sizing; ETH 60 alone (+48.83) exceeds the pooled gain. Both arms are near zero
+on mean.
 
 ## Decision
 

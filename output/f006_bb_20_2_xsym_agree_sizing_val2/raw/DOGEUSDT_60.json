@@ -1,0 +1,53 @@
+{
+  "symbol": "DOGEUSDT",
+  "interval": "60",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades_total_baseline": 201,
+  "n_trades_total_sized": 201,
+  "n_trades_train1_entry_baseline": 120,
+  "n_trades_val2_entry_baseline": 22,
+  "n_trades_val2_entry_sized": 22,
+  "n_val2_end_of_data_exits": 0,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 135.656989,
+  "val2_entry_net_pnl_baseline": 18.76927,
+  "val2_entry_net_pnl_sized": 7.716928,
+  "val2_equity_net_pnl_baseline": 20.94669,
+  "val2_equity_net_pnl_sized": 9.754603,
+  "losing_months_baseline": 2,
+  "losing_months_sized": 2,
+  "stake_cv": 0.428358,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.25,
+  "mean_mult_losers": 1.0416666666666667,
+  "mean_mult_gap": 0.208333,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-06",
+      "net_pnl": -1.710329
+    },
+    {
+      "month": "2025-07",
+      "net_pnl": 33.437888
+    },
+    {
+      "month": "2025-08",
+      "net_pnl": -12.958289
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-06",
+      "net_pnl": -1.342267
+    },
+    {
+      "month": "2025-07",
+      "net_pnl": 17.797268
+    },
+    {
+      "month": "2025-08",
+      "net_pnl": -8.738073
+    }
+  ],
+  "seconds": 0.55
+}
