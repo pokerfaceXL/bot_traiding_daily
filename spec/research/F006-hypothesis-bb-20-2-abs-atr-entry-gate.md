@@ -121,7 +121,51 @@ decision_if_fail: entry-vol / abs-ATR closed on this name's own trades. Worker m
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `python3 scripts/f006_bb_20_2_abs_atr_gate.py` (cwd = main checkout for the
+frozen `*_20240126T000000Z_20250301T000000Z.csv` Train-1 caches only; checksums
+pass the harness check). Artifacts: `output/f006_bb_20_2_abs_atr_gate/`
+(`grid_freeze.json`, `cell_summary.csv`, `results.csv`, `manifest.json`,
+`run.log`, per-cell `raw/` + `blotters/` + `summary.json`).
+
+Control replay: `BB_20_2_EMA200` ungated NO_TRAIL reproduces all 10 rows of
+`output/f006_notrail_monthly_catalog5/summary/results.csv` exactly on
+`train1_net_pnl` (max |diff| 0.0) and `n_trades`; sum **+953.217987**, mean
+**+95.3217987**/series. Frozen to `grid_freeze.json` before any gated cell:
+median entry ATR%(14) of this name's 756 ungated Train-1 entries =
+**1.176636%**; big winner = net≥29.9 on the ungated blotter → **12 trades,
++1251.654084**. Control harness entry-month losing-month floor = **7/12**
+(computed, not assumed; losing entry months 2024-03/04/05/06/08/09/12).
+number_of_trials = 5.
+
+| cell | T (ATR%) | mean train1 net/series | entry cohort net | net/trade | n entries (mean/series) | initial_sl share | Δ initial_sl (pp) | big winners kept | big-winner PnL kept | losing entry months |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | — | **+95.3218** | +834.35 | 1.104 | 756 (75.6) | 47.35% | — | 12/12 | 1251.65 (100%) | **7/12** |
+| median | 1.1766 | +52.2257 | +427.69 | 0.979 | 437 (43.7) | 33.87% | 13.49 | 5/12 | 488.54 (39.0%) | 6/12 |
+| t_1_0 | 1.00 | +53.2348 | +438.37 | 1.238 | 354 (35.4) | 29.10% | 18.26 | 5/12 | 480.58 (38.4%) | 7/12 |
+| t_1_25 | 1.25 | +49.8092 | +403.52 | 0.872 | 463 (46.3) | 34.77% | 12.58 | 5/12 | 488.54 (39.0%) | 6/12 |
+| t_1_5 | 1.50 | +39.3347 | +317.72 | 0.576 | 552 (55.2) | 37.68% | 9.67 | 5/12 | 488.54 (39.0%) | 6/12 |
+| t_2_0 | 2.00 | +64.0461 | +564.85 | 0.861 | 656 (65.6) | 43.90% | 3.45 | 7/12 | 905.20 (72.3%) | 9/12 |
+
+Falsifiers (on this name's own trades):
+
+- (a) **FALSIFIED.** Mean train1 net ≤ control (+95.32) at every T; best is
+  t_2_0 at +64.05.
+- (b) Not triggered. t_2_0 (non-thin) keeps 72.3% of big-winner PnL; the four
+  tighter cells keep 38–39%.
+- (c) **FALSIFIED.** Best-PnL T = t_2_0; initial_sl share falls only 3.45pp
+  (<10pp). The cells that cut ≥10pp (median, 1.0, 1.25) lose ~45% of mean PnL
+  and >60% of big-winner PnL.
+- (d) Not reachable: no T passes (a)–(c), so no cell qualifies for the floor
+  test. Informational: median / 1.25 / 1.5 reach 6/12 (< 7/12) while failing
+  (a); t_1_0 stays 7/12; t_2_0 worsens to 9/12.
+- (e) Not applicable: every cell is non-thin (≥35.4 entries/series) and none
+  improves mean PnL.
+
+Pre-declared checks passed by no cell (`passing_cells: []` in `manifest.json`).
+Directionally, the 1.762 vs 1.079 autopsy split holds (tighter T cuts stop-outs),
+but the gate removes signal_reverse runners and big winners faster than it
+removes stop-out losses. Profile `status:` untouched; Decision left to the
+coordinator.
 
 ## Decision
 
