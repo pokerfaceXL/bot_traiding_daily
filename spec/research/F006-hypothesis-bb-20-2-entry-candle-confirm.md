@@ -179,4 +179,30 @@ an exception under the pre-registered definition.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (c).** Checked 2026-10-03 ~14:36 Europe/Warsaw against
+`output/f006_bb_20_2_entry_candle_confirm/cell_summary.csv` on the FF-merged
+tip `88b0ee3` (review PASS
+`2026-10-03-f006-bb202-entry-candle-confirm--2b310688`, FF from `89326fc`).
+Result numbers match the artifact after ordinary rounding. Control is exact:
+mean train1_net_pnl +95.3217987, entry n 756, entry net +834.347778,
+initial_sl share 0.473545, big-winner PnL 1251.654084 (12 trades), pooled
+losing entry-months 7/12.
+
+(a) does not fire: T=0.60 mean 95.7717772 is +0.449978/series above control.
+(b) does not fire: non-thin T=0.50–0.80 keep ≥76.8% of frozen big-winner PnL.
+**(c) FIRED** at the best-PnL T: T=0.60 initial_sl share 0.468056, drop
+0.548942pp (required ≥10pp). No T drops the share by ≥10pp; T≥0.70 raises it.
+(d) is vacuous (no T passes (a)–(c)); floor stays 7/12 at T=0.50–0.80.
+(e) does not fire (T=0.60 is 72.0 trades/series). `number_of_trials = 5`.
+0/5 cells pass. T=0.90 lowers the floor to 6/12 but fails (a), the 50%
+big-winner retention check (22.4% kept), and (c); it is not an exception.
+
+Per `decision_if_fail`: close the candle close-strength axis on
+`BB_20_2_EMA200` own trades. Do not retune T. Stay **CONDITIONAL**. Do not
+FREEZE: breakout depth, HTF direction, and liquidity are still open on this
+name. `BB_20_25_EMA200` FREEZE and its candle FALSIFIED (c) at `e70161d` do
+not transfer. Do not jump to `EMA_50_200` or `EMA3_13_50_200`. Next = one
+new written §8 breakout-depth hypothesis on this name's own Train-1 trades
+(profile order: candle, then breakout depth, then HTF; liquidity after that).
+Not a copy of `BB_20_25_EMA200` depth results and not that name's +82.90
+control.
