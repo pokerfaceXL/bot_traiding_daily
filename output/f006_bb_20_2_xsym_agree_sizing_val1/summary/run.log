@@ -1,0 +1,11 @@
+H-BB-20-2-XSYM-AGREE-SIZING-VAL1-01
+Run started: 2026-10-03T10:01:26.195319+00:00
+Commit at run: 321b053fe7358655c9e0772598517e22b9aa7d88
+Train-1 control gate: mean=95.463371 (ref 95.3217987, diff 0.141572, allowance 0.2383045), n=756 (ref 756) -> PASS
+Control: mean val1 entry net=-9.270577, total=1031, val1-entry n=211, net=-92.705774, losing months=2/3 [-70.776098, -84.816344, 62.886668]
+Sized:   mean val1 entry net=-4.002329, total=1031, val1-entry n=211, net=-40.023292, losing months=2/3 [-94.913505, -98.482008, 153.372221]
+Pooled stake CV: 0.481509 (series min 0.375467)
+Pooled mult winners=1.161764705882353, losers=1.13515625, gap=0.026608
+Entry-net diff by month: [{'month': '2025-03', 'sized_minus_control': -24.137407}, {'month': '2025-04', 'sized_minus_control': -13.665664}, {'month': '2025-05', 'sized_minus_control': 90.485553}]
+Big winners: {'threshold_net_pnl': 29.9, 'baseline_count': 1, 'baseline_pnl_sum': 32.605488, 'sized_count': 4, 'sized_pnl_sum': 187.114893, 'sized_pnl_on_baseline_big_winner_entry_keys': 65.210975}
+Verdict: NOT FALSIFIED

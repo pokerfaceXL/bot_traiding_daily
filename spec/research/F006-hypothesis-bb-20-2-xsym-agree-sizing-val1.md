@@ -138,7 +138,68 @@ decision_if_fail: close this xsym-agree formula on BB_20_2_EMA200 (the
 
 ## Result
 
-(empty — worker fills after the run)
+**NOT FALSIFIED — none of (a)–(e) fired.** number_of_trials = 1.
+
+Script `scripts/f006_bb_20_2_xsym_agree_sizing_val1.py` was run at commit `321b053`
+with `F006_DATA_CACHE` pointing at the main-checkout `data_cache`. Artifacts are under
+`output/f006_bb_20_2_xsym_agree_sizing_val1/`: `summary/results.csv`,
+`summary/cell_summary.json`, `summary/manifest.json`, `summary/run.log`, and `raw/`.
+The shared long protocol caches (2024-01-26 .. 2026-09-01) were verified against
+`EXPECTED_CHECKSUMS` in `scripts/f006_bb_20_25_xsym_agree_sizing.py` (OHLCV identity).
+Engine bars were 2024-01-26 <= ts < 2025-06-01, with one continuous backtest per series
+and `now=2025-06-01`. Scored entries: 2025-03-01 <= entry_time < 2025-06-01. No holdout
+row was loaded into the engine or printed.
+
+Gate (control arm, Train-1 slice; checked before any Validation-1 scoring):
+
+| check | reference | observed | tolerance | pass |
+|---|---|---|---|---|
+| mean train1_net_pnl (10 series) | 95.3217987 | 95.463371 (diff 0.141572) | relative 0.0025 (0.2383045) | yes |
+| Train-1-entry n | 756 | 756 | exact | yes |
+
+The gate difference is entirely 240m (+0.260 to +0.304 per series, the short Train-1 run's
+`end_of_data` close in the last Train-1 bucket); all five 60m series match exactly, and
+Train-1-entry n matches per series.
+
+Validation-1 entries, 10 series:
+
+| metric | control (stake 100) | sized | falsifier |
+|---|---|---|---|
+| mean val1-entry net PnL | -9.270577 | -4.002329 | (a) sized > control: not fired |
+| val1-entry net total | -92.705774 | -40.023292 | |
+| val1-entry n / total closed | 211 / 1031 | 211 / 1031 | (d) invariant holds on all series: not fired |
+| pooled entry-month net 2025-03 / 04 / 05 | -70.78 / -84.82 / +62.89 | -94.91 / -98.48 / +153.37 | |
+| pooled losing months (of 3) | 2 | 2 | (b) 2 <= 2: not fired |
+| pooled mean mult winners / losers | | 1.161765 / 1.135156 | |
+| pooled mult gap | | **+0.026608** | (c) > 0: not fired |
+| stake_cv pooled / series min | | 0.481509 / 0.375467 | (e) all > 0.05: not fired |
+| big winners at net >= 29.9 (info) | 1, sum 32.61 | 4, sum 187.11 (65.21 on control's key) | |
+
+Entry-net difference by month (sized − control, informational): 2025-03 −24.14,
+2025-04 −13.67, 2025-05 +90.49.
+
+Per series, val1-entry net (control -> sized; series mult gap):
+
+| series | n | control | sized | gap |
+|---|---|---|---|---|
+| SOL 240 | 5 | +1.13 | +8.30 | +0.500 |
+| ETH 240 | 6 | +19.36 | +53.67 | +1.125 |
+| BTC 240 | 8 | -2.29 | -15.95 | -0.696 |
+| XRP 240 | 11 | -2.37 | +1.65 | +0.172 |
+| DOGE 240 | 10 | -3.26 | +7.57 | +0.281 |
+| SOL 60 | 32 | -15.51 | -30.84 | -0.149 |
+| ETH 60 | 35 | -18.62 | +19.52 | +0.349 |
+| BTC 60 | 30 | -19.74 | -25.77 | -0.263 |
+| XRP 60 | 34 | -28.08 | -48.76 | -0.375 |
+| DOGE 60 | 40 | -23.33 | -9.41 | +0.211 |
+
+Each series has one Validation-1 `end_of_data` exit at the 2025-06-01 engine cut.
+
+Reading: by the pre-declared rule the frozen weights survive Validation-1 on this name.
+Caveats (not falsifiers, not grounds to change the verdict): both arms are negative on
+mean; the pooled gap is small (+0.027) and negative on 4/10 series; sized lost more than
+control in 2025-03 and 2025-04, and the whole entry-net gain is 2025-05 (+90.49 on a
++52.68 total), largely from scaled big winners (ETH 240, ETH 60).
 
 ## Decision
 

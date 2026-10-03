@@ -1,0 +1,96 @@
+{
+  "experiment_id": "H-BB-20-2-XSYM-AGREE-SIZING-VAL1-01",
+  "strategy": "BB_20_2_EMA200",
+  "number_of_trials": 1,
+  "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+  "train1_control_gate": {
+    "reference_mean_train1_net_pnl": 95.3217987,
+    "reference_source": "output/f006_bb_20_2_xsym_agree_sizing/summary/cell_summary.json",
+    "observed_mean_train1_net_pnl": 95.463371,
+    "abs_diff": 0.1415723000000071,
+    "tolerance": 0.0025,
+    "tolerance_kind": "relative",
+    "allowance": 0.23830449675,
+    "reference_train1_entry_n": 756,
+    "observed_train1_entry_n": 756,
+    "passed": true
+  },
+  "control": {
+    "mean_val1_entry_net_pnl": -9.270577,
+    "mean_val1_equity_net_pnl_informational": -15.309607,
+    "total_closed_trades": 1031,
+    "val1_entry_trades": 211,
+    "val1_entry_net_pnl": -92.705774,
+    "val1_entry_net_per_trade": -0.439364,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-03",
+        "net_pnl": -70.776098
+      },
+      {
+        "month": "2025-04",
+        "net_pnl": -84.816344
+      },
+      {
+        "month": "2025-05",
+        "net_pnl": 62.886668
+      }
+    ],
+    "pooled_losing_month_count": 2
+  },
+  "sized": {
+    "mean_val1_entry_net_pnl": -4.002329,
+    "mean_val1_equity_net_pnl_informational": -11.414171,
+    "total_closed_trades": 1031,
+    "val1_entry_trades": 211,
+    "val1_entry_net_pnl": -40.023292,
+    "val1_entry_net_per_trade": -0.189684,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-03",
+        "net_pnl": -94.913505
+      },
+      {
+        "month": "2025-04",
+        "net_pnl": -98.482008
+      },
+      {
+        "month": "2025-05",
+        "net_pnl": 153.372221
+      }
+    ],
+    "pooled_losing_month_count": 2,
+    "pooled_stake_cv": 0.481509,
+    "all_series_stake_cv_gt_0_05": true,
+    "series_stake_cv_min": 0.375467,
+    "mean_mult_winners": 1.161764705882353,
+    "mean_mult_losers": 1.13515625,
+    "mean_mult_winner_minus_loser": 0.026608
+  },
+  "entry_net_diff_by_month": [
+    {
+      "month": "2025-03",
+      "sized_minus_control": -24.137407
+    },
+    {
+      "month": "2025-04",
+      "sized_minus_control": -13.665664
+    },
+    {
+      "month": "2025-05",
+      "sized_minus_control": 90.485553
+    }
+  ],
+  "trade_count_invariant_all_series": true,
+  "big_winner_contribution": {
+    "threshold_net_pnl": 29.9,
+    "baseline_count": 1,
+    "baseline_pnl_sum": 32.605488,
+    "sized_count": 4,
+    "sized_pnl_sum": 187.114893,
+    "sized_pnl_on_baseline_big_winner_entry_keys": 65.210975
+  },
+  "verdict": "NOT FALSIFIED",
+  "falsified": false,
+  "falsification_conditions_fired": []
+}

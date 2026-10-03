@@ -1,0 +1,53 @@
+{
+  "symbol": "SOLUSDT",
+  "interval": "240",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades_total_baseline": 38,
+  "n_trades_total_sized": 38,
+  "n_trades_train1_entry_baseline": 31,
+  "n_trades_val1_entry_baseline": 5,
+  "n_trades_val1_entry_sized": 5,
+  "n_val1_end_of_data_exits": 1,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 85.816389,
+  "val1_entry_net_pnl_baseline": 1.12532,
+  "val1_entry_net_pnl_sized": 8.295471,
+  "val1_equity_net_pnl_baseline": 8.83634,
+  "val1_equity_net_pnl_sized": 15.042613,
+  "losing_months_baseline": 1,
+  "losing_months_sized": 1,
+  "stake_cv": 0.375467,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.625,
+  "mean_mult_losers": 1.125,
+  "mean_mult_gap": 0.5,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-03",
+      "net_pnl": 0.0
+    },
+    {
+      "month": "2025-04",
+      "net_pnl": -9.9555
+    },
+    {
+      "month": "2025-05",
+      "net_pnl": 11.08082
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-03",
+      "net_pnl": 0.0
+    },
+    {
+      "month": "2025-04",
+      "net_pnl": -11.201063
+    },
+    {
+      "month": "2025-05",
+      "net_pnl": 19.496533
+    }
+  ],
+  "seconds": 0.17
+}
