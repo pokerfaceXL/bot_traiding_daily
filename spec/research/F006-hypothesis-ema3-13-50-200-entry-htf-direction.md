@@ -193,7 +193,63 @@ decision_if_fail: keep CONDITIONAL; mark HTF direction closed on this name's own
 
 ## Result
 
-(empty — worker fills)
+Run: `F006_DATA_CACHE=/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache python3 scripts/f006_ema3_13_50_200_entry_htf_direction.py`
+(harness commit `4f02415`; artifacts `output/f006_ema3_13_50_200_entry_htf_direction/`).
+The gate is imported unchanged from
+`scripts/f006_ema_50_200_entry_htf_direction.py` (`htf_direction_entry_mask`:
+prior fully closed 4-native-bar bucket, Unix-epoch floor of bar open, bucket
+close <= signal bar open, exactly 4 native bars else reject, direction =
+sign(htf_close - htf_open), flat rejects) and intersected with the
+`EMA3_13_50_200` one-shot mask; exits use the ungated signal; no xsym stake;
+no ATR / ema13 / ema50 / ema200 / candle strength / depth read by the gate.
+Only the frozen Train-1 caches `*_20240126T000000Z_20250301T000000Z.csv`
+were loaded; checksums equal
+`output/f006_ema3_13_50_200_abs_atr_gate/grid_freeze.json`.
+`grid_freeze.json` was written after the control check and before the gated
+cell. `number_of_trials = 1`.
+
+Control reproduced exactly (max abs train1 diff vs catalog5 = 0.0, 10/10 rows,
+n_trades equal): mean +91.1483016 (sum +911.483016), Train-1 entry n=423,
+entry net +771.2836172145886, initial_sl 292/423 = 0.6903073286052009, big
+winners (net>=29.9, frozen on this run's ungated blotter) 9 trades /
++1131.9561537333418, pooled losing entry-months 7/12. All match the
+breakout-depth control row (diff 0).
+
+| cell | mean train1 net | n entry (mean/series) | initial_sl share (drop pp) | big-winner retained (by key) | entry net/trade | losing months | +symbols |
+|---|---|---|---|---|---|---|---|
+| control | +91.148302 | 423 (42.3) | 292/423 = 69.03% (0.0) | 9 / +1131.956 (100%) | +1.8234 | 7/12 | 3/5 |
+| htf_4 | +39.230342 | 362 (36.2) | 260/362 = 71.82% (-2.79) | 6 / +628.996 (55.6%) | +0.7289 | 7/12 | 3/5 |
+
+Negative drop = initial_sl share rose. Gated mean delta -51.9179598/series
+(pooled +392.303418 vs +911.483016; entry net +263.868277 vs +771.283617).
+htf_4 per-symbol train1 net: DOGE +258.10, XRP +130.61, BTC +5.26,
+ETH -0.31, SOL -1.35 (control: XRP +515.63, DOGE +410.05, SOL +36.47,
+BTC -5.58, ETH -45.08). Per-symbol losing entry-months htf_4: SOL 6, ETH 7,
+BTC 6, XRP 10, DOGE 7 (control: SOL 6, ETH 7, BTC 6, XRP 9, DOGE 6).
+Losing months htf_4: 2024-03, -04, -05, -08, -09, -12, 2025-01 (same seven as
+control). Dropped big winners (signal against the prior 4-bar candle):
+XRPUSDT 240 2024-11-10 long +334.548, DOGEUSDT 60 2024-11-05 long +138.093,
+SOLUSDT 60 2024-03-06 long +30.320; 2024-11 entry net fell +812.27 -> +346.62.
+
+Independent check: a naive per-bar recomputation of the prior 4-bar bucket
+(epoch floor, completeness, sign of close-open, bucket strictly before the
+signal bar) over all 882 one-shot entries (warmup included) kept 640 and
+disagreed with the harness mask on 0. Re-running at the harness commit
+reproduced the same cell figures.
+
+Falsifiers:
+- (a) FIRES — gated mean +39.230342 <= control +91.148302.
+- (b) does not fire — retains 55.6% of baseline big-winner PnL (6 of 9).
+- (c) FIRES — initial_sl share rose 2.79pp (69.03% -> 71.82%) instead of
+  falling >=10pp.
+- (d) FIRES — pooled losing-month floor stays 7/12 (not strictly below 7).
+- (e) does not fire — 36.2 trades/series.
+
+The gate does not lower the pooled floor (stays 7/12) while keeping >=50%
+big-winner PnL and >=10 trades/series, so the flag condition in the ticket
+is not met. Outcome against the pre-declared falsifiers: FALSIFIED
+(a)+(c)+(d). Decision left to the coordinator; profile status unchanged
+(CONDITIONAL).
 
 ## Decision
 
