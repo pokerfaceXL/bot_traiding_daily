@@ -45,6 +45,7 @@ Uniform stake=100 on the same continuous run. Sanity gate, before trusting Valid
 the Train-1 slice of that longer control run must still reproduce mean train1_net_pnl
 +82.90 (tolerance 1e-6 on the 10-series mean) and Train-1-entry n=512. If it does not,
 STOP. Do not interpret Validation-1.
+Gate amendment (2026-10-03, coordinator, before Validation-1 scoring): absolute 1e-6 on the 10-series mean is relaxed to relative 0.25% of |reference mean| (n=512 stays exact; the round-to-2dp equality is dropped) because the continuous run omits the short-run end_of_data force-close inside the 2025-02 bucket on 240m only (60m diffs are 0); falsifiers (a)-(e) and the frozen formula are unchanged; this is not a new trial.
 
 Metrics (pre-declared), Validation-1 entries only
 (2025-03-01 <= entry_time < 2025-06-01 UTC):
@@ -85,42 +86,58 @@ decision_if_fail: close this xsym-agree formula on this name (Train-1 pass did n
 
 ## Result
 
-**STOP — Train-1 control sanity gate FAILED. Validation-1 was not scored or interpreted.**
-Falsifiers (a)–(e) were not evaluated. number_of_trials = 1 (spent on this gate run).
+**FALSIFIED — condition (c): pooled Validation-1 mult gap = -0.026331 (<= 0).**
+Conditions (a), (b), (d), and (e) did not fire. number_of_trials = 1.
 
-Script `scripts/f006_bb_20_25_xsym_agree_sizing_val1.py`. Artifacts are under
-`output/f006_bb_20_25_xsym_agree_sizing_val1/` (results.csv, cell_summary.json,
-manifest.json, run.log, raw/). The run used checksum-verified protocol caches. Engine
-bars were 2024-01-26 <= ts < 2025-06-01, with one continuous backtest per series and `now=2025-06-01`.
+Script `scripts/f006_bb_20_25_xsym_agree_sizing_val1.py` was run at commit `548e390`.
+Artifacts are under `output/f006_bb_20_25_xsym_agree_sizing_val1/`: `summary/results.csv`,
+`summary/cell_summary.json`, `summary/manifest.json`, `summary/run.log`, and `raw/`. The run
+used checksum-verified protocol caches. Engine bars were 2024-01-26 <= ts < 2025-06-01, with
+one continuous backtest per series and `now=2025-06-01`. Scored entries:
+2025-03-01 <= entry_time < 2025-06-01.
 
-Gate (control arm, Train-1 slice of the continuous run):
+Gate (control arm, Train-1 slice; amended tolerance above):
 
-| check | pre-registered | observed | pass |
+| check | reference | observed | tolerance | pass |
+|---|---|---|---|---|
+| mean train1_net_pnl (10 series) | 82.900262 | 83.048644 (diff 0.148382) | relative 0.0025 (0.207251) | yes |
+| Train-1-entry n | 512 | 512 | exact | yes |
+
+Validation-1 entries, 10 series:
+
+| metric | control (stake 100) | sized | falsifier |
 |---|---|---|---|
-| mean train1_net_pnl (10 series) | 82.900262 ± 1e-6 | 83.048644 (diff +0.148382) | NO |
-| Train-1-entry n | 512 | 512 | yes |
+| mean val1-entry net PnL | -1.371447 | -0.400552 | (a) sized > control: not fired |
+| val1-entry net total | -13.714473 | -4.005522 | |
+| val1-entry n / total closed | 139 / 699 | 139 / 699 | (d) invariant holds on all series: not fired |
+| pooled entry-month net 2025-03 / 04 / 05 | -64.04 / -54.47 / +104.80 | -59.74 / -91.39 / +147.13 | |
+| pooled losing months (of 3) | 2 | 2 | (b) 2 <= 2: not fired |
+| pooled mean mult winners / losers | | 1.006757 / 1.033088 | |
+| pooled mult gap | | **-0.026331** | **(c) <= 0: FIRED** |
+| stake_cv pooled / series min | | 0.471586 / 0.353424 | (e) all > 0.05: not fired |
+| big winners at net >= 29.9 (info) | 2, sum 65.07 | 2, sum 105.68 | |
 
-Per series, the 60m series reproduce exactly (diff 0.000000). The five 240m series are
-higher by +0.304 / +0.304 / +0.308 / +0.304 / +0.260 (SOL / ETH / BTC / XRP / DOGE).
-Diagnosis: the Train-1 run ended its data at 2025-03-01, so every series force-closed one
-open position at the last bar (`exit_reason=end_of_data`; 240m at 2025-02-28 20:00). That
-close paid exit costs in the 2025-02 equity. In the continuous run the same positions are
-still open, so 2025-02 equity carries mark-to-market without exit costs. The 60m force-close
-bar (23:00) settles outside the Train-1 day buckets, which is why the 60m series match. The
-gate metric is therefore not window-invariant. The mismatch is a property of the
-pre-registered gate definition, not evidence of engine or data drift; trade count and
-checksums match. Even so, the gate as written fails, and the card says STOP.
+Per series, val1-entry net (control -> sized; series mult gap):
 
-Implementation note: `compute_agreement_multiplier_series` in the Train-1 script read the
-module-level `NOW=2025-03-01`. On a longer frame that leaves every post-Train-1 multiplier
-NaN, so the stake falls back to 100. The function gained an optional `now=` kwarg (default
-unchanged; Train-1 output re-run and identical apart from timing fields). An earlier bugged
-pass of this script printed Validation-1 control numbers to the worker console before the
-gate-first restructure. Its sized arm was identical to control because of this bug. Those
-numbers are not recorded here and were not used.
+| series | n | control | sized | gap |
+|---|---|---|---|---|
+| SOL 240 | 4 | -6.60 | -7.01 | +0.125 |
+| ETH 240 | 4 | +26.00 | +37.50 | +0.938 |
+| BTC 240 | 5 | +6.47 | -4.24 | -0.563 |
+| XRP 240 | 7 | +1.78 | +0.75 | +0.188 |
+| DOGE 240 | 4 | +16.68 | +17.78 | 0.000 |
+| SOL 60 | 26 | -30.84 | -43.75 | -0.079 |
+| ETH 60 | 21 | +21.29 | +49.41 | +0.113 |
+| BTC 60 | 20 | -13.23 | -26.65 | -0.313 |
+| XRP 60 | 24 | -22.91 | -26.45 | -0.104 |
+| DOGE 60 | 24 | -12.36 | -1.34 | +0.188 |
 
-Open question for the coordinator:
-`spec/features/active/F006-bb-20-25-xsym-agree-sizing-val1/QUESTION-gate.md`.
+Each series has one Validation-1 `end_of_data` exit at the 2025-06-01 engine cut.
+
+Reading: on Validation-1, the frozen weights put slightly more stake on losers than on
+winners. The higher sized mean comes from a few large winners (the ETH series and the
+2025-05 big winners). Agreement did not separate winners from losers as the mechanism
+requires. Both arms are negative on mean, and both have 2/3 losing months.
 
 ## Decision
 

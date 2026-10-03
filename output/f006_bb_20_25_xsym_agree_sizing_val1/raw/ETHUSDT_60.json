@@ -2,9 +2,51 @@
   "symbol": "ETHUSDT",
   "interval": "60",
   "n_trades_total_baseline": 101,
+  "n_trades_total_sized": 101,
   "n_trades_train1_entry_baseline": 77,
+  "n_trades_val1_entry_baseline": 21,
+  "n_trades_val1_entry_sized": 21,
+  "n_val1_end_of_data_exits": 1,
+  "trade_count_invariant_ok": true,
   "train1_net_pnl_baseline": 30.386076,
-  "train1_net_pnl_baseline_train1_run": 30.386076,
-  "n_trades_train1_entry_baseline_train1_run": 77,
-  "train1_net_pnl_diff": 0.0
+  "val1_entry_net_pnl_baseline": 21.285058,
+  "val1_entry_net_pnl_sized": 49.406824,
+  "val1_equity_net_pnl_baseline": 12.309601,
+  "val1_equity_net_pnl_sized": 38.291047,
+  "losing_months_baseline": 1,
+  "losing_months_sized": 1,
+  "stake_cv": 0.445347,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.175,
+  "mean_mult_losers": 1.0625,
+  "mean_mult_gap": 0.1125,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-03",
+      "net_pnl": 15.212815
+    },
+    {
+      "month": "2025-04",
+      "net_pnl": -16.296623
+    },
+    {
+      "month": "2025-05",
+      "net_pnl": 22.368866
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-03",
+      "net_pnl": 14.282439
+    },
+    {
+      "month": "2025-04",
+      "net_pnl": -21.634003
+    },
+    {
+      "month": "2025-05",
+      "net_pnl": 56.758388
+    }
+  ],
+  "seconds": 0.45
 }

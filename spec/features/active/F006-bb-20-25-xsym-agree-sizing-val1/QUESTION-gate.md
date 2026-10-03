@@ -17,4 +17,12 @@ Decision needed (product / pre-registration amendment, not a worker call):
    Then rerun `python3 scripts/f006_bb_20_25_xsym_agree_sizing_val1.py` after editing
    its gate block. The script is ready and the multiplier `now` bug is fixed.
 
-Validation-1 metrics have not been written to any artifact.
+At the time of the gate-failure run, Validation-1 metrics had not been written to any artifact.
+
+## Decided (2026-10-03, coordinator, before Validation-1 scoring) — not open
+
+Gate amended: the absolute 1e-6 tolerance on the 10-series mean is now relative 0.25% of
+|reference mean|. n=512 stays exact. The round-to-2dp equality was dropped. Falsifiers
+(a)-(e), the frozen formula, the one-bar shift, the data split, and number_of_trials = 1
+are unchanged. This is not a new trial. Script `GATE_REL_TOL = 0.0025` (commit `548e390`);
+the rerun gate passed (diff 0.148382 <= 0.207251, n=512). Result is in the hyp card.

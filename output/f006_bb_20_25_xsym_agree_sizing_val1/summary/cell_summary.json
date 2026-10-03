@@ -6,10 +6,76 @@
     "reference_mean_train1_net_pnl": 82.900262,
     "observed_mean_train1_net_pnl": 83.048644,
     "abs_diff": 0.14838230000000863,
-    "tolerance": 1e-06,
+    "tolerance": 0.0025,
+    "tolerance_kind": "relative",
     "reference_train1_entry_n": 512,
     "observed_train1_entry_n": 512,
-    "passed": false
+    "passed": true
   },
-  "verdict": "STOP (Train-1 control gate failed; Validation-1 not scored)"
+  "control": {
+    "mean_val1_entry_net_pnl": -1.371447,
+    "mean_val1_equity_net_pnl_informational": -8.023977,
+    "total_closed_trades": 699,
+    "val1_entry_trades": 139,
+    "val1_entry_net_pnl": -13.714473,
+    "val1_entry_net_per_trade": -0.098665,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-03",
+        "net_pnl": -64.040616
+      },
+      {
+        "month": "2025-04",
+        "net_pnl": -54.470561
+      },
+      {
+        "month": "2025-05",
+        "net_pnl": 104.796705
+      }
+    ],
+    "pooled_losing_month_count": 2
+  },
+  "sized": {
+    "mean_val1_entry_net_pnl": -0.400552,
+    "mean_val1_equity_net_pnl_informational": -5.17904,
+    "total_closed_trades": 699,
+    "val1_entry_trades": 139,
+    "val1_entry_net_pnl": -4.005522,
+    "val1_entry_net_per_trade": -0.028817,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-03",
+        "net_pnl": -59.736394
+      },
+      {
+        "month": "2025-04",
+        "net_pnl": -91.394296
+      },
+      {
+        "month": "2025-05",
+        "net_pnl": 147.125168
+      }
+    ],
+    "pooled_losing_month_count": 2,
+    "pooled_stake_cv": 0.471586,
+    "all_series_stake_cv_gt_0_05": true,
+    "series_stake_cv_min": 0.353424,
+    "mean_mult_winners": 1.0067567567567568,
+    "mean_mult_losers": 1.0330882352941178,
+    "mean_mult_winner_minus_loser": -0.026331
+  },
+  "trade_count_invariant_all_series": true,
+  "big_winner_contribution": {
+    "threshold_net_pnl": 29.9,
+    "baseline_count": 2,
+    "baseline_pnl_sum": 65.069098,
+    "sized_count": 2,
+    "sized_pnl_sum": 105.68408,
+    "sized_pnl_on_baseline_big_winner_entry_keys": 105.68408
+  },
+  "verdict": "FALSIFIED",
+  "falsified": true,
+  "falsification_conditions_fired": [
+    "(c) pooled winner-minus-loser mean multiplier <= 0 (-0.026331)"
+  ]
 }

@@ -1,16 +1,11 @@
 H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01
-Run started: 2026-10-03T05:20:25.940829+00:00
-Commit at run: 0e75ce60ea09725441c2f53bc6663b2638613af8
-Train-1 control gate: mean=83.048644 (ref 82.900262, diff 0.148382, tol 1e-06), n=512 (ref 512) -> FAIL
-  symbol interval  train1_net_pnl_baseline_train1_run  train1_net_pnl_baseline  train1_net_pnl_diff
- SOLUSDT      240                           43.839241                44.147240             0.307999
- ETHUSDT      240                           16.878825                17.182358             0.303533
- BTCUSDT      240                           12.864551                13.172794             0.308243
- XRPUSDT      240                          213.405353               213.709315             0.303962
-DOGEUSDT      240                          111.903223               112.163309             0.260086
- SOLUSDT       60                           85.522585                85.522585             0.000000
- ETHUSDT       60                           30.386076                30.386076             0.000000
- BTCUSDT       60                          -13.588079               -13.588079             0.000000
- XRPUSDT       60                          295.322632               295.322632             0.000000
-DOGEUSDT       60                           32.468213                32.468213             0.000000
-Verdict: STOP (Train-1 control gate failed; Validation-1 not scored)
+Run started: 2026-10-03T05:35:29.666360+00:00
+Commit at run: 548e39011d9d50dd8ad3f41bab5c23c1c57aa58a
+Train-1 control gate: mean=83.048644 (ref 82.900262, diff 1.48e-01, tol 0.0025 relative), n=512 (ref 512) -> PASS
+Control: mean val1 entry net=-1.371447, total=699, val1-entry n=139, net=-13.714473, losing months=2/3 [-64.040616, -54.470561, 104.796705]
+Sized:   mean val1 entry net=-0.400552, total=699, val1-entry n=139, net=-4.005522, losing months=2/3 [-59.736394, -91.394296, 147.125168]
+Pooled stake CV: 0.471586 (series min 0.353424)
+Pooled mult winners=1.0067567567567568, losers=1.0330882352941178, gap=-0.026331
+Big winners: {'threshold_net_pnl': 29.9, 'baseline_count': 2, 'baseline_pnl_sum': 65.069098, 'sized_count': 2, 'sized_pnl_sum': 105.68408, 'sized_pnl_on_baseline_big_winner_entry_keys': 105.68408}
+Verdict: FALSIFIED
+  (c) pooled winner-minus-loser mean multiplier <= 0 (-0.026331)
