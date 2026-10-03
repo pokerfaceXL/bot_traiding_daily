@@ -27,7 +27,7 @@
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
-| `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED; xsym sizing Train-1 NOT FALSIFIED; Val-1 NOT FALSIFIED; Val-2 NOT FALSIFIED; Val-3 NOT FALSIFIED; Val-4 next; other entry structure open) | Val-3 NOT FALSIFIED at `cf00663` (mean +1.772572→+8.007368, months 2≤2, gap +0.179831); caveats not a floor; do not FREEZE; Val-4 next | `strategy_profiles/BB_20_2_EMA200.md` |
+| `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED; xsym sizing Train-1..Val-3 NOT FALSIFIED then Val-4 FALSIFIED (c); formula closed; candle confirm next; other entry structure open) | Val-4 FALSIFIED (c) at `139ed3d` (mean +12.319196→+16.221179, months 2≤2, gap −0.102941); formula closed; stay CONDITIONAL; do not FREEZE; candle confirm next | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
 
@@ -94,7 +94,7 @@ target revisit (see Next planned step).
 after HTF direction FALSIFIED (a)+(c)+(d) at `3495b16`. `EMA3_21_50_200` and
 `DONCHIAN_55_NO_TRAIL` stay **FREEZE**. Remaining CONDITIONAL catalog5, in journal
 priority: `BB_20_2_EMA200`, then `EMA_50_200`, then `EMA3_13_50_200`. Highest
-priority now = `BB_20_2_EMA200` (entry-vol FALSIFIED at `f7ac677`; xsym sizing Train-1 NOT FALSIFIED at `1774a8a`; Val-1 NOT FALSIFIED at `7e18786`; Val-2 NOT FALSIFIED at `7798bbb`; Val-3 NOT FALSIFIED at `cf00663`; Validation-4 next; other entry structure still open). Do not treat the BB_20_25 loop as those names' tests.
+priority now = `BB_20_2_EMA200` (entry-vol FALSIFIED at `f7ac677`; xsym sizing Train-1..Val-3 NOT FALSIFIED then Val-4 FALSIFIED (c) at `139ed3d`; formula closed; candle confirm next; other entry structure still open). Do not treat the BB_20_25 loop as those names' tests.
 
 **Shared-losing-months CONFIRMED still stands** (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1
 losing months cluster far above chance across all five catalog5 names (6/12 with ≥4/5 losing
@@ -104,34 +104,30 @@ idiosyncratic failures. This **blocks** §8 in-class portfolio diversification (
 regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
 blocks portfolio combination.
 
-**BB_20_2 sizing Val-3 NOT FALSIFIED; name stays CONDITIONAL.**
+**BB_20_2 xsym sizing Val-4 FALSIFIED (c); formula closed; name stays CONDITIONAL.**
 `H-BB-20-2-ABS-ATR-ENTRY-GATE-01` remains **FALSIFIED (a)+(c)** at `f7ac677`.
-`H-BB-20-2-XSYM-AGREE-SIZING-01` remains **NOT FALSIFIED / REFINE** at `1774a8a`.
-`H-BB-20-2-XSYM-AGREE-SIZING-VAL1-01` remains **NOT FALSIFIED** at `7e18786`.
-`H-BB-20-2-XSYM-AGREE-SIZING-VAL2-01` remains **NOT FALSIFIED** at `7798bbb`.
-`H-BB-20-2-XSYM-AGREE-SIZING-VAL3-01` is **NOT FALSIFIED** at `cf00663`
-(Claude review PASS `2026-10-03-f006-bb202-xsym-agree-sizing-val-607c9de9`,
-FF from `7144b8f`). Gate PASS: Train-1 mean 95.463371 vs 95.3217987
-(diff 0.141572 ≤ 0.23830449675), n=756. Val-3 mean +1.772572 → +8.007368;
-losing months 2≤2; mult gap +0.179831; n 181/1407; stake_cv 0.455172.
-Means are thin; 6/10 series improve; entry-net gain is mostly 2025-10
-(+57.076733) and 2025-09 is worse under sizing (−11.868494). Seven
-force-closes at the 2025-12-01 cut. No pre-registered margin floor.
-`decision_if_pass` is continue to Validation-4, not holdout and not a
-stop. Do not FREEZE: §11 still has Validation-4 and holdout, and other
-§8 entry structure is still open. Do not abandon this arm for a new
-entry axis before Validation-4 (§7, §3.10). `BB_20_25_EMA200` remains
-**FREEZE** on its own loop; do not copy it. Do not jump to `EMA_50_200`
-or `EMA3_13_50_200`. Exit on `BB_20_2_EMA200` stays closed. Holdout stays
-closed.
+`H-BB-20-2-XSYM-AGREE-SIZING-01` Train-1 **NOT FALSIFIED / REFINE** at `1774a8a`.
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL1-01` **NOT FALSIFIED** at `7e18786`.
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL2-01` **NOT FALSIFIED** at `7798bbb`.
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL3-01` **NOT FALSIFIED** at `cf00663`.
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01` is **FALSIFIED (c)** at `139ed3d`
+(Claude review PASS, FF from `e925f3f`). Gate PASS: Train-1 mean 95.463371
+vs 95.3217987 (diff 0.141572 ≤ 0.23830449675), n=756. Val-4 mean
++12.319196 → +16.221179; losing months 2≤2; mult gap **−0.102941**; n
+164/1571; stake_cv 0.453397. (a)(b)(d)(e) clear; (c) fires. Per
+`decision_if_fail`, close the formula. Do not retune. Do not spawn Val-5.
+Do not open holdout. Do not FREEZE: §8 entry structure (candle confirm,
+breakout depth, HTF, liquidity) is still open on this name. `BB_20_25_EMA200`
+remains **FREEZE** on its own loop; do not copy it. Do not jump to
+`EMA_50_200` or `EMA3_13_50_200`. Exit on `BB_20_2_EMA200` stays closed.
 
-**Next = `H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01`** (pre-registered;
-ticket `spec/features/active/F006-bb202-xsym-agree-sizing-val4-01/ticket.md`).
-Same frozen formula. Score this name's Validation-4 entries only
-(2025-12-01 ≤ entry < 2026-03-01, F005 protocol §3.2, named by the Val-3
-card's `decision_if_pass`). Control gate is relative 0.25% of |+95.3217987|
-and Train-1-entry n=756 exact — not absolute 1e-6, and not a retarget onto
-95.463371. Falsifiers (a)–(e) are not loosened. Not holdout. Not a new family.
+**Next = `H-BB-20-2-ENTRY-CANDLE-CONFIRM-01`** (pre-registered;
+ticket `spec/features/active/F006-bb202-entry-candle-confirm-01/ticket.md`).
+One §8 candle close-strength gate on this name's own Train-1 trades. Control
+must reproduce +95.3217987 / n=756 / initial_sl ≈0.473545 / big-winner
+≈1251.654084 / floor 7/12. T grid {0.50,0.60,0.70,0.80,0.90}. Do not copy
+`BB_20_25_EMA200` candle results. Not abs-ATR retune. Not sizing Val-5.
+Not holdout. Not a new family.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
@@ -165,29 +161,30 @@ and Train-1-entry n=756 exact — not absolute 1e-6, and not a retarget onto
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~13:40 Europe/Warsaw, BB_20_2 xsym sizing Val-3)
+## §15 Coordinator report (updated 2026-10-03 ~14:05 Europe/Warsaw, BB_20_2 xsym sizing series closed)
 
-This series: `spec/research/F006-coordinator-series-report-bb-20-2-xsym-agree-sizing-val3.md`.
-Prior on this name: `spec/research/F006-coordinator-series-report-bb-20-2-xsym-agree-sizing-val2.md`.
+This series: `spec/research/F006-coordinator-series-report-bb-20-2-xsym-agree-sizing-series.md`.
+Prior windows: Val-3 / Val-2 / Val-1 / Train-1 reports under the same prefix.
 `BB_20_25_EMA200` stays **FREEZE** on its own loop and is not a class closure.
 
-`H-BB-20-2-XSYM-AGREE-SIZING-VAL3-01` is **NOT FALSIFIED** at `cf00663`.
-Decision = **CONDITIONAL** / continue (`decision_if_pass`). Do not FREEZE.
-The card does not stop on thin means or one-month concentration. Next is
-pre-registered `H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01`. Not holdout.
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01` is **FALSIFIED (c)** at `139ed3d`.
+Decision = close the formula; stay **CONDITIONAL**. Do not FREEZE. Do not
+spawn Val-5. Next is pre-registered `H-BB-20-2-ENTRY-CANDLE-CONFIRM-01`.
 
 1. **Best strategy now?** None promotable. FREEZE names unchanged (`BB_20_25_EMA200`, `EMA3_21_50_200`, `DONCHIAN_55_NO_TRAIL`). Active CONDITIONAL name is `BB_20_2_EMA200`, then `EMA_50_200`, then `EMA3_13_50_200`.
-2. **Why that name?** Own-trades loop in progress. The frozen sizing arm cleared Train-1, Validation-1, Validation-2, and Validation-3 and is not finished under §11. Screen is this name's, not a BB_20_25 transfer.
-3. **Edge from many trades or few big wins?** Few big wins. Val-3 sized big winners at net≥29.9 are 3 trades / 148.010545 (control 1 / 38.364839). Most of the entry-net gain is 2025-10 (+57.076733).
-4. **Earns when?** `signal_reverse` runners, and on this window when stake scaled the 2025-10 basket. Winner mult above loser mult (+0.179831).
-5. **Loses when?** Both arms are small on the mean (control +1.772572, sized +8.007368). Sized was worse in 2025-09 (−11.868494). Shared basket regime and `initial_sl` are unchanged. Losing-month count did not rise (2≤2) but did not fall. 4/10 series do not improve.
-6. **Rejected hypotheses?** Entry-vol **FALSIFIED (a)+(c)** `f7ac677`. Exit, long-only, breadth closed. This sizing formula is not rejected. BB_20_25 closures, including its Val-1 `89e936a` and its FREEZE, do not transfer.
-7. **Unresolved problem?** Whether the weights keep helping on Validation-4. Monthly regularity is not solved. The Validation-3 gain is thin on the mean, 6/10 series, and concentrated in 2025-10. Seven force-closes at 2025-12-01. §11 validation is not complete. In-class portfolio combination stays BLOCKED.
-8. **Next experiment & why?** `H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01`. Val-3 `decision_if_pass` names Validation-4 of the same formula, not holdout and not a stop. §3.10 and §11: next frozen window before another axis. §7: do not abandon the arm first. Window is F005 §3.2 Validation 4 (2025-12-01 ≤ entry < 2026-03-01). Not FREEZE. Not holdout.
-9. **Why not a random search?** One licensed axis on this name has four passes and the next protocol window already named by the card. Do not jump to `EMA_50_200` or `EMA3_13_50_200`. Do not open a new entry gate in parallel. Do not open holdout.
-10. **What result confirms/refutes the next hypothesis?** On the Val-4 card. Control gate: relative 0.25% of |+95.3217987| and Train-1-entry n=756 exact, before any Validation-4 scoring. Pass: sized mean above that window's own control, losing-month count not higher, mult gap > 0, n invariant, stake_cv > 0.05. Any of (a)–(e) fails it. Falsifiers are not loosened. Holdout is not opened.
+2. **Why that name?** Own-trades loop in progress. Entry-vol and the xsym-agree sizing formula are closed here; candle / breakout / HTF / liquidity entry structure remain open. Screen is this name's, not a BB_20_25 transfer.
+3. **Edge from many trades or few big wins?** Few big wins. Val-4 sized big winners at net≥29.9 are 7 / 302.05 (control 4 / 140.65). Across the series, gains were one-month concentrated.
+4. **Earns when?** `signal_reverse` runners when winner mult > loser mult (Train-1..Val-3). That ordering flipped on Val-4.
+5. **Loses when?** Shared basket regime and `initial_sl`. Val-4 overweighted losers (gap −0.102941) even while mean rose. Losing-month counts never fell on validation windows.
+6. **Rejected hypotheses?** Entry-vol **FALSIFIED (a)+(c)** `f7ac677`. Xsym-agree sizing formula **FALSIFIED (c)** on Val-4 `139ed3d` (after Train-1 REFINE and Val-1..3 NOT FALSIFIED). Exit, long-only, breadth closed. BB_20_25 closures do not transfer.
+7. **Unresolved problem?** Whether a §8 entry-structure gate on this name can cut `initial_sl` without cutting runners. Monthly regularity unsolved. In-class portfolio combination stays BLOCKED.
+8. **Next experiment & why?** `H-BB-20-2-ENTRY-CANDLE-CONFIRM-01`. Val-4 `decision_if_fail` names one not-yet-run entry-structure axis. Candle confirm is first. Train-1 only. Not FREEZE. Not holdout. Not Val-5.
+9. **Why not a random search?** §7 develop-not-abandon while licensed axes remain on this name. Do not jump to `EMA_50_200` or `EMA3_13_50_200`. Do not retune the closed stake.
+10. **What result confirms/refutes the next hypothesis?** On the candle card. Control: +95.3217987, n=756, initial_sl ≈0.473545, big-winner ≈1251.654084, floor 7/12. Pass: mean > control AND initial_sl drop ≥10pp at best-PnL T AND ≥50% big-winner retained AND floor < 7/12, without <10 trades/series. Any of (a)–(e) fails it.
 
 ## Chronological log
+
+- **2026-10-03 ~14:05 Europe/Warsaw** — **`H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01` Decision FALSIFIED (c)** at `139ed3d` (gate PASS; mean +12.32→+16.22; months 2≤2; gap −0.102941). Formula closed. Stay CONDITIONAL. Do not FREEZE. Pre-registered `H-BB-20-2-ENTRY-CANDLE-CONFIRM-01`. §15 series report written.
 
 - **2026-10-01** — Merged all outstanding research branches to `main` (FF of 11 commits +
   6 exit-grid-sparse merges + XS_RS/ORB_UTC cherry-picks + integration fixups; 460 tests

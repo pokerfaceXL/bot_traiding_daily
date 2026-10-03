@@ -258,4 +258,23 @@ the coordinator to write in `## Decision`.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (c).** Checked 2026-10-03 ~14:05 Europe/Warsaw against
+`output/f006_bb_20_2_xsym_agree_sizing_val4/summary/cell_summary.json` on the
+FF-merged tip `139ed3d` (review PASS, FF from `e925f3f`). Result numbers match
+the artifact after ordinary rounding. Gate PASS: Train-1 mean 95.463371 vs
+reference 95.3217987 (diff 0.141572 ≤ allowance 0.23830449675), n=756.
+
+Validation-4: sized mean +16.221179 > control +12.319196 — (a) does not fire.
+Losing months 2 ≤ 2 — (b) does not fire. Pooled mult gap **−0.102941 ≤ 0** —
+**(c) FIRED**. n 164/1571 invariant — (d) does not fire. stake_cv 0.453397
+(series min 0.230769) — (e) does not fire. `number_of_trials = 1`.
+
+Per `decision_if_fail`: close this xsym-agree formula on `BB_20_2_EMA200`
+(Train-1 / Val-1 / Val-2 / Val-3 passes did not keep generalizing). Do not
+retune 0.5 / 0.375 / 2.0. Do not spawn Val-5. Do not open holdout. Stay
+**CONDITIONAL**. Do not FREEZE: other §8 entry structure (candle confirm,
+breakout depth, HTF direction, liquidity) is still open on this name's own
+trades. `BB_20_25_EMA200` FREEZE does not transfer. Next = one new written
+§8 entry-structure hypothesis on this name — candle close-strength first
+(highest-priority untested entry-structure axis here; do not copy that other
+name's T thresholds as results).
