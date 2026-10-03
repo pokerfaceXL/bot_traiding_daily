@@ -581,3 +581,27 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   the xsym formula on this name stay closed. Do not FREEZE. Do not start
   `EMA3_13_50_200`. Ticket
   `spec/features/active/F006-ema50200-entry-breakout-depth-01/ticket.md`.
+
+- **2026-10-03 ~18:26 Europe/Warsaw** — **H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01 = FALSIFIED (a)+(c)**.
+  Tip `485de51` FF-merged to `origin/main` (git parent `a243176`; prior Decision `4e32994`). Review PASS
+  `2026-10-03-f006-ema50200-entry-breakout-dep-00ab01c3`. Control +72.6693115 /
+  n=330 / initial_sl 213/330 = 0.6454545454545455 / floor 7/12 / big-winner
+  5 / +843.7639016181568 reproduced from
+  `output/f006_ema_50_200_entry_breakout_depth/`. Best D=0.02 mean +63.0343180
+  (delta −9.6349935/series); initial_sl share rose 9.600886917960082 pp to
+  152/205; floor 8/12 at that D. D=0.25 and D=0.50 took zero trades (vacuous).
+  (a)(c) fired; (b)(e) did not; (d) vacuous. Decision =
+  **FALSIFIED (a)+(c)**. Profile stays **CONDITIONAL**. Breakout depth is
+  closed. Do not FREEZE. Not evidence for other names. §15:
+  `spec/research/F006-coordinator-series-report-ema-50-200-entry-breakout-depth.md`.
+
+- **2026-10-03 ~18:26 Europe/Warsaw** — **H-EMA-50-200-ENTRY-HTF-DIRECTION-01 pre-registered**
+  (HTF direction on CONDITIONAL `EMA_50_200` own trades; prior fully closed
+  4-bar HTF candle must agree; Train-1 only; one gated cell;
+  `number_of_trials = 1`; control mean +72.6693115 / n=330 from this name's
+  reproduced baseline). Not a transfer of another name's HTF mean or
+  pass/fail. Breakout depth, candle confirm, entry-vol, and the xsym formula
+  on this name stay closed. Liquidity stays open after this axis. FREEZE is
+  allowed only at that later liquidity experiment's own Decision, not now.
+  Do not start `EMA3_13_50_200`. Ticket
+  `spec/features/active/F006-ema50200-entry-htf-direction-01/ticket.md`.

@@ -226,4 +226,82 @@ was not changed (still CONDITIONAL).
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~18:26 Europe/Warsaw against
+`output/f006_ema_50_200_entry_breakout_depth/cell_summary.csv`,
+`manifest.json`, and an independent Train-1 blotter recount, on the
+FF-merged tip `485de51` (git parent `a243176`; prior Decision `4e32994`;
+review PASS `2026-10-03-f006-ema50200-entry-breakout-dep-00ab01c3`, engine
+claude, branch `limen/2026-10-03-f006-ema50200-entry-breakout-dep-bc3f314d`).
+The Result table matches that artifact after ordinary rounding. Control
+replay max abs train1 diff is 0.0. The manifest records two fired
+falsifiers: `a_all_thresholds_fail_to_beat_mean_control` true and
+`c_best_pnl_threshold_fails_10pp_initial_sl_drop` true. Passing cells: none.
+The stopped duplicate coding job `db8332cd` is ignored.
+
+This is not a `BB_20_2_EMA200` depth verdict (`27fa7f6`) and not a
+`BB_20_25_EMA200` depth verdict (`0685ce5`). Those names are not this
+test. Do not import +95.3217987 or +82.900262.
+
+Pre-declared checks (number_of_trials = 5, D grid frozen
+`{0.02, 0.05, 0.10, 0.25, 0.50}`, ema200-normalized depth on the closed
+signal bar):
+
+- control mean **+72.6693115** (replay max abs diff 0.0, sum +726.693115),
+  Train-1-entry n=**330**, entry-net **+587.3851786486205**, initial_sl
+  **213/330 = 0.6454545454545455**, big winners **5 / +843.7639016181568**,
+  pooled entry-month floor **7/12**
+- best-PnL D=**0.02** mean **+63.0343180** (delta **−9.6349935**/series vs
+  +72.6693115), entry n=205, entry-net +615.5694819670354, initial_sl
+  **152/205 = 0.7414634146341463** (share **rises 9.600886917960082 pp**),
+  big-winner retained **3 / +760.9812320976589 / 0.9018888229731817**,
+  floor **8/12**, 20.5 trades/series (not thin)
+- every other D is also at or below the control mean: D=0.05 −10.1819257
+  (thin, 7.0/series, floor 10/12), D=0.10 +0.5031110 (thin, 1.5/series,
+  floor 7/12), D=0.25 and D=0.50 mean 0.0 with **zero trades**. Those two
+  cells are vacuous: `summary.json` records `losing_entry_months: 0` and a
+  cosmetic floor-improves flag only because the cohort is empty. They are
+  not a real floor improvement and they are not a pass. The largest
+  one-shot-bar depth in any series is 0.2175 (SOLUSDT 240); 60m maxima run
+  0.0736–0.1286, so D>=0.25 cannot admit a trade on this basket.
+- 0 NO_TRAIL violations; 0 retained-trade economics mismatches
+
+(a) fires: mean <= baseline at every D (best +63.0343180 < +72.6693115).
+(b) does not fire: the only non-thin D (0.02, 20.5 trades/series) keeps
+90.2% of baseline big-winner PnL. D=0.05 and D=0.10 are thin (<10
+trades/series) and keep none; thinness does not make (b) fire. (c) fires:
+best-PnL D=0.02 does not cut initial_sl by >=10pp; the share rises
+9.600886917960082 pp. (d) does not fire and is vacuous: no D passes
+(a)-(c), so the floor clause has nothing to judge. Informational: the only
+non-thin D worsens the floor 7/12 to 8/12. Thin D=0.05 (10/12) and D=0.10
+(7/12) are real counts, not empty, and they do not improve the floor.
+Empty D=0.25 and D=0.50 floors are vacuous. (e) does not fire: no D beats
+the control mean, so there is no thin-only improvement.
+
+Applied sentence, from this card: "(a) mean train1_net_pnl <= baseline at
+every D" and "(c) initial_sl share fails to fall >=10pp at the best-PnL D".
+decision_if_fail closes breakout-depth on `EMA_50_200` own trades and names
+HTF direction as the following open axis. Protocol §7 develop-not-abandon
+keeps this name in the loop (status **CONDITIONAL**, next licensed axis)
+and does not keep a failed depth gate open. Do not FREEZE.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Breakout depth is
+closed on this name (tip `485de51`). Candle confirm stays FALSIFIED
+(a)+(c) (`778f373` / Decision `4e32994`). Entry-vol stays FALSIFIED
+(a)+(c) (`80e7fa6` / Decision `67af347`). The xsym-agree formula stays
+FALSIFIED (b) (`48d03b0` / Decision `f54e362`); no Val-1. Exit, long-only,
+and breadth stay closed. HTF direction is the next open axis and is
+pre-registered in this commit, not yet run. Liquidity stays open after
+that. Liquidity would then be the last licensed axis; FREEZE is allowed
+only at that later experiment's own Decision, not now. Do not start
+`EMA3_13_50_200`. Do not start funding-carry, spread-capture, or catalog
+mean-reversion. Do not retune D. Holdout stays closed. Do not treat
+`27fa7f6` or `0685ce5` as this result.
+
+**reason:** falsifiers (a) and (c). Requiring the signal-bar close to sit
+further beyond ema200 lowers mean Train-1 net at every D and raises,
+rather than cuts, the initial_sl share.
+
+**next_action:** one HTF-direction entry gate on this name only,
+`H-EMA-50-200-ENTRY-HTF-DIRECTION-01`. Not a depth retune. Not a candle
+retune. Not an abs-ATR retune. Not a Val-1 of the closed stake. Baseline
+remains the reproduced control **+72.6693115** (n=330).
