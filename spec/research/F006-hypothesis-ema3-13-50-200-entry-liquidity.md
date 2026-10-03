@@ -246,4 +246,86 @@ is not met. Outcome against the pre-declared falsifiers: FALSIFIED
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c)+(d).** Checked 2026-10-03 ~23:11 Europe/Warsaw against
+`output/f006_ema3_13_50_200_entry_liquidity/cell_summary.csv` on the
+FF-merged tip `3d9d787` (git parent is the harness `c2fac30`; the
+pre-registration Decision is `a99a460`). Review PASS
+`2026-10-03-f006-ema31350200-entry-liquidity-9a01df13` (engine claude).
+Coding job `2026-10-03-f006-ema31350200-entry-liquidity-c6583097` DONE.
+Duplicate `2026-10-03-f006-ema31350200-entry-liquidity-80897b4e` was
+already stopped. Passing cells: none. Control replay max abs train1 diff
+is 0.0. The Result table matches the artifact (gated mean prints
+`65.55084200000002`, reported as +65.550842; initial_sl share-drop prints
+`-2.5289001670028455`, which is a rise of 2.5289001670028455 pp).
+
+This is not the `EMA_50_200` liquidity verdict (`48aef9f`, gated
++66.5789284) and not the `BB_20_2_EMA200` liquidity verdict (`776e167`,
+gated +97.2455987). Do not import those cells.
+
+Pre-declared checks (`number_of_trials = 1`, binary prior-20 base-volume
+median gate), from this run's `cell_summary.csv`:
+
+- control mean **+91.1483016** (sum +911.483016), Train-1-entry n=**423**
+  (42.3/series), entry-net **+771.2836172145886**, initial_sl
+  **292/423 = 0.6903073286052009** (69.03%), big winners
+  **9 / +1131.9561537333418**, pooled entry-month floor **7/12**
+- `liq_med20` mean **+65.550842** (artifact `65.55084200000002`; delta
+  **−25.5974596**/series vs the reported control +91.1483016), entry
+  n=**327** (32.7/series), entry-net +566.8246321543567, initial_sl
+  **234/327 = 0.7155963302752294** (share **rose 2.5289001670028455 pp**,
+  about 2.53pp; it did not fall), big-winner retained
+  **6 / +891.7380355242556 / 0.787784961973293** (about 78.8%), floor
+  **7/12**, 3/5 symbols net-positive
+
+(a) fires. Applied sentence, from this card: "(a) mean train1_net_pnl <= baseline".
+Gated mean +65.550842 <= control +91.1483016.
+(b) does not fire. Applied sentence: "(b) the gate removes >50% of baseline big-winner PnL".
+Retention is 0.787784961973293 (6/9, +891.7380355242556 of +1131.9561537333418).
+(c) fires. Applied sentence: "(c) initial_sl share fails to fall >=10pp".
+The share rose 2.5289001670028455 pp (292/423 to 234/327).
+(d) fires. Applied sentence, from this card: "(d) pooled losing-month floor does not improve (stays >= baseline floor)".
+The same card also says: "A flat floor falsifies (d) on this card."
+The floor is 7/12 on both cells, so (d) is in the label. This is not the
+depth or candle reachability rule, where (d) fired only at a cell that
+already passed (a)–(c).
+(e) does not fire. Applied sentence: "(e) mean trades/series < 10".
+32.7 is not < 10.
+
+**Strategy status:** **FREEZE** (§4 level C, not REJECT / level D).
+The liquidity falsifiers that this card says close the axis have fired:
+any one of (a)–(e) falsifies the experiment, and (a), (c), and (d) fired.
+Every licensed axis on this name now has an own-trades citation:
+
+- exit-class `923de9c` and partial-exit `3d4edd4` (this name's series)
+- long-only and breadth `f420078` (this name's cells of H-CATALOG5-CLASS-CLOSURE-01)
+- abs-ATR `46e4509` / Decision `3318658` **FALSIFIED (a)+(c)**, not (d)
+- xsym sizing `34e2c4a` / Decision `396a3c2` **FALSIFIED (b)**
+- candle `9dbcf0d` / Decision `079b697` **FALSIFIED (a)+(b)+(c)**
+- breakout-depth `c388392` / Decision `07fb827` **FALSIFIED (c) only**
+- HTF `c70777a` / Decision `a99a460` **FALSIFIED (a)+(c)+(d)**
+- liquidity `3d9d787` / this Decision **FALSIFIED (a)+(c)+(d)**
+
+The profile names no other licensed axis that is still open.
+Price-versus-range is not a separate axis (candle close-strength already
+tested location in the bar). Portfolio combination is not a remaining
+axis: shared-losing months (`dc9818e`) fail the §8 precondition and do
+not license this FREEZE. This is not a class closure and not an analogy
+to `EMA_50_200` or either BB name. Their measured liquidity cells are
+not this result. The ungated Train-1 book stays aggregate-positive
+(control mean +91.1483016, n=423), so this is not REJECT. FREEZE means
+keep the strategy and the results and stop further tuning of this name.
+
+**reason:** falsifiers (a), (c), and (d). The prior-20 base-volume median
+kept 78.8% of big-winner PnL and 32.7 trades/series, but it lowered mean
+Train-1 net by 25.5974596/series, raised the initial_sl share by
+2.5289001670028455 pp, and left the pooled floor at 7/12.
+
+**next_action:** stop the `EMA3_13_50_200` loop. No other catalog name
+is CONDITIONAL, and none still has an open licensed entry axis
+(`EMA_50_200`, `BB_20_2_EMA200`, `BB_20_25_EMA200`, `EMA3_21_50_200`,
+and `DONCHIAN_55_NO_TRAIL` are already FREEZE on their own trades). The
+journal's next step when the catalog loop is exhausted is an owner
+decision (§13 non-correlated data, or a revisit of the calendar-green
+goal). Do not invent the next name. Do not pre-register funding-carry,
+spread-capture, or catalog mean-reversion. Do not start a new family.
+No ticket in this commit.

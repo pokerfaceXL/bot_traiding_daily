@@ -26,7 +26,7 @@
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (a)+(c)+(d) at `48aef9f` (gated +66.5789284, −6.0903831/series, SL drop 1.165173pp, floor still 7/12); not a class closure; not REJECT | `strategy_profiles/EMA_50_200.md` |
-| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `46e4509`; xsym sizing FALSIFIED (b) at `34e2c4a`; candle confirm FALSIFIED (a)+(b)+(c) at `9dbcf0d`; breakout depth FALSIFIED (c) only at `c388392`; HTF direction FALSIFIED (a)+(c)+(d) at `c70777a`; (d) was not the abs-ATR label, was not reachable on candle or depth, and WAS the HTF label because that card's floor sentence is standalone) | HTF axis closed (htf_4 mean +39.2303418, delta −51.9179598, SL share rose 2.792471559369414 pp, big-winner PnL retained 0.5556713331636377 so card (b) does not fire, floor 7/12); next liquidity on baseline +91.1483016 / n=423; do not FREEZE | `strategy_profiles/EMA3_13_50_200.md` |
+| `EMA3_13_50_200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (a)+(c)+(d) at `3d9d787` (gated +65.550842, −25.5974596/series, SL share rose 2.5289001670028455 pp, big-winner PnL kept 0.787784961973293, floor still 7/12); not a class closure; not REJECT | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
@@ -90,13 +90,14 @@ target revisit (see Next planned step).
 
 ## Next planned step (decision point for the owner)
 
-**EMA3_13_50_200 is the only open catalog5 name.** `EMA_50_200` is **FREEZE**
-after liquidity FALSIFIED (a)+(c)+(d) at `48aef9f`. `BB_20_2_EMA200`,
-`BB_20_25_EMA200`, `EMA3_21_50_200`, and `DONCHIAN_55_NO_TRAIL` stay
-**FREEZE**. HTF direction on `EMA3_13_50_200` is **FALSIFIED (a)+(c)+(d)**
-at `c70777a`. Next = `H-EMA3-13-50-200-ENTRY-LIQUIDITY-01`,
-pre-registered 2026-10-03 ~22:36 Europe/Warsaw. Do not FREEZE this name. Do not treat
-another name's loop as this test.
+**Every catalog5 name is FREEZE.** `EMA3_13_50_200` is **FREEZE**
+after liquidity FALSIFIED (a)+(c)+(d) at `3d9d787` (2026-10-03 ~23:11 Europe/Warsaw). `EMA_50_200`,
+`BB_20_2_EMA200`, `BB_20_25_EMA200`, `EMA3_21_50_200`, and
+`DONCHIAN_55_NO_TRAIL` stay **FREEZE**. No CONDITIONAL catalog name remains,
+and none has an open licensed entry axis. Next name is an **owner decision**
+(§13 non-correlated data, or a revisit of the calendar-green goal). Do not
+invent a catalog name. Do not pre-register funding-carry, spread-capture, or
+catalog mean-reversion. Do not start a new family in this commit.
 
 **Shared-losing-months CONFIRMED still stands** (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1
 losing months cluster far above chance across all five catalog5 names (6/12 with at least 4/5 losing
@@ -105,7 +106,7 @@ idiosyncratic failures. This **blocks** section 8 in-class portfolio diversifica
 "losses not strongly correlated" fails). Combining catalog5 names would not improve monthly
 regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
 blocks portfolio combination. It is not why `BB_20_2_EMA200` is FREEZE, and it does not license
-FREEZE of `EMA_50_200`.
+FREEZE of `EMA_50_200` or of `EMA3_13_50_200`.
 
 **EMA_50_200 abs-ATR FALSIFIED (a)+(c); name stays CONDITIONAL.**
 `H-EMA-50-200-ABS-ATR-ENTRY-GATE-01` is **FALSIFIED (a)+(c)** at `80e7fa6`
@@ -334,9 +335,27 @@ book stays aggregate-positive, FREEZE may be written then at §4 level C
 (not REJECT). A passing cell keeps CONDITIONAL. Do not start funding-carry,
 spread-capture, or catalog mean-reversion.
 
+
+**EMA3_13_50_200 liquidity FALSIFIED (a)+(c)+(d); name is FREEZE.**
+`H-EMA3-13-50-200-ENTRY-LIQUIDITY-01` is **FALSIFIED (a)+(c)+(d)** at `3d9d787`
+(review PASS `2026-10-03-f006-ema31350200-entry-liquidity-9a01df13`).
+Control exact +91.1483016 (max abs diff 0.0), n=423, initial_sl 292/423 =
+0.6903073286052009, floor 7/12, big winners 9 / +1131.9561537333418. Gated
+liq_med20 mean +65.550842 (artifact 65.55084200000002; delta −25.5974596/series),
+n=327 (32.7/series), initial_sl share rose 2.5289001670028455 pp
+(234/327 = 0.7155963302752294), big-winner PnL kept 0.787784961973293
+(6 / +891.7380355242556), floor stayed 7/12. Applied sentences: "(a) mean
+train1_net_pnl <= baseline"; "(c) initial_sl share fails to fall >=10pp";
+"(d) pooled losing-month floor does not improve (stays >= baseline floor)".
+The card also says "A flat floor falsifies (d) on this card", so (d) stays
+in the label. (b) and (e) did not fire. Every licensed axis on this name is
+now closed on its own trades. Status **FREEZE** (§4 level C). Not REJECT:
+ungated Train-1 stays aggregate-positive. Not a class closure. No next
+pre-registration: the next name is an owner decision. Section 15:
+`spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-liquidity.md`.
+
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
-> exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
-> experiment is delegated (section 16), engine claude, not spark.
+> exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. There is no current ticket and no spawn: the next name is an owner decision. Do not treat this 2026-10-02 note as a live delegation.
 
 ## Coordinator operating model
 
@@ -365,7 +384,27 @@ spread-capture, or catalog mean-reversion.
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~22:36 Europe/Warsaw, EMA3_13_50_200 HTF direction closed)
+## §15 Coordinator report (updated 2026-10-03 ~23:11 Europe/Warsaw, EMA3_13_50_200 liquidity closed; name FREEZE)
+
+This run: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-liquidity.md`.
+Prior on this name: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-htf-direction.md`.
+
+`H-EMA3-13-50-200-ENTRY-LIQUIDITY-01` is **FALSIFIED (a)+(c)+(d)** at `3d9d787`.
+Decision = close liquidity and **FREEZE** `EMA3_13_50_200` (§4 level C). Not REJECT.
+Do not retune the 20-bar median. No next card.
+
+1. **Best strategy now?** None promotable. Every catalog5 name is **FREEZE**, including `EMA3_13_50_200`. `DONCHIAN_55_NO_TRAIL` stays FREEZE. No CONDITIONAL catalog name remains.
+2. **Why that name?** It was the last open name. Its own-trades loop is now closed. Screen is this name's (+91.1483016, n=423, 0/10 clear §7), not an `EMA_50_200` transfer.
+3. **Edge from many trades or few big wins?** Few big wins. Control big-winner set is 9 trades / +1131.9561537333418 against entry net +771.2836172145886. Gated liq_med20 kept 6 / +891.7380355242556 (0.787784961973293).
+4. **Earns when?** Ungated `signal_reverse` runners. The prior-20 base-volume median did not separate them from stop-outs: liq_med20 cut the mean by −25.5974596/series.
+5. **Loses when?** Most remaining trades still die at the fixed `initial_sl`, and the share rose from 292/423 (0.6903073286052009) to 234/327 (0.7155963302752294), +2.5289001670028455 pp. The pooled floor stays 7/12.
+6. **Rejected hypotheses?** Liquidity **FALSIFIED (a)+(c)+(d)** `3d9d787`. (b)(e) did not fire. (d) kept because this card's floor sentence says a flat floor falsifies. Abs-ATR **FALSIFIED (a)+(c)** `46e4509` / Decision `3318658` (not (d)). Xsym **FALSIFIED (b)** `34e2c4a` / Decision `396a3c2`. Candle **FALSIFIED (a)+(b)+(c)** `9dbcf0d` / Decision `079b697`. Breakout depth **FALSIFIED (c) only** `c388392` / Decision `07fb827`. HTF **FALSIFIED (a)+(c)+(d)** `c70777a` / Decision `a99a460`. Exit, long-only, breadth closed. Other names' liquidity closures do not transfer.
+7. **Unresolved problem?** Monthly regularity, with no licensed axis left on this name or on any other catalog5 name. In-class portfolio combination stays BLOCKED. The next mechanism is an owner decision.
+8. **Next experiment & why?** None. The journal's exhausted-catalog step is an owner decision (§13 or the calendar-green goal). Do not invent a name. Do not pre-register funding-carry, spread-capture, or catalog mean-reversion. Do not start a new family.
+9. **Why not a random search?** §13. A new family is not started without the owner's written justification. Catalog mean-reversion is already aggregate-negative on Train-1. Shared-losing blocks in-class portfolio and does not license this FREEZE or a REJECT.
+10. **What result confirms/refutes the next hypothesis?** Nothing is pre-registered, so there is no line. Do not import +66.5789284, +72.6693115, +97.2455987, or +95.3217987.
+
+## §15 archive (2026-10-03 ~22:36 Europe/Warsaw, EMA3_13_50_200 HTF direction closed)
 
 This run: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-htf-direction.md`.
 Prior on this name: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-breakout-depth.md`.
