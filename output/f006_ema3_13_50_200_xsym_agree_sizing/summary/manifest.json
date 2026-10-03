@@ -1,0 +1,192 @@
+{
+  "script": "scripts/f006_ema3_13_50_200_xsym_agree_sizing.py",
+  "git_commit_at_run": "0f7b6087f3fb96d8ea304cbc6694f6edc5b29063",
+  "run_started_utc": "2026-10-03T18:12:20.577162+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "numpy": "1.26.4",
+  "n_series": 10,
+  "cache_dir": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "data_window": [
+    "2024-01-26T00:00:00Z",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "validation_holdout_loaded": false,
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "checksums_match_abs_atr_grid_freeze": true,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "base_stake": 100.0,
+    "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+    "stake_alignment": "fill bar uses multiplier from prior closed bar; leading fillna(100.0)",
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "cell_summary": {
+    "experiment_id": "H-EMA3-13-50-200-XSYM-AGREE-SIZING-01",
+    "strategy": "EMA3_13_50_200",
+    "number_of_trials": 1,
+    "control": {
+      "mean_train1_net_pnl": 91.148302,
+      "total_closed_trades": 459,
+      "train1_entry_trades": 423,
+      "train1_entry_net_pnl": 771.283617,
+      "train1_entry_net_per_trade": 1.823366,
+      "pooled_entry_month_net_pnl": [
+        {
+          "month": "2024-03",
+          "net_pnl": -53.196332
+        },
+        {
+          "month": "2024-04",
+          "net_pnl": -85.031903
+        },
+        {
+          "month": "2024-05",
+          "net_pnl": -81.653399
+        },
+        {
+          "month": "2024-06",
+          "net_pnl": 30.341771
+        },
+        {
+          "month": "2024-07",
+          "net_pnl": 43.615591
+        },
+        {
+          "month": "2024-08",
+          "net_pnl": -99.498694
+        },
+        {
+          "month": "2024-09",
+          "net_pnl": -28.267956
+        },
+        {
+          "month": "2024-10",
+          "net_pnl": 258.068578
+        },
+        {
+          "month": "2024-11",
+          "net_pnl": 812.274461
+        },
+        {
+          "month": "2024-12",
+          "net_pnl": -37.196423
+        },
+        {
+          "month": "2025-01",
+          "net_pnl": -114.346724
+        },
+        {
+          "month": "2025-02",
+          "net_pnl": 126.174648
+        }
+      ],
+      "pooled_losing_month_floor": 7
+    },
+    "sized": {
+      "mean_train1_net_pnl": 127.142706,
+      "total_closed_trades": 459,
+      "train1_entry_trades": 423,
+      "train1_entry_net_pnl": 1075.237926,
+      "train1_entry_net_per_trade": 2.541934,
+      "pooled_entry_month_net_pnl": [
+        {
+          "month": "2024-03",
+          "net_pnl": -70.524284
+        },
+        {
+          "month": "2024-04",
+          "net_pnl": -82.773996
+        },
+        {
+          "month": "2024-05",
+          "net_pnl": -98.939284
+        },
+        {
+          "month": "2024-06",
+          "net_pnl": 23.601774
+        },
+        {
+          "month": "2024-07",
+          "net_pnl": 30.726603
+        },
+        {
+          "month": "2024-08",
+          "net_pnl": -123.245332
+        },
+        {
+          "month": "2024-09",
+          "net_pnl": -31.955135
+        },
+        {
+          "month": "2024-10",
+          "net_pnl": 163.935483
+        },
+        {
+          "month": "2024-11",
+          "net_pnl": 1299.613505
+        },
+        {
+          "month": "2024-12",
+          "net_pnl": -67.08934
+        },
+        {
+          "month": "2025-01",
+          "net_pnl": -154.037018
+        },
+        {
+          "month": "2025-02",
+          "net_pnl": 185.924949
+        }
+      ],
+      "pooled_losing_month_floor": 7,
+      "pooled_stake_cv": 0.429331,
+      "all_series_stake_cv_gt_0_05": true,
+      "mean_mult_winners": 1.2734375,
+      "mean_mult_losers": 1.1876822157434401,
+      "mean_mult_winner_minus_loser": 0.085755
+    },
+    "control_match": {
+      "reference_csv": "output/f006_notrail_monthly_catalog5/summary/results.csv",
+      "n_rows_matched": 10,
+      "reference_mean_train1_net_pnl": 91.1483016,
+      "replayed_mean_train1_net_pnl": 91.1483016,
+      "max_abs_train1_net_pnl_diff": 0.0,
+      "n_trades_all_equal": true
+    },
+    "trade_count_invariant_all_series": true,
+    "big_winner_contribution": {
+      "threshold_net_pnl": 29.9,
+      "baseline_count": 9,
+      "baseline_pnl_sum": 1131.956154,
+      "sized_count": 14,
+      "sized_pnl_sum": 1678.744869,
+      "sized_pnl_on_baseline_big_winner_entry_keys": 1485.937533
+    },
+    "falsified": true,
+    "falsification_conditions_fired": [
+      "(b) pooled losing-month floor did not improve (7 >= 7)"
+    ]
+  },
+  "seconds": 5.55
+}

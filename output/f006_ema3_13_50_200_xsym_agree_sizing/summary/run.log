@@ -1,0 +1,14 @@
+H-EMA3-13-50-200-XSYM-AGREE-SIZING-01
+Run started: 2026-10-03T18:12:20.577162+00:00
+Commit at run: 0f7b6087f3fb96d8ea304cbc6694f6edc5b29063
+Control mean Train-1 net PnL: 91.148302
+Control match vs catalog5: rows=10, max_abs_diff=0.000e+00, n_trades_equal=True
+Control trades: total=459, Train-1-entry=423, entry net=771.283617
+Control pooled losing-month floor: 7/12
+Sized mean Train-1 net PnL: 127.142706
+Sized trades: total=459, Train-1-entry=423, entry net=1075.237926
+Sized pooled losing-month floor: 7/12
+Pooled stake CV: 0.429331
+Pooled winner-minus-loser mean multiplier: 0.085755
+Verdict: FALSIFIED
+  (b) pooled losing-month floor did not improve (7 >= 7)

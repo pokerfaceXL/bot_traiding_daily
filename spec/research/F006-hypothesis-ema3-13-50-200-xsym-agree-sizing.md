@@ -169,7 +169,64 @@ decision_if_fail: this xsym-agree formula is closed on EMA3_13_50_200 own
 
 ## Result
 
-(empty — worker only)
+Run: `F006_DATA_CACHE=<main checkout>/data_cache python3 scripts/f006_ema3_13_50_200_xsym_agree_sizing.py`
+at harness commit `0f7b608`. Artifacts: `output/f006_ema3_13_50_200_xsym_agree_sizing/`
+(`summary/{results.csv,cell_summary.json,manifest.json,run.log,control_train1_entry_blotter.csv,sized_train1_entry_blotter.csv}`,
+`raw/<SYMBOL>_<interval>.json`). Only the 10 frozen Train-1 caches
+(`*_20240126T000000Z_20250301T000000Z.csv`) were loaded. Their checksums equal
+`output/f006_ema3_13_50_200_abs_atr_gate/grid_freeze.json` (`checksums_match_abs_atr_grid_freeze: true`).
+No validation or holdout bars were loaded. number_of_trials = 1.
+
+Formula (frozen, unchanged): `mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, where n_agree is
+the number of the other 4 basket symbols whose `EMA3_13_50_200` persistent signal equals the
+traded symbol's nonzero direction on the same interval.
+Causal alignment: the closed-bar multiplier is shifted forward one row (`.shift(1)`), so
+the stake at fill bar i comes from the agreement at closed bar i−1. The first bar falls back to
+uniform stake 100. Post-run check: 423/423 sized Train-1 entries have
+`stake == 100 * mult(prior closed bar)`. 40/423 differ from the fill bar's own-close
+multiplier, so no fill reads its own bar's close.
+
+Control gate (stake_series=None): all 10 catalog5 `EMA3_13_50_200` `train1_net_pnl` rows were
+reproduced, max abs diff **0.0**. n_trades equal on all 10. Mean **+91.1483016**/series
+(sum +911.483016). Entry cohort n=423, net +771.283617, 459 total closed trades.
+Control pooled entry-month losing floor confirmed in this run: **7/12**. Big winners
+(net ≥ 29.9, this run's control blotter): **9 / +1131.956154**, which matches the abs-ATR
+freeze observation.
+
+| metric | control (uniform 100) | sized (xsym agree) |
+|---|---|---|
+| mean train1_net_pnl / series | +91.148302 | **+127.142706** (Δ +35.994404) |
+| Train-1-entry trades | 423 | 423 |
+| Train-1-entry net / per trade | +771.283617 / +1.823366 | +1075.237926 / +2.541934 |
+| pooled losing-month floor (of 12) | 7 | **7** |
+| pooled stake_cv | — | 0.429331 (all 10 series > 0.05; min 0.338418) |
+| mean mult winners / losers | — | 1.273438 / 1.187682 (gap **+0.085755**) |
+| big winners (≥29.9) count / sum | 9 / +1131.956154 | 14 / +1678.744869 (sized PnL on the control's 9 keys: +1485.937533) |
+
+Pooled entry-month net, control → sized: 2024-03 −53.20→−70.52, 04 −85.03→−82.77,
+05 −81.65→−98.94, 06 +30.34→+23.60, 07 +43.62→+30.73, 08 −99.50→−123.25, 09 −28.27→−31.96,
+10 +258.07→+163.94, 11 +812.27→+1299.61, 12 −37.20→−67.09, 2025-01 −114.35→−154.04,
+02 +126.17→+185.92. The same 7 months lose in both arms. Sizing amplified six of the seven
+losing months and grew the 2024-11 runner month.
+
+Per series, sized vs control: sized is higher on 7/10 series. It is lower on SOL240
+(−15.93 vs −14.95), ETH240 (−38.15 vs −35.12), and DOGE240/DOGE60 (149.76 vs 208.85;
+40.11 vs 201.20). Per-series entry-month floors moved SOL60 3→2 and BTC60 7→6, but DOGE60
+went 6→7. The pooled floor did not move.
+
+Note: the sized mean +127.142706 is this name's own computed figure from this run. It is
+close to `EMA_50_200`'s +126.744211 only by coincidence; nothing was copied.
+
+Falsifiers:
+- (a) mean sized +127.142706 > control +91.1483016 → **not fired**
+- (b) pooled losing-month floor 7 → 7 (no strict improvement) → **FIRED**
+- (c) winner−loser mean mult +0.085755 > 0 → **not fired**
+- (d) n_trades invariant held on all 10 series (total and Train-1-entry keys) → **not fired**
+- (e) stake_cv 0.429331 > 0.05 (every series > 0.05) → **not fired**
+
+**Verdict: FALSIFIED (b).** The mean rose, but the monthly floor did not improve. Under
+the card, this formula is closed on EMA3_13_50_200 own trades, and no validation window
+opens. Profile status was not changed.
 
 ## Decision
 
