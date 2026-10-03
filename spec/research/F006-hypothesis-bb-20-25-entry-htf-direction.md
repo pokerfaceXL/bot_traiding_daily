@@ -133,7 +133,40 @@ decision_if_fail: HTF direction closed on this name's own trades. Worker must no
 
 ## Result
 
-(empty — worker fills after the run)
+Train-1 run completed on the frozen 5-symbol × 2-interval basket (harness commit
+`b5eb510`, `scripts/f006_bb_20_25_entry_htf_direction.py`; Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` read from the main checkout's
+`data_cache/`, checksums matched; no validation/holdout file loaded). The ungated
+control reproduced all 10 reference rows exactly: mean Train-1 net PnL
+**+$82.900262/series** (+$829.002620 summed by series); entry cohort **n=512,
++$709.849209**; initial-SL share **0.580078125 (58.01%)**; big-winner PnL (frozen
+net≥29.9, 10 trades) **$968.020732**; pooled losing entry-months **7/12**.
+The freeze record (`grid_freeze.json`) was written before the gated cell.
+`number_of_trials = 1`.
+
+| cell | mean net/series | cohort net/trade | trades/series | initial-SL share (drop) | big-winner PnL retained | pooled losing months | net-positive symbols |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| control | +$82.90 | +$1.386 | 51.2 | 58.01% (0.00pp) | 100.0% (10/10) | 7/12 | 4/5 |
+| htf_4 | +$70.52 | +$1.447 | 44.5 | 60.45% (−2.44pp) | 96.4% (9/10) | 7/12 | 3/5 |
+
+Gated cell: mean **+$70.515667/series** (−$12.384595 vs control), pooled entry
+cohort n=445, +$643.791776. The gate kept 445/512 (86.9%) of control cohort trades;
+initial-SL share rose to 0.604494. Per-symbol Train-1 net: BTC −$41.81, DOGE
++$159.23, ETH +$74.77, SOL −$19.33, XRP +$532.31 (control: BTC −$0.72, SOL +$129.36).
+Losing entry-months moved (2024-09 and 2024-10 flipped sign in opposite
+directions) but the count stayed 7/12.
+
+Falsifiers (manifest):
+
+- (a) **fires** — mean +$70.52 ≤ control +$82.90.
+- (b) does not fire — 96.4% of big-winner PnL retained.
+- (c) **fires** — initial-SL share rose 2.44pp instead of falling ≥10pp.
+- (d) **fires** — pooled losing-month floor stays 7/12 (not strictly below 7).
+- (e) does not fire — 44.5 trades/series.
+
+**FALSIFIED by (a), (c), (d).** `passing_cells` empty. Artifacts:
+`output/f006_bb_20_25_entry_htf_direction/` (control/ and htf_4/ raw + blotters +
+summary.json, results.csv, cell_summary.csv, grid_freeze.json, manifest.json, run.log).
 
 ## Decision
 

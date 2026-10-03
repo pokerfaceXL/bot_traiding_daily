@@ -1,0 +1,3 @@
+cell,gated,mean_train1_net_pnl,pooled_train1_net_pnl,entry_cohort_net_pnl,entry_cohort_net_per_trade,n_train1_entry_trades,mean_n_trades_per_series,n_closed_trades_including_warmup,initial_sl_share,initial_sl_share_drop_pp,baseline_big_winner_count,retained_big_winner_count,baseline_big_winner_pnl,retained_big_winner_pnl,big_winner_pnl_retained_fraction,losing_entry_months,n_net_positive_symbols,pass
+control,False,82.90026200000001,829.0026200000001,709.8492091190283,1.386424236560602,512,51.2,560,0.580078125,0.0,10,10,968.0207320067371,968.0207320067371,1.0,7,4,False
+htf_4,True,70.5156674,705.156674,643.7917761876816,1.446723092556588,445,44.5,494,0.604494382022472,-2.4416257022471965,10,9,968.0207320067371,932.7719820067372,0.9635867819412005,7,3,False
