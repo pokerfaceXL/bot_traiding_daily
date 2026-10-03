@@ -130,7 +130,52 @@ decision_if_fail: keep CONDITIONAL; mark candle-confirm entry-structure axis clo
 
 ## Result
 
-(empty — worker fills)
+Run: `F006_DATA_CACHE=<main checkout>/data_cache python3 scripts/f006_bb_20_2_entry_candle_confirm.py`
+(code at base `89326fc`; artifacts `output/f006_bb_20_2_entry_candle_confirm/`: `grid_freeze.json`
+written after control check and before any gated cell, `manifest.json`, `cell_summary.csv`,
+`results.csv`, `run.log`, per-cell `raw/` + `blotters/`). Train-1 only; validation/holdout not loaded.
+`number_of_trials = 5`; T grid `{0.50, 0.60, 0.70, 0.80, 0.90}` and big winner = baseline trade
+net≥29.9 frozen before the gated cells. NO_TRAIL violations 0; matched-trade economics mismatches 0.
+
+**Control reproduction (exact).** 10/10 series replay `output/f006_notrail_monthly_catalog5`
+train1_net_pnl + n_trades (max diff 0); matches the abs-ATR control row
+(`output/f006_bb_20_2_abs_atr_gate/cell_summary.csv`): mean train1_net_pnl **+95.3217987**,
+entry n **756**, entry net **+834.347778**, initial_sl share **0.473545**, big-winner PnL
+**1251.654084** (12 trades), pooled losing entry-months **7/12**.
+
+| cell | mean train1 net | entry net | n entry | n/series | initial_sl share | Δ pp | big-win kept (n) | big-win PnL kept | frac kept | losing months | +symbols |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| control | 95.321799 | 834.347778 | 756 | 75.6 | 0.473545 | 0.00 | 12 | 1251.654084 | 1.000 | 7 | 3 |
+| T=0.50 | 93.307710 | 814.206896 | 743 | 74.3 | 0.475101 | −0.16 | 12 | 1251.654084 | 1.000 | 7 | 3 |
+| T=0.60 | **95.771777** | 838.857640 | 720 | 72.0 | 0.468056 | +0.55 | 12 | 1251.654084 | 1.000 | 7 | 4 |
+| T=0.70 | 91.296740 | 794.121398 | 677 | 67.7 | 0.475628 | −0.21 | 10 | 1072.154243 | 0.857 | 7 | 3 |
+| T=0.80 | 83.762086 | 718.726237 | 605 | 60.5 | 0.502479 | −2.89 | 7 | 960.685388 | 0.768 | 7 | 3 |
+| T=0.90 | 53.331293 | 484.339324 | 409 | 40.9 | 0.557457 | −8.39 | 3 | 280.658584 | 0.224 | **6** | 3 |
+
+(Big-winner retention = baseline net≥29.9 trades surviving by symbol/interval/entry_time/direction,
+as frozen. Informational only: net≥29.9 PnL inside each gated cohort itself — the abs-ATR card's
+measure — is 1251.65 / 1251.65 / 1208.24 / 1161.81 / 761.08 for T=0.50…0.90, because gating frees
+the position for later one-shot entries that were blocked in the control.)
+
+Pre-declared falsifiers:
+- (a) mean ≤ baseline at every T — **not triggered**: T=0.60 beats control by +0.449978/series (+0.47%).
+- (b) every non-thin T removes >50% big-winner PnL — **not triggered** (T=0.50–0.80 keep ≥76.8%).
+- (c) initial_sl share fails to fall ≥10pp at the best-PnL T — **TRIGGERED**: best-PnL T=0.60
+  drops initial_sl by only 0.55pp (47.35% → 46.81%). No T drops it at all beyond 0.55pp; T≥0.70
+  *raises* it (up to +8.39pp at T=0.90).
+- (d) floor does not improve at every T that otherwise passes (a)–(c) — vacuous (no T passes (a)–(c));
+  pooled floor stays 7/12 at T=0.50–0.80.
+- (e) improvement only from <10 trades/series — **not triggered** (T=0.60 at 72.0/series).
+
+**Outcome vs falsifiers: FALSIFIED (c).** 0/5 cells pass all checks. The mechanism's predicted
+effect (strong-close pierces stop out less) is absent on this name: initial_sl share is flat or
+rising as T tightens.
+
+**Flag (not buried):** T=0.90 is the only cell that lowers the pooled losing-month floor (7 → 6/12)
+and it is not thin (40.9 trades/series), but it keeps only 22.4% of the frozen baseline big-winner
+PnL (60.8% on the informational in-cohort measure), cuts mean train1 net to 53.33 (−44%), and raises
+initial_sl share +8.39pp. It fails (a)-per-cell, the frozen 50% retention check, and (c); it is not
+an exception under the pre-registered definition.
 
 ## Decision
 
