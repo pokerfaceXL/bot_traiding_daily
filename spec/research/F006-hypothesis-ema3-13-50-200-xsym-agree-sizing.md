@@ -230,4 +230,74 @@ opens. Profile status was not changed.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (b).** Checked 2026-10-03 ~20:40 Europe/Warsaw against
+`output/f006_ema3_13_50_200_xsym_agree_sizing/summary/cell_summary.json`,
+`summary/results.csv`, and `summary/manifest.json` on the FF-merged tip
+`34e2c4a` (parent `0f7b608`; review PASS
+`2026-10-03-f006-ema31350200-xsym-01-review-197231de`, engine claude).
+Control replay max abs train1 diff is 0.0. The manifest records one fired
+falsifier: pooled losing-month floor did not improve (7 >= 7).
+
+Applied sentence, from this card: "(b) pooled losing-month floor does not
+improve (stays ≥ this name's control floor)". The card also says: "A flat
+month floor is (b) on this card: the sentence says a non-improving floor
+falsifies. If (b) fires, the formula is closed and no validation window is
+opened." A flat 7/12 is that sentence, not a near-miss. The series-higher
+count is not in (b). decision_if_fail closes this xsym-agree formula on
+`EMA3_13_50_200` own trades and names candle confirm as the following open
+axis. The data-split sentence opens a later validation hypothesis only if
+the sized arm passes. It did not pass, so no Val-1 is written. §7
+develop-not-abandon keeps this name in the loop (status **CONDITIONAL**,
+next licensed axis) and does not keep a failed formula open.
+
+Pre-declared checks (number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar uses the prior
+closed bar):
+
+- control mean **+91.1483016** (replay max abs diff 0.0, sum +911.483016),
+  Train-1-entry n=**423**, entry-net **+771.283617**, total closed trades
+  459, pooled entry-month floor **7/12**, big winners **9 / +1131.956154**
+- sized mean **+127.142706** (delta **+35.994404**/series vs +91.1483016),
+  entry-net **+1075.237926**, floor **7/12**
+- pooled mean(mult|winner) minus mean(mult|loser) **+0.085755** (1.273438 vs
+  1.187682), stake_cv **0.429331** (every series > 0.05; min 0.338418)
+- n_trades invariant held on all 10 series (459 closed and 423 Train-1-entry keys)
+- series with sized train1_net_pnl strictly above control: **6/10**
+  (BTC240, XRP240, SOL60, ETH60, BTC60, XRP60). Lower on SOL240, ETH240,
+  DOGE240, DOGE60. The Result text says 7/10. That line is wrong. The same
+  Result paragraph lists those four lower series, so it contradicts itself.
+  `results.csv` is the count. (b) does not depend on the series count, so
+  the falsifier label is unchanged.
+- same seven entry-months lose in both arms (2024-03, -04, -05, -08, -09,
+  -12, 2025-01)
+
+(a) does not fire: +127.142706 > +91.1483016. (b) fires: the floor stays
+7/12 (7 >= 7). (c) does not fire: gap +0.085755. (d) does not fire.
+(e) does not fire: stake_cv 0.429331.
+
+This is not the `EMA_50_200` sized mean +126.744211 (`48d03b0`). The two
+figures are close by coincidence; nothing was copied. It is not the
+`BB_20_2_EMA200` Train-1 sizing verdict (`1774a8a`, floor moved, REFINE)
+and not the `BB_20_25_EMA200` Train-1 pass (`1c9ff7e`). Abs-ATR on this
+name stays **FALSIFIED (a)+(c)** at Decision `3318658` / tip `46e4509`.
+(d) was not reachable there and is not this label.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. This xsym-agree formula
+is closed on this name. No validation window. Entry-vol stays FALSIFIED
+(a)+(c) (`46e4509` / Decision `3318658`). Exit, long-only, and breadth stay
+closed. Candle confirm is the next open axis and is pre-registered in this
+commit, not yet run. Breakout depth, HTF direction, and liquidity stay open
+after that. Do not retune 0.5 / 0.375 / 2.0. Holdout stays closed. Do not
+start funding-carry, spread-capture, or catalog mean-reversion. Do not
+treat `48d03b0`, `1774a8a`, or `89e936a` as this result. Baseline remains
+the reproduced control **+91.1483016**.
+
+**reason:** falsifier (b). Sizing raises mean Train-1 net (+91.1483016 to
++127.142706) and skews stake toward winners (gap +0.085755), but the pooled
+losing-month floor does not improve (7/12 to 7/12).
+
+**next_action:** one candle-confirm entry gate on this name only,
+`H-EMA3-13-50-200-ENTRY-CANDLE-CONFIRM-01`. Not a Val-1 of this formula.
+Not an abs-ATR retune. Baseline remains the reproduced control
+**+91.1483016** (n=423).
+
