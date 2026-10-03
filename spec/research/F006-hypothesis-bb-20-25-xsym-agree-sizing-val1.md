@@ -141,4 +141,30 @@ requires. Both arms are negative on mean, and both have 2/3 losing months.
 
 ## Decision
 
-(empty — coordinator only after Result)
+**FALSIFIED** (2026-10-03 morning, Europe/Warsaw). Coordinator confirms the Result.
+The frozen causal formula does not generalize: falsifier (c) fired (pooled
+Validation-1 mult gap **-0.026331**). (a), (b), (d), and (e) did not fire.
+number_of_trials = 1. Close `H-BB-20-25-XSYM-AGREE-SIZING-01` on this name.
+Stay **CONDITIONAL**. Do **not** FREEZE. Do not open holdout. Do not retune.
+Do not jump to another catalog name.
+
+The Train-1 control stop (mean 83.048644 vs 82.900262, n=512) was a methodology
+artifact: the short Train-1 run force-closes at `end_of_data` inside the 2025-02
+bucket on 240m (~+0.26 to +0.31 per series); the continuous run keeps those
+positions open. All five 60m series matched exactly. That is the same frozen arm,
+not a different experiment. Before any Validation-1 scoring, the absolute 1e-6
+mean tolerance was relaxed to relative 0.25% of |reference mean| (allowance
+0.207251; observed diff 0.148382; n=512 stayed exact). Falsifiers (a)-(e) were
+not changed. Reviews: gate-stop **PASS** `d255f0e`
+(`2026-10-03-f006-bb2025-xsym-agree-sizing-va-d8413e48`); rescore **PASS**
+`89e936a` (`2026-10-03-f006-bb2025-xsym-agree-sizing-va-9a56d56a`). FF-merged onto main at `89e936a`.
+
+Validation-1 entries (2025-03-01 <= entry < 2025-06-01): control mean **-1.371447**
+(n=139, net -13.71, losing months 2/3); sized mean **-0.400552** (same n, net
+-4.01, losing months 2/3); stake_cv 0.472. Sized mean is higher only because a
+few large winners were scaled; losers carried the higher average multiplier.
+The mechanism (agreement marks winners) did not hold on this window.
+
+Next action (not spawned here): one not-yet-run §8 entry-structure hypothesis on
+`BB_20_25_EMA200`, with a new written mechanism, pre-registered before any run.
+Not a new family, not another catalog name, not Validation-2 of this formula.
