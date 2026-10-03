@@ -198,4 +198,48 @@ trimming small losing months, not from cutting stop-outs. D=0.50 also shows
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~15:08 Europe/Warsaw against
+`output/f006_bb_20_2_entry_breakout_depth/cell_summary.csv`, `results.csv`,
+and the Train-1 blotters on the FF-merged tip `27fa7f6` (review PASS
+`2026-10-03-f006-bb202-entry-breakout-depth--14238167`). The Result table
+matches those artifacts. Control is exact: mean train1_net_pnl
+**+95.3217987** (sum 953.217987 across 10 series), entry n **756**, entry
+net **+834.347778**, initial_sl **358/756 = 0.473545**, big-winner PnL
+**1251.654084** (12 trades, net≥29.9), pooled losing entry-months **7/12**.
+
+(a) **FIRES.** Every D has mean train1_net_pnl ≤ the control. Best D=0.02
+mean **+87.8448967** is **−7.476902/series**. The other cells are D=0.05
++86.4349372 (−8.8868615/series), D=0.10 +82.6704480, D=0.25 +48.6430132,
+D=0.50 −0.3696645 (thin: 4 trades, 0.4/series). No D beats the baseline.
+(b) does not fire. Non-thin D=0.02 / 0.05 / 0.10 keep 9/12, 7/12, and 5/12
+of the frozen baseline big winners (1029.065151 / 965.914855 / 721.417392;
+82.2% / 77.2% / 57.6%).
+**(c) FIRES** at the best-PnL D. D=0.02 initial_sl share is **355/734 =
+0.483651**, which is **+1.010625pp** versus 0.473545. The required move is
+a drop of ≥10pp. Every D raises the share: D=0.05 +2.939620pp (342/680),
+D=0.10 +2.196670pp (276/557), D=0.25 +6.710543pp (133/246), D=0.50
++2.645503pp (2/4).
+(d) is vacuous. No D passes (a)–(c), so there is no otherwise-qualifying
+cell whose floor must improve.
+(e) does not fire as an explanation of a mean gain. No cell improves the
+mean. D=0.50 is thin and negative and does not count. `number_of_trials = 5`.
+0/5 cells pass.
+
+Flagged, not an exception under the pre-registered rule: D=0.02 and D=0.05
+lower the pooled losing-month floor **7/12 → 6/12** (2024-04 flips from a
+small loss to a small gain) while keeping ≥50% of frozen big-winner PnL and
+≥10 trades/series (73.4 and 68.0). Both lose mean PnL and raise the
+initial_sl share, so neither qualifies under (a)–(c). Deeper pierces stop
+out more often, not less. The artifact's D=0.50 losing_entry_months value
+is 2, on 4 Train-1 entries only; that cell is thin and is not a floor pass.
+
+Per `decision_if_fail`: close the breakout-depth axis on `BB_20_2_EMA200`
+own trades. Do not retune D. Stay **CONDITIONAL**. Do not FREEZE. HTF
+direction and liquidity are still open on this name. `BB_20_25_EMA200` is
+FREEZE on its own loop; its breakout-depth FALSIFIED (a)+(c) at `0685ce5`
+(control +82.900262, n=512) is not this result and is not this name's
+baseline. Do not jump to `EMA_50_200` or `EMA3_13_50_200`. Next = one new
+written §8 HTF-direction hypothesis on this name's own Train-1 trades
+(profile order after breakout depth is HTF, then liquidity). Not a copy of
+the `BB_20_25_EMA200` HTF cell at `3495b16` and not that name's +82.90
+control.
