@@ -193,3 +193,61 @@ the losing-month floor never moves. Profile `status:` untouched; no FREEZE;
 Decision left to the coordinator.
 
 ## Decision
+
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~16:47 Europe/Warsaw against
+`output/f006_ema_50_200_abs_atr_gate/cell_summary.csv`, `grid_freeze.json`, and
+`manifest.json` on the FF-merged tip `80e7fa6` (parent `5fdd5a8`; review PASS
+`2026-10-03-f006-ema50200-abs-atr-01-review-b2995d9a`). The Result table matches
+those artifacts after ordinary rounding. Manifest `passing_cells` is `[]` and
+`decision` is null. Harness control `max_abs_train1_diff` is 0.0.
+
+Control reproduced this name's catalog5 baseline and this experiment's
+artifacts: mean Train-1 net **+72.6693115/series** (sum +726.693115), entry
+cohort **n=330, +587.3851786486205**, initial-SL share **213/330 =
+0.6454545454545455 (64.55%)**, big-winner set **5 trades, +843.7639016181568**
+(net≥29.9), pooled losing entry-months **7/12**. Frozen median entry ATR%
+**1.22268881066447**. `number_of_trials = 5`. Going forward, this name's
+baseline is the reproduced control mean **+72.6693115** from
+`output/f006_ema_50_200_abs_atr_gate/` (identical to the catalog5 rows).
+
+Best-PnL cell **t_2_0** (T=2.0%): mean **+64.4604139/series**, which is below
+the control. Initial-SL share **0.578125**, drop **6.73295454545455 pp**
+(required ≥10 pp). Big-winner PnL retained **83.6%** (4/5, 705.6711429974671).
+Floor stays **7/12**. The cells that cut initial-SL by ≥10 pp (median, t_1_0,
+t_1_25, t_1_5) all sit at +0.66…+34.75/series and keep 3.6–44.0% of big-winner
+PnL.
+
+(a) fires: every T has mean Train-1 net ≤ +72.6693115. (b) does not fire:
+t_2_0 (non-thin) keeps 83.6% of big-winner PnL, so it is not true that every
+non-thin T removes >50%. (c) fires: at the best-PnL T the initial-SL drop is
+6.73 pp. (d) is not reachable: no T passes (a)–(c). Informational: no cell
+improves the floor (median/1.25/1.5/2.0 stay 7/12; t_1_0 worsens to 8/12).
+(e) does not fire: every cell is non-thin (≥12.6 entries/series). No cell
+passed the pre-declared checks.
+
+Entry-vol / abs-ATR is closed on `EMA_50_200` own trades. Do not retune T.
+Do not treat this as evidence about `EMA3_13_50_200`, `BB_20_2_EMA200`, or
+`BB_20_25_EMA200`. Do not copy +95.3217987 or +82.900262 onto this name.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. This is the first closed
+own-trades axis on this name in this loop. Exit, long-only, breadth, and now
+entry-vol are closed here. Position sizing has never been tested on this
+name. Other §8 entry structure (candle confirm, breakout structure, HTF
+direction, liquidity) has not been pre-registered here. §7 develop-not-abandon:
+do not leave this name while a licensed axis is still open, and do not start
+`EMA3_13_50_200`. `BB_20_2_EMA200` FREEZE (`776e167` / Decision `5fdd5a8`)
+does not transfer.
+
+**reason:** falsifiers (a) and (c). A keep-low-ATR gate on this name's own
+trades does not raise mean Train-1 net PnL, and the best-PnL threshold does
+not cut the initial-SL share by 10 pp. Tighter thresholds that do cut stops
+also cut the runners that carry the aggregate edge, and none moves the
+losing-month floor.
+
+**next_action:** one position-sizing hypothesis on this name only,
+`H-EMA-50-200-XSYM-AGREE-SIZING-01`. The ungated book is aggregate-positive
+(+72.6693115/series from this experiment's reproduced control), so §8
+allows sizing. The stake map is a structural encoding of peer-symbol
+agreement on this name's own persistent signal, not an abs-ATR retune and
+not a copy of the `BB_20_2_EMA200` or `BB_20_25_EMA200` sizing Train-1 /
+validation results. Entry structure stays open after sizing is written.
