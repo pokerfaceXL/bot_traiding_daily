@@ -1,0 +1,53 @@
+{
+  "symbol": "XRPUSDT",
+  "interval": "60",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades_total_baseline": 213,
+  "n_trades_total_sized": 213,
+  "n_trades_train1_entry_baseline": 114,
+  "n_trades_val3_entry_baseline": 27,
+  "n_trades_val3_entry_sized": 27,
+  "n_val3_end_of_data_exits": 0,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 262.683742,
+  "val3_entry_net_pnl_baseline": -9.364311,
+  "val3_entry_net_pnl_sized": 0.282763,
+  "val3_equity_net_pnl_baseline": -9.671501,
+  "val3_equity_net_pnl_sized": -0.765887,
+  "losing_months_baseline": 1,
+  "losing_months_sized": 1,
+  "stake_cv": 0.489327,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.25,
+  "mean_mult_losers": 1.1,
+  "mean_mult_gap": 0.15,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-09",
+      "net_pnl": -18.804537
+    },
+    {
+      "month": "2025-10",
+      "net_pnl": 9.246744
+    },
+    {
+      "month": "2025-11",
+      "net_pnl": 0.193481
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-09",
+      "net_pnl": -18.238723
+    },
+    {
+      "month": "2025-10",
+      "net_pnl": 5.423411
+    },
+    {
+      "month": "2025-11",
+      "net_pnl": 13.098074
+    }
+  ],
+  "seconds": 0.61
+}

@@ -1,0 +1,53 @@
+{
+  "symbol": "BTCUSDT",
+  "interval": "60",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades_total_baseline": 197,
+  "n_trades_total_sized": 197,
+  "n_trades_train1_entry_baseline": 103,
+  "n_trades_val3_entry_baseline": 23,
+  "n_trades_val3_entry_sized": 23,
+  "n_val3_end_of_data_exits": 1,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 5.684958,
+  "val3_entry_net_pnl_baseline": 4.822994,
+  "val3_entry_net_pnl_sized": 7.122404,
+  "val3_equity_net_pnl_baseline": 2.872875,
+  "val3_equity_net_pnl_sized": 7.597843,
+  "losing_months_baseline": 2,
+  "losing_months_sized": 1,
+  "stake_cv": 0.480007,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.125,
+  "mean_mult_losers": 0.9017857142857143,
+  "mean_mult_gap": 0.223214,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-09",
+      "net_pnl": -0.068759
+    },
+    {
+      "month": "2025-10",
+      "net_pnl": -2.274398
+    },
+    {
+      "month": "2025-11",
+      "net_pnl": 7.166152
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-09",
+      "net_pnl": 2.680623
+    },
+    {
+      "month": "2025-10",
+      "net_pnl": -6.609281
+    },
+    {
+      "month": "2025-11",
+      "net_pnl": 11.051062
+    }
+  ],
+  "seconds": 0.61
+}
