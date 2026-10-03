@@ -202,4 +202,76 @@ Decision left to coordinator.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(b)+(c).** Checked 2026-10-03 ~21:17 Europe/Warsaw against
+`output/f006_ema3_13_50_200_entry_candle_confirm/cell_summary.csv` on the
+FF-merged tip `9dbcf0d` (parent `8145008`; pre-registration commit
+`396a3c2`; review PASS
+`2026-10-03-f006-ema31350200-entry-candle-co-c5a12ffc`, engine claude).
+Control replay max abs train1 diff is 0.0. Blotter recount: control
+initial_sl **292/423**, best-PnL T initial_sl **227/316**.
+
+Applied sentence for (b), from this card: "(b) every non-thin T removes
+>50% of baseline big-winner PnL". On this card (b) is the big-winner
+clause, not the month floor. Best-PnL T=0.50 retains
+**0.48671028537156213** of baseline big-winner PnL (4 trades /
++550.9347026116507 of 9 / +1131.9561537333418). That is 48.67102853715621%
+kept and **51.32897146284379% removed**. Removed is greater than 50%. The
+same strict removal holds at every other non-thin T: 0.60 and 0.70 retain
+0.3223338721040384 (67.76661278959616% removed); 0.80 retains
+0.026785489384666697 (97.32145106153333% removed). T=0.90 is thin (9.4
+trades/series) and is outside (b). "48.7% retained" is not a reason to
+drop (b): the sentence is about removal, and keeping 48.671% means more
+than half was removed. The worker label matches this sentence, so (b)
+stays. A flat 7/12 floor is not (b) here.
+
+Pre-declared checks (`number_of_trials = 5`, T grid
+`{0.50, 0.60, 0.70, 0.80, 0.90}`):
+
+- control mean **+91.1483016** (replay max abs diff 0.0, sum +911.483016),
+  Train-1-entry n=**423**, entry-net **+771.2836172145886**, initial_sl
+  **292/423 = 0.6903073286052009**, big winners **9 / +1131.9561537333418**,
+  pooled entry-month floor **7/12**
+- best-PnL T=**0.50** mean **+51.7526015** (cell_summary float
+  51.75260149999999; delta **−39.3957001**/series), n=**316** (31.6/series),
+  initial_sl **227/316 = 0.7183544303797469** (share **rose
+  2.8047101774545946 pp**; the drop column is −2.8047101774545946),
+  big-winner PnL retained **0.48671028537156213**
+- every other T is also below control: 0.60 **+38.0948455**, 0.70
+  **+42.1964942**, 0.80 **+21.1727895**, 0.90 **+5.2138638** (thin, 9.4/series)
+- pooled floor **7/12** at every T, including control
+
+(a) fires: every T mean is <= +91.1483016. (b) fires: every non-thin T
+removes >50% of baseline big-winner PnL. (c) fires: at the best-PnL T the
+initial_sl share does not fall >=10pp; it rises 2.8047101774545946 pp.
+(d) is not reachable: no T passes (a)-(c). (e) does not fire: no T beats
+control, thin or not.
+
+This is not the `EMA_50_200` candle result at `778f373` (best T=0.50, mean
++45.0267104, FALSIFIED (a)+(c) only — that card's (b) did not fire). It is
+not `BB_20_2_EMA200` at `88b0ee3` and not `BB_20_25_EMA200` at `e70161d`.
+Abs-ATR on this name stays **FALSIFIED (a)+(c)** at Decision `3318658` /
+tip `46e4509`; (d) was not that label. Xsym sizing stays **FALSIFIED (b)**
+at Decision `396a3c2` / tip `34e2c4a` (that card's (b) is a flat month
+floor, and no validation window was opened). Those (b) sentences are
+different cards. Do not import +72.6693115, +45.0267104, +126.744211,
++95.3217987, or +82.900262 as this result.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Candle confirm is
+closed on this name's own trades. Entry-vol stays FALSIFIED (a)+(c). The
+xsym formula stays closed. Exit, long-only, and breadth stay closed.
+Breakout depth is the next open axis and is pre-registered in this commit,
+not yet run. HTF direction and liquidity stay open after that. Do not
+retune T. Holdout stays closed. Do not start funding-carry,
+spread-capture, or catalog mean-reversion. Baseline remains the reproduced
+control **+91.1483016**.
+
+**reason:** falsifiers (a), (b), and (c). Every close-strength T lowers
+mean Train-1 net (best +51.7526015 vs +91.1483016), every non-thin T
+removes more than half of the baseline big-winner PnL (best retention
+0.48671028537156213, so 51.32897146284379% removed), and the best-PnL T
+raises the initial_sl share instead of cutting it by 10pp.
+
+**next_action:** one breakout-depth entry gate on this name only,
+`H-EMA3-13-50-200-ENTRY-BREAKOUT-DEPTH-01`. Not a candle retune. Not an
+abs-ATR retune. Not a Val-1 of the closed stake. Baseline remains the
+reproduced control **+91.1483016** (n=423).
