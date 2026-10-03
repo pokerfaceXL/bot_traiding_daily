@@ -224,3 +224,65 @@ cannot flip. Warm-up (Jan 26 to Feb 29 2024, scored separately) M is about
 
 ## Decision
 
+## Decision
+
+**FALSIFIED (a)+(b).** Funding-carry is closed. Checked 2026-10-03 ~23:51
+Europe/Warsaw against `output/f006_funding_carry/` on tip `aaa0c85`
+(script commit `d2c32ba`; pre-registration `d36ca77`). Review PASS
+`2026-10-03-f006-funding-carry-01-review-f57f13bc`. Coding job
+`2026-10-03-f006-funding-carry-01-3615187c` DONE. `number_of_trials = 1`.
+
+Funding was applied, not assumed. `scripts/f006_funding_carry.py` `run_arm`
+passes `funding_events` into `backtest_engine.run_backtest` and stops on an
+empty list. The control arm loaded 1200 events per symbol and is flat:
+0 trades, net 0, final equity 500, on 5/5. That 0 is the baseline. Of 5,666
+trades, 5,416 have non-zero `funding_pnl`. Reconciliation: 5,418
+one-settlement holds, max funding error 0.0, max net-identity error 0.0,
+no hold with two settlements.
+
+Applied sentences, from this card:
+
+- (a) "mean M <= 0 (baseline 0)." M is sum(funding_pnl) - sum(total_costs).
+  The unweighted mean across the five symbols is **-318.858103**, which is
+  <= 0. (a) fires. Train-1 funding_pnl is +11.115301, +10.934395,
+  +10.020772, +10.591268, +9.894538 (about +$10 per symbol). Round-trip
+  total_costs are 350.005275, 350.391691, 325.134199, 350.462769,
+  270.852855 and dominate.
+- (b) "(b) fires if W <= -G." G, the sum of positive Warsaw day-level
+  values, is **0.0** (0 of 1716 symbol-days positive). W, the worst
+  reversal-day sum, is **-1.038216** (SOLUSDT, 2025-02-22). There are 520
+  reversal symbol-days. W <= -G, so (b) fires. One funding-sign-reversal
+  Warsaw day wipes the green days because there are no green days.
+
+**The missed-settlement note cannot flip (a) or (b), and it is not
+INVALID.** 162 `initial_sl` holds (SOL 38, ETH 16, BTC 12, XRP 32, DOGE 64)
+have `exit_time` equal to a settlement timestamp. This card and
+`costs.funding_pnl` count a settlement only when
+`entry_time <= ts < exit_time`, so those holds book funding 0. They do not
+cover the settlement under that sentence. Signed
+`costs.funding_payment` on the 162 is +3.179084 in total and +2.591955 on
+Train-1 days (the review rough figure was about +1.6; the artifact sum is
+larger and still too small). Adding the Train-1 piece moves mean M from
+-318.858103 to -318.339712, still <= 0. No symbol-day crosses zero: the
+least negative day is -0.600515, the largest Train-1 day credit from the
+miss is +0.284879, and the least negative day after that credit is
+-0.521046. G stays 0 and W stays -1.038216, so (b) still fires. Two holds
+that do cover a settlement and book funding_pnl 0 have rate 0.0 (SOLUSDT
+p601, BTCUSDT p717). The INVALID sentence is a non-zero settlement booked
+as 0, or empty `funding_events`. Neither happened.
+
+**decision:** FALSIFIED. Close funding-carry, as `decision_if_fail` says.
+No hold-length retune, no rate threshold, no fee change, no symbol drop,
+no second interval. Spread-capture stays closed (widest DOGEUSDT inside
+spread 1.076716 bps < 17; no sweep). Do not start catalog mean-reversion.
+Do not invent another family. Do not unfreeze a catalog name. Do not open
+holdout. The calendar-green goal stays the owner goal. This card does not
+name a replacement mechanism. Next step is an owner direction. No spawn.
+§7 and §8 do not license an experiment on one named strategy own trades
+that is still open. Catalog5 names stay FREEZE.
+
+**reason:** falsifiers (a) and (b). The funding cashflow is about +$10 per
+symbol and does not cover the round trip. No Warsaw symbol-day is green,
+so the worst reversal day wipes the green days.
+
+**next_action:** stop. Owner direction only. Do not write another card.

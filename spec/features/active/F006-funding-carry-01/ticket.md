@@ -55,4 +55,4 @@ are in `data_cache/funding/`.
 - Mean M = -318.858103 (funding about +10 per symbol against costs of
   about 270 to 350). (a) fired.
 - G = 0 (no green symbol-day); W = -1.038216. (b) fired.
-- Decision: blank (owner).
+- Decision: FALSIFIED (a)+(b). Funding-carry closed. Owner direction only. No next card.

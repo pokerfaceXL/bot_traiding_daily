@@ -88,7 +88,19 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-03 ~23:35 Europe/Warsaw — calendar-green stays)
+## Next planned step (2026-10-03 ~23:51 Europe/Warsaw — owner direction)
+
+Both parked families are closed. Spread-capture stays closed (no sweep;
+widest DOGEUSDT inside spread 1.076716 bps < 17). `H-FUNDING-CARRY-01` is
+**FALSIFIED (a)+(b)** at `d2c32ba` / manifest restamp `aaa0c85` (review PASS
+`2026-10-03-f006-funding-carry-01-review-f57f13bc`). Funding was inside the
+harness. Mean M = -318.858103. Flat-cash baseline is 0. Catalog5 names stay
+**FREEZE**. Catalog mean-reversion stays closed. Do not start a new family.
+Do not write a card. Do not spawn. §7 and §8 do not license an experiment
+on one named strategy own trades that is still open. The calendar-green
+goal stays the owner goal. **Next step is an owner direction.**
+
+## Next planned step (superseded 2026-10-03 ~23:35 Europe/Warsaw — calendar-green stays; funding-carry was the open card)
 
 The owner kept the calendar-green goal. That returns the two parked
 families under their written conditions. It does not reopen a catalog
@@ -409,7 +421,23 @@ pre-registration: the next name is an owner decision. Section 15:
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~23:35 Europe/Warsaw, spread-capture closed; funding-carry pre-registered)
+## §15 Coordinator report (updated 2026-10-03 ~23:51 Europe/Warsaw, funding-carry closed)
+
+`H-FUNDING-CARRY-01` is **FALSIFIED (a)+(b)**. Funding-carry is closed.
+Spread-capture stays closed. No catalog name was unfrozen. No next card.
+
+1. **Best strategy now?** None promotable. Every catalog5 name and `DONCHIAN_55_NO_TRAIL` stay **FREEZE**.
+2. **Why that name?** No catalog name has an open licensed axis. Both parked families are now closed on their written tests.
+3. **Edge from many trades or few big wins?** The frozen breakout book is still a few big wins. Funding-carry is not an edge: about +$10 funding per symbol against about 270 to 350 of round-trip costs.
+4. **Earns when?** Not on this carry rule. Train-1 funding_pnl is positive and small. The breakout book earns on ungated `signal_reverse` runners.
+5. **Loses when?** Carry loses on every one of 1716 Warsaw symbol-days (costs dominate one settlement). Breakout book: shared basket regime, floor still uneven. Spread-capture loses the 17 bps cost bar before any fill.
+6. **Rejected hypotheses?** Funding-carry **FALSIFIED (a)+(b)** (`d2c32ba` / `aaa0c85`). Spread-capture **REJECT / closed**, no sweep. Catalog mean-reversion stays aggregate-negative and is not reopened. Catalog axes unchanged.
+7. **Unresolved problem?** Calendar-green. Breakout families are frozen, in-class portfolio is blocked, and neither parked family is the mechanism.
+8. **Next experiment & why?** None. The next step is an owner direction. Do not invent a family. Do not unfreeze a catalog name. Do not start catalog mean-reversion.
+9. **Why not a random search?** §7 and §8 do not license a new experiment. Every catalog name is FREEZE on its own trades. Shared-losing blocks in-class portfolio. §13 is not met by this card: `decision_if_fail` says do not invent another family.
+10. **What result confirms or refutes it?** Nothing is pre-registered. This card result is mean M -318.858103 <= 0, and W -1.038216 <= -G with G = 0. Empty funding would have been INVALID; funding was applied.
+
+## §15 archive (2026-10-03 ~23:35 Europe/Warsaw, spread-capture closed; funding-carry pre-registered)
 
 Spread-capture measured and closed with no run. Funding-carry is the one
 pre-registered card. No catalog name was unfrozen.
@@ -555,6 +583,14 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
 10. **What result confirms/refutes the next hypothesis?** On the liquidity card. Control must reproduce +95.3217987, n=756, initial_sl 0.47354497354497355, big-winner 1251.654084307187, floor 7/12. Pass needs mean above control AND initial_sl drop ≥10pp AND ≥50% big-winner PnL retained AND floor strictly below 7/12, without collapsing below 10 trades/series. Any of (a)–(e) fails it. Binary gate, `number_of_trials = 1`. A falsification on this name's own trades would allow §4 level C FREEZE at that Decision; this commit does not set it.
 
 ## Chronological log
+
+- **2026-10-03 ~23:51 Europe/Warsaw** — **H-FUNDING-CARRY-01 = FALSIFIED (a)+(b)**.
+  Funding was passed into `run_backtest` (1200 events per symbol; 5,416 of
+  5,666 trades have non-zero funding_pnl; control flat at 0). Mean M =
+  -318.858103. G = 0, W = -1.038216. The 162 exit-bar settlements the
+  engine misses under `ts < exit_time` are +2.591955 on Train-1 and cannot
+  flip (a) or (b); not INVALID. Family closed. Spread-capture stays closed.
+  No next card. Next step is an owner direction. No spawn.
 
 - **2026-10-03 ~22:36 Europe/Warsaw** — **H-EMA3-13-50-200-HTF-DIRECTION-01 = FALSIFIED (a)+(c)+(d)**.
   Tip `c70777a` FF-merged to `origin/main` (parent of this Decision; harness
