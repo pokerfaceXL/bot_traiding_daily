@@ -88,7 +88,32 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (decision point for the owner)
+## Next planned step (2026-10-03 ~23:35 Europe/Warsaw — calendar-green stays)
+
+The owner kept the calendar-green goal. That returns the two parked
+families under their written conditions. It does not reopen a catalog
+name and it does not start catalog mean-reversion or an unnamed family.
+
+**Spread-capture is CLOSED. No sweep. No spawn.** Bybit v5 linear top of
+book at server time 1791062518420 (2026-10-03 23:21:58.420 Europe/Warsaw)
+was one tick on BTCUSDT, ETHUSDT, SOLUSDT, XRPUSDT, and DOGEUSDT. Widest
+inside spread is DOGEUSDT 1.076716 bps (bid 0.09287 / ask 0.09288). The
+bar is 10 bps commission + 5 bps half-spread + 2 bps slippage = 17 bps.
+1.076716 does not cover 17. Note:
+`spec/research/F006-decision-spread-capture-closed.md`.
+
+**Next experiment:** `H-FUNDING-CARRY-01` only. The F006 runner does not
+pass `funding_events` (`backtest_engine.run_backtest` default `()`), and
+there is no local funding series, so the first line of work is: add
+funding to the harness, else the test is invalid. Do not run a carry
+backtest that omits funding. One change, Train-1, flat-cash baseline 0,
+falsifiers (a) mean (funding_pnl - total_costs) <= 0 and (b) one
+funding-sign-reversal Warsaw day wipes the green days.
+`number_of_trials = 1`. Card:
+`spec/research/F006-hypothesis-funding-carry.md`. Ticket:
+`spec/features/active/F006-funding-carry-01/ticket.md`.
+
+## Next planned step (superseded 2026-10-03 — owner gate before the calendar-green answer)
 
 **Every catalog5 name is FREEZE.** `EMA3_13_50_200` is **FREEZE**
 after liquidity FALSIFIED (a)+(c)+(d) at `3d9d787` (2026-10-03 ~23:11 Europe/Warsaw). `EMA_50_200`,
@@ -384,7 +409,23 @@ pre-registration: the next name is an owner decision. Section 15:
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~23:11 Europe/Warsaw, EMA3_13_50_200 liquidity closed; name FREEZE)
+## §15 Coordinator report (updated 2026-10-03 ~23:35 Europe/Warsaw, spread-capture closed; funding-carry pre-registered)
+
+Spread-capture measured and closed with no run. Funding-carry is the one
+pre-registered card. No catalog name was unfrozen.
+
+1. **Best strategy now?** None promotable. Every catalog5 name and `DONCHIAN_55_NO_TRAIL` stay **FREEZE**.
+2. **Why that name?** No catalog name has an open licensed axis. The owner kept the calendar-green goal, which is the written condition for the two parked families. Spread-capture failed its no-sweep bar.
+3. **Edge from many trades or few big wins?** Still the frozen breakout book: few big wins. Spread-capture was not run. Carry is not yet run.
+4. **Earns when?** Not known for carry. The breakout book earns on ungated `signal_reverse` runners.
+5. **Loses when?** Breakout book: shared basket regime, floor still uneven. Spread-capture loses the cost bar before any fill: inside spread <= 1.076716 bps versus 17 bps.
+6. **Rejected hypotheses?** Spread-capture **REJECT / closed**, no sweep, measurement 2026-10-03 23:21:58.420 Europe/Warsaw. Catalog axes unchanged. Catalog mean-reversion stays aggregate-negative and is not reopened.
+7. **Unresolved problem?** Calendar-green, with breakout families frozen and in-class portfolio blocked. Spread-capture cannot be the mechanism.
+8. **Next experiment & why?** `H-FUNDING-CARRY-01`. It is the remaining parked family. First line: add funding to the harness, else the test is invalid. One rule, Train-1, flat baseline 0.
+9. **Why not a random search?** §13 block is on the card. The existing family is insufficient because every licensed axis is closed and the month floor is the shared regime. This is not a new unnamed family and not catalog mean-reversion.
+10. **What result confirms or refutes it?** (a) mean of (funding_pnl - total_costs) across the five 60-minute series <= 0 falsifies. (b) one Warsaw funding-sign-reversal day wiping the sum of positive days on that metric falsifies. Empty `funding_events` is INVALID, not a result.
+
+## §15 archive (2026-10-03 ~23:11 Europe/Warsaw, EMA3_13_50_200 liquidity closed; name FREEZE)
 
 This run: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-liquidity.md`.
 Prior on this name: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-htf-direction.md`.
