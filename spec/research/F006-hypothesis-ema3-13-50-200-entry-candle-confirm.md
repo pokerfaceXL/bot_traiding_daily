@@ -160,7 +160,45 @@ decision_if_fail: keep CONDITIONAL; mark candle-confirm entry-structure axis clo
 
 ## Result
 
-(empty — worker fills)
+Run: `F006_DATA_CACHE=/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache python3 scripts/f006_ema3_13_50_200_entry_candle_confirm.py`
+(harness commit on this branch; artifacts `output/f006_ema3_13_50_200_entry_candle_confirm/`).
+Only the frozen Train-1 caches `*_20240126T000000Z_20250301T000000Z.csv` were loaded;
+checksums equal `output/f006_ema3_13_50_200_abs_atr_gate/grid_freeze.json`.
+`grid_freeze.json` was written after the control check and before any gated cell.
+`number_of_trials = 5`.
+
+Control reproduced exactly (max abs train1 diff vs catalog5 = 0.0, 10/10 rows,
+n_trades equal): mean +91.1483016 (sum +911.483016), Train-1 entry n=423,
+entry net +771.283617, initial_sl 292/423 = 0.6903073286052009, big winners
+(net>=29.9, frozen on this run's ungated blotter) 9 trades / +1131.9561537333418,
+pooled losing entry-months 7/12. All match the abs-ATR control row (diff 0).
+
+| cell | T | mean train1 net | n entry (mean/series) | initial_sl share (drop pp) | big-winner retained (by key) | cohort net>=29.9 PnL | losing months | +symbols |
+|---|---|---|---|---|---|---|---|---|
+| control | — | +91.148302 | 423 (42.3) | 69.03% (0.0) | 9 / +1131.956 (100%) | +1131.956 | 7/12 | 3/5 |
+| t_0_5 | 0.50 | +51.752601 | 316 (31.6) | 71.84% (-2.80) | 4 / +550.935 (48.7%) | +705.251 | 7/12 | 3/5 |
+| t_0_6 | 0.60 | +38.094846 | 276 (27.6) | 72.46% (-3.43) | 2 / +364.868 (32.2%) | +488.431 | 7/12 | 3/5 |
+| t_0_7 | 0.70 | +42.196494 | 225 (22.5) | 74.22% (-5.19) | 2 / +364.868 (32.2%) | +488.431 | 7/12 | 3/5 |
+| t_0_8 | 0.80 | +21.172790 | 166 (16.6) | 72.89% (-3.86) | 1 / +30.320 (2.7%) | +153.883 | 7/12 | 3/5 |
+| t_0_9 | 0.90 | +5.213864 | 94 (9.4, thin) | 76.60% (-7.57) | 1 / +30.320 (2.7%) | +65.707 | 7/12 | 2/5 |
+
+Negative drop = initial_sl share rose. Best-PnL T = 0.50. "Big-winner retained"
+is the pre-declared metric (baseline net>=29.9 trades surviving by
+symbol/interval/entry_time/direction with identical economics); "cohort
+net>=29.9 PnL" is informational only (includes new big winners created by the
+position cascade).
+
+Falsifiers:
+- (a) FIRES — every T is below control mean (best +51.752601 at T=0.50 vs +91.148302).
+- (b) FIRES — every non-thin T (0.50–0.80) retains <50% of baseline big-winner
+  PnL (best 48.7% at T=0.50).
+- (c) FIRES — at best-PnL T=0.50 initial_sl share rose 2.80pp instead of falling >=10pp.
+- (d) not reachable — no T passes (a)-(c); pooled floor is 7/12 at every T anyway.
+- (e) does not fire — no T beats control, thin or not (T=0.90 is thin at 9.4/series).
+
+No T lowers the pooled floor while keeping >=50% big-winner PnL and >=10
+trades/series. Outcome against the pre-declared falsifiers: FALSIFIED (a)+(b)+(c).
+Decision left to coordinator.
 
 ## Decision
 

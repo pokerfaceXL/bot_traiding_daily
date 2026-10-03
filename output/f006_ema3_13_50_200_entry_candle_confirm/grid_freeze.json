@@ -1,0 +1,101 @@
+{
+  "hypothesis": "H-EMA3-13-50-200-ENTRY-CANDLE-CONFIRM-01",
+  "git_commit": "8145008abf26e867edff6208153aa7c373e558ea",
+  "run_started_utc": "2026-10-03T18:41:35.885183+00:00",
+  "source_sha256": {
+    "scripts/f006_ema3_13_50_200_entry_candle_confirm.py": "4a4497b2351469f2848267bb3e98ff657db668e8eb01ed772aa9fcb993887f2c",
+    "scripts/f006_bb_20_25_entry_candle_confirm.py": "98ccc51da5d41fc83d2768f3600208208b2416c265417a4fbd76ba6ac6cb0599",
+    "scripts/f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "entry_masks.py": "af27d51b710e9e2ffc3217821b4986f6f2062d8154262dc131adf48fe03cac10"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "checksum_reference": "output/f006_ema3_13_50_200_abs_atr_gate/grid_freeze.json",
+  "data_window": [
+    "2024-01-26T00:00:00Z",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "validation_holdout_loaded": false,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "mask": "EMA3_13_50_200 one_shot AND directional signal-bar close strength >= T; zero range rejects; exits use ungated signal",
+  "big_winner_definition_frozen": "baseline trade net_pnl >= 29.9",
+  "threshold_grid": [
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "number_of_trials": 5,
+  "harness_control": {
+    "rows_compared": 10,
+    "columns": [
+      "train1_net_pnl",
+      "n_trades"
+    ],
+    "max_abs_train1_diff": 0.0,
+    "source": "output/f006_notrail_monthly_catalog5/summary/results.csv"
+  },
+  "control_reference_match": {
+    "mean_train1_net_pnl": [
+      91.1483016,
+      91.1483016
+    ],
+    "n_train1_entry_trades": [
+      423,
+      423
+    ],
+    "entry_cohort_net_pnl": [
+      771.2836172145886,
+      771.2836172145886
+    ],
+    "initial_sl_share": [
+      0.6903073286052009,
+      0.6903073286052009
+    ],
+    "big_winner_pnl": [
+      1131.9561537333418,
+      1131.9561537333418
+    ],
+    "big_winner_count": [
+      9,
+      9
+    ],
+    "losing_entry_months": [
+      7,
+      7
+    ],
+    "source": "output/f006_ema3_13_50_200_abs_atr_gate/cell_summary.csv"
+  },
+  "data_cache": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "control_mean_train1_net_pnl": 91.1483016,
+  "control_entry_cohort_n": 423,
+  "control_entry_cohort_net_pnl": 771.2836172145886,
+  "control_losing_entry_months": 7,
+  "metric_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+  "retention": "sum baseline net>=29.9 trades retained by symbol/interval/entry_time/direction; matched economics must be identical"
+}

@@ -1,0 +1,187 @@
+{
+  "signal_autopsy": {
+    "blotter": "SOLUSDT_60_EMA3_13_50_200.csv",
+    "n_closed_trades": 42,
+    "n_train1_entries": 40,
+    "calm": {
+      "n": 40,
+      "n_true": 21,
+      "rate": 0.525,
+      "tag": "strong"
+    },
+    "forward_agreement": {
+      "n": 40,
+      "n_true": 22,
+      "rate": 0.55,
+      "tag": "strong"
+    },
+    "quick_reverse": {
+      "n": 40,
+      "n_true": 0,
+      "rate": 0.0,
+      "tag": "strong"
+    }
+  },
+  "symbol": "SOLUSDT",
+  "interval": "60",
+  "strategy": "EMA3_13_50_200",
+  "n_calls": 66,
+  "net_pnl": 44.524715,
+  "gross_pnl": 57.938579,
+  "win_rate": 23.81,
+  "n_trades": 42,
+  "n_wins": 10,
+  "n_losses": 32,
+  "avg_winner": 14.604975,
+  "avg_loser": -3.172657,
+  "breakeven_win_rate_pct": 17.8463,
+  "sum_wins": 146.049747,
+  "sum_losses": -101.525032,
+  "mean_bars_held": 136.31,
+  "total_costs": 13.413864,
+  "exit_initial_sl": 29,
+  "exit_trailing_sl": 0,
+  "exit_take_profit": 0,
+  "exit_signal_reverse": 12,
+  "exit_end_of_data": 1,
+  "profit_factor": 1.438559,
+  "calmar": 0.669358,
+  "max_drawdown_usd": 66.51849,
+  "max_drawdown_pct": 11.5781,
+  "final_equity": 544.524715,
+  "train1_net_pnl": 41.387355,
+  "warmup_net_pnl": -0.728405,
+  "boundary_net_pnl": -0.909551,
+  "n_valid_months": 12,
+  "all_valid_months_nonnegative": false,
+  "promotion_pass": false,
+  "phase_fit_score": null,
+  "phase_unlabeled_trades": 0,
+  "phase_leg_metrics": "",
+  "phase_fit": null,
+  "monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 32.10857343541943,
+      "positive_day_pct": 51.61290322580645,
+      "deviation_pct": 48.38709677419355,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 12.803346093159576,
+      "positive_day_pct": 40.0,
+      "deviation_pct": 60.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -16.44332475522515,
+      "positive_day_pct": 32.25806451612903,
+      "deviation_pct": 67.74193548387096,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 5.1773831322918795,
+      "positive_day_pct": 26.666666666666668,
+      "deviation_pct": 73.33333333333333,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 6.771836671314418,
+      "positive_day_pct": 25.806451612903224,
+      "deviation_pct": 74.19354838709677,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -6.226753122798414,
+      "positive_day_pct": 38.70967741935484,
+      "deviation_pct": 61.29032258064516,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -3.4027483749571275,
+      "positive_day_pct": 33.333333333333336,
+      "deviation_pct": 66.66666666666667,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 6.525688377880783,
+      "positive_day_pct": 54.83870967741935,
+      "deviation_pct": 45.16129032258065,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -17.41443187722018,
+      "positive_day_pct": 6.666666666666667,
+      "deviation_pct": 93.33333333333333,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 8.588413423126099,
+      "positive_day_pct": 51.61290322580645,
+      "deviation_pct": 48.38709677419355,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -23.783804944324004,
+      "positive_day_pct": 12.903225806451612,
+      "deviation_pct": 87.09677419354838,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 36.68317692040324,
+      "positive_day_pct": 64.28571428571429,
+      "deviation_pct": 35.714285714285715,
+      "target_met": false
+    }
+  ],
+  "seconds": 0.27,
+  "cell": "t_0_6",
+  "threshold": 0.6
+}
