@@ -1,0 +1,40 @@
+{
+  "cell": "t_2_0",
+  "threshold_pct": 2.0,
+  "mean_train1_net_pnl": 83.40875259999999,
+  "pooled_train1_net_pnl": 834.0875259999999,
+  "entry_cohort_net_pnl": 704.4850644357917,
+  "entry_cohort_net_per_trade": 2.0904601318569487,
+  "n_train1_entry_trades": 337,
+  "mean_n_trades_per_series": 33.7,
+  "n_closed_trades_including_warmup": 363,
+  "initial_sl_share": 0.6498516320474778,
+  "initial_sl_share_drop_pp": 4.045569655772319,
+  "baseline_big_winner_count": 9,
+  "retained_big_winner_count": 7,
+  "baseline_big_winner_pnl": 1131.9561537333418,
+  "retained_big_winner_pnl": 963.5433955729194,
+  "big_winner_pnl_retained_fraction": 0.8512197158830095,
+  "losing_entry_months": 7,
+  "entry_month_net_pnl": {
+    "2024-03": -70.21833116827735,
+    "2024-04": -54.00323013451385,
+    "2024-05": -51.768898964011406,
+    "2024-06": 23.824214547607546,
+    "2024-07": 66.85109081767243,
+    "2024-08": -73.35367361394,
+    "2024-09": -31.60145612355329,
+    "2024-10": 274.68207785429547,
+    "2024-11": 631.5539183519821,
+    "2024-12": -8.419451191570893,
+    "2025-01": -73.47834973628518,
+    "2025-02": 70.41715379638613
+  },
+  "checks": {
+    "mean_beats_control": false,
+    "initial_sl_down_10pp": false,
+    "big_winner_pnl_retained_50pct": true,
+    "not_thin": true
+  },
+  "pass": false
+}

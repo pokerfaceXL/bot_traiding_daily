@@ -144,7 +144,65 @@ decision_if_fail: entry-vol / abs-ATR closed on this name's own trades. Worker m
 
 ## Result
 
-(empty — worker fills)
+Run: `python3 scripts/f006_ema3_13_50_200_abs_atr_gate.py` (cwd = main
+checkout for the frozen `*_20240126T000000Z_20250301T000000Z.csv` Train-1
+caches only; the worktree has no CSVs; checksums pass the harness check; no
+validation/holdout range loaded). Signal = catalog `EMA3_13_50_200`
+(`sig_ema3_cross(13, 50, 200)`) via `entry_masks.strategy_signal_series`.
+Artifacts: `output/f006_ema3_13_50_200_abs_atr_gate/` (`grid_freeze.json`,
+`cell_summary.csv`, `results.csv`, `manifest.json`, `run.log`, per-cell
+`raw/` + `blotters/` + `summary.json`).
+
+Control replay: `EMA3_13_50_200` ungated NO_TRAIL reproduces all 10 rows of
+`output/f006_notrail_monthly_catalog5/summary/results.csv` exactly on
+`train1_net_pnl` (max |diff| 0.0) and `n_trades`; sum **+911.483016**, mean
+**+91.1483016**/series. Entry cohort from the harness control matches the
+autopsy: **n=423, net +771.2836172145886** (|diff| < 1e-12), **initial_sl
+292/423** (69.03%). Frozen to `grid_freeze.json` before any gated cell
+(script stops if cohort or big-winner set disagrees): median entry ATR%(14) of
+this name's 423 ungated Train-1 entries = **1.3050960028982004%** (computed
+from the control blotter; it equals the autopsy observation, it was not
+hardcoded); big winner = net≥29.9 on the ungated blotter → **9 trades,
++1131.9561537333418** (matches autopsy). Control harness entry-month
+losing-month floor = **7/12** (computed; losing entry months
+2024-03/04/05/08/09/12, 2025-01 — same months as the autopsy observation).
+number_of_trials = 5.
+
+| cell | T (ATR%) | mean train1 net/series | entry cohort net | net/trade | n entries (mean/series) | initial_sl share | Δ initial_sl (pp) | big winners kept | big-winner PnL kept | losing entry months |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | — | **+91.1483** | +771.28 | 1.823 | 423 (42.3) | 69.03% | — | 9/9 | 1131.96 (100%) | **7/12** |
+| median | 1.3051 | +33.4198 | +205.98 | 0.831 | 248 (24.8) | 59.68% | 9.35 | 3/9 | 355.87 (31.4%) | 7/12 |
+| t_1_0 | 1.00 | +10.5678 | −21.83 | −0.119 | 183 (18.3) | 55.19% | 13.84 | 2/9 | 67.53 (6.0%) | 7/12 |
+| t_1_25 | 1.25 | +34.3289 | +215.07 | 0.900 | 239 (23.9) | 58.99% | 10.03 | 3/9 | 355.87 (31.4%) | 7/12 |
+| t_1_5 | 1.50 | +36.9777 | +241.56 | 0.851 | 284 (28.4) | 62.32% | 6.71 | 5/9 | 456.06 (40.3%) | 7/12 |
+| t_2_0 | 2.00 | +83.4088 | +704.49 | 2.090 | 337 (33.7) | 64.99% | 4.05 | 7/9 | 963.54 (85.1%) | 7/12 |
+
+Big winners kept = gated-cohort trades with net≥29.9 (same scorer as the
+EMA_50_200 sibling; matched overlapping trades are checked for identical
+exit/PnL).
+
+Falsifiers (on this name's own trades):
+
+- (a) **FALSIFIED.** Mean train1 net ≤ control (+91.15) at every T; best is
+  t_2_0 at +83.41.
+- (b) Not triggered. t_2_0 (non-thin) keeps 85.1% of big-winner PnL; the four
+  tighter cells keep 6.0–40.3%.
+- (c) **FALSIFIED.** Best-PnL T = t_2_0; initial_sl share falls only 4.05pp
+  (<10pp). The cells that cut ≥10pp (1.0, 1.25) lose 62–88% of mean PnL and
+  keep ≤31.4% of big-winner PnL; the median cell cuts 9.35pp (<10pp).
+- (d) **FALSIFIED** / not reachable: no T passes (a)–(c), and no cell
+  improves the floor anyway — every cell stays at 7/12. median / 1.25 / 1.5
+  / 2.0 keep the same seven months as control; t_1_0 swaps 2025-01 for
+  2024-11 (still 7/12).
+- (e) Not applicable: every cell is non-thin (≥18.3 entries/series) and none
+  improves mean PnL.
+
+Pre-declared checks passed by no cell (`passing_cells: []` in
+`manifest.json`). Directionally the stop-out split holds (tighter T cuts
+initial_sl share by up to 13.8pp), and t_2_0 raises entry-cohort net/trade
+(2.090 vs 1.823), but entry-cohort net (+704.49 vs +771.28) and harness mean
+PnL still fall, and the losing-month floor never moves. Profile `status:`
+untouched; no FREEZE; Decision left to the coordinator.
 
 ## Decision
 
