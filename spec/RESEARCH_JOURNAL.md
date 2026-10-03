@@ -26,7 +26,7 @@
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (a)+(c)+(d) at `48aef9f` (gated +66.5789284, −6.0903831/series, SL drop 1.165173pp, floor still 7/12); not a class closure; not REJECT | `strategy_profiles/EMA_50_200.md` |
-| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `46e4509`; xsym sizing FALSIFIED (b) at `34e2c4a`; candle confirm FALSIFIED (a)+(b)+(c) at `9dbcf0d`; (d) was not the abs-ATR label and was not reachable on candle) | candle axis closed (best T=0.50 mean +51.7526015, delta −39.3957001, SL share +2.804710 pp, big-winner PnL retained 48.671% so card (b) removes >50% fires, floor 7/12); next breakout depth on baseline +91.1483016 / n=423; do not FREEZE | `strategy_profiles/EMA3_13_50_200.md` |
+| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `46e4509`; xsym sizing FALSIFIED (b) at `34e2c4a`; candle confirm FALSIFIED (a)+(b)+(c) at `9dbcf0d`; breakout depth FALSIFIED (c) only at `c388392`; (d) was not the abs-ATR label, was not reachable on candle, and was not reachable on depth) | depth axis closed (best D=0.02 mean +94.4530527, delta +3.3047511, SL share rose 7.987900679852578 pp, big-winner PnL retained 0.894213522771771 so card (b) does not fire, floor 7/12); next HTF direction on baseline +91.1483016 / n=423; do not FREEZE | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
@@ -93,9 +93,9 @@ target revisit (see Next planned step).
 **EMA3_13_50_200 is the only open catalog5 name.** `EMA_50_200` is **FREEZE**
 after liquidity FALSIFIED (a)+(c)+(d) at `48aef9f`. `BB_20_2_EMA200`,
 `BB_20_25_EMA200`, `EMA3_21_50_200`, and `DONCHIAN_55_NO_TRAIL` stay
-**FREEZE**. Candle confirm on `EMA3_13_50_200` is **FALSIFIED (a)+(b)+(c)**
-at `9dbcf0d`. Next = `H-EMA3-13-50-200-ENTRY-BREAKOUT-DEPTH-01`,
-pre-registered 2026-10-03 ~21:17 Europe/Warsaw. Do not FREEZE this name. Do not treat
+**FREEZE**. Breakout depth on `EMA3_13_50_200` is **FALSIFIED (c) only**
+at `c388392`. Next = `H-EMA3-13-50-200-HTF-DIRECTION-01`,
+pre-registered 2026-10-03 ~22:06 Europe/Warsaw. Do not FREEZE this name. Do not treat
 another name's loop as this test.
 
 **Shared-losing-months CONFIRMED still stands** (H-CATALOG5-SHARED-LOSING-MONTHS-01): Train-1
@@ -277,6 +277,32 @@ gate later fails, decision_if_fail keeps CONDITIONAL and names HTF direction
 as the following open axis. Do not start funding-carry, spread-capture, or
 catalog mean-reversion.
 
+**EMA3_13_50_200 breakout depth FALSIFIED (c) only; name stays CONDITIONAL.**
+`H-EMA3-13-50-200-ENTRY-BREAKOUT-DEPTH-01` is **FALSIFIED (c) only** at `c388392`
+(review PASS `2026-10-03-f006-ema31350200-entry-breakout--c183b475`).
+Control exact +91.1483016 (max abs diff 0.0), n=423, initial_sl 292/423,
+floor 7/12, big winners 9 / +1131.9561537333418. Best D=0.02 mean +94.4530527
+(delta +3.3047511/series), n=322, initial_sl share rose 7.987900679852578 pp
+to 248/322 = 0.7701863354037267. Big-winner PnL retained 0.894213522771771
+(6 / +1012.2104998530759), which removes about 10.58%, not >50%. Card (b)
+needs every non-thin D to remove >50%; D=0.02 does not, so (b) does not fire.
+(a) does not fire (mean rose). (d) is not reachable (no D passes (a)-(c)).
+(e) does not fire (32.2 trades/series). Do not FREEZE. Not REJECT. Baseline
+stays reproduced control **+91.1483016**. Not +63.0343180. Section 15:
+`spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-breakout-depth.md`.
+
+**Next = `H-EMA3-13-50-200-HTF-DIRECTION-01`** (pre-registered;
+ticket `spec/features/active/F006-ema31350200-entry-htf-direction-01/ticket.md`).
+One §8 HTF-direction entry gate on `EMA3_13_50_200` own Train-1 trades.
+Prior fully closed 4-bar HTF candle must agree. Binary gate.
+`number_of_trials = 1`. Control must reproduce +91.1483016 / n=423 / initial_sl
+292/423 / floor 7/12 / big-winner 9 / +1131.9561537333418.
+Not a depth retune. Not a candle retune. Not an abs-ATR retune. Not a
+Val-1 of the closed stake. Not holdout. Not FREEZE in this commit. If this
+gate later fails, decision_if_fail keeps CONDITIONAL and names liquidity
+as the following open axis. Do not start funding-carry, spread-capture, or
+catalog mean-reversion.
+
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
 > experiment is delegated (section 16), engine claude, not spark.
@@ -308,7 +334,28 @@ catalog mean-reversion.
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~21:17 Europe/Warsaw, EMA3_13_50_200 candle confirm closed)
+## §15 Coordinator report (updated 2026-10-03 ~22:06 Europe/Warsaw, EMA3_13_50_200 breakout depth closed)
+
+This run: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-breakout-depth.md`.
+Prior on this name: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-candle-confirm.md`.
+`EMA_50_200` stays **FREEZE** on its own loop and is not a class closure.
+
+`H-EMA3-13-50-200-ENTRY-BREAKOUT-DEPTH-01` is **FALSIFIED (c) only** at `c388392`.
+Decision = close breakout depth; stay **CONDITIONAL**. Do not FREEZE. Not REJECT.
+Do not retune D. Next is pre-registered `H-EMA3-13-50-200-HTF-DIRECTION-01`.
+
+1. **Best strategy now?** None promotable. FREEZE names unchanged (`EMA_50_200`, `BB_20_2_EMA200`, `BB_20_25_EMA200`, `EMA3_21_50_200`, `DONCHIAN_55_NO_TRAIL`). Active CONDITIONAL name is `EMA3_13_50_200`.
+2. **Why that name?** Own-trades loop in progress. Entry-vol, the xsym-agree formula, candle close-strength, and breakout depth are closed here. HTF direction is the next named axis. Screen is this name's (+91.1483016, n=423), not an `EMA_50_200` transfer.
+3. **Edge from many trades or few big wins?** Few big wins. Control big-winner set is 9 trades / +1131.9561537333418 against entry net +771.2836172145886. Best D kept 6 / +1012.2104998530759 (0.894213522771771).
+4. **Earns when?** Ungated `signal_reverse` runners. Depth did not separate them from stop-outs: D=0.02 raised the mean by only +3.3047511/series and raised the initial_sl share.
+5. **Loses when?** Most remaining trades still die at the fixed `initial_sl`, and the share rose from 292/423 (0.6903073286052009) to 248/322 (0.7701863354037267), +7.987900679852578 pp. The pooled floor stays 7/12.
+6. **Rejected hypotheses?** Entry-vol **FALSIFIED (a)+(c)** `46e4509` / Decision `3318658` ((d) not reachable). Xsym-agree formula **FALSIFIED (b)** `34e2c4a` / Decision `396a3c2`. Candle confirm **FALSIFIED (a)+(b)+(c)** `9dbcf0d` / Decision `079b697`. Breakout depth **FALSIFIED (c) only** `c388392`. (a)(b)(e) did not fire. (d) not reachable. Exit, long-only, breadth closed. Other names' depth closures do not transfer.
+7. **Unresolved problem?** Whether the prior closed higher-timeframe candle agrees with the signal on this name. Monthly regularity unsolved. In-class portfolio combination stays BLOCKED.
+8. **Next experiment & why?** `H-EMA3-13-50-200-HTF-DIRECTION-01`. decision_if_fail and the profile name HTF direction after a failed depth gate. One change, Train-1, this name's control. Not FREEZE. Not holdout. Not another name's measured htf_4 mean. Liquidity stays open after this axis.
+9. **Why not a random search?** §7 develop-not-abandon while HTF direction, then liquidity, remain on this name. Do not start funding-carry, spread-capture, or catalog mean-reversion. Do not reopen closed axes.
+10. **What result confirms/refutes the next hypothesis?** On the HTF card. Control must reproduce +91.1483016, n=423, initial_sl 292/423, big-winner 9 / +1131.9561537333418, floor 7/12. Pass needs mean above control AND initial_sl drop ≥10pp AND ≥50% big-winner PnL retained AND floor strictly below 7/12, without collapsing below 10 trades/series. Any of (a)–(e) fails it. On that card (d) is the standalone floor sentence. `number_of_trials = 1`.
+
+## §15 archive (2026-10-03 ~21:17 Europe/Warsaw, EMA3_13_50_200 candle confirm closed)
 
 This run: `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-candle-confirm.md`.
 Prior on this name: `spec/research/F006-coordinator-series-report-ema3-13-50-200-xsym-agree-sizing.md`.
@@ -375,6 +422,29 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
 10. **What result confirms/refutes the next hypothesis?** On the liquidity card. Control must reproduce +95.3217987, n=756, initial_sl 0.47354497354497355, big-winner 1251.654084307187, floor 7/12. Pass needs mean above control AND initial_sl drop ≥10pp AND ≥50% big-winner PnL retained AND floor strictly below 7/12, without collapsing below 10 trades/series. Any of (a)–(e) fails it. Binary gate, `number_of_trials = 1`. A falsification on this name's own trades would allow §4 level C FREEZE at that Decision; this commit does not set it.
 
 ## Chronological log
+
+- **2026-10-03 ~22:06 Europe/Warsaw** — **H-EMA3-13-50-200-ENTRY-BREAKOUT-DEPTH-01 = FALSIFIED (c) only**.
+  Tip `c388392` FF-merged to `origin/main` (parent of this Decision).
+  Review PASS `2026-10-03-f006-ema31350200-entry-breakout--c183b475`. Control
+  +91.1483016 / n=423 / initial_sl 292/423 / floor 7/12 / big winners 9 /
+  +1131.9561537333418 reproduced. Best D=0.02 mean +94.4530527
+  (+3.3047511/series), initial_sl share rose 7.987900679852578 pp to
+  248/322 = 0.7701863354037267, big-winner PnL retained 0.894213522771771
+  (6 / +1012.2104998530759; about 10.58% removed; card (b) does not fire).
+  (a) does not fire (mean rose). (d) not reachable. (e) does not fire
+  (32.2 trades/series). Decision = **FALSIFIED (c) only**. Depth axis closed.
+  `EMA3_13_50_200` stays **CONDITIONAL**. Do not FREEZE. Not REJECT.
+  Not +63.0343180. §15:
+  `spec/research/F006-coordinator-series-report-ema3-13-50-200-entry-breakout-depth.md`.
+
+- **2026-10-03 ~22:06 Europe/Warsaw** — **H-EMA3-13-50-200-HTF-DIRECTION-01 pre-registered**
+  (§8 HTF direction on CONDITIONAL `EMA3_13_50_200` own trades; prior fully
+  closed 4-bar HTF candle must agree; binary gate; Train-1 only; control mean
+  +91.1483016, n=423). Not a depth retune, not a candle retune, not an
+  abs-ATR retune, not a Val-1, not funding-carry, spread-capture, or catalog
+  mean-reversion. If it fails, decision_if_fail stays CONDITIONAL and names
+  liquidity. Do not FREEZE. Ticket
+  `spec/features/active/F006-ema31350200-entry-htf-direction-01/ticket.md`.
 
 - **2026-10-03 ~21:17 Europe/Warsaw** — **H-EMA3-13-50-200-ENTRY-CANDLE-CONFIRM-01 = FALSIFIED (a)+(b)+(c)**.
   Tip `9dbcf0d` FF-merged to `origin/main` (parent `8145008`; pre-reg `396a3c2`).

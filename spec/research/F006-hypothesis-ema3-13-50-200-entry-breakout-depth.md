@@ -245,4 +245,92 @@ coordinator.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (c) only.** Checked 2026-10-03 ~21:42 Europe/Warsaw against
+`output/f006_ema3_13_50_200_entry_breakout_depth/cell_summary.csv` on the
+FF-merged tip `c388392` (parent of this Decision; harness `099a496`;
+review PASS `2026-10-03-f006-ema31350200-entry-breakout--c183b475`, engine
+claude). Coding job `727375aa` is the real DONE tip. Duplicate `0e32cf89`
+was stopped and is ignored. Control replay max abs train1 diff is 0.0.
+The worker Result label "FALSIFIED (c)" matches the card's sentences; the
+numbers below are from `cell_summary.csv`, not from the label.
+
+Applied sentences, from this card:
+
+- "(a) mean train1_net_pnl <= baseline at every D"
+- "(b) every non-thin D removes >50% of baseline big-winner PnL"
+- "(c) initial_sl share fails to fall >=10pp at the best-PnL D"
+- "(d) pooled losing-month floor does not improve (stays >= baseline floor) at every D that otherwise passes (a)-(c)"
+- "(e) improvement is only from collapsing to <10 trades/series mean"
+
+The card also says "(d) is reachable only at a D that otherwise passes
+(a)-(c)". A flat floor by itself is not (b) and is not (d).
+
+Pre-declared checks (`number_of_trials = 5`, D grid
+`{0.02, 0.05, 0.10, 0.25, 0.50}`):
+
+- control mean **+91.1483016** (replay max abs diff 0.0, sum +911.483016),
+  Train-1-entry n=**423** (42.3/series), entry-net **+771.2836172145886**,
+  initial_sl **292/423 = 0.6903073286052009**, big winners
+  **9 / +1131.9561537333418**, pooled entry-month floor **7/12**
+- best-PnL D=**0.02** mean **+94.4530527** (delta **+3.3047511**/series),
+  n=**322** (32.2/series), entry-net +805.8660502091516, initial_sl
+  **248/322 = 0.7701863354037267** (share **rose 7.987900679852578 pp**;
+  the drop column is -7.987900679852578), big-winner PnL retained
+  **0.894213522771771** (6 / +1012.2104998530759 of 9 /
+  +1131.9561537333418), floor **7/12**
+- D=0.05 mean **-9.9990654**, n=159 (15.9/series, not thin), initial_sl
+  share 0.8679245283018868, big-winner retained **0.0**, floor 9/12
+- D=0.10 mean **+6.375522499999999**, n=48 (4.8/series, thin)
+- D=0.25 mean **-0.6631**, n=2 (0.2/series, thin); the 2/12 floor is an
+  empty-cohort artifact
+- D=0.50 mean **0.0**, n=0 (thin); the 0/12 floor is an empty-cohort artifact
+
+(a) does not fire: D=0.02 mean +94.4530527 is above +91.1483016, so it is
+not true that every D is <= baseline.
+(b) does not fire: non-thin cells are D=0.02 (32.2/series) and D=0.05
+(15.9/series). D=0.02 retains 0.894213522771771, which removes
+0.105786477228229 (about 10.58%), not >50%. The sentence needs every
+non-thin D to remove >50%. D=0.05 does (retained 0.0); D=0.02 does not.
+(c) fires: the best-PnL D is 0.02. Its initial_sl share rose
+7.987900679852578 pp (0.6903073286052009 to 0.7701863354037267) instead
+of falling by at least 10pp.
+(d) is not reachable. No D passes (a)-(c): the only D with mean above
+baseline is 0.02, and that D fails (c). The floor at D=0.02 stayed 7/12,
+but the sentence does not put a flat floor into the label unless that D
+otherwise passes (a)-(c). The 2/12 and 0/12 floors at D=0.25 and D=0.50
+are empty cohorts, and those cells do not pass (a)-(c) either.
+(e) does not fire: the only improvement (D=0.02, +3.3047511/series) has
+32.2 trades/series, which is not < 10. Deeper cells are thin or worse,
+but they are not an improvement produced by collapsing the sample.
+
+This is not the `EMA_50_200` depth result at `485de51`. On that name the
+best-D mean fell. Here the best-D mean rose. Do not import +63.0343180,
++72.6693115, +45.0267104, +95.3217987, or +82.900262 as this result. Do
+not treat `27fa7f6` or `0685ce5` as this test.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Not REJECT: the
+ungated Train-1 book stays aggregate-positive (mean +91.1483016, sum
++911.483016). Breakout depth is closed on this name's own trades.
+Entry-vol stays FALSIFIED (a)+(c) at Decision `3318658` / tip `46e4509`;
+(d) was not that label. Xsym sizing stays FALSIFIED (b) at Decision
+`396a3c2` / tip `34e2c4a`. Candle confirm stays FALSIFIED (a)+(b)+(c) at
+Decision `079b697` / tip `9dbcf0d`. Exit, long-only, and breadth stay
+closed. HTF direction is the next open axis and is pre-registered in this
+commit, not yet run. Liquidity stays open after that. Section 4 level C
+allows FREEZE only at that later liquidity experiment's own Decision, and
+only if that experiment is falsified, every licensed axis is cited on this
+name's own trades, and the ungated book stays aggregate-positive. Do not
+retune D. Holdout stays closed. Do not start funding-carry,
+spread-capture, catalog mean-reversion, a new family, or another catalog
+name. Baseline remains the reproduced control **+91.1483016**.
+
+**reason:** falsifier (c) only. The best-PnL depth D=0.02 raises mean
+Train-1 net by +3.3047511/series and keeps 0.894213522771771 of baseline
+big-winner PnL, but its initial_sl share rises 7.987900679852578 pp
+instead of falling by at least 10pp. (a), (b), and (e) do not match their
+sentences. (d) has no D that otherwise passes (a)-(c).
+
+**next_action:** one HTF-direction entry gate on this name only,
+`H-EMA3-13-50-200-HTF-DIRECTION-01`. Not a depth retune. Not a candle
+retune. Not an abs-ATR retune. Not a Val-1 of the closed stake. Baseline
+remains the reproduced control **+91.1483016** (n=423).
