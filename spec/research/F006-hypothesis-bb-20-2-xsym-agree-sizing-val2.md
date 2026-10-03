@@ -238,4 +238,45 @@ on mean.
 
 ## Decision
 
-(empty — coordinator only)
+**CONDITIONAL** (2026-10-03 ~13:13 Europe/Warsaw). Coordinator confirms the Result:
+**NOT FALSIFIED** on `BB_20_2_EMA200` Validation-2 entries. `decision_if_pass`
+is stay CONDITIONAL and **continue** to Validation-3 of the same frozen
+formula (F005 protocol §3.2: 2025-09-01 ≤ entry < 2025-12-01). There is no
+pre-registered margin floor, so the thin gain does not stop the arm and
+does not open holdout. Claude review PASS
+`2026-10-03-f006-bb202-xsym-agree-sizing-val-c1c25e2f` on tip `7798bbb`
+(FF-merged onto `origin/main` from `1eced44`). This is not a FREEZE.
+
+Pre-declared checks, matched to
+`output/f006_bb_20_2_xsym_agree_sizing_val2/summary/cell_summary.json`
+(number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar i uses closed
+bar i−1). The Train-1 gate was checked before Validation-2 scoring:
+
+- control mean train1_net_pnl **95.463371** vs reference **95.3217987**
+  (abs diff 0.141572 ≤ allowance 0.23830449675 = 0.25% of |reference|).
+  Train-1-entry n **756** exact. Gate PASS.
+- sized mean val2-entry net **+2.551244** > control **+2.331879** — (a) not fired
+- pooled losing months **2 ≤ 2** — (b) not fired
+- pooled mult gap **+0.031667** (mean mult winners 1.0666666666666667 vs
+  losers 1.035) — (c) not fired
+- val2-entry n / total closed **195 / 1226**, invariant on all series — (d) not fired
+- stake_cv **0.514115** (series min 0.428358) — (e) not fired
+
+Caveats, not extra falsifiers and not a reason to skip the next window or
+to FREEZE: the margin is thin (sized − control = +0.219365 per series mean,
++2.193652 total on 195 entries). Only 5/10 series improve. The per-series
+mult gap is negative on 5/10. The pooled gap is small. Entry-net difference
+by month is 2025-06 −9.345914, 2025-07 +12.112764, 2025-08 −0.573199, so
+the whole gain is 2025-07. ETH 60 alone (32.742332 → 81.571912, +48.829580)
+exceeds the pooled gain. Both arms are near zero on the mean. Review note,
+not a metric and not a falsifier: the Result prose says seven Validation-2
+`end_of_data` exits; `results.csv` `n_val2_end_of_data_exits` sums to 6.
+§11 is not finished (Validation-3, Validation-4, and holdout are still
+ahead; holdout stays closed). §3.10 and §7 say do not abandon this passed
+arm for a new entry axis before the next named validation. Status stays
+**CONDITIONAL**. Do not retune 0.5 / 0.375 / 2.0. Do not copy
+`BB_20_25_EMA200` (that name is FREEZE on its own loop). Next =
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL3-01` (same frozen formula, this name's
+Validation-3 entries only: 2025-09-01 ≤ entry < 2025-12-01, F005 protocol
+§3.2).
