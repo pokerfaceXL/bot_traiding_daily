@@ -1,0 +1,142 @@
+{
+  "script": "scripts/f006_bb_20_2_xsym_agree_sizing_val4.py",
+  "git_commit_at_run": "fb757d0f71174c058f27092704d31c282014a127",
+  "run_started_utc": "2026-10-03T11:46:01.220567+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "numpy": "1.26.4",
+  "n_series": 10,
+  "data_cache": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "checksums_source": "scripts/f006_bb_20_25_xsym_agree_sizing.py EXPECTED_CHECKSUMS (shared long protocol cache OHLCV identity)",
+  "engine_bars": "2024-01-26T00:00:00Z <= ts < 2026-03-01T00:00:00+00:00",
+  "scored_entries": "2025-12-01T00:00:00+00:00 <= entry_time < 2026-03-01T00:00:00+00:00",
+  "holdout_scored": false,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "mask_mode": "one_shot",
+    "initial_equity": 500.0,
+    "base_stake": 100.0,
+    "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+    "n_agree": "count of other 4 basket symbols whose BB_20_2_EMA200 persistent signal equals the traded symbol's nonzero direction on the same closed bar",
+    "stake_alignment": "fill bar uses multiplier from prior closed bar; first bar stake 100.0",
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "cell_summary": {
+    "experiment_id": "H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01",
+    "strategy": "BB_20_2_EMA200",
+    "number_of_trials": 1,
+    "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+    "train1_control_gate": {
+      "reference_mean_train1_net_pnl": 95.3217987,
+      "reference_source": "output/f006_bb_20_2_xsym_agree_sizing/summary/cell_summary.json",
+      "observed_mean_train1_net_pnl": 95.463371,
+      "abs_diff": 0.1415723000000071,
+      "tolerance": 0.0025,
+      "tolerance_kind": "relative",
+      "allowance": 0.23830449675,
+      "reference_train1_entry_n": 756,
+      "observed_train1_entry_n": 756,
+      "passed": true
+    },
+    "control": {
+      "mean_val4_entry_net_pnl": 12.319196,
+      "mean_val4_equity_net_pnl_informational": 11.138978,
+      "total_closed_trades": 1571,
+      "val4_entry_trades": 164,
+      "val4_entry_net_pnl": 123.191963,
+      "val4_entry_net_per_trade": 0.751171,
+      "pooled_entry_month_net_pnl": [
+        {
+          "month": "2025-12",
+          "net_pnl": -142.962483
+        },
+        {
+          "month": "2026-01",
+          "net_pnl": 305.741774
+        },
+        {
+          "month": "2026-02",
+          "net_pnl": -39.587329
+        }
+      ],
+      "pooled_losing_month_count": 2
+    },
+    "sized": {
+      "mean_val4_entry_net_pnl": 16.221179,
+      "mean_val4_equity_net_pnl_informational": 15.086918,
+      "total_closed_trades": 1571,
+      "val4_entry_trades": 164,
+      "val4_entry_net_pnl": 162.211791,
+      "val4_entry_net_per_trade": 0.989096,
+      "pooled_entry_month_net_pnl": [
+        {
+          "month": "2025-12",
+          "net_pnl": -195.202573
+        },
+        {
+          "month": "2026-01",
+          "net_pnl": 407.570421
+        },
+        {
+          "month": "2026-02",
+          "net_pnl": -50.156057
+        }
+      ],
+      "pooled_losing_month_count": 2,
+      "pooled_stake_cv": 0.453397,
+      "all_series_stake_cv_gt_0_05": true,
+      "series_stake_cv_min": 0.230769,
+      "mean_mult_winners": 1.125,
+      "mean_mult_losers": 1.2279411764705883,
+      "mean_mult_winner_minus_loser": -0.102941
+    },
+    "entry_net_diff_by_month": [
+      {
+        "month": "2025-12",
+        "sized_minus_control": -52.24009
+      },
+      {
+        "month": "2026-01",
+        "sized_minus_control": 101.828647
+      },
+      {
+        "month": "2026-02",
+        "sized_minus_control": -10.568728
+      }
+    ],
+    "trade_count_invariant_all_series": true,
+    "big_winner_contribution": {
+      "threshold_net_pnl": 29.9,
+      "baseline_count": 4,
+      "baseline_pnl_sum": 140.645386,
+      "sized_count": 7,
+      "sized_pnl_sum": 302.052478,
+      "sized_pnl_on_baseline_big_winner_entry_keys": 164.184172
+    },
+    "verdict": "FALSIFIED",
+    "falsified": true,
+    "falsification_conditions_fired": [
+      "(c) pooled winner-minus-loser mean multiplier <= 0 (-0.102941)"
+    ]
+  },
+  "seconds": 7.1
+}

@@ -1,0 +1,98 @@
+{
+  "experiment_id": "H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01",
+  "strategy": "BB_20_2_EMA200",
+  "number_of_trials": 1,
+  "mult_formula": "clip(0.5 + 0.375 * n_agree, 0.5, 2.0)",
+  "train1_control_gate": {
+    "reference_mean_train1_net_pnl": 95.3217987,
+    "reference_source": "output/f006_bb_20_2_xsym_agree_sizing/summary/cell_summary.json",
+    "observed_mean_train1_net_pnl": 95.463371,
+    "abs_diff": 0.1415723000000071,
+    "tolerance": 0.0025,
+    "tolerance_kind": "relative",
+    "allowance": 0.23830449675,
+    "reference_train1_entry_n": 756,
+    "observed_train1_entry_n": 756,
+    "passed": true
+  },
+  "control": {
+    "mean_val4_entry_net_pnl": 12.319196,
+    "mean_val4_equity_net_pnl_informational": 11.138978,
+    "total_closed_trades": 1571,
+    "val4_entry_trades": 164,
+    "val4_entry_net_pnl": 123.191963,
+    "val4_entry_net_per_trade": 0.751171,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-12",
+        "net_pnl": -142.962483
+      },
+      {
+        "month": "2026-01",
+        "net_pnl": 305.741774
+      },
+      {
+        "month": "2026-02",
+        "net_pnl": -39.587329
+      }
+    ],
+    "pooled_losing_month_count": 2
+  },
+  "sized": {
+    "mean_val4_entry_net_pnl": 16.221179,
+    "mean_val4_equity_net_pnl_informational": 15.086918,
+    "total_closed_trades": 1571,
+    "val4_entry_trades": 164,
+    "val4_entry_net_pnl": 162.211791,
+    "val4_entry_net_per_trade": 0.989096,
+    "pooled_entry_month_net_pnl": [
+      {
+        "month": "2025-12",
+        "net_pnl": -195.202573
+      },
+      {
+        "month": "2026-01",
+        "net_pnl": 407.570421
+      },
+      {
+        "month": "2026-02",
+        "net_pnl": -50.156057
+      }
+    ],
+    "pooled_losing_month_count": 2,
+    "pooled_stake_cv": 0.453397,
+    "all_series_stake_cv_gt_0_05": true,
+    "series_stake_cv_min": 0.230769,
+    "mean_mult_winners": 1.125,
+    "mean_mult_losers": 1.2279411764705883,
+    "mean_mult_winner_minus_loser": -0.102941
+  },
+  "entry_net_diff_by_month": [
+    {
+      "month": "2025-12",
+      "sized_minus_control": -52.24009
+    },
+    {
+      "month": "2026-01",
+      "sized_minus_control": 101.828647
+    },
+    {
+      "month": "2026-02",
+      "sized_minus_control": -10.568728
+    }
+  ],
+  "trade_count_invariant_all_series": true,
+  "big_winner_contribution": {
+    "threshold_net_pnl": 29.9,
+    "baseline_count": 4,
+    "baseline_pnl_sum": 140.645386,
+    "sized_count": 7,
+    "sized_pnl_sum": 302.052478,
+    "sized_pnl_on_baseline_big_winner_entry_keys": 164.184172
+  },
+  "verdict": "FALSIFIED",
+  "falsified": true,
+  "falsification_conditions_fired": [
+    "(c) pooled winner-minus-loser mean multiplier <= 0 (-0.102941)"
+  ]
+}

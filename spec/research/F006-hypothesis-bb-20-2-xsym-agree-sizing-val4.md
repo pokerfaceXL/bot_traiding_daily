@@ -189,7 +189,72 @@ decision_if_fail: close this xsym-agree formula on BB_20_2_EMA200 (the
 
 ## Result
 
-(empty — worker fills after the run)
+**FALSIFIED (c) — pooled mult gap −0.102941 <= 0.** (a), (b), (d), (e) did not fire.
+number_of_trials = 1.
+
+Script `scripts/f006_bb_20_2_xsym_agree_sizing_val4.py` was run at commit `fb757d0`
+with `F006_DATA_CACHE` pointing at the main-checkout `data_cache`. Artifacts are under
+`output/f006_bb_20_2_xsym_agree_sizing_val4/`: `summary/results.csv`,
+`summary/cell_summary.json`, `summary/manifest.json`, `summary/run.log`, and `raw/`.
+The shared long protocol caches (2024-01-26 .. 2026-09-01) were verified against
+`EXPECTED_CHECKSUMS` in `scripts/f006_bb_20_25_xsym_agree_sizing.py` (OHLCV identity).
+Engine bars were 2024-01-26 <= ts < 2026-03-01, with one continuous backtest per series
+and `now=2026-03-01`. Scored entries: 2025-12-01 <= entry_time < 2026-03-01. No holdout
+row was loaded into the engine or printed. No Validation-5 exists or was scored.
+
+Gate (control arm, Train-1 slice). Unlike the Val-3 script, the Val-4 script keeps only the
+Train-1 control fields per series until the gate passes; per-series Validation-4 metrics are
+computed only after the gate call:
+
+| check | reference | observed | tolerance | pass |
+|---|---|---|---|---|
+| mean train1_net_pnl (10 series) | 95.3217987 | 95.463371 (diff 0.141572) | relative 0.0025 (0.2383045) | yes |
+| Train-1-entry n | 756 | 756 | exact | yes |
+
+The reference was not retargeted. No gate was placed on Validation-1, -2 or -3 means.
+
+Validation-4 entries, 10 series:
+
+| metric | control (stake 100) | sized | falsifier |
+|---|---|---|---|
+| mean val4-entry net PnL | +12.319196 | +16.221179 | (a) sized > control: not fired |
+| val4-entry net total | +123.191963 | +162.211791 | |
+| val4-entry n / total closed | 164 / 1571 | 164 / 1571 | (d) invariant holds on all series: not fired |
+| pooled entry-month net 2025-12 / 2026-01 / 2026-02 | -142.96 / +305.74 / -39.59 | -195.20 / +407.57 / -50.16 | |
+| pooled losing months (of 3) | 2 | 2 | (b) 2 <= 2: not fired |
+| pooled mean mult winners / losers | | 1.125000 / 1.227941 | |
+| pooled mult gap | | **−0.102941** | **(c) <= 0: FIRED** |
+| stake_cv pooled / series min | | 0.453397 / 0.230769 | (e) all > 0.05: not fired |
+| big winners at net >= 29.9 (info) | 4, sum 140.65 | 7, sum 302.05 (164.18 on control's keys) | |
+
+Entry-net difference by month (sized − control, informational): 2025-12 −52.24,
+2026-01 +101.83, 2026-02 −10.57.
+
+Per series, val4-entry net (control -> sized; series mult gap):
+
+| series | n | control | sized | gap |
+|---|---|---|---|---|
+| SOL 240 | 2 | +38.16 | +48.75 | n/a (no loser) |
+| ETH 240 | 5 | +30.77 | +26.86 | -0.313 |
+| BTC 240 | 3 | +24.03 | +23.50 | +0.938 |
+| XRP 240 | 5 | +23.60 | +17.73 | -0.625 |
+| DOGE 240 | 8 | -5.63 | -2.44 | +0.125 |
+| SOL 60 | 29 | +0.15 | +13.87 | +0.153 |
+| ETH 60 | 25 | +7.34 | +25.74 | -0.017 |
+| BTC 60 | 36 | -20.02 | -12.82 | -0.013 |
+| XRP 60 | 26 | +10.74 | +17.09 | -0.358 |
+| DOGE 60 | 25 | +14.05 | +3.93 | -0.405 |
+
+Nine series have one Validation-4 `end_of_data` exit at the 2026-03-01 engine cut (all
+but DOGE 240). The cut is the holdout boundary, so those positions cannot be extended.
+
+Reading: by the pre-declared rule this run is FALSIFIED on (c). The sized arm still has a
+higher mean (+16.22 vs +12.32) and the same 2/3 losing-month count, but on Validation-4
+the formula gave losers a larger average stake than winners (1.228 vs 1.125). The mean
+gain comes from 2026-01 (+101.83), and 2025-12 and 2026-02 are worse under sizing. 6/10
+series improve on net, and the series gap is negative on 6/9 series with a defined gap.
+These are context, not grounds to change the verdict. Per `decision_if_fail`, that is for
+the coordinator to write in `## Decision`.
 
 ## Decision
 

@@ -1,0 +1,53 @@
+{
+  "symbol": "BTCUSDT",
+  "interval": "60",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades_total_baseline": 233,
+  "n_trades_total_sized": 233,
+  "n_trades_train1_entry_baseline": 103,
+  "n_trades_val4_entry_baseline": 36,
+  "n_trades_val4_entry_sized": 36,
+  "n_val4_end_of_data_exits": 1,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 5.684958,
+  "val4_entry_net_pnl_baseline": -20.017108,
+  "val4_entry_net_pnl_sized": -12.819512,
+  "val4_equity_net_pnl_baseline": -24.747359,
+  "val4_equity_net_pnl_sized": -20.547349,
+  "losing_months_baseline": 2,
+  "losing_months_sized": 2,
+  "stake_cv": 0.405165,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.1875,
+  "mean_mult_losers": 1.2,
+  "mean_mult_gap": -0.0125,
+  "baseline_entry_monthly": [
+    {
+      "month": "2025-12",
+      "net_pnl": -32.03109
+    },
+    {
+      "month": "2026-01",
+      "net_pnl": 22.916599
+    },
+    {
+      "month": "2026-02",
+      "net_pnl": -10.902618
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2025-12",
+      "net_pnl": -39.402626
+    },
+    {
+      "month": "2026-01",
+      "net_pnl": 38.865585
+    },
+    {
+      "month": "2026-02",
+      "net_pnl": -12.282472
+    }
+  ],
+  "seconds": 0.64
+}
