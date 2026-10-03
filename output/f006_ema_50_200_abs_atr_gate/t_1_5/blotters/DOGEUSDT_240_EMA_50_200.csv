@@ -1,0 +1,1 @@
+position_id,symbol,direction,entry_time,entry_price,exit_time,exit_price,exit_reason,net_pnl,train1_entry,atr_pct,atr_percentile,calm,forward_signed_return_pct,forward_agreement,bars_held,quick_reverse,mfe_pct,mae_pct,excursion_lower_bound
