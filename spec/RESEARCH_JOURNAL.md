@@ -274,3 +274,8 @@ for the series just closed; this block is the standing cross-name report, update
   `BB_20_25_EMA200` stays **CONDITIONAL** (do not FREEZE; entry structure still open;
   entry-vol remains FALSIFIED). Next = one new §8 entry-structure hypothesis, not spawned
   here. §15: `spec/research/F006-coordinator-series-report-bb-20-25-xsym-agree-sizing-val1.md`.
+
+- **2026-10-03 morning** — **H-BB-20-25-ENTRY-CANDLE-CONFIRM-01 pre-registered** (§8 entry-
+  structure / candle close-strength gate on CONDITIONAL `BB_20_25_EMA200` own trades; T∈
+  {0.50,0.60,0.70,0.80,0.90}; Train-1 only). Not a Val-2 of the closed xsym sizing formula.
+  Ticket `spec/features/active/F006-bb2025-entry-structure-01/ticket.md`.
