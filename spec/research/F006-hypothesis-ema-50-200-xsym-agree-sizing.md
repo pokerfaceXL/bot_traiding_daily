@@ -158,7 +158,63 @@ decision_if_fail: this xsym-agree formula is closed on EMA_50_200 own
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `scripts/f006_ema_50_200_xsym_agree_sizing.py` at `67af347` (script uncommitted
+at run time; committed alongside this Result), cache = main checkout `data_cache`
+Train-1 files `*_20240126T000000Z_20250301T000000Z.csv` only (request ends at
+2025-03-01; no `*_20260901*` / `*_20200325*` loaded). All 10 checksums equal
+`output/f006_ema_50_200_abs_atr_gate/grid_freeze.json`
+(`checksums_match_abs_atr_grid_freeze: true`). Artifacts:
+`output/f006_ema_50_200_xsym_agree_sizing/` (`summary/{results.csv,
+cell_summary.json, manifest.json, run.log, control_train1_entry_blotter.csv,
+sized_train1_entry_blotter.csv}`, `raw/<symbol>_<interval>.json`).
+number_of_trials = 1; formula frozen `clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`,
+n_agree counted on EMA_50_200's own persistent signal across the other 4 symbols.
+
+Causal alignment: closed-bar multiplier is `.shift(1)` onto the engine fill bar;
+the first bar is `fillna(100.0)`. Independent re-check over the sized blotter:
+330/330 Train-1-entry stakes equal the multiplier of the bar before the fill bar;
+21/330 would differ if the fill bar's own close were read, so the check
+discriminates.
+
+Control match (gate before scoring): 10/10 rows of
+`output/f006_notrail_monthly_catalog5/summary/results.csv` (EMA_50_200), max abs
+`train1_net_pnl` diff **0.0**, `n_trades` all equal. Replayed mean
+**+72.6693115** (sum +726.693115).
+
+| metric | control (stake 100) | sized |
+|---|---|---|
+| mean train1_net_pnl / series | +72.669312 | **+126.744211** |
+| series positive | 7/10 | 7/10 |
+| closed trades (all) | 364 | 364 |
+| Train-1-entry trades | 330 | 330 |
+| Train-1-entry net / per trade | +587.385179 / +1.779955 | +1034.000818 / +3.133336 |
+| pooled losing entry-months | **7/12** | **7/12** |
+| mean mult winners / losers | — | 1.365809 / 1.232824 |
+| winner − loser mult gap | — | **+0.132984** |
+| pooled stake_cv (all 10 series > 0.05) | — | 0.413344 (yes; per-series 0.314–0.595) |
+| big winners net≥29.9 (count / net) | 5 / +843.763902 | 10 / +1477.682389 |
+| sized net on control's 5 big-winner keys | — | +1287.249988 |
+
+Control entry-month floor confirmed in this run: 7/12 (2024-03, -04, -05, -08,
+-09, -12, 2025-01). Sized arm loses in the same 7 months, each slightly deeper
+except 2024-09 (−28.73 → −25.87). Big-winner set recomputed on this run's
+uniform blotter: 5 trades / +843.763902, same as the abs-ATR freeze. 2024-11
+carries most of the aggregate (+816.81 control → +1308.88 sized). Per series,
+sized beats control on 8/10 and loses on ETHUSDT/240 (−39.79 → −45.97) and
+DOGEUSDT/60 (+198.46 → +96.90). BTCUSDT/240 and BTCUSDT/60 are still negative.
+
+Falsifiers:
+- (a) mean ≤ baseline: **not fired** (+126.744211 > +72.669312).
+- (b) pooled losing-month floor not improved: **FIRED** (7 ≥ 7).
+- (c) winner − loser mult gap ≤ 0: **not fired** (+0.132984).
+- (d) n_trades invariant broken: **not fired** (10/10 series, total and
+  Train-1-entry keys identical).
+- (e) stake_cv ≤ 0.05: **not fired** (0.413344; every series > 0.05).
+
+Verdict: **FALSIFIED (b)** on EMA_50_200 own trades. Sizing raises mean and
+pooled net and skews stake toward winners, but it doesn't reduce the losing-month
+floor. The gain is concentrated in 2024-11 and the
+big-winner set. Profile status untouched (CONDITIONAL). Decision left to the coordinator.
 
 ## Decision
 
