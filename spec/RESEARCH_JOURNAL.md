@@ -24,7 +24,7 @@
 | --- | --- | --- | --- | --- |
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
-| `BB_20_25_EMA200` | **CONDITIONAL** | partial (entry-vol FALSIFIED; xsym sizing Val-1 FALSIFIED (c); candle-confirm FALSIFIED (c)) | candle close-strength closed on own trades (`e70161d`, T=0.70, SL drop 1.96pp); breakout depth and HTF direction still open; do not FREEZE | `strategy_profiles/BB_20_25_EMA200.md` |
+| `BB_20_25_EMA200` | **CONDITIONAL** | partial (entry-vol FALSIFIED; xsym Val-1 FALSIFIED (c); candle FALSIFIED (c); breakout-depth FALSIFIED (a)+(c)) | breakout depth closed on own trades (`0685ce5`, best D=0.02 −$10.91/series, SL not improved); HTF direction still open; do not FREEZE | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/BB_20_2_EMA200.md` |
@@ -104,15 +104,16 @@ idiosyncratic failures. This **blocks** §8 in-class portfolio diversification (
 regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
 blocks portfolio combination.
 
-**Next = `H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01`** (pre-registered, Train-1 only; ticket
-`spec/features/active/F006-bb2025-entry-breakout-depth-01/ticket.md`). Not yet run.
-Candle close-strength (`H-BB-20-25-ENTRY-CANDLE-CONFIRM-01`) is **FALSIFIED (c)** at
-`e70161d`: best T=0.70 mean +$6.38/series, initial-SL drop 1.96pp vs required 10pp,
-big-winner PnL retained 100%, floor still 7/12. That closes one entry variant on this
-name's own trades. It does **not** close breakout depth or HTF direction, and it does
-**not** license FREEZE or a transfer to the other CONDITIONAL names. Entry-vol stays
-FALSIFIED (`3788f11`). The xsym sizing formula stays FALSIFIED (c) on Val-1 (`89e936a`);
-do not retune it. Holdout stays closed. Do not jump to §13.
+**Next = `H-BB-20-25-ENTRY-HTF-DIRECTION-01`** (pre-registered, Train-1 only; ticket
+`spec/features/active/F006-bb2025-entry-htf-direction-01/ticket.md`). Not yet run.
+Breakout depth (`H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01`) is **FALSIFIED (a)+(c)** at
+`0685ce5`: control +$82.900262/series, best D=0.02 +$71.985313 (−$10.91/series),
+initial-SL share 58.01% → 58.07% (not a 10pp drop), D=0.50 zero trades. That closes
+breakout depth on this name's own trades. It does **not** close HTF direction, and it
+does **not** license FREEZE or a transfer to the other CONDITIONAL names. Entry-vol
+stays FALSIFIED (`3788f11`). The xsym sizing formula stays FALSIFIED (c) on Val-1
+(`89e936a`). Candle close-strength stays FALSIFIED (c) (`e70161d`). Do not retune
+those. Holdout stays closed. Do not jump to §13 while HTF direction is open.
 
 > **Infra note (2026-10-02):** both worker channels were down when this ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. H-CATALOG5-BREADTH-REGIME-01 was therefore
@@ -146,14 +147,15 @@ do not retune it. Holdout stays closed. Do not jump to §13.
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~09:49 Europe/Warsaw, after BB_20_25 candle confirm)
+## §15 Coordinator report (updated 2026-10-03 ~10:20 Europe/Warsaw, after BB_20_25 breakout depth)
 
-Short series report: `spec/research/F006-coordinator-series-report-bb-20-25-entry-candle-confirm.md`.
+Short series report: `spec/research/F006-coordinator-series-report-bb-20-25-entry-breakout-depth.md`.
 
-Candle close-strength is **FALSIFIED (c)** (`e70161d`). `BB_20_25_EMA200` stays
-**CONDITIONAL**. Do not FREEZE. Next experiment is pre-registered 
-(not yet run). HTF direction stays open and is not the next test. Q1–Q10 for this
-series are in that report. The answers below are the standing cross-name report.
+Breakout depth is **FALSIFIED (a)+(c)** (`0685ce5`). `BB_20_25_EMA200` stays
+**CONDITIONAL**. Do not FREEZE. Next experiment is pre-registered
+`H-BB-20-25-ENTRY-HTF-DIRECTION-01` (not yet run). HTF direction is the remaining
+open axis on this name. Q1–Q10 for this series are in that report. The answers
+below are the standing cross-name report.
 
 
 1. **Best strategy now?** None promotable. Among CONDITIONAL, `BB_20_25_EMA200` / `EMA_50_200`
@@ -172,29 +174,29 @@ series are in that report. The answers below are the standing cross-name report.
 6. **Rejected hypotheses?** On `EMA3_21_50_200` own trades: entry-vol/abs-ATR gate, exit-class,
    partial-exit, long-only, breadth regime (all independently falsified). On `BB_20_25_EMA200`
    own trades: entry-vol FALSIFIED (a) `3788f11`; xsym sizing formula FALSIFIED (c) `89e936a`;
-   candle close-strength FALSIFIED (c) `e70161d`. Exit-class and partial-exit ran on the
-   catalog5 series; long-only and breadth have own-trade cells. Those do not close breakout
-   depth or HTF direction, and they do not close entry or sizing on the other three
-   CONDITIONAL names. Wider class: take-profit, trailing, EMA-trend confirm, cross-symbol
-   agreement, loss-cooldown, vol-inverse sizing, BTC-ER filter, ~20 swarm families.
+   candle close-strength FALSIFIED (c) `e70161d`; breakout depth FALSIFIED (a)+(c)
+   `0685ce5`. Exit-class and partial-exit ran on the catalog5 series; long-only and
+   breadth have own-trade cells. Those do not close HTF direction, and they do not
+   close entry or sizing on the other three CONDITIONAL names. Wider class: take-profit,
+   trailing, EMA-trend confirm, cross-symbol agreement, loss-cooldown, vol-inverse
+   sizing, BTC-ER filter, ~20 swarm families.
 7. **Unresolved problem?** Monthly regularity. The losses are a shared basket regime
    (H-CATALOG5-SHARED-LOSING-MONTHS-01: 6/12 months with ≥4/5 names losing together, phi
-   0.79, Pearson 0.96). On `BB_20_25_EMA200`, candle close-strength did not cut initial-SL
-   share by 10pp. Breakout depth and HTF direction are still untested on this name's own
-   trades. The other three CONDITIONAL names still have entry-vol and sizing untested on
-   their own trades. In-class portfolio combination (§8) is BLOCKED.
-8. **Next experiment & why?** `H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01`, pre-registered after
-   the candle decision: band-normalized close distance beyond `bb_20_2.5`, D in
-   {0.02, 0.05, 0.10, 0.25, 0.50}, Train-1 only. Not HTF in the same test, not a retune
-   of the candle threshold or the sizing formula, not another catalog name, not FREEZE,
-   not holdout.
+   0.79, Pearson 0.96). On `BB_20_25_EMA200`, neither candle close-strength nor
+   breakout depth cut initial-SL share by 10pp. HTF direction is still untested on
+   this name's own trades. The other three CONDITIONAL names still have entry-vol and
+   sizing untested on their own trades. In-class portfolio combination (§8) is BLOCKED.
+8. **Next experiment & why?** `H-BB-20-25-ENTRY-HTF-DIRECTION-01`, pre-registered after
+   the breakout-depth decision: prior fully closed 4-bar HTF candle must agree with
+   the signal, Train-1 only, one binary gate. Not a retune of D, T, or the sizing
+   formula, not long-only, not another catalog name, not FREEZE, not holdout.
 9. **Why not a random search?** §13 is not met. The name is not exhausted. The next test
-   is the next open entry variant on the same name, after a written mechanism. A falsified
-   candle gate is not a reason to switch names.
-10. **What result confirms/refutes the next hypothesis?** Pre-registered on the breakout-depth
-    card. Pass: mean Train-1 net above +82.900262, initial-SL share down ≥10pp at the
-    best-PnL D, ≥50% of big-winner PnL retained, pooled floor strictly below 7/12, and
-    mean trades/series ≥10. Any one of falsifiers (a)–(e) fails it. Holdout is not opened.
+   is the remaining open entry axis on the same name, after a written mechanism. A
+   falsified depth gate is not a reason to switch names or to FREEZE by class analogy.
+10. **What result confirms/refutes the next hypothesis?** Pre-registered on the HTF card.
+    Pass: mean Train-1 net above +82.900262, initial-SL share down ≥10pp, ≥50% of
+    big-winner PnL retained, pooled floor strictly below 7/12, and mean trades/series
+    ≥10. Any one of falsifiers (a)–(e) fails it. Holdout is not opened.
 
 ## Chronological log
 
@@ -297,3 +299,19 @@ series are in that report. The answers below are the standing cross-name report.
   as a fraction of `bb_20_2.5` width; Train-1 only). Not a candle retune, not abs-ATR,
   not a Val-2 of the closed xsym formula, not HTF. HTF direction stays open. Do not
   FREEZE. Ticket `spec/features/active/F006-bb2025-entry-breakout-depth-01/ticket.md`.
+
+- **2026-10-03 ~10:20 Europe/Warsaw** — **H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01 = FALSIFIED (a)+(c)**.
+  Tip `0685ce5` FF-merged to `origin/main`. Review PASS
+  `2026-10-03-f006-bb2025-entry-breakout-depth-2dd8bcfc`. Control +82.900262 / n=512 /
+  initial-SL 58.01% / floor 7/12 reproduced. Best D=0.02 mean +71.985313 (−$10.91/series),
+  initial-SL share 58.07% (rose, required drop 10pp), D=0.50 zero trades. Decision =
+  **FALSIFIED (a)+(c)**. `BB_20_25_EMA200` stays **CONDITIONAL**. Do not FREEZE.
+  Breakout depth is closed on this name's own trades; HTF direction is not. §15:
+  `spec/research/F006-coordinator-series-report-bb-20-25-entry-breakout-depth.md`.
+
+- **2026-10-03 ~10:20 Europe/Warsaw** — **H-BB-20-25-ENTRY-HTF-DIRECTION-01 pre-registered**
+  (§8 HTF direction on CONDITIONAL `BB_20_25_EMA200` own trades; prior fully closed
+  4-bar HTF candle must agree; Train-1 only; one binary gate). Not a retune of D, not
+  candle close-strength, not abs-ATR, not long-only, not a Val-2 of the closed xsym
+  formula. Do not FREEZE before this axis has an own-trades result. Ticket
+  `spec/features/active/F006-bb2025-entry-htf-direction-01/ticket.md`.

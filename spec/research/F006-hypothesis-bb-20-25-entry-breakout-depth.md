@@ -147,4 +147,36 @@ to +$2.05; D=0.50 made no trades. No threshold passed all declared checks. Artif
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~10:20 Europe/Warsaw against
+`output/f006_bb_20_25_entry_breakout_depth/cell_summary.csv` and `manifest.json`
+on the FF-merged run `0685ce5` (review PASS, job
+`2026-10-03-f006-bb2025-entry-breakout-depth-2dd8bcfc`). The Result table matches
+the artifact after ordinary rounding. Manifest falsifiers: (a) true, (c) true,
+(b)(d)(e) false, `passing_cells` empty.
+
+Control reproduced the pre-registered baseline: mean Train-1 net
+**+$82.900262/series** (sum +$829.002620), entry cohort **n=512, +$709.849209**,
+initial-SL share **0.580078 (58.01%)**, big-winner PnL **$968.020732**, pooled
+losing entry-months **7/12**. `number_of_trials = 5`.
+
+Best-PnL cell is **D=0.02**: mean **+$71.985313/series**, which is **−$10.914949
+(−$10.91/series)** versus control. Initial-SL share **0.580713**, change
+**−0.06 pp** (the share rose; the required drop is 10 pp). Big-winner PnL retained
+**80.7%**. Pooled floor **8/12** (worse). Mean trades/series **47.7** (not thin).
+
+(a) fires: every D is at or below the control mean (0.05 +$67.80, 0.10 +$57.86,
+0.25 +$2.05, 0.50 $0.00). (b) does not fire: non-thin D=0.02 and D=0.05 retain
+80.7% and 70.0% of big-winner PnL. (c) fires at the best-PnL D. (d) does not
+apply: no D passes (a)–(c). D=0.25 reaches 5/12 only at 2.9 trades/series, 0%
+big-winner PnL, and a 9.73 pp SL drop that still misses 10 pp. (e) does not fire:
+there is no PnL improvement. D=0.50 has zero trades. No cell passed all declared
+checks.
+
+Breakout depth (close distance beyond `bb_20_2.5`, normalized by band width) is
+closed on this name's own trades. `BB_20_25_EMA200` stays **CONDITIONAL**. Do not
+FREEZE. This is one entry variant, not a class closure. Entry-vol (`3788f11`),
+the xsym sizing formula (`89e936a`), and candle close-strength (`e70161d`) stay
+closed on their own evidence. HTF direction is still untested on this name's own
+trades and is the remaining open axis named on the profile. Next = one HTF-direction
+hypothesis on this name only — not a retune of D, not Validation-2, not another
+catalog name.
