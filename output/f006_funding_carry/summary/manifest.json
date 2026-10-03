@@ -1,0 +1,262 @@
+{
+  "experiment_id": "H-FUNDING-CARRY-01",
+  "script": "scripts/f006_funding_carry.py",
+  "git_commit": "d36ca77a87b2037e096e9c95fcaf0eb2952266bb",
+  "run_started_utc": "2026-10-03T21:29:08.314354+00:00",
+  "hypothesis_note": "spec/research/F006-hypothesis-funding-carry.md",
+  "number_of_trials": 1,
+  "interval": "60",
+  "params": {
+    "max_sl_pct": 0.03,
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "cooldown_candles": 0,
+    "initial_equity": 500.0,
+    "stake": 100.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "timing": {
+    "decision_bar_open": "T_k - 2h",
+    "entry_fill": "T_k - 1h open",
+    "exit_bar_open": "T_k + 1h (engine exit_time; fill at its close)"
+  },
+  "funding_manifest": "data_cache/funding/manifest.json",
+  "funding_checksums": {
+    "SOLUSDT": "f08e543b4f0c194b565059b30e219b1bc1224bd40818c0a420dd9ab1f4fd773e",
+    "ETHUSDT": "27b1b909eeace3c35a4206a96ad6900733ab490cf2c0ffdc3fea80a13ec995d2",
+    "BTCUSDT": "e9f12cb2f382eb01aae5cd1cf678b384b4a1197315bfd616e7b835ff462e94bb",
+    "XRPUSDT": "977b0baa33da7cc086ef85849d38bf05f8dccd6a1eab99b848a6b2861f5a2d39",
+    "DOGEUSDT": "f0a191dca456b349892b159e4be81c85faa1133603e81a22ec6ef4e9c511961e"
+  },
+  "control_arm": {
+    "SOLUSDT": {
+      "n_trades": 0,
+      "n_funding_events": 1200,
+      "total_net_pnl": 0.0,
+      "final_equity": 500.0
+    },
+    "ETHUSDT": {
+      "n_trades": 0,
+      "n_funding_events": 1200,
+      "total_net_pnl": 0.0,
+      "final_equity": 500.0
+    },
+    "BTCUSDT": {
+      "n_trades": 0,
+      "n_funding_events": 1200,
+      "total_net_pnl": 0.0,
+      "final_equity": 500.0
+    },
+    "XRPUSDT": {
+      "n_trades": 0,
+      "n_funding_events": 1200,
+      "total_net_pnl": 0.0,
+      "final_equity": 500.0
+    },
+    "DOGEUSDT": {
+      "n_trades": 0,
+      "n_funding_events": 1200,
+      "total_net_pnl": 0.0,
+      "final_equity": 500.0
+    }
+  },
+  "reconciliation": {
+    "SOLUSDT": {
+      "holds_with_one_settlement": 1141,
+      "holds_with_no_settlement": 57,
+      "holds_with_multiple_settlements": 0,
+      "max_funding_abs_err": 0.0,
+      "max_net_identity_abs_err": 0.0,
+      "failures": [],
+      "ok": true
+    },
+    "ETHUSDT": {
+      "holds_with_one_settlement": 1177,
+      "holds_with_no_settlement": 22,
+      "holds_with_multiple_settlements": 0,
+      "max_funding_abs_err": 0.0,
+      "max_net_identity_abs_err": 0.0,
+      "failures": [],
+      "ok": true
+    },
+    "BTCUSDT": {
+      "holds_with_one_settlement": 1107,
+      "holds_with_no_settlement": 13,
+      "holds_with_multiple_settlements": 0,
+      "max_funding_abs_err": 0.0,
+      "max_net_identity_abs_err": 0.0,
+      "failures": [],
+      "ok": true
+    },
+    "XRPUSDT": {
+      "holds_with_one_settlement": 1137,
+      "holds_with_no_settlement": 62,
+      "holds_with_multiple_settlements": 0,
+      "max_funding_abs_err": 0.0,
+      "max_net_identity_abs_err": 0.0,
+      "failures": [],
+      "ok": true
+    },
+    "DOGEUSDT": {
+      "holds_with_one_settlement": 856,
+      "holds_with_no_settlement": 94,
+      "holds_with_multiple_settlements": 0,
+      "max_funding_abs_err": 0.0,
+      "max_net_identity_abs_err": 0.0,
+      "failures": [],
+      "ok": true
+    }
+  },
+  "per_series": [
+    {
+      "symbol": "SOLUSDT",
+      "interval": "60",
+      "strategy": "FUNDING_CARRY_PREV_SIGN",
+      "n_settlements": 1200,
+      "n_decisions_short": 994,
+      "n_decisions_long": 204,
+      "n_decisions_flat": 2,
+      "n_missing_bars": 0,
+      "n_trades_all": 1198,
+      "n_trades_train1": 1094,
+      "n_skipped_margin": 0,
+      "first_skipped_margin": "",
+      "min_equity": 148.668476,
+      "exit_signal_reverse": 1021,
+      "exit_initial_sl": 73,
+      "exit_other": 0,
+      "funding_pnl": 11.115301,
+      "total_costs": 350.005275,
+      "M": -338.889974,
+      "gross_pnl": 38.728709,
+      "net_pnl": -300.161265,
+      "warmup_M": -31.606245,
+      "data_checksum": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "interval": "60",
+      "strategy": "FUNDING_CARRY_PREV_SIGN",
+      "n_settlements": 1200,
+      "n_decisions_short": 1053,
+      "n_decisions_long": 146,
+      "n_decisions_flat": 1,
+      "n_missing_bars": 0,
+      "n_trades_all": 1199,
+      "n_trades_train1": 1095,
+      "n_skipped_margin": 0,
+      "first_skipped_margin": "",
+      "min_equity": 108.430504,
+      "exit_signal_reverse": 1055,
+      "exit_initial_sl": 40,
+      "exit_other": 0,
+      "funding_pnl": 10.934395,
+      "total_costs": 350.391691,
+      "M": -339.457296,
+      "gross_pnl": -0.856444,
+      "net_pnl": -340.31374,
+      "warmup_M": -32.210007,
+      "data_checksum": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "interval": "60",
+      "strategy": "FUNDING_CARRY_PREV_SIGN",
+      "n_settlements": 1200,
+      "n_decisions_short": 1067,
+      "n_decisions_long": 131,
+      "n_decisions_flat": 2,
+      "n_missing_bars": 0,
+      "n_trades_all": 1120,
+      "n_trades_train1": 1016,
+      "n_skipped_margin": 78,
+      "first_skipped_margin": "2025-02-02 23:00:00+00:00",
+      "min_equity": 99.569876,
+      "exit_signal_reverse": 998,
+      "exit_initial_sl": 18,
+      "exit_other": 0,
+      "funding_pnl": 10.020772,
+      "total_costs": 325.134199,
+      "M": -315.113427,
+      "gross_pnl": -35.335966,
+      "net_pnl": -350.449394,
+      "warmup_M": -32.045774,
+      "data_checksum": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "interval": "60",
+      "strategy": "FUNDING_CARRY_PREV_SIGN",
+      "n_settlements": 1200,
+      "n_decisions_short": 1067,
+      "n_decisions_long": 132,
+      "n_decisions_flat": 1,
+      "n_missing_bars": 0,
+      "n_trades_all": 1199,
+      "n_trades_train1": 1095,
+      "n_skipped_margin": 0,
+      "first_skipped_margin": "",
+      "min_equity": 127.719736,
+      "exit_signal_reverse": 1013,
+      "exit_initial_sl": 82,
+      "exit_other": 0,
+      "funding_pnl": 10.591268,
+      "total_costs": 350.462769,
+      "M": -339.871501,
+      "gross_pnl": 40.009636,
+      "net_pnl": -299.861865,
+      "warmup_M": -31.450011,
+      "data_checksum": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "interval": "60",
+      "strategy": "FUNDING_CARRY_PREV_SIGN",
+      "n_settlements": 1200,
+      "n_decisions_short": 1078,
+      "n_decisions_long": 121,
+      "n_decisions_flat": 1,
+      "n_missing_bars": 0,
+      "n_trades_all": 950,
+      "n_trades_train1": 846,
+      "n_skipped_margin": 249,
+      "first_skipped_margin": "2024-12-07 23:00:00+00:00",
+      "min_equity": 98.024618,
+      "exit_signal_reverse": 732,
+      "exit_initial_sl": 114,
+      "exit_other": 0,
+      "funding_pnl": 9.894538,
+      "total_costs": 270.852855,
+      "M": -260.958317,
+      "gross_pnl": -90.773776,
+      "net_pnl": -351.732093,
+      "warmup_M": -31.621172,
+      "data_checksum": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+    }
+  ],
+  "mean_M": -318.858103,
+  "baseline": 0.0,
+  "falsifier_b": {
+    "G_sum_positive_days": 0.0,
+    "W_worst_reversal_day": -1.038216,
+    "worst_reversal_day": {
+      "series": "SOLUSDT",
+      "day": "2025-02-22",
+      "value": -1.0382159880873705,
+      "reversal_day": true
+    },
+    "n_symbol_days": 1716,
+    "n_reversal_symbol_days": 520,
+    "n_positive_days": 0
+  },
+  "fired": [
+    "a",
+    "b"
+  ],
+  "result": "FALSIFIED (a)+(b)",
+  "elapsed_seconds": 12.3
+}

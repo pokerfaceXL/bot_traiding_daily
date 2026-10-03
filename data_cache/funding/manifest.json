@@ -1,0 +1,44 @@
+{
+  "source": "https://api.bybit.com/v5/market/funding/history (category=linear, public)",
+  "window_start_inclusive": "2024-01-26T00:00:00+00:00",
+  "window_end_exclusive": "2025-03-01T00:00:00+00:00",
+  "fetched_utc": "2026-10-03T21:28:05.268753+00:00",
+  "rate_units": "decimal settled rate per settlement (0.0001 = 1 bp), as costs.funding_payment",
+  "files": {
+    "SOLUSDT": {
+      "path": "data_cache/funding/SOLUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26T00:00:00+00:00",
+      "last": "2025-02-28T16:00:00+00:00",
+      "sha256": "f08e543b4f0c194b565059b30e219b1bc1224bd40818c0a420dd9ab1f4fd773e"
+    },
+    "ETHUSDT": {
+      "path": "data_cache/funding/ETHUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26T00:00:00+00:00",
+      "last": "2025-02-28T16:00:00+00:00",
+      "sha256": "27b1b909eeace3c35a4206a96ad6900733ab490cf2c0ffdc3fea80a13ec995d2"
+    },
+    "BTCUSDT": {
+      "path": "data_cache/funding/BTCUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26T00:00:00+00:00",
+      "last": "2025-02-28T16:00:00+00:00",
+      "sha256": "e9f12cb2f382eb01aae5cd1cf678b384b4a1197315bfd616e7b835ff462e94bb"
+    },
+    "XRPUSDT": {
+      "path": "data_cache/funding/XRPUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26T00:00:00+00:00",
+      "last": "2025-02-28T16:00:00+00:00",
+      "sha256": "977b0baa33da7cc086ef85849d38bf05f8dccd6a1eab99b848a6b2861f5a2d39"
+    },
+    "DOGEUSDT": {
+      "path": "data_cache/funding/DOGEUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26T00:00:00+00:00",
+      "last": "2025-02-28T16:00:00+00:00",
+      "sha256": "f0a191dca456b349892b159e4be81c85faa1133603e81a22ec6ef4e9c511961e"
+    }
+  }
+}

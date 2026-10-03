@@ -44,4 +44,15 @@ reconciliation in the card fails, stop and write `INVALID`.
 
 ## Result
 
-(worker fills)
+FALSIFIED (a)+(b). Funding was applied and reconciled. Details are in
+`spec/research/F006-hypothesis-funding-carry.md` `## Result`. Artifacts are
+in `output/f006_funding_carry/`; the funding cache and its checksum manifest
+are in `data_cache/funding/`.
+
+- Control: 0 trades and net 0 on all five symbols, with 1200 events loaded each.
+- Reconciliation: 5,418 single-settlement holds. funding and net identity
+  error is 0.0 on each. No hold contains more than one settlement.
+- Mean M = -318.858103 (funding about +10 per symbol against costs of
+  about 270 to 350). (a) fired.
+- G = 0 (no green symbol-day); W = -1.038216. (b) fired.
+- Decision: blank (owner).

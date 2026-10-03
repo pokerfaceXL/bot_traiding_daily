@@ -160,3 +160,67 @@ Catalog signals, catalog mean-reversion, spread-capture, a new family,
 holdout, validation, editing strategy.py on disk (runtime registration
 only, the family-runner pattern), .pi/config.json, and
 spec/features/active/F006-catalog5-unfreeze-correction/.
+
+## Result
+
+Run: `python3 scripts/f006_funding_carry.py` (funding cache written once by
+`--fetch`; artifacts `output/f006_funding_carry/`). `number_of_trials = 1`,
+60-minute Train-1 bars only (`f006_family_runner.load_train1`, checksums equal
+the protocol section 6 values). Every arm passed the cached settlements as
+`funding_events` into `backtest_engine.run_backtest`; the script refuses an
+empty event list.
+
+Funding cache: `data_cache/funding/<SYM>_funding_20240126T000000Z_20250301T000000Z.csv`
+plus `data_cache/funding/manifest.json` (sha256 per file). Public Bybit v5
+`/v5/market/funding/history`, category linear. 1200 settlements per symbol,
+2024-01-26 00:00 to 2025-02-28 16:00 UTC, uniform 8h spacing, no gaps.
+Mean settled rate +1.01 bp (BTC) to +1.36 bp (DOGE).
+
+Timing as implemented. For settlement T_k: decision bar opens T_k-2h. r_prev
+is the latest settlement before its close at T_k-1h, so it is T_{k-1}. Entry
+fills at the T_k-1h open. The exit is a signal reversal on the bar opening at
+T_k+1h. The engine records `exit_time` as that bar's index, so
+`entry <= T_k < exit` and T_{k+1} = T_k+8h falls outside the hold. A
+spot-check (SOLUSDT short, 2024-05-17 23:00 to 2024-05-18 01:00 UTC, r_prev
++0.0001 at 16:00) booked funding_pnl +0.01 = 100 × 0.0001.
+
+Control (empty entry mask, 1200 events loaded per symbol): 0 trades, net 0,
+final equity 500 on 5/5. Baseline = 0.
+
+Reconciliation runs on every carry hold, before scoring. 5,418 holds contain
+exactly one settlement. On each, engine funding_pnl equals
+`costs.funding_payment(direction, notional, rate)` with max abs error 0.0.
+`net = gross - costs + funding` holds with max abs error 0.0. No hold contains
+two settlements. 248 holds (all initial_sl exits) closed before their
+settlement and booked funding 0. Not INVALID.
+
+| symbol | Train-1 trades | funding_pnl | total_costs | M | price gross | net |
+|---|---|---|---|---|---|---|
+| SOLUSDT | 1094 | +11.1153 | 350.0053 | -338.8900 | +38.7287 | -300.1613 |
+| ETHUSDT | 1095 | +10.9344 | 350.3917 | -339.4573 | -0.8564 | -340.3137 |
+| BTCUSDT | 1016 | +10.0208 | 325.1342 | -315.1134 | -35.3360 | -350.4494 |
+| XRPUSDT | 1095 | +10.5913 | 350.4628 | -339.8715 | +40.0096 | -299.8619 |
+| DOGEUSDT | 846 | +9.8945 | 270.8529 | -260.9583 | -90.7738 | -351.7321 |
+
+**Mean M = -318.858103 <= 0. (a) FIRED.** On a 100 notional, one settlement
+averages about +1 bp of funding. The round trip costs about 32 bps
+(10+10 commission, 5+5 half-spread, 2 slippage), plus the effect of price
+moves on exit notional.
+
+(b): all 1716 Train-1 symbol-days are negative. G (sum of positive days) = 0.
+The worst reversal day is W = -1.038216 (SOLUSDT, 2025-02-22). There are 520
+reversal symbol-days. W <= -G, so **(b) FIRED**, trivially, because no day
+was green.
+
+**FALSIFIED (a)+(b).**
+
+Note: the M figures for BTCUSDT and DOGEUSDT are truncated, not
+re-weighted. The engine skips an entry once equity falls below the 100
+margin (`InsufficientMarginError`, documented engine contract). DOGE equity
+reached 98.02 on 2024-12-07 (249 skipped); BTC reached 99.57 on 2025-02-02
+(78 skipped). Each skipped hold would have added about -0.3, so the verdict
+cannot flip. Warm-up (Jan 26 to Feb 29 2024, scored separately) M is about
+-32 per symbol.
+
+## Decision
+
