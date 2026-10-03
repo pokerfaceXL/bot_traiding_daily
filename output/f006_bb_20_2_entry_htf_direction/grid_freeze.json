@@ -1,0 +1,100 @@
+{
+  "hypothesis": "H-BB-20-2-ENTRY-HTF-DIRECTION-01",
+  "git_commit": "0b8c29fe76422d3fc9b4e8328ef2e63bfb485f9d",
+  "run_started_utc": "2026-10-03T13:09:36.147716+00:00",
+  "source_sha256": {
+    "scripts/f006_bb_20_2_entry_htf_direction.py": "b550b77fa9c09005c4b2e947e79c4ce99a998822fea40c3c30e405e51b34fabe",
+    "scripts/f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "entry_masks.py": "af27d51b710e9e2ffc3217821b4986f6f2062d8154262dc131adf48fe03cac10"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "data_window": [
+    "2024-01-26T00:00:00Z",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "validation_holdout_loaded": false,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "mask": "BB_20_2_EMA200 one_shot AND signal direction == sign(close-open) of the prior fully closed 4-native-bar HTF bucket (Unix-epoch floor of bar open; bucket close <= signal bar open; exactly 4 native bars else reject; flat rejects); exits use ungated signal",
+  "htf_bars": 4,
+  "htf_minutes": {
+    "240": 960,
+    "60": 240
+  },
+  "big_winner_definition_frozen": "baseline trade net_pnl >= 29.9",
+  "gated_cells": [
+    "htf_4"
+  ],
+  "number_of_trials": 1,
+  "harness_control": {
+    "rows_compared": 10,
+    "columns": [
+      "train1_net_pnl",
+      "n_trades"
+    ],
+    "max_abs_train1_diff": 0.0,
+    "source": "output/f006_notrail_monthly_catalog5/summary/results.csv"
+  },
+  "control_reference_match": {
+    "mean_train1_net_pnl": [
+      95.32179870000002,
+      95.32179870000002
+    ],
+    "n_train1_entry_trades": [
+      756,
+      756
+    ],
+    "entry_cohort_net_pnl": [
+      834.3477781981094,
+      834.3477781981094
+    ],
+    "initial_sl_share": [
+      0.47354497354497355,
+      0.4735449735449735
+    ],
+    "big_winner_pnl": [
+      1251.654084307187,
+      1251.654084307187
+    ],
+    "big_winner_count": [
+      12,
+      12
+    ],
+    "losing_entry_months": [
+      7,
+      7
+    ],
+    "source": "output/f006_bb_20_2_entry_breakout_depth/cell_summary.csv"
+  },
+  "data_cache": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "control_mean_train1_net_pnl": 95.32179870000002,
+  "control_entry_cohort_n": 756,
+  "control_entry_cohort_net_pnl": 834.3477781981094,
+  "control_losing_entry_months": 7,
+  "metric_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+  "retention": "sum baseline net>=29.9 trades retained by symbol/interval/entry_time/direction; matched economics must be identical"
+}

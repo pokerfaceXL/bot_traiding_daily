@@ -157,3 +157,51 @@ decision_if_fail: keep CONDITIONAL; mark HTF direction closed on this name's own
   EMA3_13_50_200; do not treat this result as evidence about other catalog5 names;
   do not retune the HTF length inside this run; do not start a new name while
   liquidity is still open here
+
+## Result
+
+Run: `F006_DATA_CACHE=<main checkout>/data_cache python3 scripts/f006_bb_20_2_entry_htf_direction.py`
+(script + test committed before the run; artifacts in
+`output/f006_bb_20_2_entry_htf_direction/`; `grid_freeze.json` written
+before the gated cell; `number_of_trials = 1`, single binary cell `htf_4`).
+The gate reads only native `open` / `close` of the same closed Train-1 series
+(60m → 240m, 240m → 960m epoch-floored buckets; prior bucket only; exactly 4
+native bars else reject; flat rejects). It reads no `bb_20_2.5_*`, no band,
+no ATR, no EMA, no candle strength, no breakout depth. Exits use the ungated
+persistent signal; NO_TRAIL violations 0; matched-trade economics mismatches 0.
+
+Control (ungated) reproduced exactly: catalog5 monthly replay 10/10
+(max |Δ train1_net_pnl| = 0.0, n_trades equal), and the breakout-depth
+control row matched: mean **+95.3217987**, entry n **756**, entry net
+**+834.347778**, initial_sl share **0.473545** (358/756), big-winner PnL
+(net≥29.9) **1251.654084** (12 trades), pooled losing entry-months **7/12**.
+
+Gate activity (Train-1 one-shot signals, all 10 series): 2498 one-shot
+signals; 1837 agree with the prior HTF candle, 657 oppose it, 4 flat or
+incomplete → 661 rejected (26.5%). Most one-shot signals fire while a
+position is already open, so the closed-trade cohort shrinks only 756 → 688.
+
+| cell | mean train1 net | entry n | n/series | entry net | initial_sl | Δ SL pp | big winners kept | BW PnL kept | kept % | losing months |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | +95.321799 | 756 | 75.6 | +834.347778 | 0.473545 | 0.00 | 12/12 | 1251.654 | 100.0% | 7/12 |
+| htf_4 | +75.861590 | 688 | 68.8 | +691.580997 | 0.501453 | −2.79 | 9/12 | 1038.611 | 83.0% | 8/12 |
+
+Gated per-symbol train1 net (control in parentheses): BTC −110.406
+(−35.123), DOGE +360.562 (+389.419), ETH −9.409 (−15.250), SOL +51.203
+(+131.956), XRP +466.666 (+482.215); 3/5 net-positive (unchanged). Entry-month
+2025-01 flips from +10.23 to −15.42 (the extra losing month); 2024-04 worsens
+from −5.17 to −79.86; no month turns from losing to winning.
+
+Falsifiers (pre-declared):
+- (a) mean ≤ baseline — **TRUE** (+75.861590 vs +95.321799, −19.460209/series).
+- (b) removes >50% big-winner PnL — false (83.0% retained, 9/12).
+- (c) initial_sl share fails to fall ≥10pp — **TRUE** (share *rises* 2.79pp,
+  0.473545 → 0.501453).
+- (d) pooled losing-month floor does not improve — **TRUE** (7/12 → 8/12).
+- (e) mean trades/series < 10 — false (68.8).
+
+**Outcome: FALSIFIED (a)+(c)+(d).** No passing cell. Breakouts taken with
+the prior closed 4-bar HTF candle stop out *more* often, not less, on this
+name's own Train-1 cohort.
+
+## Decision
