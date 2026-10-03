@@ -25,7 +25,7 @@
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
-| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; xsym sizing FALSIFIED (b) at `48d03b0`; candle confirm FALSIFIED (a)+(c) at `778f373`) | FREEZE withdrawn; entry-vol, this xsym formula, and candle confirm closed on own trades; stay CONDITIONAL; next `H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01` on reproduced baseline +72.6693115 | `strategy_profiles/EMA_50_200.md` |
+| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; xsym sizing FALSIFIED (b) at `48d03b0`; candle confirm FALSIFIED (a)+(c) at `778f373`; breakout depth FALSIFIED (a)+(c) at `485de51`; HTF direction FALSIFIED (a)+(b)+(c)+(d) at `3a7c094`) | HTF closed on own trades; liquidity is the last open licensed axis; stay CONDITIONAL; next `H-EMA-50-200-ENTRY-LIQUIDITY-01` on reproduced baseline +72.6693115 / n=330; do not FREEZE in this commit | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
@@ -152,6 +152,34 @@ abs-ATR retune. Not a Val-1 of the closed stake. Not `EMA3_13_50_200`.
 Not holdout. Not FREEZE in this commit. If this gate later fails,
 decision_if_fail keeps CONDITIONAL and names HTF direction as the following
 open axis.
+
+**EMA_50_200 HTF direction FALSIFIED (a)+(b)+(c)+(d); name stays CONDITIONAL.**
+`H-EMA-50-200-ENTRY-HTF-DIRECTION-01` is **FALSIFIED (a)+(b)+(c)+(d)** at `3a7c094`
+(review PASS `2026-10-03-f006-ema50200-entry-htf-directio-1f19b4cb`).
+Control exact +72.6693115 (max abs diff 0.0), n=330, initial_sl 213/330 =
+0.6454545454545455, floor 7/12, big winners 5 / +843.7639016181568. Gated
+htf_4 mean +20.7369913 (delta −51.9323202/series), n=239, initial_sl share
+rose 2.818562190947127 pp (161/239), big-winner PnL kept 44.0%
+(3 / +371.1233324523375), floor stayed 7/12. The card's (d) sentence
+("pooled losing-month floor does not improve (stays >= baseline floor)")
+fires. (e) did not. Do not FREEZE. Do not start `EMA3_13_50_200`. Do not
+open a validation window. Baseline stays reproduced control **+72.6693115**.
+Section 15: `spec/research/F006-coordinator-series-report-ema-50-200-entry-htf-direction.md`.
+
+**Next = `H-EMA-50-200-ENTRY-LIQUIDITY-01`** (pre-registered;
+ticket `spec/features/active/F006-ema50200-entry-liquidity-01/ticket.md`).
+One §8 liquidity entry gate on this name's own Train-1 trades. Keep a
+one-shot signal iff the signal bar's base volume is at least the median of
+the prior 20 closed bars (signal bar excluded). Not `vol_ratio > 1.2`.
+The 20-bar median is the licensed shape, not another name's measured
+liquidity cell and not a copied pass/fail. Control must reproduce
++72.6693115 / n=330 / initial_sl 213/330 / floor 7/12 / big-winner 5 /
++843.7639016181568. `number_of_trials = 1`. Not an HTF retune. Not a depth
+retune. Not a candle retune. Not an abs-ATR retune. Not a Val-1 of the
+closed stake. Not `EMA3_13_50_200`. Not holdout. Not FREEZE in this commit.
+Liquidity is the last licensed axis. If that gate is later falsified on
+this name's own trades, §4 level C allows FREEZE only at that Decision
+(ungated book stays aggregate-positive; not REJECT).
 
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
@@ -605,3 +633,30 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   allowed only at that later liquidity experiment's own Decision, not now.
   Do not start `EMA3_13_50_200`. Ticket
   `spec/features/active/F006-ema50200-entry-htf-direction-01/ticket.md`.
+
+- **2026-10-03 ~18:56 Europe/Warsaw** — **H-EMA-50-200-ENTRY-HTF-DIRECTION-01 = FALSIFIED (a)+(b)+(c)+(d)**.
+  Tip `3a7c094` FF-merged to `origin/main` (git parent `54706a6`; prior Decision `925eee1`). Review PASS
+  `2026-10-03-f006-ema50200-entry-htf-directio-1f19b4cb`. Control +72.6693115 /
+  n=330 / initial_sl 213/330 = 0.6454545454545455 / floor 7/12 / big-winner
+  5 / +843.7639016181568 reproduced from
+  `output/f006_ema_50_200_entry_htf_direction/`. Gated htf_4 mean +20.7369913
+  (delta −51.9323202/series); initial_sl share rose 2.818562190947127 pp to
+  161/239; big-winner PnL kept 44.0% (3 / +371.1233324523375); floor stayed
+  7/12. (a)(b)(c)(d) fired; (e) did not. The (d) sentence is "pooled
+  losing-month floor does not improve (stays >= baseline floor)". Decision =
+  **FALSIFIED (a)+(b)+(c)+(d)**. Profile stays **CONDITIONAL**. HTF direction
+  is closed. Do not FREEZE. Not a validation window. Not evidence for other
+  names. §15:
+  `spec/research/F006-coordinator-series-report-ema-50-200-entry-htf-direction.md`.
+
+- **2026-10-03 ~18:56 Europe/Warsaw** — **H-EMA-50-200-ENTRY-LIQUIDITY-01 pre-registered**
+  (liquidity on CONDITIONAL `EMA_50_200` own trades; keep a one-shot signal
+  iff signal-bar base volume >= median of the prior 20 closed bars, signal
+  bar excluded; Train-1 only; one gated cell; `number_of_trials = 1`;
+  control mean +72.6693115 / n=330 from this name's reproduced baseline).
+  Not `vol_ratio > 1.2`. Not a transfer of `776e167` or of another name's
+  liquidity mean or pass/fail. HTF direction, breakout depth, candle
+  confirm, entry-vol, and the xsym formula on this name stay closed.
+  Liquidity is the last licensed axis. FREEZE is allowed only at that
+  experiment's own Decision, not now. Do not start `EMA3_13_50_200`. Ticket
+  `spec/features/active/F006-ema50200-entry-liquidity-01/ticket.md`.

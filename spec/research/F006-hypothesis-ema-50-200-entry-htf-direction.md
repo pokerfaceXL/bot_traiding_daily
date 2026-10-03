@@ -241,4 +241,76 @@ CONDITIONAL).
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(b)+(c)+(d).** Checked 2026-10-03 ~18:56 Europe/Warsaw against
+`output/f006_ema_50_200_entry_htf_direction/cell_summary.csv`,
+`manifest.json`, and an independent Train-1 blotter recount, on the
+FF-merged tip `3a7c094` (git parent `54706a6`; prior Decision `925eee1`;
+review PASS `2026-10-03-f006-ema50200-entry-htf-directio-1f19b4cb`, engine
+claude, branch `limen/2026-10-03-f006-ema50200-entry-htf-directio-3631d55b`).
+The Result table matches that artifact after ordinary rounding. Control
+replay max abs train1 diff is 0.0. Passing cells: none. The stopped
+duplicate coding job `f67d7d22` is ignored.
+
+This is not a `BB_20_2_EMA200` HTF verdict (`dd86dd0`) and not a
+`BB_20_25_EMA200` HTF verdict (`3495b16`). Those names are not this
+test. Do not import +95.3217987 or +82.900262.
+
+Pre-declared checks (number_of_trials = 1, binary prior-closed 4-bar
+HTF-direction gate):
+
+- control mean **+72.6693115** (replay max abs diff 0.0, sum +726.693115),
+  Train-1-entry n=**330**, entry-net **+587.3851786486205**, initial_sl
+  **213/330 = 0.6454545454545455**, big winners **5 / +843.7639016181568**,
+  pooled entry-month floor **7/12**
+- `htf_4` mean **+20.7369913** (delta **−51.9323202**/series vs
+  +72.6693115), entry n=239 (23.9/series), entry-net +156.4515278471927,
+  initial_sl **161/239 = 0.6736401673640168** (share **rises
+  2.818562190947127 pp**), big-winner retained **3 / +371.1233324523375 /
+  0.4398426286554843** (44.0%), floor **7/12**, 3/5 symbols net-positive
+- 0 retained-trade economics mismatches on the worker's matched-trade check;
+  an independent entry-month recount of the blotters matches n, initial_sl
+  counts, big-winner keys, and the 7/12 floors
+
+(a) fires: mean +20.7369913 <= baseline +72.6693115.
+(b) fires: the gate removes more than half of baseline big-winner PnL
+(kept 0.4398426286554843).
+(c) fires: initial_sl share does not fall >=10pp; it rises
+2.818562190947127 pp.
+(d) fires. Applied sentence, from this card: "(d) pooled losing-month floor
+does not improve (stays >= baseline floor)". The floor is 7/12 on both
+cells, which does not improve and stays >= the baseline floor. This is not
+the breakout-depth card, where (d) was vacuous because no D had passed
+(a)-(c). Here the sentence itself falsifies a flat floor.
+(e) does not fire: 23.9 trades/series is not < 10.
+
+decision_if_fail closes HTF direction on `EMA_50_200` own trades and names
+liquidity as the following open axis. That axis is the last licensed one.
+Protocol §7 develop-not-abandon keeps this name in the loop (status
+**CONDITIONAL**) until that liquidity experiment's own Decision. The card
+opens a validation window only if the arm passes. This arm did not. Do not
+FREEZE.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. HTF direction is
+closed on this name (tip `3a7c094`). Breakout depth stays FALSIFIED
+(a)+(c) (`485de51` / Decision `925eee1`). Candle confirm stays FALSIFIED
+(a)+(c) (`778f373` / Decision `4e32994`). Entry-vol stays FALSIFIED
+(a)+(c) (`80e7fa6` / Decision `67af347`). The xsym-agree formula stays
+FALSIFIED (b) (`48d03b0` / Decision `f54e362`); no Val-1. Exit, long-only,
+and breadth stay closed. Liquidity is the last open licensed axis and is
+pre-registered in this commit, not yet run. §4 level C allows FREEZE only
+at that later Decision, and only if the liquidity gate is falsified on this
+name's own trades while the ungated book stays aggregate-positive. Do not
+start `EMA3_13_50_200`. Do not start funding-carry, spread-capture, or
+catalog mean-reversion. Do not retune the 4-bar length. Holdout stays
+closed. Do not treat `dd86dd0` or `3495b16` as this result.
+
+**reason:** falsifiers (a), (b), (c), and (d). Requiring the prior closed
+4-bar candle to agree with the signal lowers mean Train-1 net, raises the
+initial_sl share, removes more than half of big-winner PnL, and leaves the
+pooled floor at 7/12.
+
+**next_action:** one liquidity entry gate on this name only,
+`H-EMA-50-200-ENTRY-LIQUIDITY-01`. Not an HTF retune. Not a depth retune.
+Not a candle retune. Not an abs-ATR retune. Not a Val-1 of the closed
+stake. Not `vol_ratio > 1.2`. Baseline remains the reproduced control
+**+72.6693115** (n=330).
