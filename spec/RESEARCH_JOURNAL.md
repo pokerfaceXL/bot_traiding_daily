@@ -104,7 +104,8 @@ idiosyncratic failures. This **blocks** §8 in-class portfolio diversification (
 regularity. However, this diagnostic finding does **not** license class-wide FREEZE — it only
 blocks portfolio combination.
 
-**Next = one §8 breakout-depth hypothesis on `BB_20_25_EMA200`**, not yet written.
+**Next = `H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01`** (pre-registered, Train-1 only; ticket
+`spec/features/active/F006-bb2025-entry-breakout-depth-01/ticket.md`). Not yet run.
 Candle close-strength (`H-BB-20-25-ENTRY-CANDLE-CONFIRM-01`) is **FALSIFIED (c)** at
 `e70161d`: best T=0.70 mean +$6.38/series, initial-SL drop 1.96pp vs required 10pp,
 big-winner PnL retained 100%, floor still 7/12. That closes one entry variant on this
@@ -150,8 +151,8 @@ do not retune it. Holdout stays closed. Do not jump to §13.
 Short series report: `spec/research/F006-coordinator-series-report-bb-20-25-entry-candle-confirm.md`.
 
 Candle close-strength is **FALSIFIED (c)** (`e70161d`). `BB_20_25_EMA200` stays
-**CONDITIONAL**. Do not FREEZE. Next experiment is a not-yet-written §8 breakout-depth
-gate on this name. HTF direction stays open and is not the next test. Q1–Q10 for this
+**CONDITIONAL**. Do not FREEZE. Next experiment is pre-registered 
+(not yet run). HTF direction stays open and is not the next test. Q1–Q10 for this
 series are in that report. The answers below are the standing cross-name report.
 
 
@@ -182,16 +183,18 @@ series are in that report. The answers below are the standing cross-name report.
    share by 10pp. Breakout depth and HTF direction are still untested on this name's own
    trades. The other three CONDITIONAL names still have entry-vol and sizing untested on
    their own trades. In-class portfolio combination (§8) is BLOCKED.
-8. **Next experiment & why?** One breakout-depth hypothesis on `BB_20_25_EMA200`, written
-   before the run. Not HTF in the same test, not a retune of the candle threshold or the
-   sizing formula, not another catalog name, not FREEZE, not holdout. Not spawned with
-   this decision.
+8. **Next experiment & why?** `H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01`, pre-registered after
+   the candle decision: band-normalized close distance beyond `bb_20_2.5`, D in
+   {0.02, 0.05, 0.10, 0.25, 0.50}, Train-1 only. Not HTF in the same test, not a retune
+   of the candle threshold or the sizing formula, not another catalog name, not FREEZE,
+   not holdout.
 9. **Why not a random search?** §13 is not met. The name is not exhausted. The next test
    is the next open entry variant on the same name, after a written mechanism. A falsified
    candle gate is not a reason to switch names.
-10. **What result confirms/refutes the next hypothesis?** It is not pre-registered yet.
-    It must name one breakout-depth change and a Train-1 falsifier written before the run.
-    It must not retune the closed stake or the closed candle threshold. Holdout is not opened.
+10. **What result confirms/refutes the next hypothesis?** Pre-registered on the breakout-depth
+    card. Pass: mean Train-1 net above +82.900262, initial-SL share down ≥10pp at the
+    best-PnL D, ≥50% of big-winner PnL retained, pooled floor strictly below 7/12, and
+    mean trades/series ≥10. Any one of falsifiers (a)–(e) fails it. Holdout is not opened.
 
 ## Chronological log
 
@@ -288,3 +291,9 @@ series are in that report. The answers below are the standing cross-name report.
   on this name's own trades; breakout depth and HTF direction are not. Next = one
   breakout-depth hypothesis, not spawned here. §15:
   `spec/research/F006-coordinator-series-report-bb-20-25-entry-candle-confirm.md`.
+
+- **2026-10-03** — **H-BB-20-25-ENTRY-BREAKOUT-DEPTH-01 pre-registered** (§8 breakout
+  depth on CONDITIONAL `BB_20_25_EMA200` own trades; D∈{0.02, 0.05, 0.10, 0.25, 0.50}
+  as a fraction of `bb_20_2.5` width; Train-1 only). Not a candle retune, not abs-ATR,
+  not a Val-2 of the closed xsym formula, not HTF. HTF direction stays open. Do not
+  FREEZE. Ticket `spec/features/active/F006-bb2025-entry-breakout-depth-01/ticket.md`.
