@@ -244,4 +244,47 @@ in a longer run.
 
 ## Decision
 
-(empty — coordinator only)
+**CONDITIONAL** (2026-10-03 ~13:40 Europe/Warsaw). Coordinator confirms the Result:
+**NOT FALSIFIED** on `BB_20_2_EMA200` Validation-3 entries. `decision_if_pass`
+is stay CONDITIONAL and **continue** to Validation-4 of the same frozen
+formula (F005 protocol §3.2: 2025-12-01 ≤ entry < 2026-03-01). There is no
+pre-registered margin floor, so thin means, 6/10 series, and 2025-10
+concentration do not stop the arm and do not open holdout. Claude review
+PASS `2026-10-03-f006-bb202-xsym-agree-sizing-val-607c9de9` on tip `cf00663`
+(FF-merged onto `origin/main` from `7144b8f`). This is not a FREEZE.
+
+Pre-declared checks, matched to
+`output/f006_bb_20_2_xsym_agree_sizing_val3/summary/cell_summary.json`
+(number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar i uses closed
+bar i−1). The Train-1 gate was checked before Validation-3 scoring was
+trusted:
+
+- control mean train1_net_pnl **95.463371** vs reference **95.3217987**
+  (abs diff 0.141572 ≤ allowance 0.23830449675 = 0.25% of |reference|).
+  Train-1-entry n **756** exact. Gate PASS.
+- sized mean val3-entry net **+8.007368** > control **+1.772572** — (a) not fired
+- pooled losing months **2 ≤ 2** — (b) not fired
+- pooled mult gap **+0.179831** (mean mult winners 1.2826086956521738 vs
+  losers 1.1027777777777779) — (c) not fired
+- val3-entry n / total closed **181 / 1407**, invariant on all series — (d) not fired
+- stake_cv **0.455172** (series min 0.301511) — (e) not fired
+
+Caveats, not extra falsifiers and not a reason to skip the next window or
+to FREEZE: both means are small (sized − control = +6.234796 per series
+mean). Only 6/10 series improve. The per-series mult gap is negative on
+ETH/XRP/DOGE 240 and zero on BTC 240. Entry-net difference by month is
+2025-09 −11.868494, 2025-10 +57.076733, 2025-11 +17.139716, so most of
+the gain is 2025-10 and 2025-09 is worse under sizing. 240m series have
+only 6–9 entries. `results.csv` `n_val3_end_of_data_exits` sums to 7 at
+the 2025-12-01 cut. Review note, not a metric and not a falsifier: the
+script computes per-series Validation-3 metrics before the gate call;
+publication and the pooled verdict stayed gated, the gate passed, and
+the independent replay matched the artifacts. §11 is not finished
+(Validation-4 and holdout are still ahead; holdout stays closed). §3.10
+and §7 say do not abandon this passed arm for a new entry axis before
+the next named validation. Status stays **CONDITIONAL**. Do not retune
+0.5 / 0.375 / 2.0. Do not copy `BB_20_25_EMA200` (that name is FREEZE on
+its own loop). Next = `H-BB-20-2-XSYM-AGREE-SIZING-VAL4-01` (same frozen
+formula, this name's Validation-4 entries only: 2025-12-01 ≤ entry <
+2026-03-01, F005 protocol §3.2).
