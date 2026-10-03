@@ -203,4 +203,38 @@ control in 2025-03 and 2025-04, and the whole entry-net gain is 2025-05 (+90.49 
 
 ## Decision
 
-(empty — coordinator only)
+**CONDITIONAL** (2026-10-03 ~12:35 Europe/Warsaw). Coordinator confirms the Result:
+**NOT FALSIFIED** on `BB_20_2_EMA200` Validation-1 entries. `decision_if_pass`
+is stay CONDITIONAL and continue to Validation-2 of the same frozen formula.
+Claude review PASS `2026-10-03-f006-bb202-xsym-agree-sizing-val-ab5c3864` on
+tip `7e18786` (FF-merged onto `origin/main` from `738b9ff`). This is not a
+FREEZE and not a holdout.
+
+Pre-declared checks, matched to
+`output/f006_bb_20_2_xsym_agree_sizing_val1/summary/cell_summary.json`
+(number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar i uses closed
+bar i−1). The Train-1 gate was checked before Validation-1 scoring:
+
+- control mean train1_net_pnl **95.463371** vs reference **95.3217987**
+  (abs diff 0.141572 ≤ allowance 0.23830449675 = 0.25% of |reference|).
+  Train-1-entry n **756** exact. Gate PASS.
+- sized mean val1-entry net **-4.002329** > control **-9.270577** — (a) not fired
+- pooled losing months **2 ≤ 2** — (b) not fired
+- pooled mult gap **+0.026608** (1.161765 vs 1.135156) — (c) not fired
+- val1-entry n / total closed **211 / 1031**, invariant on all series — (d) not fired
+- stake_cv **0.481509** (series min 0.375467) — (e) not fired
+
+Caveats, not extra falsifiers and not a reason to skip the next window or
+to FREEZE: both means are negative; sized lost more than control in
+2025-03 (−24.137407) and 2025-04 (−13.665664); the entry-net gain is
+concentrated in 2025-05 (+90.485553 against a +52.682482 total); the gap
+is small and negative on 4/10 series. §11 is not finished (Validation-2,
+Validation-3, Validation-4, and holdout are still ahead; holdout stays
+closed). §3.10 and §7 say do not abandon this passed arm for a new entry
+axis before the next named validation. Status stays **CONDITIONAL**. Do
+not retune 0.5 / 0.375 / 2.0. Do not copy `BB_20_25_EMA200` (that name is
+FREEZE on its own loop). Next =
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL2-01` (same frozen formula, this name's
+Validation-2 entries only: 2025-06-01 ≤ entry < 2025-09-01, F005 protocol
+§3.2).
