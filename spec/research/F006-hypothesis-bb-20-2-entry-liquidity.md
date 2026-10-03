@@ -209,3 +209,74 @@ floor gain come from removing a handful of small trades (a sub-$6 swing in
 card claimed.
 
 ## Decision
+
+**FALSIFIED (c).** Checked 2026-10-03 ~16:20 Europe/Warsaw against
+`output/f006_bb_20_2_entry_liquidity/cell_summary.csv`, `manifest.json`,
+and the Train-1 blotters (`train1_entry` only) on the FF-merged tip
+`776e167` (parent `df38f08`; review PASS
+`2026-10-03-f006-bb202-entry-liquidity-revie-ac02a80e`). The Result table
+matches those artifacts after ordinary rounding (gated mean
++97.2455987 prints as +97.245599; the initial_sl move of +0.084856pp
+prints as 0.08pp). Blotter recount: control 358/756, `liq_med20` 352/742.
+
+Control is exact: mean train1_net_pnl **+95.3217987** (sum 953.217987
+across 10 series), entry n **756**, entry net **+834.347778**, initial_sl
+**358/756 = 0.47354497354497355**, big-winner PnL **1251.654084307187**
+(12 trades, net≥29.9), pooled losing entry-months **7/12**.
+
+(a) does not fire. The only gated cell `liq_med20` mean train1_net_pnl is
+**+97.2455987** (sum 972.455987), which is **+1.923800/series** versus
++95.3217987. Entry n 742, entry net +853.585778.
+(b) does not fire. Frozen baseline big-winner PnL retained is
+**1251.654084307187** of 1251.654084307187 (**12/12**, fraction 1.0).
+**(c) FIRES.** `liq_med20` initial_sl share is **352/742 =
+0.4743935309973046**, which is **+0.084856pp** versus
+0.47354497354497355 (`initial_sl_share_drop_pp` =
+−0.08485574523310335). The required move is a drop of ≥10pp. The share
+rose. The +1.923800/series mean increase does not override this
+pre-registered falsifier.
+(d) does not fire. Pooled losing entry-months go **7/12 → 6/12**. 2024-04
+flips from −5.171705 to +5.007853. 2024-09 worsens from −60.434073 to
+−73.066464. The floor improvement is real and is not what (c) asked for.
+(e) does not fire. Mean trades/series is 74.2 (≥10). `number_of_trials = 1`.
+0/1 cells pass. Per-symbol train1 net (control in parentheses): BTC
+−31.807 (−35.123), DOGE +405.526 (+389.419), ETH −15.737 (−15.250), SOL
++131.958 (+131.956), XRP +482.517 (+482.215); 3/5 net-positive, unchanged.
+
+Per `decision_if_fail`: close the liquidity axis on `BB_20_2_EMA200` own
+trades. Do not retune the 20-bar median rule. Do not open a quote-volume
+conversion or a second window.
+
+**Strategy status:** **FREEZE**. Every axis licensed on
+`spec/research/strategy_profiles/BB_20_2_EMA200.md` now has an own-trades
+citation: exit (`923de9c`, `3d4edd4`), long-only and breadth (`f420078`,
+this name's cells), entry-vol (`f7ac677`), the xsym sizing formula
+(`139ed3d`), candle close-strength (`88b0ee3`), breakout depth
+(`27fa7f6`), HTF direction (`dd86dd0`), and liquidity (`776e167`). This is
+closure on this name's own trades, not a class closure and not an analogy
+to `BB_20_25_EMA200`. It is not evidence for `EMA_50_200` or
+`EMA3_13_50_200`.
+
+§4 level C permits FREEZE and level D does not permit REJECT. The ungated
+Train-1 book stays aggregate-positive (mean +95.3217987). Further
+development would require a remaining licensed axis; none remains.
+Price-versus-range is not separately licensed (candle close-strength
+already tested location in the bar). Shared-losing months (`dc9818e`)
+block §8 portfolio combination and do not license this FREEZE. The book
+is unstable across symbols (3/5 entry-cohort symbols net-positive; 8/10
+Train-1 series positive), 0/10 series pass the monthly promotion check,
+and the sizing formula failed its own Validation-4. FREEZE means keep the
+ungated book and stop tuning this name.
+
+**reason:** falsifier (c). Signal-bar base volume versus the prior-20
+median did not separate `initial_sl` deaths from `signal_reverse` runners.
+The stop share rose by 0.084856pp. The mean rose by only +1.923800/series,
+and the one-month floor gain is not the pre-registered 10pp stop-out cut.
+
+**next_action:** stop the `BB_20_2_EMA200` loop. Next CONDITIONAL catalog5
+name is `EMA_50_200` (not `EMA3_13_50_200`). Its first open own-trades
+axis, in the same order this loop used, is entry-vol / abs-ATR
+(DNR-by-transfer only; never run on that name). Pre-register
+`H-EMA-50-200-ABS-ATR-ENTRY-GATE-01` on that name's own Train-1 control
+(catalog5 mean +72.6693115, sum +726.693115). Do not treat this liquidity
+result, or +95.3217987, or +82.900262, as that name's baseline.
