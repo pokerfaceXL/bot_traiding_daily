@@ -106,7 +106,29 @@ decision_if_fail: keep CONDITIONAL; mark candle-confirm entry-structure axis clo
 
 ## Result
 
-(empty — filled by T0 worker)
+Train-1 run completed on the frozen 5-symbol × 2-interval basket. The ungated control
+reproduced all 10 reference rows exactly: mean Train-1 net PnL **+$82.900262/series**
+(+$829.002620 summed by series), while the pre-registered entry cohort reproduced
+**n=512, +$709.849209**, initial-SL share **58.01%**, big-winner PnL **$968.020732**, and
+**7/12** pooled losing entry-months. `number_of_trials = 5`.
+
+| T | mean net/series | cohort net/trade | trades/series | initial-SL share (drop) | big-winner PnL retained | pooled losing months | net-positive symbols |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | +$82.90 | +$1.386 | 51.2 | 58.01% (0.00pp) | 100.0% | 7/12 | 4/5 |
+| 0.50 | +$85.46 | +$1.468 | 50.1 | 57.68% (0.32pp) | 100.0% | 7/12 | 5/5 |
+| 0.60 | +$85.31 | +$1.501 | 48.9 | 57.46% (0.54pp) | 100.0% | 7/12 | 5/5 |
+| 0.70 | **+$89.28** | **+$1.700** | 45.5 | **56.04% (1.96pp)** | 100.0% | 7/12 | 5/5 |
+| 0.80 | +$85.17 | +$1.894 | 38.8 | 58.76% (-0.76pp) | 92.4% | 7/12 | 4/5 |
+| 0.90 | +$43.36 | +$1.467 | 25.9 | 57.53% (0.48pp) | 19.2% | **5/12** | 3/5 |
+
+**FALSIFIED by (c).** The best-PnL threshold, T=0.70, improved mean PnL by $6.38/series
+and retained every pre-frozen big winner, but reduced initial-SL share by only **1.96pp**,
+far short of the required 10pp. Falsifier (a) did not trigger (T=0.50–0.80 beat control);
+(b) did not trigger (all thresholds were non-thin and T=0.50–0.80 retained >50%); (d) was
+not independently applicable because no cell passed (c)—empirically T=0.50–0.80 stayed
+at 7/12, while T=0.90 reached 5/12 only by failing PnL and big-winner retention; (e) did
+not trigger (all cells remained above 10 trades/series). No threshold passed all declared
+checks. Artifacts: `output/f006_bb_20_25_entry_candle_confirm/`.
 
 ## Decision
 
