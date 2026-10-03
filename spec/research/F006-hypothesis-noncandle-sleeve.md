@@ -165,5 +165,73 @@ frozen rule only.
 
 ## Result
 
-Not run yet. Frozen rule written before any result. OI cache coverage
-passed. Await T0.
+Run: `python3 scripts/f006_noncandle_oi_fade.py` (script commit
+`7eb04c1`; artifacts `output/f006_noncandle_oi_fade/`). `number_of_trials = 1`,
+60-minute Train-1 bars only (`f006_family_runner.load_train1`, checksums equal
+the protocol section 6 values). OI read from
+`data_cache/open_interest/<SYM>_oi_1h_...csv` with sha256 checked against
+`manifest.json`. Costs are the existing harness costs (commission 10, half-spread 5,
+slippage 2 bps, leverage 1, stake 100, equity 500, NO_TRAIL exit geometry
+`max_sl_pct` 0.03). No funding, no threshold, no grid.
+
+Timing as implemented. The signal on the bar opening at s is
+`-sign(OI[s] - OI[s-1])`. The engine fills it at the open of t = s+1h, so the
+position held over hour t uses exactly OI[t-1] and OI[t-2]. A same-sign signal
+keeps the position. An opposite sign closes it at the bar-s close
+(`signal_reverse`) and re-enters at the open of t. The 3% initial stop stays
+active. With cooldown 0, the next signal re-enters after a stop. Independent
+check against the trade files: in all 6,634 entries, the direction equals
+`-sign(OI[t-1h] - OI[t-2h])` at `entry_time` (0 mismatches). The cache has no
+OI ties and no gaps. The only flat hour is the first bar per symbol, before
+any position exists. The script refuses to score if a flat hour falls inside a
+hold, because the engine cannot go flat on signal 0.
+
+Control (empty entry mask, same script): 0 trades, total_costs 0, net 0,
+final equity 500 on 5/5. Baseline = 0.
+
+OI consumption check (candles held fixed), run before scoring. Not INVALID:
+
+| symbol | entries (real) | entries (OI shuffled, seed 20261004) | entries (OI zeroed) | OI omitted / empty |
+|---|---|---|---|---|
+| SOLUSDT | 1405 | 977, differ | 0 | refused / refused |
+| ETHUSDT | 1423 | 1204, differ | 0 | refused / refused |
+| BTCUSDT | 1120 | 1330, differ | 0 | refused / refused |
+| XRPUSDT | 1505 | 1284, differ | 0 | refused / refused |
+| DOGEUSDT | 1181 | 1128, differ | 0 | refused / refused |
+
+Shuffling OI changes the signal on about 4,750-4,800 of 9,600 bars per
+symbol. Zeroing OI changes 9,599 bars. Every symbol's entry list differs from
+the real run's.
+
+Train-1 score (net_pnl by Europe/Warsaw exit month, 2024-03 .. 2025-02):
+
+| symbol | Train-1 trades | gross | total_costs | net | shared-month net | warm-up net |
+|---|---|---|---|---|---|---|
+| SOLUSDT | 996 | +30.1276 | 318.7824 | -288.6547 | -288.6547 | -112.7942 |
+| ETHUSDT | 1006 | +41.6907 | 321.9519 | -280.2613 | -280.2613 | -120.4503 |
+| BTCUSDT | 735 | -4.4415 | 235.2006 | -239.6421 | -239.6421 | -162.0094 |
+| XRPUSDT | 1088 | +68.1212 | 348.1454 | -280.0242 | -280.0242 | -120.1495 |
+| DOGEUSDT | 729 | -59.6260 | 233.2785 | -292.9045 | -292.9045 | -107.0979 |
+
+**Mean net = -276.297349 <= 0. (a) FIRED.**
+
+**(b):** sum of net_pnl over {2024-03, 2024-04, 2024-05, 2024-08, 2024-09,
+2024-12} across the five symbols = **-1381.486747 <= 0. (b) FIRED.**
+
+**FALSIFIED (a)+(b).**
+
+Note: every book hits the engine margin floor early. Equity falls below the
+100 stake (`InsufficientMarginError`, documented engine contract) on BTCUSDT
+2024-04-29, DOGEUSDT 2024-05-01, SOLUSDT 2024-05-20, ETHUSDT 2024-05-24, and
+XRPUSDT 2024-05-29. From then on, every entry is skipped (6,617-7,328 skips per
+symbol), so June 2024 through February 2025 book 0. The Train-1 net is
+therefore truncated, not a full-year figure. All Train-1 trades exit in
+2024-03..05, which is why shared-month net equals net. The truncation cannot
+flip either falsifier. Gross before costs is about +76 summed across the five
+symbols over about 4,550 trades. That is about +0.017 per trade against about
+0.32 of round-trip cost per trade, so more trading only adds cost. Frequent
+flips (about one trade every two hours until the margin floor) are a property of the frozen rule, not a
+retune target.
+
+## Decision
+

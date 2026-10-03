@@ -43,5 +43,16 @@ score.
 
 ## Result
 
-Await T0. Frozen rule written before any result. OI coverage passed
-(9600 hourly rows per symbol, gaps=0).
+FALSIFIED (a)+(b). The run consumed OI, so it is not INVALID. Details are in
+`spec/research/F006-hypothesis-noncandle-sleeve.md` `## Result`. Artifacts are
+in `output/f006_noncandle_oi_fade/`. Script: `scripts/f006_noncandle_oi_fade.py`.
+
+- Control: 0 trades, total_costs 0, net 0 on all five symbols.
+- OI consumed: shuffled OI and zeroed OI both change the entries on 5/5
+  symbols with candles fixed. Omitted or empty OI refuses to score. Trade
+  directions match `-sign(OI[t-1]-OI[t-2])` on all 6,634 entries.
+- Mean Train-1 net = -276.297349. (a) fired.
+- Shared-losing-month sum = -1381.486747. (b) fired.
+- Every book hit the 100 margin floor by 2024-05-29, so June 2024 onward books 0
+  and the net is truncated. The truncation cannot flip either falsifier.
+- Decision: blank (owner).
