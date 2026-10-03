@@ -206,4 +206,76 @@ untouched; no FREEZE; Decision left to the coordinator.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~20:10 Europe/Warsaw against
+`output/f006_ema3_13_50_200_abs_atr_gate/cell_summary.csv`, `grid_freeze.json`, and
+`manifest.json` on the FF-merged tip `46e4509` (parent `d74c5dd`; review PASS
+`2026-10-03-f006-ema31350200-abs-atr-01-revi-850be7e5`, engine claude). The Result
+table matches those artifacts after ordinary rounding (t_2_0 mean prints
+`83.40875259999999`, reported as +83.4087526; initial_sl drop prints
+4.045569655772319 pp, reported as 4.04557 pp). Manifest `passing_cells` is `[]`
+and `decision` is null. Harness control `max_abs_train1_diff` is 0.0.
+
+The Result text labels (d) "FALSIFIED / not reachable". That is not the card's
+label. (d) is not part of this Decision.
+
+Control reproduced this name's catalog5 baseline and this experiment's
+artifacts: mean Train-1 net **+91.1483016/series** (sum +911.483016), entry
+cohort **n=423, +771.2836172145886**, initial-SL share **292/423 =
+0.6903073286052009 (69.03%)**, big-winner set **9 trades, +1131.9561537333418**
+(net≥29.9), pooled losing entry-months **7/12**. Frozen median entry ATR%
+**1.3050960028982004**. `number_of_trials = 5`. Going forward, this name's
+baseline is the reproduced control mean **+91.1483016** from
+`output/f006_ema3_13_50_200_abs_atr_gate/` (identical to the catalog5 rows).
+Not +72.6693115. Not +95.3217987.
+
+Best-PnL cell **t_2_0** (T=2.0%): mean **+83.4087526/series** (delta
+**−7.739549** vs +91.1483016), n=337 (33.7/series). Initial-SL share
+**0.6498516320474778**, drop **4.045569655772319 pp** (required ≥10 pp).
+Big-winner PnL retained **85.1%** (7/9, +963.5433955729194). Floor stays
+**7/12**. The cells that cut initial-SL by ≥10 pp (t_1_0, t_1_25) sit at
++10.5677806 and +34.3288584/series and keep 6.0% and 31.4% of big-winner PnL.
+The median cell cuts 9.35 pp (<10 pp).
+
+(a) fires: every T has mean Train-1 net ≤ +91.1483016. Applied sentence:
+"mean train1_net_pnl ≤ baseline at every T".
+(b) does not fire: t_2_0 (non-thin) keeps 85.1% of big-winner PnL, so it is
+not true that every non-thin T removes >50%.
+(c) fires: at the best-PnL T the initial-SL drop is 4.04557 pp. Applied
+sentence: "initial_sl share fails to fall ≥10pp at the best-PnL T".
+(d) is not reachable: no T passes (a)–(c). Applied sentence: "pooled
+losing-month floor does not improve (stays ≥ baseline floor) at every T
+that otherwise passes (a)–(c)". Informational: no cell improves the floor
+(median / 1.25 / 1.5 / 2.0 stay 7/12 on the same seven months; t_1_0 swaps
+2025-01 for 2024-11 and is still 7/12). A flat floor is not (d) on this
+card. Same treatment as the `EMA_50_200` abs-ATR Decision, which was
+FALSIFIED (a)+(c) with (d) not reachable.
+(e) does not fire: every cell is non-thin (≥18.3 entries/series). No cell
+passed the pre-declared checks.
+
+Entry-vol / abs-ATR is closed on `EMA3_13_50_200` own trades. Do not retune T.
+Do not treat this as evidence about `EMA_50_200`, `BB_20_2_EMA200`, or
+`BB_20_25_EMA200`. Do not copy +72.6693115, +95.3217987, +82.900262, or
++126.744211 onto this name. The `EMA_50_200` FREEZE is not this name's FREEZE.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. This is the first closed
+own-trades axis on this name in this loop. Exit, long-only, breadth, and now
+entry-vol are closed here. Position sizing has never been tested on this
+name. Other §8 entry structure (candle confirm, breakout structure, HTF
+direction, liquidity) has not been pre-registered here. §7 develop-not-abandon:
+do not leave this name while a licensed axis is still open. Do not start
+funding-carry, spread-capture, or catalog mean-reversion.
+
+**reason:** falsifiers (a) and (c) only. A keep-low-ATR gate on this name's own
+trades does not raise mean Train-1 net PnL, and the best-PnL threshold does
+not cut the initial-SL share by 10 pp. Tighter thresholds that do cut stops
+also cut the runners that carry the aggregate edge. The floor did not move;
+that fact is informational because (d) was not reachable.
+
+**next_action:** one position-sizing hypothesis on this name only,
+`H-EMA3-13-50-200-XSYM-AGREE-SIZING-01`. The ungated book is aggregate-positive
+(+91.1483016/series from this experiment's reproduced control), so §8
+allows sizing. The stake map is a structural encoding of peer-symbol
+agreement on this name's own persistent signal, not an abs-ATR retune and
+not a copy of the `EMA_50_200` sized mean +126.744211 or of any BB sizing
+Train-1 / validation result. If sizing fails, candle confirm is the
+following open axis. decision_if_fail stays CONDITIONAL.

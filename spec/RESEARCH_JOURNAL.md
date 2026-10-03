@@ -26,7 +26,7 @@
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
 | `EMA_50_200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (a)+(c)+(d) at `48aef9f` (gated +66.5789284, −6.0903831/series, SL drop 1.165173pp, floor still 7/12); not a class closure; not REJECT | `strategy_profiles/EMA_50_200.md` |
-| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry-vol still open; next `H-EMA3-13-50-200-ABS-ATR-ENTRY-GATE-01` on this name's catalog5 mean +91.1483016 | `strategy_profiles/EMA3_13_50_200.md` |
+| `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `46e4509`; (d) not reachable) | abs-ATR closed on own trades; sizing still open; next `H-EMA3-13-50-200-XSYM-AGREE-SIZING-01` on reproduced baseline +91.1483016; do not FREEZE | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
 | `XS_RS_*` (cross-sectional RS), `ORB_UTC_*`, `ORB_LON/NY_*` (session ORB) | CLOSED / FALSIFIED | yes | new non-catalog signal families; H1 falsified or H2 0/N → closed | `F006-hypothesis-{cross-sectional-rs,opening-range-breakout,orb-session-anchor}.md` |
@@ -210,6 +210,31 @@ observation 7/12. Do not copy +72.6693115, +95.3217987, or +82.900262.
 `number_of_trials = 5`. Not a liquidity retune. Not funding-carry. Not
 spread-capture. Not catalog mean-reversion. Not holdout. Not FREEZE in
 this commit. `EMA3_13_50_200` stays CONDITIONAL.
+
+
+**EMA3_13_50_200 abs-ATR FALSIFIED (a)+(c); name stays CONDITIONAL.**
+`H-EMA3-13-50-200-ABS-ATR-ENTRY-GATE-01` is **FALSIFIED (a)+(c)** at `46e4509`
+(review PASS `2026-10-03-f006-ema31350200-abs-atr-01-revi-850be7e5`).
+Control exact +91.1483016 (max abs diff 0.0), n=423, initial_sl 292/423,
+floor 7/12, big winners 9 / +1131.9561537333418. Best t_2_0 mean +83.4087526
+(delta −7.739549/series), n=337, initial_sl drop 4.04557 pp, big-winner PnL
+kept 85.1%. (a) and (c) fired. (b) and (e) did not. (d) is not reachable:
+no T passes (a)–(c); the flat 7/12 floor is informational only. Do not write
+(d) into the label. Do not FREEZE. This is the first closed own-trades axis
+on this name in this loop. Not evidence for other names. Baseline going
+forward = reproduced control **+91.1483016**. Section 15:
+`spec/research/F006-coordinator-series-report-ema3-13-50-200-abs-atr-entry-gate.md`.
+
+**Next = `H-EMA3-13-50-200-XSYM-AGREE-SIZING-01`** (pre-registered;
+ticket `spec/features/active/F006-ema31350200-xsym-agree-sizing-01/ticket.md`).
+One §8 position-sizing change on `EMA3_13_50_200` own Train-1 trades.
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)` on this name's persistent
+signal. `number_of_trials = 1`. Control must reproduce **+91.1483016**.
+Do not copy +72.6693115 or +126.744211. A non-improving floor falsifies (b)
+on that card and closes the formula with no validation window. If it fails,
+decision_if_fail stays CONDITIONAL and names candle confirm. Not an abs-ATR
+retune. Not funding-carry. Not spread-capture. Not catalog mean-reversion.
+Not holdout. Not FREEZE in this commit.
 
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
@@ -713,3 +738,24 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   or +95.3217987. Not a transfer of the `EMA_50_200` FREEZE. Sizing and other
   entry structure stay open after this axis. Do not FREEZE in this commit.
   Ticket `spec/features/active/F006-ema31350200-abs-atr-01/ticket.md`.
+
+- **2026-10-03 ~20:10 Europe/Warsaw** — **H-EMA3-13-50-200-ABS-ATR-ENTRY-GATE-01 = FALSIFIED (a)+(c)**.
+  Tip `46e4509` FF-merged to `origin/main` (parent `d74c5dd`). Review PASS
+  `2026-10-03-f006-ema31350200-abs-atr-01-revi-850be7e5`. Control +91.1483016 /
+  n=423 / initial_sl 292/423 / floor 7/12 / big-winner 9 / +1131.9561537333418
+  reproduced from `output/f006_ema3_13_50_200_abs_atr_gate/`. Best t_2_0 mean
+  +83.4087526 (delta −7.739549/series); initial_sl drop 4.04557 pp; big-winner
+  PnL kept 85.1%; floor stayed 7/12. (a)(c) fired; (b)(e) did not; (d) not
+  reachable. Decision = **FALSIFIED (a)+(c)**. Profile stays **CONDITIONAL**.
+  Do not FREEZE. Not evidence for other names. §15:
+  `spec/research/F006-coordinator-series-report-ema3-13-50-200-abs-atr-entry-gate.md`.
+
+- **2026-10-03 ~20:10 Europe/Warsaw** — **H-EMA3-13-50-200-XSYM-AGREE-SIZING-01 pre-registered**
+  (position sizing on CONDITIONAL `EMA3_13_50_200` own trades; structural
+  `clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`; Train-1 only; `number_of_trials = 1`;
+  control mean +91.1483016 from this name's reproduced baseline). Not a
+  transfer of +126.744211 or of any BB sizing result. A flat floor falsifies
+  (b) and closes the formula with no Val window. Entry-vol on this name stays
+  closed. If sizing fails, candle confirm is next and the name stays
+  CONDITIONAL. Do not FREEZE. Ticket
+  `spec/features/active/F006-ema31350200-xsym-agree-sizing-01/ticket.md`.
