@@ -1,0 +1,225 @@
+{
+  "hypothesis": "H-EMA-50-200-ENTRY-LIQUIDITY-01",
+  "git_commit": "57689fd74ca46c3562ea7360ce3e6f27d690b620",
+  "run_started_utc": "2026-10-03T17:09:06.202519+00:00",
+  "source_sha256": {
+    "scripts/f006_ema_50_200_entry_liquidity.py": "2d6096738b9416b0f3f80ef48422fc8d28c509895e1e361998a64c22808439c5",
+    "scripts/f006_family_runner.py": "d76acf0e23cee04dbfa33303c7481bfe2f3ea56f726121078d7a97c1b78f7788",
+    "entry_masks.py": "af27d51b710e9e2ffc3217821b4986f6f2062d8154262dc131adf48fe03cac10"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "checksums_used": {
+    "SOLUSDT_240": "d70b64f3a8730a34fa9dab462b409f7d826e547db584fdc219acdc8d4f6e2174",
+    "SOLUSDT_60": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b",
+    "ETHUSDT_240": "781b50001b94cd76a576fb4ef8321b893c68470cdc3dc72854804556e3e94a95",
+    "ETHUSDT_60": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "BTCUSDT_240": "94491aead67f72d67a8cf0723d383966309ea119426b82793ef18835a36c61eb",
+    "BTCUSDT_60": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "XRPUSDT_240": "02f0d2a2372d1b1282821228dedfc1a608135c7e25e453ee714a25efa1cc4d49",
+    "XRPUSDT_60": "bc970b808a3975295a5cff9e66e72b50c602eecd2d35441d0dcbf3057113c6dd",
+    "DOGEUSDT_240": "b96eb360778ee96384a18c725b92b6737dd33d66c2a2b10f24fdc65aaf7ec2b0",
+    "DOGEUSDT_60": "a6509502f310b4dadf1c29e5b9cd785671bc4e16ad1de75829deb4ce1c7243fe"
+  },
+  "checksum_reference": "output/f006_ema_50_200_abs_atr_gate/grid_freeze.json",
+  "data_window": [
+    "2024-01-26T00:00:00Z",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "validation_holdout_loaded": false,
+  "params": {
+    "activate_pct": 10.0,
+    "trail_pct": 0.04,
+    "max_sl_pct": 0.03,
+    "cooldown_candles": 0,
+    "stake": 100.0,
+    "initial_equity": 500.0,
+    "leverage": 1.0,
+    "atr_multiplier": 1.5,
+    "commission_rate_bps": 10.0,
+    "half_spread_bps": 5.0,
+    "slippage_bps": 2.0
+  },
+  "mask": "EMA_50_200 one_shot AND native base volume[i] >= median(volume[i-20:i]) (signal bar excluded; <20 prior bars, missing volume, non-finite or <=0 median reject; ties kept; no quote volume / vol_ratio / vol_ma20); exits use ungated signal",
+  "volume_window": 20,
+  "volume_column": "volume",
+  "big_winner_definition_frozen": "baseline trade net_pnl >= 29.9",
+  "gated_cells": [
+    "liq_med20"
+  ],
+  "number_of_trials": 1,
+  "harness_control": {
+    "rows_compared": 10,
+    "columns": [
+      "train1_net_pnl",
+      "n_trades"
+    ],
+    "max_abs_train1_diff": 0.0,
+    "source": "output/f006_notrail_monthly_catalog5/summary/results.csv"
+  },
+  "control_reference_match": {
+    "mean_train1_net_pnl": [
+      72.6693115,
+      72.6693115
+    ],
+    "n_train1_entry_trades": [
+      330,
+      330
+    ],
+    "entry_cohort_net_pnl": [
+      587.3851786486205,
+      587.3851786486205
+    ],
+    "initial_sl_share": [
+      0.6454545454545455,
+      0.6454545454545455
+    ],
+    "big_winner_pnl": [
+      843.7639016181568,
+      843.7639016181568
+    ],
+    "big_winner_count": [
+      5,
+      5
+    ],
+    "losing_entry_months": [
+      7,
+      7
+    ],
+    "source": "output/f006_ema_50_200_entry_htf_direction/cell_summary.csv"
+  },
+  "data_cache": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "control_mean_train1_net_pnl": 72.6693115,
+  "control_entry_cohort_n": 330,
+  "control_entry_cohort_net_pnl": 587.3851786486205,
+  "control_losing_entry_months": 7,
+  "metric_cohort": "2024-03-01 <= entry_time < 2025-03-01 UTC",
+  "retention": "sum baseline net>=29.9 trades retained by symbol/interval/entry_time/direction; matched economics must be identical",
+  "cells": [
+    {
+      "cell": "control",
+      "gated": false,
+      "mean_train1_net_pnl": 72.6693115,
+      "pooled_train1_net_pnl": 726.693115,
+      "entry_cohort_net_pnl": 587.3851786486205,
+      "entry_cohort_net_per_trade": 1.7799550868140015,
+      "n_train1_entry_trades": 330,
+      "mean_n_trades_per_series": 33.0,
+      "n_closed_trades_including_warmup": 364,
+      "initial_sl_share": 0.6454545454545455,
+      "initial_sl_share_drop_pp": 0.0,
+      "baseline_big_winner_count": 5,
+      "retained_big_winner_count": 5,
+      "baseline_big_winner_pnl": 843.7639016181568,
+      "retained_big_winner_pnl": 843.7639016181568,
+      "big_winner_pnl_retained_fraction": 1.0,
+      "cohort_big_winner_pnl": 843.7639016181568,
+      "losing_entry_months": 7,
+      "entry_month_net_pnl": {
+        "2024-03": -47.009831168277366,
+        "2024-04": -70.0012605414159,
+        "2024-05": -57.706010123180974,
+        "2024-06": 45.247682015163605,
+        "2024-07": 48.22449620028761,
+        "2024-08": -59.131091766058546,
+        "2024-09": -28.727389783497834,
+        "2024-10": 49.86993378933042,
+        "2024-11": 816.8088258402427,
+        "2024-12": -38.772241194063746,
+        "2025-01": -138.77903329696616,
+        "2025-02": 67.3610986770566
+      },
+      "n_net_positive_symbols": 3,
+      "per_symbol_train1_net_pnl": {
+        "BTCUSDT": -38.449499,
+        "DOGEUSDT": 236.51325699999998,
+        "ETHUSDT": -35.691373000000006,
+        "SOLUSDT": 16.958778000000002,
+        "XRPUSDT": 547.361952
+      },
+      "per_symbol_losing_entry_months": {
+        "SOLUSDT": 8,
+        "ETHUSDT": 8,
+        "BTCUSDT": 8,
+        "XRPUSDT": 9,
+        "DOGEUSDT": 7
+      },
+      "checks": {
+        "mean_beats_control": false,
+        "initial_sl_down_10pp": false,
+        "big_winner_pnl_retained_50pct": true,
+        "pooled_losing_month_floor_improves": false,
+        "not_thin": true
+      },
+      "pass": false
+    },
+    {
+      "cell": "liq_med20",
+      "gated": true,
+      "mean_train1_net_pnl": 66.57892840000001,
+      "pooled_train1_net_pnl": 665.7892840000001,
+      "entry_cohort_net_pnl": 663.9768599877262,
+      "entry_cohort_net_per_trade": 3.1172622534635033,
+      "n_train1_entry_trades": 213,
+      "mean_n_trades_per_series": 21.3,
+      "n_closed_trades_including_warmup": 222,
+      "initial_sl_share": 0.6338028169014085,
+      "initial_sl_share_drop_pp": 1.1651728553137009,
+      "baseline_big_winner_count": 5,
+      "retained_big_winner_count": 5,
+      "baseline_big_winner_pnl": 843.7639016181568,
+      "retained_big_winner_pnl": 843.7639016181568,
+      "big_winner_pnl_retained_fraction": 1.0,
+      "cohort_big_winner_pnl": 843.7639016181568,
+      "losing_entry_months": 7,
+      "entry_month_net_pnl": {
+        "2024-03": -22.761270985321172,
+        "2024-04": -64.79401447026625,
+        "2024-05": -22.39054806979585,
+        "2024-06": 25.19067124813624,
+        "2024-07": 21.41033201742914,
+        "2024-08": -35.950732220816164,
+        "2024-09": -15.490282175551961,
+        "2024-10": 73.78073378538619,
+        "2024-11": 813.0979357952483,
+        "2024-12": -22.15874119406375,
+        "2025-01": -90.88451198399105,
+        "2025-02": 4.927288241332423
+      },
+      "n_net_positive_symbols": 3,
+      "per_symbol_train1_net_pnl": {
+        "BTCUSDT": -54.985027,
+        "DOGEUSDT": 166.735442,
+        "ETHUSDT": -18.090914,
+        "SOLUSDT": 26.085614,
+        "XRPUSDT": 546.044169
+      },
+      "per_symbol_losing_entry_months": {
+        "SOLUSDT": 9,
+        "ETHUSDT": 6,
+        "BTCUSDT": 8,
+        "XRPUSDT": 10,
+        "DOGEUSDT": 7
+      },
+      "checks": {
+        "mean_beats_control": false,
+        "initial_sl_down_10pp": false,
+        "big_winner_pnl_retained_50pct": true,
+        "pooled_losing_month_floor_improves": false,
+        "not_thin": true
+      },
+      "pass": false
+    }
+  ],
+  "falsifiers": {
+    "a_mean_not_above_control": true,
+    "b_removes_over_half_big_winner_pnl": false,
+    "c_initial_sl_fails_10pp_drop": true,
+    "d_pooled_losing_month_floor_not_improved": true,
+    "e_thin_under_10_trades_per_series": false
+  },
+  "hypothesis_falsified": true,
+  "passing_cells": [],
+  "no_trail_violations": 0,
+  "retained_trade_economics_mismatches": 0
+}

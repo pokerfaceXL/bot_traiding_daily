@@ -179,7 +179,75 @@ decision_if_fail: liquidity is the last open licensed axis this profile names, o
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `scripts/f006_ema_50_200_entry_liquidity.py` at harness commit
+`57689fd` (manifest `git_commit`), Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` from the main checkout's
+`data_cache` (`F006_DATA_CACHE`); checksums equal
+`output/f006_ema_50_200_abs_atr_gate/grid_freeze.json`. No validation /
+holdout loaded. Artifacts: `output/f006_ema_50_200_entry_liquidity/`
+(`grid_freeze.json` written after the control check and before the gated
+cell; `cell_summary.csv`, `results.csv`, `manifest.json`, `run.log`,
+per-cell `raw/` + `blotters/`).
+
+Control: reproduces this name's ungated Train-1 baseline exactly. Mean
++72.6693115 (sum +726.693115); entry n 330, entry net +587.3851786486205;
+initial_sl 213/330 = 0.6454545454545455; big winners (net>=29.9, frozen on
+this run's ungated blotter) 5 trades / +843.7639016181568 (HTF freeze
+confirmed); pooled losing entry-months 7/12. Max abs diff vs the catalog5
+per-series table is 0.0 (10/10 rows, train1_net_pnl + n_trades). Every
+metric matches the HTF-direction control row (diff 0).
+
+`number_of_trials = 1`. Gate: keep a one-shot signal only when the signal
+bar's native base `volume` >= median(volume[i-20:i]) (signal bar excluded;
+fewer than 20 prior bars, missing volume, or a non-finite / <=0 median
+reject; ties kept; no quote volume, `vol_ratio`, or `vol_ma20`). Exits use
+the ungated signal.
+
+| cell | mean/series | entry n (per series) | entry net | initial_sl share (drop pp) | big-winner kept (n / PnL / frac) | losing months /12 | net+ symbols |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| control | +72.6693115 | 330 (33.0) | +587.3852 | 0.6455 (0.00) | 5 / +843.7639 / 1.000 | 7 | 3/5 |
+| liq_med20 | +66.5789284 | 213 (21.3) | +663.9769 | 0.6338 (+1.17) | 5 / +843.7639 / 1.000 | 7 | 3/5 |
+
+The gate kept 213 of 330 Train-1 entries (64.5%) and lowered the mean by
+−6.0903831/series. Initial_sl share fell only 1.17 pp (213/330 →
+135/213 = 0.6338). All five big winners were kept (100% of big-winner
+PnL). The pooled floor stayed at 7/12. Losing entry-months (gated):
+2024-03, -04, -05, -08, -09, -12, 2025-01. Per-symbol Train-1 net (gated):
+XRP +546.04, DOGE +166.74, SOL +26.09, ETH −18.09, BTC −54.99.
+
+Informational, not a pass line: the Train-1 *entry cohort* net rose
+(+587.3852 → +663.9769; net/trade +1.7800 → +3.1173), while the
+pre-declared primary metric (mean `train1_net_pnl`, which also counts
+trades opened in the Jan–Feb 2024 warm-up) fell. Closed trades including
+warm-up went 364 → 222; the non-cohort part of pooled train1 net went
++139.3079 → +1.8124. The card's primary metric is mean `train1_net_pnl`,
+so (a) is scored on it as written. The flag case (lower floor with >=50%
+big-winner PnL and >=10 trades/series) did not occur: big winners and
+trade count held, but the floor did not move. Nothing to flag.
+
+Falsifiers (pre-declared):
+- (a) mean <= baseline — **FIRES** (+66.5789284 <= +72.6693115).
+- (b) removes >50% big-winner PnL — does not fire (kept 100%).
+- (c) initial_sl share fails a >=10pp drop — **FIRES** (dropped 1.17 pp).
+- (d) pooled floor does not improve — **FIRES** (7/12, equal to control).
+- (e) mean trades/series < 10 — does not fire (21.3).
+
+**Result: FALSIFIED (a)+(c)+(d)** on this name's own Train-1 trades. No
+passing cell. Above-median base volume on the signal bar kept the runners
+but did not lower the fixed-stop death rate or the losing-month floor.
+
+Checks run: in-run control replay asserts (catalog5 table, HTF-direction
+control row, checksum freeze); in-run matched-trade economics identity
+(net / exit_time / exit_reason unchanged for every retained trade). An
+independent recount (plain Python `statistics.median` over the 20 prior
+closed-bar volumes for every one-shot bar, no pandas rolling) matched the
+gated `n_calls` on all 10 series (0 mismatches; 240m 6–13 kept, 60m 30–45
+kept). Focused unit test `tests/test_ema_50_200_entry_liquidity.py`
+(7 cases: card targets this name, gate ignores ema/ATR/vol_ratio/vol_ma20
+decoys, below-median rejects / tie keeps, short window rejects, zero
+median and missing volume reject, signal bar outside its window, one-shot
+intersection) passes; full suite 502 passed / 8 skipped. Profile `status:`
+was not changed (still CONDITIONAL).
 
 ## Decision
 
