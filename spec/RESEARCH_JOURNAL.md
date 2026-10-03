@@ -88,7 +88,31 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-03 ~23:51 Europe/Warsaw — owner direction)
+## Next planned step (2026-10-04 ~00:27 Europe/Warsaw — non-candle sleeve INVALID, no spawn)
+
+Trader kierunku approved one non-candle book. The search found no loadable
+source. Candle cache columns are `timestamp, open, high, low, close, volume`
+(`scripts/f006_family_runner.py` `load_train1`). Funding
+(`scripts/f006_funding_carry.py` `load_funding`) is not one of the four
+sources and is already **FALSIFIED (a)+(b)**, mean M -318.858103, Decision
+`03d49bd`. `liq_range_eqh.py` and `btc_filter.py` are candle proxies.
+`output/f006_shared_losing_months/summary.json` `ge_5_of_5` months match the
+owner list: 2024-03, 2024-04, 2024-05, 2024-08, 2024-09, 2024-12 (same as
+`ge_4_of_5`; `ge_3_of_5` adds 2025-01 and is not used).
+
+**Card:** `H-NONCANDLE-SLEEVE-01` is **INVALID**. First line: add that
+source to the harness, else the test is invalid. No named file, so no
+spawn and no data hunt. `number_of_trials = 1` unspent. Baseline flat cash
+0. Falsifiers, unfired: (a) Train-1 mean after costs <= 0; (b) sleeve net
+after costs summed over those six Warsaw exit months <= 0. `decision_if_fail`
+closes this sleeve's first mechanism only after a real run; it does not
+unfreeze catalog names and does not open a catalog portfolio. Do not touch
+EMA/BB/Donchian filters, catalog mean-reversion, spread capture, funding
+carry, XS_RS / ORB / swarm. Note:
+`spec/research/F006-hypothesis-noncandle-sleeve.md`. Ticket:
+`spec/features/active/F006-noncandle-sleeve-01/ticket.md`.
+
+## Next planned step (superseded 2026-10-04 — was owner direction at 23:51; the approved direction found no source)
 
 Both parked families are closed. Spread-capture stays closed (no sweep;
 widest DOGEUSDT inside spread 1.076716 bps < 17). `H-FUNDING-CARRY-01` is
@@ -421,7 +445,24 @@ pre-registration: the next name is an owner decision. Section 15:
   the coordinator: the `decision` value, the §15 report, the next hypothesis, the profile
   `status:` line.
 
-## §15 Coordinator report (updated 2026-10-03 ~23:51 Europe/Warsaw, funding-carry closed)
+## §15 Coordinator report (updated 2026-10-04 ~00:27 Europe/Warsaw, non-candle sleeve INVALID)
+
+`H-NONCANDLE-SLEEVE-01` is pre-registered and **INVALID**. No T0. No spawn.
+The approved direction needs one source the catalog candles do not have.
+That source is not in the harness.
+
+1. **Best strategy now?** None promotable. Every catalog5 name and `DONCHIAN_55_NO_TRAIL` stay **FREEZE**.
+2. **Why that name?** No catalog name has an open licensed axis. Entry axes are falsified. Both parked families are closed.
+3. **Edge from many trades or few big wins?** The frozen breakout book is still a few big wins. This sleeve has no trades.
+4. **Earns when?** Not known. There is no non-candle series to condition on.
+5. **Loses when?** Catalog book: shared basket regime, the six months in `summary.json` `ge_5_of_5`. Carry: every Warsaw symbol-day. Spread: inside spread 1.076716 bps < 17.
+6. **Rejected hypotheses?** Funding-carry **FALSIFIED (a)+(b)** (`03d49bd`, mean M -318.858103). Spread-capture **closed**, no sweep. Catalog mean-reversion stays closed. XS_RS / ORB / swarm stay closed. This sleeve is not rejected; it was not run.
+7. **Unresolved problem?** A book that is positive after costs inside those six shared losing months. Section 8 portfolio stays blocked. The missing piece is the source, not another candle filter.
+8. **Next experiment & why?** None to run. `H-NONCANDLE-SLEEVE-01` first line: add that source to the harness, else the test is invalid. No named file, so do not spawn a hunt.
+9. **Why not a random search?** Section 13 is on the card. Existing families are insufficient for the reasons in that block. Inventing a second family or a candle proxy would not be the approved direction.
+10. **What result confirms or refutes it?** Nothing was scored. (a) Train-1 mean after costs <= 0. (b) six-month Warsaw exit-month sum of `net_pnl` <= 0. A run that does not consume the non-candle source is INVALID, not a confirmation.
+
+## §15 archive (2026-10-03 ~23:51 Europe/Warsaw, funding-carry closed)
 
 `H-FUNDING-CARRY-01` is **FALSIFIED (a)+(b)**. Funding-carry is closed.
 Spread-capture stays closed. No catalog name was unfrozen. No next card.
@@ -583,6 +624,16 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
 10. **What result confirms/refutes the next hypothesis?** On the liquidity card. Control must reproduce +95.3217987, n=756, initial_sl 0.47354497354497355, big-winner 1251.654084307187, floor 7/12. Pass needs mean above control AND initial_sl drop ≥10pp AND ≥50% big-winner PnL retained AND floor strictly below 7/12, without collapsing below 10 trades/series. Any of (a)–(e) fails it. Binary gate, `number_of_trials = 1`. A falsification on this name's own trades would allow §4 level C FREEZE at that Decision; this commit does not set it.
 
 ## Chronological log
+
+- **2026-10-04 ~00:27 Europe/Warsaw** — **H-NONCANDLE-SLEEVE-01 pre-registered INVALID**.
+  Trader kierunku approved one non-candle book. No order-flow, open-interest,
+  liquidation, or non-candle cross-asset series is loadable. Funding stays
+  closed (mean M -318.858103, Decision `03d49bd`). Shared-losing months match
+  `summary.json` `ge_5_of_5`: 2024-03, 2024-04, 2024-05, 2024-08, 2024-09,
+  2024-12. First line: add that source to the harness, else the test is
+  invalid. No spawn. `number_of_trials = 1` unspent. Do not unfreeze catalog
+  names. Do not open a catalog portfolio. Ticket
+  `spec/features/active/F006-noncandle-sleeve-01/ticket.md`.
 
 - **2026-10-03 ~23:51 Europe/Warsaw** — **H-FUNDING-CARRY-01 = FALSIFIED (a)+(b)**.
   Funding was passed into `run_backtest` (1200 events per symbol; 5,416 of
