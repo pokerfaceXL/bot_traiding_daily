@@ -1,8 +1,8 @@
 {
   "experiment_id": "H-FUNDING-CARRY-01",
   "script": "scripts/f006_funding_carry.py",
-  "git_commit": "d36ca77a87b2037e096e9c95fcaf0eb2952266bb",
-  "run_started_utc": "2026-10-03T21:29:08.314354+00:00",
+  "git_commit": "d2c32bad05ba631ddaf6168d9510a9c3d966f58a",
+  "run_started_utc": "2026-10-03T21:30:07.475923+00:00",
   "hypothesis_note": "spec/research/F006-hypothesis-funding-carry.md",
   "number_of_trials": 1,
   "interval": "60",
@@ -258,5 +258,5 @@
     "b"
   ],
   "result": "FALSIFIED (a)+(b)",
-  "elapsed_seconds": 12.3
+  "elapsed_seconds": 12.2
 }
