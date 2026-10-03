@@ -164,7 +164,65 @@ decision_if_fail: keep CONDITIONAL; mark breakout-depth closed on this name's ow
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `scripts/f006_ema_50_200_entry_breakout_depth.py` at harness commit
+`a243176` (manifest `git_commit`), Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` from the main checkout's
+`data_cache` (`F006_DATA_CACHE`); checksums equal
+`output/f006_ema_50_200_abs_atr_gate/grid_freeze.json`. No validation /
+holdout loaded. Artifacts: `output/f006_ema_50_200_entry_breakout_depth/`
+(`grid_freeze.json` written after the control check and before any gated
+cell; `cell_summary.csv`, `results.csv`, `manifest.json`, `run.log`,
+per-cell `raw/` + `blotters/`).
+
+Control: reproduces this name's ungated Train-1 baseline exactly. Mean
++72.6693115 (sum +726.693115); entry n 330, entry net +587.3851786486205;
+initial_sl 213/330 = 0.6454545454545455; big winners (net>=29.9, frozen on
+this run's ungated blotter) 5 trades / +843.7639016181568 (candle freeze
+confirmed); pooled losing entry-months 7/12. Max abs diff vs the catalog5
+per-series table is 0.0 (10/10 rows, train1_net_pnl + n_trades). Every
+metric matches the candle-confirm control row (diff 0).
+
+`number_of_trials = 5`. D = fraction of ema200 that the signal-bar close sits
+beyond ema200 in the trade direction.
+
+| cell | mean/series | entry n (per series) | entry net | initial_sl share (drop pp) | big-winner kept (n / PnL / frac) | losing months /12 | net+ symbols |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| control | +72.6693115 | 330 (33.0) | +587.3852 | 0.6455 (0.00) | 5 / +843.7639 / 1.000 | 7 | 3/5 |
+| D=0.02 | +63.0343180 | 205 (20.5) | +615.5695 | 0.7415 (−9.60) | 3 / +760.9812 / 0.902 | 8 | 2/5 |
+| D=0.05 | −10.1819257 | 70 (7.0) | −101.8193 | 0.8571 (−21.17) | 0 / 0.0 / 0.000 | 10 | 1/5 |
+| D=0.10 | +0.5031110 | 15 (1.5) | +5.0311 | 0.8000 (−15.45) | 0 / 0.0 / 0.000 | 7 | 2/5 |
+| D=0.25 | 0.0 | 0 (0.0) | 0.0 | n/a | 0 / 0.0 / 0.000 | 0 (empty) | 0/5 |
+| D=0.50 | 0.0 | 0 (0.0) | 0.0 | n/a | 0 / 0.0 / 0.000 | 0 (empty) | 0/5 |
+
+Best-PnL D = 0.02 (mean +63.0343180, delta −9.6349935/series). Every D
+lowered the mean. Initial_sl share **rose** at every non-empty D (best-PnL D:
++9.60 pp, 0.6455 → 0.7415). D=0.02 kept 90.2% of big-winner PnL (3/5 trades)
+but the floor worsened to 8/12. D>=0.05 is thin (<10 trades/series) and kept
+none of the 5 big winners. D=0.25 and D=0.50 admit zero trades: the largest
+one-shot-bar depth in any series is 0.2175 (SOLUSDT 240). The 60m maximums
+run from 0.0736 to 0.1286. No D lowered the pooled floor while keeping >=50%
+big-winner PnL and >=10 trades/series. Nothing to flag.
+
+Falsifiers (pre-declared):
+- (a) mean <= baseline at every D — **FIRES** (best +63.0343180 < +72.6693115).
+- (b) every non-thin D removes >50% big-winner PnL — does not fire (only
+  non-thin D=0.02 keeps 90.2%).
+- (c) best-PnL D fails a >=10pp initial_sl drop — **FIRES** (share rose 9.60 pp).
+- (d) floor does not improve at D passing (a)-(c) — not triggered (no D passes
+  (a)-(c), so it is vacuous).
+- (e) improvement only from thin cells — does not fire (no cell beats control).
+
+**Result: FALSIFIED (a)+(c)** on this name's own Train-1 trades. No passing
+cell. The mechanism inverted: crosses whose close sits further beyond ema200
+stopped out at the fixed initial_sl *more* often, not less.
+
+Checks run: in-run control replay asserts (catalog5 table, candle control row,
+checksum freeze); in-run matched-trade economics identity (net / exit_time /
+exit_reason unchanged for every retained trade, all cells); an independent
+recount of one-shot cross bars with directional depth >= D, recomputed from
+raw ema50/ema200. It matched `n_calls` on all 50 series x cell pairs (0
+mismatches). `python3 -m pytest -q`: 489 passed, 8 skipped. Profile `status:`
+was not changed (still CONDITIONAL).
 
 ## Decision
 
