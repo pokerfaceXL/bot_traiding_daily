@@ -253,4 +253,81 @@ is not met. Outcome against the pre-declared falsifiers: FALSIFIED
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c)+(d).** Checked 2026-10-03 ~22:36 Europe/Warsaw against
+`output/f006_ema3_13_50_200_entry_htf_direction/cell_summary.csv` and per-cell
+`summary.json` on the FF-merged tip `c70777a` (parent of this Decision; harness
+`4f02415`; review PASS `2026-10-03-f006-ema31350200-entry-htf-direc-8f002b67`, engine claude). Coding job `5f16b53c`.
+Control replay max abs train1 diff is 0.0. The worker Result label
+"FALSIFIED (a)+(c)+(d)" matches this card's sentences; the numbers below are
+from the artifacts, not from the label alone.
+
+Applied sentences, from this card:
+
+- "(a) mean train1_net_pnl <= baseline"
+- "(b) the gate removes >50% of baseline big-winner PnL"
+- "(c) initial_sl share fails to fall >=10pp"
+- "(d) pooled losing-month floor does not improve (stays >= baseline floor)"
+- "(e) mean trades/series < 10"
+
+The card also says: "This is the binary HTF-card shape: (d) is the floor
+sentence itself, not the depth card's \"only at a D that otherwise passes
+(a)-(c)\". A flat floor falsifies (d) on this card." So (d) is in the label
+when the floor stays >= baseline, even though no cell passes (a)-(c). That is
+the opposite of the breakout-depth card, where (d) was unreachable. Do not
+drop (d).
+
+Pre-declared checks (`number_of_trials = 1`, gated cell `htf_4`):
+
+- control mean **+91.1483016** (replay max abs diff 0.0, sum +911.483016),
+  Train-1-entry n=**423** (42.3/series), entry-net **+771.2836172145886**,
+  initial_sl **292/423 = 0.6903073286052009**, big winners
+  **9 / +1131.9561537333418**, pooled entry-month floor **7/12**
+- gated htf_4 mean **+39.2303418** (delta **-51.9179598**/series),
+  n=**362** (36.2/series), entry-net +263.8682765771244, initial_sl
+  **260/362 = 0.7182320441988951** (share **rose 2.792471559369414 pp**; the drop
+  column is -2.792471559369414), big-winner PnL retained **0.5556713331636377**
+  (6 / +628.9955850277897 of 9 / +1131.9561537333418), floor **7/12**
+
+(a) fires: gated mean +39.2303418 <= control +91.1483016.
+(b) does not fire: retained fraction 0.5556713331636377 removes about 44.43%, which is
+not >50%. The sentence needs removal of more than half of baseline big-winner
+PnL; 55.57% was kept.
+(c) fires: initial_sl share rose 2.792471559369414 pp (0.6903073286052009 to
+0.7182320441988951) instead of falling by at least 10pp.
+(d) fires: pooled losing-month floor stays 7/12 (not strictly below the
+baseline floor). On THIS card the sentence is the floor itself; a flat floor
+is enough. Do not apply the depth card's reachability rule here.
+(e) does not fire: 36.2 trades/series >= 10.
+
+This is not the `EMA_50_200` HTF result at `3a7c094` (that label was
+(a)+(b)+(c)+(d) with htf_4 mean +20.7369913). Do not import +20.7369913,
++72.6693115, +63.0343180, +45.0267104, +95.3217987, or +82.900262. Do not
+treat BB HTF tips as this test.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Not REJECT: the
+ungated Train-1 book stays aggregate-positive (mean +91.1483016, sum
++911.483016). HTF direction is closed on this name's own trades.
+Entry-vol stays FALSIFIED (a)+(c) at Decision `3318658` / tip `46e4509`
+((d) was not that label). Xsym sizing stays FALSIFIED (b) at Decision
+`396a3c2` / tip `34e2c4a`. Candle confirm stays FALSIFIED (a)+(b)+(c) at
+Decision `079b697` / tip `9dbcf0d`. Breakout depth stays FALSIFIED (c) only
+at Decision `07fb827` / tip `c388392` ((d) was not reachable). Exit,
+long-only, and breadth stay closed. Liquidity is the last open licensed
+axis and is pre-registered in this commit, not yet run. Section 4 level C
+allows FREEZE only at that later liquidity experiment's own Decision, and
+only if that experiment is falsified, every licensed axis is cited on this
+name's own trades, and the ungated book stays aggregate-positive. Do not
+retune the 4-bar length. Holdout stays closed. Do not start funding-carry,
+spread-capture, catalog mean-reversion, a new family, or another catalog
+name. Baseline remains the reproduced control **+91.1483016**.
+
+**reason:** falsifiers (a)+(c)+(d). The gated mean falls to +39.2303418,
+initial_sl share rises 2.792471559369414 pp instead of falling >=10pp, and the
+pooled floor stays 7/12. (b) and (e) do not match their sentences. (d) is
+kept because this card's own floor sentence fires.
+
+**next_action:** one liquidity entry gate on this name only,
+`H-EMA3-13-50-200-ENTRY-LIQUIDITY-01`. Not an HTF retune. Not a depth
+retune. Not a candle retune. Not an abs-ATR retune. Not a Val-1 of the
+closed stake. Baseline remains the reproduced control **+91.1483016**
+(n=423).
