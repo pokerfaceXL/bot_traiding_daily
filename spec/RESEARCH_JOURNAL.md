@@ -25,7 +25,7 @@
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
-| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; sizing next) | FREEZE withdrawn; entry-vol closed on own trades; stay CONDITIONAL; next `H-EMA-50-200-XSYM-AGREE-SIZING-01` on reproduced baseline +72.6693115 | `strategy_profiles/EMA_50_200.md` |
+| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; xsym sizing FALSIFIED (b) at `48d03b0`) | FREEZE withdrawn; entry-vol and this xsym formula closed on own trades; stay CONDITIONAL; next `H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01` on reproduced baseline +72.6693115 | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
@@ -117,16 +117,26 @@ loop. Do not FREEZE. Do not start `EMA3_13_50_200`. Baseline going forward =
 reproduced control **+72.6693115** from `output/f006_ema_50_200_abs_atr_gate/`.
 Section 15: `spec/research/F006-coordinator-series-report-ema-50-200-abs-atr-entry-gate.md`.
 
-**Next = `H-EMA-50-200-XSYM-AGREE-SIZING-01`** (pre-registered;
-ticket `spec/features/active/F006-ema50200-xsym-agree-sizing-01/ticket.md`).
-One §8 position-sizing change on this name's own Train-1 trades:
-`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)` on peer-symbol agreement of
-this name's persistent signal. Control must reproduce +72.6693115 / sum
-+726.693115. Confirm control entry-month floor (abs-ATR measured 7/12).
-`number_of_trials = 1`. Not an abs-ATR retune. Not a copy of BB_20_2 /
-BB_20_25 sizing results. Not `EMA3_13_50_200`. Not holdout. Not FREEZE in
-this commit. If this formula later fails, decision_if_fail keeps CONDITIONAL
-and names candle confirm as the following open axis.
+**EMA_50_200 xsym sizing FALSIFIED (b); name stays CONDITIONAL.**
+`H-EMA-50-200-XSYM-AGREE-SIZING-01` is **FALSIFIED (b)** at `48d03b0`
+(review PASS `2026-10-03-f006-ema50200-xsym-agree-sizing--f8969a7a`).
+Control exact +72.6693115 (max abs diff 0.0). Sized mean +126.744211
+(delta +54.0748995/series). Floor stayed 7/12. Mult gap +0.132984.
+Stake_cv 0.413344. n=330 invariant. (a)(c)(d)(e) did not fire. The card's
+(b) says a non-improving floor falsifies and decision_if_fail closes the
+formula. BB_20_2 Train-1 was REFINE because its floor moved 7/12 to 6/12;
+that precedent does not apply. No Val-1. Do not FREEZE. Do not start
+`EMA3_13_50_200`. Baseline stays reproduced control **+72.6693115**.
+Section 15: `spec/research/F006-coordinator-series-report-ema-50-200-xsym-agree-sizing.md`.
+
+**Next = `H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01`** (pre-registered;
+ticket `spec/features/active/F006-ema50200-entry-candle-confirm-01/ticket.md`).
+One §8 candle-confirm entry gate on this name's own Train-1 trades.
+T grid `{0.50, 0.60, 0.70, 0.80, 0.90}` is the licensed shape, not a copy
+of BB_20_2 T=0.60 or BB_20_25 T=0.70. Control must reproduce +72.6693115 /
+n=330 / initial_sl 213/330 / floor 7/12 / big-winner 5 / +843.7639016181568.
+`number_of_trials = 5`. Not a Val-1 of the closed stake. Not an abs-ATR
+retune. Not `EMA3_13_50_200`. Not holdout. Not FREEZE in this commit.
 
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
@@ -514,3 +524,24 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   transfer of `1774a8a`, `139ed3d`, `1c9ff7e`, or `89e936a`. Entry-vol on this
   name stays closed. Do not FREEZE. Do not start `EMA3_13_50_200`. Ticket
   `spec/features/active/F006-ema50200-xsym-agree-sizing-01/ticket.md`.
+
+- **2026-10-03 ~17:25 Europe/Warsaw** — **H-EMA-50-200-XSYM-AGREE-SIZING-01 = FALSIFIED (b)**.
+  Tip `48d03b0` FF-merged to `origin/main` (parent `5af9b88`). Review PASS
+  `2026-10-03-f006-ema50200-xsym-agree-sizing--f8969a7a`. Control +72.6693115 /
+  n=330 / floor 7/12 reproduced from `output/f006_ema_50_200_xsym_agree_sizing/`.
+  Sized mean +126.744211 (delta +54.0748995/series); floor stayed 7/12; mult gap
+  +0.132984; stake_cv 0.413344. (b) fired; (a)(c)(d)(e) did not. Decision =
+  **FALSIFIED (b)**. Profile stays **CONDITIONAL**. The formula is closed. Not
+  a Val window (card opens validation only if the sized arm passes; BB_20_2
+  Train-1 REFINE was a floor improvement 7/12 to 6/12). Do not FREEZE. Not
+  evidence for other names. §15:
+  `spec/research/F006-coordinator-series-report-ema-50-200-xsym-agree-sizing.md`.
+
+- **2026-10-03 ~17:25 Europe/Warsaw** — **H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01 pre-registered**
+  (candle confirm on CONDITIONAL `EMA_50_200` own trades; T grid
+  {0.50, 0.60, 0.70, 0.80, 0.90}; Train-1 only; control mean +72.6693115 from
+  this name's reproduced baseline). Not a transfer of `88b0ee3` or `e70161d`.
+  Entry-vol and the xsym formula on this name stay closed. Do not FREEZE.
+  Do not start `EMA3_13_50_200`. Ticket
+  `spec/features/active/F006-ema50200-entry-candle-confirm-01/ticket.md`.
+

@@ -218,4 +218,63 @@ big-winner set. Profile status untouched (CONDITIONAL). Decision left to the coo
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (b).** Checked 2026-10-03 ~17:25 Europe/Warsaw against
+`output/f006_ema_50_200_xsym_agree_sizing/summary/cell_summary.json` on the
+FF-merged tip `48d03b0` (parent `5af9b88`; review PASS
+`2026-10-03-f006-ema50200-xsym-agree-sizing--f8969a7a`). The Result table matches
+that artifact after ordinary rounding. Control replay max abs train1 diff is
+0.0. The manifest records one fired falsifier: pooled losing-month floor did
+not improve (7 >= 7).
+
+This is not the `BB_20_2_EMA200` Train-1 sizing verdict. On that card (b) did
+not fire (floor 7/12 to 6/12), so decision_if_pass was REFINE and protocol
+§3.10 / §11 required validation before another axis (tip `1774a8a`, Decision
+**REFINE / NOT FALSIFIED**). Here (b) fires.
+
+Pre-declared checks (number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar uses the prior
+closed bar):
+
+- control mean **+72.6693115** (replay max abs diff 0.0, sum +726.693115,
+  7/10 positive), Train-1-entry n=330, entry-net **+587.385179**, pooled
+  entry-month floor **7/12**
+- sized mean **+126.744211** (delta **+54.0748995**/series vs +72.6693115),
+  7/10 positive, entry-net **+1034.000818** (+3.133336/trade), floor **7/12**
+- pooled mean(mult|winner) minus mean(mult|loser) **+0.132984** (1.365809 vs
+  1.232824), stake_cv **0.413344** (every series > 0.05)
+- n_trades invariant held (364 closed and 330 Train-1-entry keys)
+- big winners (informational, net>=29.9): control 5 / +843.763902; sized
+  10 / +1477.682389; sized net on the control's 5 keys +1287.249988
+- 2024-11 entry-month net +816.808826 to +1308.876889 (concentration; not
+  an extra falsifier)
+
+(a) does not fire: +126.744211 > +72.6693115. (b) fires: the floor stays
+7/12 (7 >= 7). The same seven entry-months lose (2024-03, -04, -05, -08,
+-09, -12, 2025-01). (c) does not fire: gap +0.132984. (d) does not fire.
+(e) does not fire: stake_cv 0.413344.
+
+Applied sentence, from this card: "(b) pooled losing-month floor does not
+improve (stays >= this name's control floor)". A flat 7/12 is that sentence,
+not a near-miss. decision_if_fail closes this xsym-agree formula on
+`EMA_50_200` own trades and names candle confirm as the following open axis.
+The data-split sentence opens a later validation hypothesis only "If the
+sized arm passes". It did not pass, so no Val-1 is written. Protocol §3.10
+and the BB_20_2 Decision's "do not abandon a passed sizing arm" apply when
+the pre-registered checks do not fire. §7 develop-not-abandon keeps this
+name in the loop (status **CONDITIONAL**, next licensed axis) and does not
+keep a failed formula open.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. This xsym-agree formula
+is closed on this name. Entry-vol stays FALSIFIED (a)+(c) (`80e7fa6` /
+Decision `67af347`). Exit, long-only, and breadth stay closed. Candle
+confirm, breakout structure, HTF direction, and liquidity have not been
+pre-registered here. Do not start `EMA3_13_50_200`. Do not retune
+0.5 / 0.375 / 2.0. Holdout stays closed. Do not copy +95.3217987 or
++82.900262. Do not treat `1774a8a` or `139ed3d` as this result.
+
+**reason:** falsifier (b). Sizing raises mean Train-1 net and skews stake
+toward winners, but the pooled losing-month floor does not improve.
+
+**next_action:** one candle-confirm entry gate on this name only,
+`H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01`. Not a Val-1 of this formula. Not an
+abs-ATR retune. Baseline remains the reproduced control **+72.6693115**.
