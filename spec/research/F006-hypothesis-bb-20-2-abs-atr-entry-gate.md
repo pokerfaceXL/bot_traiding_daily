@@ -169,4 +169,55 @@ coordinator.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~11:22 Europe/Warsaw against
+`output/f006_bb_20_2_abs_atr_gate/cell_summary.csv`, `grid_freeze.json`, and
+`manifest.json` on the FF-merged run `f7ac677` (review PASS, job
+`2026-10-03-f006-bb202-abs-atr-review-59bf2edf`). The Result table matches the
+artifact after ordinary rounding. Manifest `passing_cells` is `[]` and
+`decision` is null. Harness control `max_abs_train1_diff` is 0.0.
+
+Control reproduced this name's catalog5 baseline: mean Train-1 net
+**+95.3217987/series** (sum +953.217987), entry cohort **n=756, +834.347778**,
+initial-SL share **0.473545 (47.35%)**, big-winner set **12 trades,
++1251.654084** (net≥29.9), pooled losing entry-months **7/12**. Frozen median
+entry ATR% **1.176636**. `number_of_trials = 5`.
+
+Best-PnL cell **t_2_0** (T=2.0%): mean **+64.046122/series**, which is below
+the control. Initial-SL share **0.439024**, drop **3.45 pp** (required ≥10 pp).
+Big-winner PnL retained **72.3%** on the published retention metric. Floor
+**9/12**. The cells that cut initial-SL by ≥10 pp (median, t_1_0, t_1_25) all
+sit near +50/series and keep ~39% of big-winner PnL.
+
+(a) fires: every T has mean Train-1 net ≤ +95.3217987. (b) does not fire on
+the published metric: t_2_0 keeps 72.3% of big-winner PnL, so it is not true
+that every non-thin T removes >50%. (c) fires: at the best-PnL T the
+initial-SL drop is 3.45 pp. (d) is not reachable: no T passes (a)–(c). (e)
+does not fire: every cell is non-thin (≥35.4 entries/series). No cell passed
+the pre-declared checks.
+
+Review noted that big-winner retention counts any gated trade with net≥29.9,
+not necessarily the original 12 keys. That caveat cannot rescue (a) or (c).
+It is not used to add (b).
+
+Entry-vol / abs-ATR is closed on `BB_20_2_EMA200` own trades. Do not retune T.
+Do not treat this as evidence about `EMA_50_200`, `EMA3_13_50_200`, or
+`BB_20_25_EMA200`.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Exit, long-only, breadth,
+and now entry-vol are closed on this name. Position sizing has never been
+tested here. Other §8 entry structure (candle confirm, breakout structure, HTF
+direction, liquidity) has not been pre-registered here. §7 develop-not-abandon:
+do not leave this name while a licensed axis is still open, and do not jump to
+`EMA_50_200` or `EMA3_13_50_200`. `BB_20_25_EMA200` FREEZE (`f1fffc8`) does
+not transfer.
+
+**reason:** falsifiers (a) and (c). A keep-low-ATR gate on this name's own
+trades does not raise mean Train-1 net PnL, and the best-PnL threshold does
+not cut the initial-SL share by 10 pp. Tighter thresholds that do cut stops
+also cut the runners that carry the aggregate edge.
+
+**next_action:** one position-sizing hypothesis on this name only,
+`H-BB-20-2-XSYM-AGREE-SIZING-01`. The ungated book is aggregate-positive, so
+§8 allows sizing. The stake map is a structural encoding of peer-symbol
+agreement, not an abs-ATR retune and not a copy of the `BB_20_25_EMA200`
+Train-1 pass or Val-1 fail. Entry structure stays open.
