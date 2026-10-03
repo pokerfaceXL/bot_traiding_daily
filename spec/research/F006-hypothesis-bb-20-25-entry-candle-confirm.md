@@ -132,4 +132,31 @@ checks. Artifacts: `output/f006_bb_20_25_entry_candle_confirm/`.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (c).** Checked 2026-10-03 ~09:49 Europe/Warsaw against
+`output/f006_bb_20_25_entry_candle_confirm/cell_summary.csv` on the FF-merged run
+`e70161d` (review PASS, job `2026-10-03-f006-bb2025-entry-structure-revi-3883672f`).
+The Result table matches the artifact after ordinary rounding.
+
+Control reproduced the pre-registered baseline exactly: mean Train-1 net
+**+$82.900262/series**, entry cohort **n=512, +$709.849209**, initial-SL share
+**0.580078 (58.01%)**, big-winner PnL **$968.020732**, pooled losing entry-months
+**7/12**. `number_of_trials = 5`.
+
+Best-PnL cell is **T=0.70**: mean **+$89.279908/series**, which is **+$6.379646
+(+$6.38/series)** versus control. Initial-SL share **0.560440**, drop
+**1.963856 pp** — short of the pre-registered **10 pp**. Big-winner PnL retained
+**100%**. Pooled floor stays **7/12**. Mean trades/series **45.5** (not thin).
+
+(a) does not fire (T=0.50-0.80 beat control). (b) does not fire (non-thin cells
+T=0.50-0.80 retain more than 50% of big-winner PnL). (d) does not apply: no T
+passes (c). T=0.90 reaches 5/12 only by failing mean PnL and keeping 19.2% of
+big-winner PnL. (e) does not fire (every cell stays above 10 trades/series).
+No cell passed all declared checks.
+
+Candle close-strength is closed on this name's own trades. `BB_20_25_EMA200`
+stays **CONDITIONAL**. Do not FREEZE. This is one entry-structure variant, not a
+class closure of entry refinement. Entry-vol (`3788f11`) and the xsym sizing
+formula (`89e936a`) stay closed on their own evidence. Breakout depth and HTF
+direction are still untested on this name's own trades. Next = one breakout-depth
+hypothesis, written after this decision — not a transfer, not Validation-2, not
+another catalog name.
