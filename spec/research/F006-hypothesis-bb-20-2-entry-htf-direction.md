@@ -205,3 +205,45 @@ the prior closed 4-bar HTF candle stop out *more* often, not less, on this
 name's own Train-1 cohort.
 
 ## Decision
+
+**FALSIFIED (a)+(c)+(d).** Checked 2026-10-03 ~15:41 Europe/Warsaw against
+`output/f006_bb_20_2_entry_htf_direction/cell_summary.csv`, `results.csv`,
+and the Train-1 blotters (`train1_entry` only) on the FF-merged tip
+`dd86dd0` (review PASS
+`2026-10-03-f006-bb202-entry-htf-direction-r-911650ed`). The Result table
+matches those artifacts. Control is exact: mean train1_net_pnl
+**+95.3217987** (sum 953.217987 across 10 series), entry n **756**, entry
+net **+834.347778**, initial_sl **358/756 = 0.47354497354497355**,
+big-winner PnL **1251.654084307187** (12 trades, net≥29.9), pooled losing
+entry-months **7/12**.
+
+(a) **FIRES.** The only gated cell `htf_4` mean train1_net_pnl is
+**+75.8615895** (sum 758.615895), which is **−19.4602092/series** versus
++95.3217987. It does not beat the baseline.
+(b) does not fire. Frozen baseline big-winner PnL retained is
+**1038.6112330239332** of 1251.654084307187 (**9/12**, fraction
+0.8297909510668222, 83.0%). The gated cohort also contains 11 trades with
+net≥29.9 summing to 1201.3568809884764; that is cohort composition, not
+the pre-registered retention measure.
+**(c) FIRES.** `htf_4` initial_sl share is **345/688 = 0.501453488372093**,
+which is **+2.790851pp** versus 0.47354497354497355
+(`initial_sl_share_drop_pp` = −2.7908514827119477). The required move is a
+drop of ≥10pp. The share rose.
+**(d) FIRES.** Pooled losing entry-months go **7/12 → 8/12**. 2025-01
+flips from +10.23 to −15.42. No month turns from losing to winning.
+2024-04 worsens from −5.17 to −79.86.
+(e) does not fire. Mean trades/series is 68.8 (≥10). `number_of_trials = 1`.
+0/1 cells pass. Per-symbol train1 net (control in parentheses): BTC
+−110.406 (−35.123), DOGE +360.562 (+389.419), ETH −9.409 (−15.250), SOL
++51.203 (+131.956), XRP +466.666 (+482.215); 3/5 net-positive, unchanged.
+
+Per `decision_if_fail`: close the HTF-direction axis on `BB_20_2_EMA200`
+own trades. Do not retune the 4-bar length. Stay **CONDITIONAL**. Do not
+FREEZE. Liquidity is still the open licensed axis on this name, and it is
+the last one this profile names. `BB_20_25_EMA200` is FREEZE on its own
+loop; its HTF FALSIFIED (a)+(c)+(d) at `3495b16` (control +82.900262,
+n=512, gated +70.515667) is not this result and is not this name's
+baseline. Do not jump to `EMA_50_200` or `EMA3_13_50_200`. Next = one new
+written §8 liquidity hypothesis on this name's own Train-1 trades. Not
+`BB_20_2_VOL12` (`vol_ratio > 1.2`), not `RVOL_RE_*`, and not
+`liq_range_eqh`.
