@@ -170,4 +170,45 @@ summary.json, results.csv, cell_summary.csv, grid_freeze.json, manifest.json, ru
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c)+(d).** Checked 2026-10-03 ~10:56 Europe/Warsaw against
+`output/f006_bb_20_25_entry_htf_direction/cell_summary.csv` and `manifest.json`
+on the FF-merged run `3495b16` (review PASS, job
+`2026-10-03-f006-bb2025-entry-htf-direction--364758a0`). The Result table matches
+the artifact after ordinary rounding. Manifest / cell summary falsifiers: (a)
+fires, (c) fires, (d) fires, (b) and (e) do not fire, `passing_cells` empty.
+
+Control reproduced the pre-registered baseline: mean Train-1 net
+**+$82.900262/series** (sum +$829.002620), entry cohort **n=512, +$709.849209**,
+initial-SL share **0.580078 (58.01%)**, big-winner PnL **$968.020732**, pooled
+losing entry-months **7/12**. `number_of_trials = 1`.
+
+Gated cell **htf_4**: mean **+$70.515667/series**, which is **−$12.384595
+(−$12.38/series)** versus control. Cohort n=445, net +$643.791776. Initial-SL
+share **0.604494 (60.45%)**, change **+2.44 pp** (the share rose; the required
+drop is 10 pp). Big-winner PnL retained **96.4%** (9/10). Pooled floor **7/12**
+(not strictly below 7). Mean trades/series **44.5** (not thin).
+
+(a) fires: gated mean is below the control mean. (b) does not fire: 96.4% of
+big-winner PnL is retained. (c) fires: initial-SL share rose instead of falling
+≥10 pp. (d) fires: losing-month floor stays 7/12. (e) does not fire: 44.5
+trades/series. No cell passed all declared checks.
+
+HTF direction (prior fully closed 4-bar HTF candle must agree with the signal)
+is closed on this name's own trades. It is not evidence about any other
+catalog5 name.
+
+**Strategy status:** **FREEZE**. Every axis licensed on
+`spec/research/strategy_profiles/BB_20_25_EMA200.md` now has an own-trades
+result. Do not open another variant on this name. Do not retune the HTF length,
+the closed stake, T, or D.
+
+**reason:** falsifiers (a), (c), and (d). The prior higher-timeframe bar's
+direction did not separate `initial_sl` deaths from `signal_reverse` runners.
+It cut mean PnL and raised the stop share, and the monthly floor did not move.
+
+**next_action:** stop the `BB_20_25_EMA200` loop. Next CONDITIONAL catalog5 name
+by the journal priority after this name is `BB_20_2_EMA200`. Its first open
+own-trades axis is entry-vol / abs-ATR (DNR-by-transfer only; never run on that
+name). Pre-register `H-BB-20-2-ABS-ATR-ENTRY-GATE-01` on that name's own trades.
+Do not treat this HTF result, or any other `BB_20_25_EMA200` result, as that
+name's test.
