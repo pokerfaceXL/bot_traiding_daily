@@ -213,4 +213,36 @@ winner/loser mult gap is small (+0.087). Validation was not opened.
 
 ## Decision
 
-(empty — coordinator only)
+**REFINE** (2026-10-03 ~11:57 Europe/Warsaw). Coordinator confirms the Result:
+**NOT FALSIFIED** on `BB_20_2_EMA200` own Train-1 trades. `decision_if_pass`
+is REFINE. Review PASS
+`2026-10-03-f006-bb202-xsym-agree-sizing-rev-dff7bccd` on tip `1774a8a`
+(FF-merged to `origin/main`). This is not the `BB_20_25_EMA200` Val-1
+verdict and it is not a FREEZE.
+
+Pre-declared checks, matched to
+`output/f006_bb_20_2_xsym_agree_sizing/summary/cell_summary.json`
+(number_of_trials = 1, formula frozen
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, fill bar i uses closed
+bar i−1):
+
+- control mean **+95.3217987** (replay max abs diff 0.0, sum +953.217987,
+  8/10 positive), Train-1-entry n=756, entry-net **+834.347778**, pooled
+  entry-month floor **7/12**
+- sized mean **+146.632696** (sum +1466.326955, 9/10 positive), entry-net
+  **+1287.265355**, floor **6/12**
+- pooled mean(mult|winner)−mean(mult|loser) **+0.086642** (1.084441 vs
+  0.997799), stake_cv **0.491784** (min series 0.418305)
+- n_trades invariant held (820 closed and 756 Train-1-entry keys)
+
+(a)–(e) do not fire. Caveats, not extra falsifiers and not a reason to
+skip §11: the floor move is one month (2024-06, −8.941612 → +8.744637);
+of the +452.92 entry-net gain, +497.75 is 2024-11 (~110%) and the other
+11 months sum −44.83; the gap is small and negative on DOGEUSDT/240 and
+XRPUSDT/60. §3.10 and §11 require a separate validation before another
+axis. §7 says do not abandon a passed sizing arm for a new entry axis
+before that validation. Status stays **CONDITIONAL**. Entry-vol stays
+FALSIFIED (a)+(c) (`f7ac677`). Holdout stays closed. Do not retune
+0.5 / 0.375 / 2.0. Next =
+`H-BB-20-2-XSYM-AGREE-SIZING-VAL1-01` (same frozen formula, this name's
+Validation-1 entries only).
