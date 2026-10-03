@@ -178,7 +178,66 @@ decision_if_fail: keep CONDITIONAL; mark HTF direction closed on this name's own
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `scripts/f006_ema_50_200_entry_htf_direction.py` at harness commit
+`54706a6` (manifest `git_commit`), Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` from the main checkout's
+`data_cache` (`F006_DATA_CACHE`); checksums equal
+`output/f006_ema_50_200_abs_atr_gate/grid_freeze.json`. No validation /
+holdout loaded. Artifacts: `output/f006_ema_50_200_entry_htf_direction/`
+(`grid_freeze.json` written after the control check and before the gated
+cell; `cell_summary.csv`, `results.csv`, `manifest.json`, `run.log`,
+per-cell `raw/` + `blotters/`).
+
+Control: reproduces this name's ungated Train-1 baseline exactly. Mean
++72.6693115 (sum +726.693115); entry n 330, entry net +587.3851786486205;
+initial_sl 213/330 = 0.6454545454545455; big winners (net>=29.9, frozen on
+this run's ungated blotter) 5 trades / +843.7639016181568 (depth freeze
+confirmed); pooled losing entry-months 7/12. Max abs diff vs the catalog5
+per-series table is 0.0 (10/10 rows, train1_net_pnl + n_trades). Every
+metric matches the breakout-depth control row (diff 0).
+
+`number_of_trials = 1`. Gate: keep a one-shot signal only when the prior
+fully closed 4-native-bar epoch-floored HTF bucket (240m on 60m, 960m on
+240m) has sign(close − open) equal to the signal direction; incomplete or
+flat buckets reject. Exits use the ungated signal.
+
+| cell | mean/series | entry n (per series) | entry net | initial_sl share (drop pp) | big-winner kept (n / PnL / frac) | losing months /12 | net+ symbols |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| control | +72.6693115 | 330 (33.0) | +587.3852 | 0.6455 (0.00) | 5 / +843.7639 / 1.000 | 7 | 3/5 |
+| htf_4 | +20.7369913 | 239 (23.9) | +156.4515 | 0.6736 (−2.82) | 3 / +371.1233 / 0.440 | 7 | 3/5 |
+
+The gate kept 239 of 330 Train-1 entries (72.4%) and cut the mean by
+−51.9323202/series. Initial_sl share **rose** 2.82 pp (0.6455 → 0.6736).
+Two of the five big winners were rejected, so 44.0% of big-winner PnL was
+kept (+371.1233 of +843.7639). The pooled floor stayed at 7/12. Net/trade
+fell from +1.7800 to +0.6546. Per-symbol Train-1 net (gated): XRP +221.99,
+DOGE +25.26, SOL +7.92, ETH −2.85, BTC −44.95. The flag case (lower floor
+with >=50% big-winner PnL and >=10 trades/series) did not occur. Nothing to
+flag.
+
+Falsifiers (pre-declared):
+- (a) mean <= baseline — **FIRES** (+20.7369913 <= +72.6693115).
+- (b) removes >50% big-winner PnL — **FIRES** (kept 44.0%).
+- (c) initial_sl share fails a >=10pp drop — **FIRES** (share rose 2.82 pp).
+- (d) pooled floor does not improve — **FIRES** (7/12, equal to control).
+- (e) mean trades/series < 10 — does not fire (23.9).
+
+**Result: FALSIFIED (a)+(b)+(c)+(d)** on this name's own Train-1 trades. No
+passing cell. Agreeing with the prior closed 4-bar candle did not lower the
+fixed-stop death rate. It mainly removed runners.
+
+Checks run: in-run control replay asserts (catalog5 table, breakout-depth
+control row, checksum freeze); in-run matched-trade economics identity
+(net / exit_time / exit_reason unchanged for every retained trade). An
+independent recount used `DataFrame.resample(4*interval, origin="epoch")`
+in place of the harness's ns-floor arithmetic. It recomputed the prior
+bucket's direction and 4-bar completeness for every one-shot bar and
+matched the gated `n_calls` on all 10 series (0 mismatches; 240m
+6–13 kept, 60m 34–46 kept). Focused unit test
+`tests/test_ema_50_200_entry_htf_direction.py` (6 cases: prior bucket only,
+signal bar last in its bucket, flat, incomplete, 960m epoch alignment,
+one-shot intersection) passes. Profile `status:` was not changed (still
+CONDITIONAL).
 
 ## Decision
 
