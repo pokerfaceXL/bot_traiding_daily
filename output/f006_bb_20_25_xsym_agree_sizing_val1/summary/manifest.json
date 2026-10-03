@@ -1,0 +1,38 @@
+{
+  "script": "scripts/f006_bb_20_25_xsym_agree_sizing_val1.py",
+  "git_commit_at_run": "0e75ce60ea09725441c2f53bc6663b2638613af8",
+  "run_started_utc": "2026-10-03T05:20:25.940829+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "numpy": "1.26.4",
+  "n_series": 10,
+  "checksums_used": {
+    "SOLUSDT_240": "72a6947ba3607e4326cf8a3d655dbc0953103cc66e5f1dd74aa8eb83e45fb731",
+    "ETHUSDT_240": "4e856f13e3da0afa5d8b5d1d102e04a133788f49122694bdba222f90fbe13176",
+    "BTCUSDT_240": "d690423a3bae1a53f73728a3b178ab14cbf970855163bed32fe6b727b8e6c467",
+    "XRPUSDT_240": "11c203e30f687508833530daa913e133eb42239699ed52339f4f8e3fbd5a89b3",
+    "DOGEUSDT_240": "5a05355dd929a844a262cf9a15950974b1cdf18000b7e44c71ff89ebf567abde",
+    "SOLUSDT_60": "25323c766de58648b624435237e47994b0a3ae1cda5cbcf7e091689b4e74c213",
+    "ETHUSDT_60": "239b32b3348bd11978fdbb43e2d7220f4113625be9e558c4e533e096a312645e",
+    "BTCUSDT_60": "cfb39aec9eadb660460f9e0f180184b67690a35c92af8a16e66398ea548e8d69",
+    "XRPUSDT_60": "cdd81edbe415f3d583bc365ca1e786afa09956a4aa3bf82e739ecf9b0475b4a5",
+    "DOGEUSDT_60": "748590acb70eed66878380a7ba4890f498ac458038cd7feec20c3ec3fa16e8ff"
+  },
+  "engine_bars": "2024-01-26T00:00:00Z <= ts < 2025-06-01T00:00:00+00:00",
+  "cell_summary": {
+    "experiment_id": "H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01",
+    "strategy": "BB_20_25_EMA200",
+    "number_of_trials": 1,
+    "train1_control_gate": {
+      "reference_mean_train1_net_pnl": 82.900262,
+      "observed_mean_train1_net_pnl": 83.048644,
+      "abs_diff": 0.14838230000000863,
+      "tolerance": 1e-06,
+      "reference_train1_entry_n": 512,
+      "observed_train1_entry_n": 512,
+      "passed": false
+    },
+    "verdict": "STOP (Train-1 control gate failed; Validation-1 not scored)"
+  },
+  "seconds": 7.29
+}

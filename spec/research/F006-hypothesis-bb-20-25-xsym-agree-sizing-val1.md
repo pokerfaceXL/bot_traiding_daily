@@ -85,7 +85,42 @@ decision_if_fail: close this xsym-agree formula on this name (Train-1 pass did n
 
 ## Result
 
-(empty — fill after the Validation-1 run)
+**STOP — Train-1 control sanity gate FAILED. Validation-1 was not scored or interpreted.**
+Falsifiers (a)–(e) were not evaluated. number_of_trials = 1 (spent on this gate run).
+
+Script `scripts/f006_bb_20_25_xsym_agree_sizing_val1.py`. Artifacts are under
+`output/f006_bb_20_25_xsym_agree_sizing_val1/` (results.csv, cell_summary.json,
+manifest.json, run.log, raw/). The run used checksum-verified protocol caches. Engine
+bars were 2024-01-26 <= ts < 2025-06-01, with one continuous backtest per series and `now=2025-06-01`.
+
+Gate (control arm, Train-1 slice of the continuous run):
+
+| check | pre-registered | observed | pass |
+|---|---|---|---|
+| mean train1_net_pnl (10 series) | 82.900262 ± 1e-6 | 83.048644 (diff +0.148382) | NO |
+| Train-1-entry n | 512 | 512 | yes |
+
+Per series, the 60m series reproduce exactly (diff 0.000000). The five 240m series are
+higher by +0.304 / +0.304 / +0.308 / +0.304 / +0.260 (SOL / ETH / BTC / XRP / DOGE).
+Diagnosis: the Train-1 run ended its data at 2025-03-01, so every series force-closed one
+open position at the last bar (`exit_reason=end_of_data`; 240m at 2025-02-28 20:00). That
+close paid exit costs in the 2025-02 equity. In the continuous run the same positions are
+still open, so 2025-02 equity carries mark-to-market without exit costs. The 60m force-close
+bar (23:00) settles outside the Train-1 day buckets, which is why the 60m series match. The
+gate metric is therefore not window-invariant. The mismatch is a property of the
+pre-registered gate definition, not evidence of engine or data drift; trade count and
+checksums match. Even so, the gate as written fails, and the card says STOP.
+
+Implementation note: `compute_agreement_multiplier_series` in the Train-1 script read the
+module-level `NOW=2025-03-01`. On a longer frame that leaves every post-Train-1 multiplier
+NaN, so the stake falls back to 100. The function gained an optional `now=` kwarg (default
+unchanged; Train-1 output re-run and identical apart from timing fields). An earlier bugged
+pass of this script printed Validation-1 control numbers to the worker console before the
+gate-first restructure. Its sized arm was identical to control because of this bug. Those
+numbers are not recorded here and were not used.
+
+Open question for the coordinator:
+`spec/features/active/F006-bb-20-25-xsym-agree-sizing-val1/QUESTION-gate.md`.
 
 ## Decision
 

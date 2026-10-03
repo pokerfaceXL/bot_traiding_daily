@@ -1,0 +1,10 @@
+{
+  "symbol": "ETHUSDT",
+  "interval": "240",
+  "n_trades_total_baseline": 26,
+  "n_trades_train1_entry_baseline": 20,
+  "train1_net_pnl_baseline": 17.182358,
+  "train1_net_pnl_baseline_train1_run": 16.878825,
+  "n_trades_train1_entry_baseline_train1_run": 20,
+  "train1_net_pnl_diff": 0.303533
+}

@@ -100,6 +100,7 @@ def compute_agreement_multiplier_series(
     own_train1_df: pd.DataFrame,
     others_train1_dfs: dict[str, pd.DataFrame],
     interval: str,
+    now: pd.Timestamp | None = None,
 ) -> pd.Series:
     """Return the causal frozen multiplier aligned to the engine's fill-bar index.
 
@@ -107,13 +108,14 @@ def compute_agreement_multiplier_series(
     stake_series at that fill bar, so shift the closed-bar agreement forward one row. The first
     bar has no prior closed-bar agreement; _run_one fills its final stake with BASE_STAKE.
     """
+    now = NOW if now is None else now
     own = entry_masks.normalized_signal(
-        entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=NOW)
+        entry_masks.strategy_signal_series(own_train1_df, NAME, interval=interval, now=now)
     )
     n_agree = pd.Series(0, index=own.index, dtype=int)
     for df in others_train1_dfs.values():
         other = entry_masks.normalized_signal(
-            entry_masks.strategy_signal_series(df, NAME, interval=interval, now=NOW)
+            entry_masks.strategy_signal_series(df, NAME, interval=interval, now=now)
         ).reindex(own.index).fillna(0)
         n_agree += ((other == own) & (own != 0)).astype(int)
     closed_bar_mult = (0.5 + 0.375 * n_agree).clip(lower=MULT_LO, upper=MULT_HI)

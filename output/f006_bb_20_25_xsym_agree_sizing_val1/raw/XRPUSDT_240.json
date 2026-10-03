@@ -1,0 +1,10 @@
+{
+  "symbol": "XRPUSDT",
+  "interval": "240",
+  "n_trades_total_baseline": 36,
+  "n_trades_train1_entry_baseline": 27,
+  "train1_net_pnl_baseline": 213.709315,
+  "train1_net_pnl_baseline_train1_run": 213.405353,
+  "n_trades_train1_entry_baseline_train1_run": 27,
+  "train1_net_pnl_diff": 0.303962
+}

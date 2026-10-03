@@ -1,0 +1,10 @@
+{
+  "symbol": "DOGEUSDT",
+  "interval": "240",
+  "n_trades_total_baseline": 32,
+  "n_trades_train1_entry_baseline": 24,
+  "train1_net_pnl_baseline": 112.163309,
+  "train1_net_pnl_baseline_train1_run": 111.903223,
+  "n_trades_train1_entry_baseline_train1_run": 24,
+  "train1_net_pnl_diff": 0.260086
+}

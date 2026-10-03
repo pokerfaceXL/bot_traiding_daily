@@ -1,0 +1,10 @@
+{
+  "symbol": "BTCUSDT",
+  "interval": "240",
+  "n_trades_total_baseline": 29,
+  "n_trades_train1_entry_baseline": 22,
+  "train1_net_pnl_baseline": 13.172794,
+  "train1_net_pnl_baseline_train1_run": 12.864551,
+  "n_trades_train1_entry_baseline_train1_run": 22,
+  "train1_net_pnl_diff": 0.308243
+}

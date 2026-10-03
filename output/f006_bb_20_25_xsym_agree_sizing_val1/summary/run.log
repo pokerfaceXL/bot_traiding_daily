@@ -1,0 +1,16 @@
+H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01
+Run started: 2026-10-03T05:20:25.940829+00:00
+Commit at run: 0e75ce60ea09725441c2f53bc6663b2638613af8
+Train-1 control gate: mean=83.048644 (ref 82.900262, diff 0.148382, tol 1e-06), n=512 (ref 512) -> FAIL
+  symbol interval  train1_net_pnl_baseline_train1_run  train1_net_pnl_baseline  train1_net_pnl_diff
+ SOLUSDT      240                           43.839241                44.147240             0.307999
+ ETHUSDT      240                           16.878825                17.182358             0.303533
+ BTCUSDT      240                           12.864551                13.172794             0.308243
+ XRPUSDT      240                          213.405353               213.709315             0.303962
+DOGEUSDT      240                          111.903223               112.163309             0.260086
+ SOLUSDT       60                           85.522585                85.522585             0.000000
+ ETHUSDT       60                           30.386076                30.386076             0.000000
+ BTCUSDT       60                          -13.588079               -13.588079             0.000000
+ XRPUSDT       60                          295.322632               295.322632             0.000000
+DOGEUSDT       60                           32.468213                32.468213             0.000000
+Verdict: STOP (Train-1 control gate failed; Validation-1 not scored)

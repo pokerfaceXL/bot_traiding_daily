@@ -1,0 +1,15 @@
+{
+  "experiment_id": "H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01",
+  "strategy": "BB_20_25_EMA200",
+  "number_of_trials": 1,
+  "train1_control_gate": {
+    "reference_mean_train1_net_pnl": 82.900262,
+    "observed_mean_train1_net_pnl": 83.048644,
+    "abs_diff": 0.14838230000000863,
+    "tolerance": 1e-06,
+    "reference_train1_entry_n": 512,
+    "observed_train1_entry_n": 512,
+    "passed": false
+  },
+  "verdict": "STOP (Train-1 control gate failed; Validation-1 not scored)"
+}
