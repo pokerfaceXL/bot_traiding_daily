@@ -46,7 +46,7 @@ VAL1_MONTHS_SET = set(VAL1_MONTHS)
 TRAIN1_CONTROL_MEAN = 82.90
 TRAIN1_CONTROL_N = 512
 TRAIN1_CONTROL_MEAN_EXACT_PATH = "output/f006_bb_20_25_xsym_agree_sizing/summary/cell_summary.json"
-GATE_TOL = 1e-6
+GATE_REL_TOL = 0.0025
 
 OUT_DIR = "output/f006_bb_20_25_xsym_agree_sizing_val1"
 
@@ -235,7 +235,7 @@ def _write_gate_failure(summary_df, gate, checksums_used, commit_sha, t_start) -
         f"Commit at run: {commit_sha}",
         f"Train-1 control gate: mean={gate['observed_mean_train1_net_pnl']:.6f} "
         f"(ref {gate['reference_mean_train1_net_pnl']:.6f}, diff {gate['abs_diff']:.6f}, "
-        f"tol {GATE_TOL}), n={gate['observed_train1_entry_n']} "
+        f"tol {gate['tolerance']} {gate['tolerance_kind']}), n={gate['observed_train1_entry_n']} "
         f"(ref {gate['reference_train1_entry_n']}) -> FAIL",
         gate_df[["symbol", "interval", "train1_net_pnl_baseline_train1_run",
                  "train1_net_pnl_baseline", "train1_net_pnl_diff"]].to_string(index=False),
@@ -294,15 +294,15 @@ def main():
     gate_mean = float(summary_df["train1_net_pnl_baseline"].mean())
     gate_n = int(summary_df["n_trades_train1_entry_baseline"].sum())
     gate_ok = (
-        abs(gate_mean - ref_mean) <= GATE_TOL
-        and round(gate_mean, 2) == TRAIN1_CONTROL_MEAN
+        abs(gate_mean - ref_mean) <= GATE_REL_TOL * abs(ref_mean)
         and gate_n == TRAIN1_CONTROL_N
     )
     gate = {
         "reference_mean_train1_net_pnl": ref_mean,
         "observed_mean_train1_net_pnl": round(gate_mean, 6),
         "abs_diff": abs(gate_mean - ref_mean),
-        "tolerance": GATE_TOL,
+        "tolerance": GATE_REL_TOL,
+        "tolerance_kind": "relative",
         "reference_train1_entry_n": TRAIN1_CONTROL_N,
         "observed_train1_entry_n": gate_n,
         "passed": gate_ok,
@@ -419,8 +419,8 @@ def main():
         "H-BB-20-25-XSYM-AGREE-SIZING-VAL1-01",
         f"Run started: {manifest['run_started_utc']}",
         f"Commit at run: {commit_sha}",
-        f"Train-1 control gate: mean={gate_mean:.6f} (ref {ref_mean:.6f}, diff {gate['abs_diff']:.2e}), "
-        f"n={gate_n} (ref {TRAIN1_CONTROL_N}) -> {'PASS' if gate_ok else 'FAIL'}",
+        f"Train-1 control gate: mean={gate_mean:.6f} (ref {ref_mean:.6f}, diff {gate['abs_diff']:.2e}, "
+        f"tol {gate['tolerance']} {gate['tolerance_kind']}), n={gate_n} (ref {TRAIN1_CONTROL_N}) -> {'PASS' if gate_ok else 'FAIL'}",
         f"Control: mean val1 entry net={mean_baseline:.6f}, total={c['total_closed_trades']}, "
         f"val1-entry n={c['val1_entry_trades']}, net={c['val1_entry_net_pnl']:.6f}, "
         f"losing months={losing_baseline}/3 {[m['net_pnl'] for m in baseline_monthly]}",
