@@ -1,6 +1,6 @@
 H-EMA-50-200-XSYM-AGREE-SIZING-01
-Run started: 2026-10-03T14:50:26.567481+00:00
-Commit at run: 67af347bcdfe4ba1336786657c0fb85c154c3801
+Run started: 2026-10-03T14:51:35.714520+00:00
+Commit at run: 5af9b883a164f1c87127aee02f94a7a292e718ff
 Control mean Train-1 net PnL: 72.669312
 Control match vs catalog5: rows=10, max_abs_diff=0.000e+00, n_trades_equal=True
 Control trades: total=364, Train-1-entry=330, entry net=587.385179

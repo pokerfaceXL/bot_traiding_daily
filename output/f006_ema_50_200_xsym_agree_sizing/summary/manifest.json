@@ -1,7 +1,7 @@
 {
   "script": "scripts/f006_ema_50_200_xsym_agree_sizing.py",
-  "git_commit_at_run": "67af347bcdfe4ba1336786657c0fb85c154c3801",
-  "run_started_utc": "2026-10-03T14:50:26.567481+00:00",
+  "git_commit_at_run": "5af9b883a164f1c87127aee02f94a7a292e718ff",
+  "run_started_utc": "2026-10-03T14:51:35.714520+00:00",
   "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
   "pandas": "2.3.3",
   "numpy": "1.26.4",

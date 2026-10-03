@@ -158,8 +158,8 @@ decision_if_fail: this xsym-agree formula is closed on EMA_50_200 own
 
 ## Result
 
-Run: `scripts/f006_ema_50_200_xsym_agree_sizing.py` at `67af347` (script uncommitted
-at run time; committed alongside this Result), cache = main checkout `data_cache`
+Run: `scripts/f006_ema_50_200_xsym_agree_sizing.py` at `5af9b88` (first run at
+`67af347` with the script uncommitted; the rerun matched it apart from timestamps, SHA and timings), cache = main checkout `data_cache`
 Train-1 files `*_20240126T000000Z_20250301T000000Z.csv` only (request ends at
 2025-03-01; no `*_20260901*` / `*_20200325*` loaded). All 10 checksums equal
 `output/f006_ema_50_200_abs_atr_gate/grid_freeze.json`
