@@ -150,7 +150,51 @@ decision_if_fail: keep CONDITIONAL; mark breakout-depth closed on this name's ow
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `F006_DATA_CACHE=<main checkout>/data_cache python3 scripts/f006_bb_20_2_entry_breakout_depth.py`
+(script + test committed before the run; artifacts in
+`output/f006_bb_20_2_entry_breakout_depth/`; `grid_freeze.json` written
+before any gated cell; `number_of_trials = 5`). Depth reads
+`bb_20_2.0_upper` / `bb_20_2.0_lower` only (from `strategy.add_indicators`
+on closed bars); `bb_20_2.5_*` and `bb_20_2.0_width` are not read. Exits use
+the ungated persistent signal; NO_TRAIL violations 0; matched-trade economics
+mismatches 0.
+
+Control (ungated) reproduced exactly: catalog5 monthly replay 10/10
+(max |Δ train1_net_pnl| = 0.0, n_trades equal), and the candle-confirm
+control row matched: mean **+95.3217987**, entry n **756**, entry net
+**+834.347778**, initial_sl share **0.473545**, big-winner PnL (net≥29.9)
+**1251.654084** (12 trades), pooled losing entry-months **7/12**.
+
+| cell | D | mean train1 net | entry n | n/series | initial_sl | Δ SL pp | big winners kept | BW PnL kept | kept % | losing months |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | — | +95.321799 | 756 | 75.6 | 0.473545 | 0.00 | 12/12 | 1251.654 | 100.0% | 7/12 |
+| d_0_02 | 0.02 | +87.844897 | 734 | 73.4 | 0.483651 | −1.01 | 9/12 | 1029.065 | 82.2% | **6/12** |
+| d_0_05 | 0.05 | +86.434937 | 680 | 68.0 | 0.502941 | −2.94 | 7/12 | 965.915 | 77.2% | **6/12** |
+| d_0_1 | 0.10 | +82.670448 | 557 | 55.7 | 0.495512 | −2.20 | 5/12 | 721.417 | 57.6% | 8/12 |
+| d_0_25 | 0.25 | +48.643013 | 246 | 24.6 | 0.540650 | −6.71 | 2/12 | 300.539 | 24.0% | 8/12 |
+| d_0_5 | 0.50 | −0.369664 | 4 | 0.4 | 0.500000 | −2.65 | 0/12 | 0.000 | 0.0% | 2/12 (thin) |
+
+Falsifiers (pre-declared):
+- (a) mean ≤ baseline at every D — **TRUE** (best D=0.02 is +87.844897,
+  −7.476902/series vs control).
+- (b) every non-thin D removes >50% big-winner PnL — false (D=0.02/0.05/0.10
+  keep ≥50%).
+- (c) initial_sl share fails to fall ≥10pp at best-PnL D — **TRUE** (D=0.02:
+  share *rises* 1.01pp; every D raises it).
+- (d) — false by construction (no D passes (a)–(c), so no otherwise-qualifying
+  cell to test).
+- (e) improvement only from thin cells — false (no cell improves mean).
+
+**Outcome: FALSIFIED (a)+(c).** No passing cell.
+
+Flagged exception (ticket instruction, not buried): **D=0.02 and D=0.05
+lower the pooled losing-month floor 7/12 → 6/12 while keeping ≥50% of
+big-winner PnL (82.2% / 77.2%) and ≥10 trades/series (73.4 / 68.0).** Both
+lose mean PnL (−7.48 / −8.89 per series) and raise the initial_sl share, so
+neither is otherwise-qualifying under (a)–(c); the floor gain is from
+trimming small losing months, not from cutting stop-outs. D=0.50 also shows
+2/12 but is thin (4 trades) and does not count. Deeper pierces stop out
+*more* often, not less, on this name's Train-1 cohort.
 
 ## Decision
 
