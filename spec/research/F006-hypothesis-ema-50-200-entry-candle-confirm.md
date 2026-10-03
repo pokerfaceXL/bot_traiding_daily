@@ -202,4 +202,68 @@ trades. Passing cells: none. Profile status unchanged (CONDITIONAL); no FREEZE.
 
 ## Decision
 
-(empty — coordinator only)
+**FALSIFIED (a)+(c).** Checked 2026-10-03 ~17:58 Europe/Warsaw against
+`output/f006_ema_50_200_entry_candle_confirm/cell_summary.csv` and
+`manifest.json` on the FF-merged tip `778f373` (parent `5321033`; review
+PASS `2026-10-03-f006-ema50200-entry-candle-confi-ec9e0935`). The Result
+table matches that artifact after ordinary rounding. Control replay max abs
+train1 diff is 0.0. The manifest records two fired falsifiers:
+`a_all_thresholds_fail_to_beat_mean_control` true and
+`c_best_pnl_threshold_fails_10pp_initial_sl_drop` true. Passing cells: none.
+
+This is not the `BB_20_2_EMA200` candle verdict (`88b0ee3`) and not the
+`BB_20_25_EMA200` candle verdict (`e70161d`). Those names are not this
+test. Do not import +95.3217987 or +82.900262.
+
+Pre-declared checks (number_of_trials = 5, T grid frozen
+`{0.50, 0.60, 0.70, 0.80, 0.90}`, close-strength on the closed signal bar):
+
+- control mean **+72.6693115** (replay max abs diff 0.0, sum +726.693115),
+  Train-1-entry n=**330**, entry-net **+587.3851786486205**, initial_sl
+  **213/330 = 0.6454545454545455**, big winners **5 / +843.7639016181568**,
+  pooled entry-month floor **7/12**
+- best-PnL T=**0.50** mean **+45.0267104** (delta **−27.6426011**/series vs
+  +72.6693115), entry n=197, entry-net +310.023660310638, initial_sl
+  **133/197 = 0.6751269035532995** (share **rises 2.9672358098754015 pp**),
+  big-winner retained **2 / +472.64056916581933 / 0.5601573713445158**,
+  floor **8/12**, 19.7 trades/series (not thin)
+- every other T is also below the control mean: T=0.60 +28.1759972,
+  T=0.70 +36.8517737, T=0.80 +9.0470871 (thin, 7.9/series), T=0.90
+  +6.2881409 (thin, 4.7/series). No T lowers the initial_sl share
+  (drop_pp −3.636…, −2.998…, −1.277…, −1.412…)
+- 0 NO_TRAIL violations; 0 retained-trade economics mismatches
+
+(a) fires: mean <= baseline at every T (best +45.0267104 < +72.6693115).
+(b) does not fire: the best non-thin T keeps 56.0% of baseline big-winner
+PnL (the >50% removal clause needs every non-thin T). (c) fires: best-PnL
+T=0.50 does not cut initial_sl by >=10pp; the share rises. (d) does not
+fire: no T passes (a)-(c), so the floor clause is vacuous. Informational:
+non-thin T worsen the floor to 8/12; only thin T=0.90 reaches 6/12, with
+0% big-winner PnL retained and negative entry net. (e) does not fire: no T
+beats the control mean, so there is no thin-only improvement.
+
+Applied sentence, from this card: "(a) mean train1_net_pnl <= baseline at
+every T" and "(c) initial_sl share fails to fall >=10pp at the best-PnL T".
+decision_if_fail closes candle-confirm on `EMA_50_200` own trades and names
+breakout depth as the following open axis. Protocol §7 develop-not-abandon
+keeps this name in the loop (status **CONDITIONAL**, next licensed axis)
+and does not keep a failed candle gate open. Do not FREEZE.
+
+**Strategy status:** **CONDITIONAL**. Do not FREEZE. Candle confirm is
+closed on this name (tip `778f373`). Entry-vol stays FALSIFIED (a)+(c)
+(`80e7fa6` / Decision `67af347`). The xsym-agree formula stays FALSIFIED
+(b) (`48d03b0` / Decision `f54e362`); no Val-1. Exit, long-only, and
+breadth stay closed. Breakout depth is the next open axis and is
+pre-registered in this commit, not yet run. HTF direction and liquidity
+stay open after that. Do not start `EMA3_13_50_200`. Do not start
+funding-carry, spread-capture, or catalog mean-reversion. Do not retune T.
+Holdout stays closed. Do not treat `88b0ee3` or `e70161d` as this result.
+
+**reason:** falsifiers (a) and (c). Requiring a stronger directional close
+lowers mean Train-1 net at every T and raises, rather than cuts, the
+initial_sl share.
+
+**next_action:** one breakout-depth entry gate on this name only,
+`H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01`. Not a candle retune. Not an
+abs-ATR retune. Not a Val-1 of the closed stake. Baseline remains the
+reproduced control **+72.6693115**.

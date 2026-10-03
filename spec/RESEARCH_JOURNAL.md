@@ -25,7 +25,7 @@
 | `DONCHIAN_55_NO_TRAIL` | **FREEZE** | yes (own trades) | every single-axis entry/exit/sizing lever tested on its *own* trades and falsified, incl. its own abs-ATR entry gate; edge is a few fat-tail runners, any filter that cuts losses also cuts those | `strategy_profiles/DONCHIAN_55_NO_TRAIL.md` |
 | `EMA3_21_50_200` | **FREEZE** | yes (full loop on own trades) | all axes falsified on own trades — entry-vol (autopsy), direction (long-only), exit (exit-class/partial), regime (breadth); every expectancy lever leaves the floor ≥7/12 because the shared regime makes both the losses and the runners | `strategy_profiles/EMA3_21_50_200.md` |
 | `BB_20_25_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was HTF direction FALSIFIED (a)+(c)+(d) at `3495b16` (−$12.38/series, SL +2.44pp, floor still 7/12); not a class closure | `strategy_profiles/BB_20_25_EMA200.md` |
-| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; xsym sizing FALSIFIED (b) at `48d03b0`) | FREEZE withdrawn; entry-vol and this xsym formula closed on own trades; stay CONDITIONAL; next `H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01` on reproduced baseline +72.6693115 | `strategy_profiles/EMA_50_200.md` |
+| `EMA_50_200` | **CONDITIONAL** | partial (class levers + own-trades entry-vol FALSIFIED (a)+(c) at `80e7fa6`; xsym sizing FALSIFIED (b) at `48d03b0`; candle confirm FALSIFIED (a)+(c) at `778f373`) | FREEZE withdrawn; entry-vol, this xsym formula, and candle confirm closed on own trades; stay CONDITIONAL; next `H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01` on reproduced baseline +72.6693115 | `strategy_profiles/EMA_50_200.md` |
 | `EMA3_13_50_200` | **CONDITIONAL** | partial (class levers only; full per-name loop incomplete) | FREEZE withdrawn — class-closure/shared-months ≠ full protocol pass; entry+sizing still open | `strategy_profiles/EMA3_13_50_200.md` |
 | `BB_20_2_EMA200` | **FREEZE** | yes (own trades) | every licensed axis closed on own trades, last was liquidity FALSIFIED (c) at `776e167` (+1.923800/series, SL share +0.084856pp, floor 7/12→6/12); not a class closure | `strategy_profiles/BB_20_2_EMA200.md` |
 | ~20 swarm families (beta_gate, btc_filter, htf_gap_midfill, liq_range_eqh, multi_tf_pa, vol_regime_wrap, liq_cascade_proxy, session_regime, sube_inv_fvg, …) | FALSIFIED (H2) | partial (old process) | several H1-positive aggregate, but all H2-falsified with the same fat-tail shape; mean-reversion/session/sube negative | `output/f006_cross_family_digest.md` |
@@ -129,14 +129,29 @@ that precedent does not apply. No Val-1. Do not FREEZE. Do not start
 `EMA3_13_50_200`. Baseline stays reproduced control **+72.6693115**.
 Section 15: `spec/research/F006-coordinator-series-report-ema-50-200-xsym-agree-sizing.md`.
 
-**Next = `H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01`** (pre-registered;
-ticket `spec/features/active/F006-ema50200-entry-candle-confirm-01/ticket.md`).
-One §8 candle-confirm entry gate on this name's own Train-1 trades.
-T grid `{0.50, 0.60, 0.70, 0.80, 0.90}` is the licensed shape, not a copy
-of BB_20_2 T=0.60 or BB_20_25 T=0.70. Control must reproduce +72.6693115 /
-n=330 / initial_sl 213/330 / floor 7/12 / big-winner 5 / +843.7639016181568.
-`number_of_trials = 5`. Not a Val-1 of the closed stake. Not an abs-ATR
-retune. Not `EMA3_13_50_200`. Not holdout. Not FREEZE in this commit.
+**EMA_50_200 candle confirm FALSIFIED (a)+(c); name stays CONDITIONAL.**
+`H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01` is **FALSIFIED (a)+(c)** at `778f373`
+(review PASS `2026-10-03-f006-ema50200-entry-candle-confi-ec9e0935`).
+Control exact +72.6693115 (max abs diff 0.0), n=330, initial_sl 213/330 =
+0.6454545454545455, floor 7/12, big winners 5 / +843.7639016181568. Best
+T=0.50 mean +45.0267104 (delta −27.6426011/series). Initial_sl share rose
+2.9672358098754015 pp to 133/197. Every T lowers the mean. (b)(d)(e) did
+not fire. Do not FREEZE. Do not start `EMA3_13_50_200`. Baseline stays
+reproduced control **+72.6693115**. Section 15:
+`spec/research/F006-coordinator-series-report-ema-50-200-entry-candle-confirm.md`.
+
+**Next = `H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01`** (pre-registered;
+ticket `spec/features/active/F006-ema50200-entry-breakout-depth-01/ticket.md`).
+One §8 breakout-depth entry gate on this name's own Train-1 trades.
+Depth = directional (close vs ema200) / ema200. D grid
+`{0.02, 0.05, 0.10, 0.25, 0.50}` is the licensed shape, not another name's
+measured depth means and not a copied winning D. Control must reproduce
++72.6693115 / n=330 / initial_sl 213/330 / floor 7/12 / big-winner 5 /
++843.7639016181568. `number_of_trials = 5`. Not a candle retune. Not an
+abs-ATR retune. Not a Val-1 of the closed stake. Not `EMA3_13_50_200`.
+Not holdout. Not FREEZE in this commit. If this gate later fails,
+decision_if_fail keeps CONDITIONAL and names HTF direction as the following
+open axis.
 
 > **Infra note (2026-10-02):** both worker channels were down when breadth-regime ran — codex quota
 > exhausted, `claude-bridge` provider `not_ready`. That fallback is historical. This next
@@ -545,3 +560,24 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   Do not start `EMA3_13_50_200`. Ticket
   `spec/features/active/F006-ema50200-entry-candle-confirm-01/ticket.md`.
 
+
+- **2026-10-03 ~17:58 Europe/Warsaw** — **H-EMA-50-200-ENTRY-CANDLE-CONFIRM-01 = FALSIFIED (a)+(c)**.
+  Tip `778f373` FF-merged to `origin/main` (parent `5321033`). Review PASS
+  `2026-10-03-f006-ema50200-entry-candle-confi-ec9e0935`. Control +72.6693115 /
+  n=330 / initial_sl 213/330 = 0.6454545454545455 / floor 7/12 / big-winner
+  5 / +843.7639016181568 reproduced from
+  `output/f006_ema_50_200_entry_candle_confirm/`. Best T=0.50 mean +45.0267104
+  (delta −27.6426011/series); initial_sl share rose 2.9672358098754015 pp to
+  133/197; floor 8/12 at that T. (a)(c) fired; (b)(d)(e) did not. Decision =
+  **FALSIFIED (a)+(c)**. Profile stays **CONDITIONAL**. Candle confirm is
+  closed. Do not FREEZE. Not evidence for other names. §15:
+  `spec/research/F006-coordinator-series-report-ema-50-200-entry-candle-confirm.md`.
+
+- **2026-10-03 ~17:58 Europe/Warsaw** — **H-EMA-50-200-ENTRY-BREAKOUT-DEPTH-01 pre-registered**
+  (breakout depth on CONDITIONAL `EMA_50_200` own trades; depth = (close vs
+  ema200) / ema200; D grid {0.02, 0.05, 0.10, 0.25, 0.50}; Train-1 only;
+  control mean +72.6693115 from this name's reproduced baseline). Not a
+  transfer of BB_20_2 or BB_20_25 depth cells. Candle confirm, entry-vol, and
+  the xsym formula on this name stay closed. Do not FREEZE. Do not start
+  `EMA3_13_50_200`. Ticket
+  `spec/features/active/F006-ema50200-entry-breakout-depth-01/ticket.md`.
