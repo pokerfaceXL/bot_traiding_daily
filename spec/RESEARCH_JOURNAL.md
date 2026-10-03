@@ -88,7 +88,33 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-04 ~00:27 Europe/Warsaw — non-candle sleeve INVALID, no spawn)
+## Next planned step (2026-10-04 ~00:35 Europe/Warsaw — H-NONCANDLE-SLEEVE-01 OI frozen, spawn T0)
+
+Trader kierunku named Bybit linear open interest as the one source.
+Fetched `/v5/market/open-interest` category=linear intervalTime=1h for
+BTCUSDT, ETHUSDT, SOLUSDT, XRPUSDT, DOGEUSDT into
+`data_cache/open_interest/` (not candle cache, not funding). Repo
+constants confirmed: WARMUP_START 2024-01-26T00:00:00Z, TRAIN1_END
+2025-03-01T00:00:00Z (`scripts/f006_family_runner.py`). Coverage PASS:
+9600 hourly rows per symbol from 2024-01-26T00:00:00Z through
+2025-02-28T23:00:00Z, gaps=0.
+
+**Card:** `H-NONCANDLE-SLEEVE-01` now has exactly one frozen rule (written
+before any result): position for hour t is the opposite sign of the prior
+hour's OI change (sign=-1 if OI[t-1]>OI[t-2], +1 if OI[t-1]<OI[t-2],
+flat if equal or missing). `number_of_trials = 1`. No threshold, no grid.
+Baseline flat cash 0. Costs = existing harness. INVALID unless the OI
+series is consumed (not a candle proxy). Falsifiers unchanged: (a) Train-1
+mean after costs <= 0; (b) Warsaw exit-month sum of net_pnl over
+2024-03, 2024-04, 2024-05, 2024-08, 2024-09, 2024-12 <= 0.
+`decision_if_fail` closes this sleeve's first mechanism only; does not
+unfreeze catalog names or open a catalog portfolio. Do not touch
+EMA/BB/Donchian, catalog mean-reversion, spread, funding carry, XS_RS,
+ORB, swarm. Note:
+`spec/research/F006-hypothesis-noncandle-sleeve.md`. Ticket:
+`spec/features/active/F006-noncandle-sleeve-01/ticket.md`.
+
+## Next planned step (superseded 2026-10-04 ~00:35 — was INVALID / no source at 00:27)
 
 Trader kierunku approved one non-candle book. The search found no loadable
 source. Candle cache columns are `timestamp, open, high, low, close, volume`
@@ -447,7 +473,7 @@ pre-registration: the next name is an owner decision. Section 15:
 
 ## §15 Coordinator report (updated 2026-10-04 ~00:27 Europe/Warsaw, non-candle sleeve INVALID)
 
-`H-NONCANDLE-SLEEVE-01` is pre-registered and **INVALID**. No T0. No spawn.
+`H-NONCANDLE-SLEEVE-01` OI source cached and frozen rule written. Spawn T0 to implement the frozen rule only.
 The approved direction needs one source the catalog candles do not have.
 That source is not in the harness.
 
@@ -458,7 +484,7 @@ That source is not in the harness.
 5. **Loses when?** Catalog book: shared basket regime, the six months in `summary.json` `ge_5_of_5`. Carry: every Warsaw symbol-day. Spread: inside spread 1.076716 bps < 17.
 6. **Rejected hypotheses?** Funding-carry **FALSIFIED (a)+(b)** (`03d49bd`, mean M -318.858103). Spread-capture **closed**, no sweep. Catalog mean-reversion stays closed. XS_RS / ORB / swarm stay closed. This sleeve is not rejected; it was not run.
 7. **Unresolved problem?** A book that is positive after costs inside those six shared losing months. Section 8 portfolio stays blocked. The missing piece is the source, not another candle filter.
-8. **Next experiment & why?** None to run. `H-NONCANDLE-SLEEVE-01` first line: add that source to the harness, else the test is invalid. No named file, so do not spawn a hunt.
+8. **Next experiment & why?** `H-NONCANDLE-SLEEVE-01` T0: implement the frozen OI fade rule on the cached Bybit linear open-interest series. One change. Do not pick a new rule.
 9. **Why not a random search?** Section 13 is on the card. Existing families are insufficient for the reasons in that block. Inventing a second family or a candle proxy would not be the approved direction.
 10. **What result confirms or refutes it?** Nothing was scored. (a) Train-1 mean after costs <= 0. (b) six-month Warsaw exit-month sum of `net_pnl` <= 0. A run that does not consume the non-candle source is INVALID, not a confirmation.
 
@@ -624,6 +650,13 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
 10. **What result confirms/refutes the next hypothesis?** On the liquidity card. Control must reproduce +95.3217987, n=756, initial_sl 0.47354497354497355, big-winner 1251.654084307187, floor 7/12. Pass needs mean above control AND initial_sl drop ≥10pp AND ≥50% big-winner PnL retained AND floor strictly below 7/12, without collapsing below 10 trades/series. Any of (a)–(e) fails it. Binary gate, `number_of_trials = 1`. A falsification on this name's own trades would allow §4 level C FREEZE at that Decision; this commit does not set it.
 
 ## Chronological log
+
+- **2026-10-04 ~00:35 Europe/Warsaw** — **H-NONCANDLE-SLEEVE-01 OI cached + frozen rule**.
+  Bybit linear OI 1h for five Train-1 symbols in `data_cache/open_interest/`
+  (9600 rows/symbol, gaps=0, WARMUP_START..TRAIN1_END). Frozen rule: opposite
+  sign of prior-hour OI change; `number_of_trials = 1`; baseline flat cash 0;
+  INVALID unless OI consumed. Spawn T0 (claude). Ticket
+  `spec/features/active/F006-noncandle-sleeve-01/ticket.md`.
 
 - **2026-10-04 ~00:27 Europe/Warsaw** — **H-NONCANDLE-SLEEVE-01 pre-registered INVALID**.
   Trader kierunku approved one non-candle book. No order-flow, open-interest,

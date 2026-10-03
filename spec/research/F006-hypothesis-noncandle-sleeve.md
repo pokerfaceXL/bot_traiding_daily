@@ -1,56 +1,42 @@
-Add that source to the harness, else the test is invalid.
+# F006 — H-NONCANDLE-SLEEVE-01 (pre-registered; OI source frozen)
 
-# F006 — H-NONCANDLE-SLEEVE-01 (pre-registered, INVALID)
-
-> Pre-registered **before** any run. Trader kierunku approved one direction:
-> one hypothesis, one change, Train-1 only, its own book on ONE source the
-> catalog candles do not have (order flow, open interest, liquidations, or
-> cross-asset context), whichever is already in the harness.
->
-> **Status: INVALID. Do not run. Do not spawn.** None of those four series
-> exists as a loadable input. This card does not invent a second family,
-> does not name a download, and does not substitute a candle proxy.
+> Pre-registered **before** any result. Trader kierunku named one source:
+> Bybit linear open interest. This card freezes exactly one position rule
+> that reads that series. It is not a catalog name, not funding-carry, not
+> a candle proxy, and not a second invented family.
 
 experiment_id: H-NONCANDLE-SLEEVE-01
 date: 2026-10-04
 base_strategy: flat cash 0
 number_of_trials: 1
-status: INVALID until one named non-candle source is already loadable
+status: frozen rule; OI cache coverage passed; await T0 Result
 
-## Source search (2026-10-04 ~00:27 Europe/Warsaw)
+## Source (named by Trader kierunku)
 
-Searched the repo (Python and research notes, excluding virtualenvs) and
-`data_cache/`. Nothing the catalog candle backtest does not already use
-qualifies.
+Bybit v5 `/v5/market/open-interest`, `category=linear`, `intervalTime=1h`.
+Same five Train-1 symbols: BTCUSDT, ETHUSDT, SOLUSDT, XRPUSDT, DOGEUSDT.
+Window from repo constants `WARMUP_START` = `2024-01-26T00:00:00Z` through
+`TRAIN1_END` = `2025-03-01T00:00:00Z` (`scripts/f006_family_runner.py`).
 
-Quoted loaders and files:
+Cached under `data_cache/open_interest/` (not the candle cache, not
+`data_cache/funding/`):
 
-- `scripts/f006_family_runner.py` `load_train1` (the Train-1 loader) calls
-  `data_contract.load_dataset("data_cache", symbol, interval, WARMUP_START, TRAIN1_END)`.
-- `data_cache/BTCUSDT_60_20240126T000000Z_20250301T000000Z.csv` columns are
-  only `timestamp, open, high, low, close, volume`. The other four symbols
-  in the frozen basket are the same shape. That is the catalog candle book.
-- `data_cache/funding/<SYM>_funding_20240126T000000Z_20250301T000000Z.csv`
-  columns are `timestamp, funding_rate`, loaded by
-  `scripts/f006_funding_carry.py` `load_funding`. Funding is not order flow,
-  open interest, liquidations, or cross-asset context. `H-FUNDING-CARRY-01`
-  already consumed it and is **FALSIFIED (a)+(b)**, mean M -318.858103,
-  Decision `03d49bd`. Do not reuse it as this sleeve.
-- `data_cache/f005_liquidity_snapshot.json` is one Bybit linear ticker
-  snapshot (`generated_at` 2026-09-22, `turnover24h`). Not a Train-1 series.
-- `liq_range_eqh.py` (module docstring): "Every decision at bar i uses OHLCV
-  through i". That is a candle proxy for a range sweep, not exchange
-  liquidation prints. Do not run it.
-- `btc_filter.py` `btc_er_permission` reads `btc_df["close"]` only. Cross-asset
-  context built from catalog candles the backtest already has. Not this card.
-  `cross_sectional_rs.py` ranks those same candles. Family XS_RS stays closed.
-- No project module loads open interest, liquidation prints, aggTrades, or a
-  book. No such file is in `data_cache/`.
+- `BTCUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+- `ETHUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+- `SOLUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+- `XRPUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+- `DOGEUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+- `manifest.json` (checksums)
 
-There is no series for the harness to pass in. This card does not name a
-URL and does not name a file that is not on disk. Until one of those four
-sources is added as a real cached series the harness can pass in, every
-backtest of this id is INVALID.
+Coverage gate (2026-10-04 ~00:32 Europe/Warsaw): every symbol has 9600
+hourly rows spanning `2024-01-26T00:00:00+00:00` through
+`2025-02-28T23:00:00+00:00` (WARMUP_START inclusive through the last hour
+before TRAIN1_END), gaps=0, dups=0, monotonic. Columns:
+`timestamp, open_interest`. Do not download liquidations, order flow, or
+trades. Do not build a candle proxy.
+
+Funding (`data_cache/funding/`) is a closed family (**FALSIFIED (a)+(b)**,
+Decision `03d49bd`, mean M -318.858103). Do not reuse it as this sleeve.
 
 ## Shared losing months
 
@@ -61,9 +47,7 @@ Verified against `output/f006_shared_losing_months/summary.json`
 `2024-03, 2024-04, 2024-05, 2024-08, 2024-09, 2024-12`
 
 That matches the owner list. Do not use `ge_3_of_5` (that set adds
-`2025-01`). The note
-`spec/research/F006-hypothesis-catalog5-shared-losing-months.md` states the
-same six months as 5/5 names all losing.
+`2025-01`).
 
 ```text
 Why existing family is insufficient:
@@ -78,63 +62,60 @@ Decision 03d49bd, mean M -318.858103. Further candle filters on catalog
 names do not add a book the candles do not already have.
 
 What mechanism is missing:
-A position book whose only new input is one series the catalog candles do
-not contain: order flow, open interest, liquidations, or cross-asset context
-that is not those candles. That series is not in the harness and not in the
-data cache. Without it there is no mechanism, only a candle proxy, and a
-candle proxy is out of scope.
+A position book whose only new input is open interest — a series the
+catalog candles do not contain.
 
 Why this family is different:
 It is not an EMA, BB, or Donchian entry filter, not catalog mean-reversion,
 not spread capture, not funding carry, not a reopen of XS_RS, ORB, or swarm,
-and not a portfolio of catalog names. The difference is the input series.
-Until that series is loadable the difference is not real, so this card stays
-INVALID and is not a second invented family.
+and not a portfolio of catalog names. The difference is the OI input series.
 
 What evidence would reject it:
 (a) Train-1 mean after costs <= 0, against flat cash 0.
 (b) the sleeve is not positive after costs inside the six shared losing
 months listed above.
-A run that does not actually consume the non-candle source is INVALID, not
+A run that does not actually consume the cached OI series is INVALID, not
 a pass and not a falsification of (a) or (b).
 
 What is the maximum initial research budget:
 number_of_trials = 1. One change versus flat cash. Train-1 only. Five
-symbols, one interval, no grid. This commit spends zero trials. Do not spend
-the trial on a candle proxy, on funding, or on a download with no file
-already in the cache.
+symbols, one interval, no threshold, no grid.
 ```
 
-## Frozen rule
+## Frozen rule (one change versus flat; written before any result)
 
-No rule is frozen, because freezing one would fake the source. When a named
-file of exactly one of the four kinds is later in the harness, the single
-change versus flat cash is: one position rule that reads that file and no
-candle feature the catalog book does not already use. That rule is not
-written here.
-
-- Symbols, if a later valid run is ever licensed: SOLUSDT, ETHUSDT, BTCUSDT,
-  XRPUSDT, DOGEUSDT.
+- Symbols: BTCUSDT, ETHUSDT, SOLUSDT, XRPUSDT, DOGEUSDT.
 - Interval: 60 only. Do not also run 240.
 - Window: warmup from WARMUP_START 2024-01-26T00:00:00Z, score only Train-1
   months 2024-03 through 2025-02, slice end TRAIN1_END 2025-03-01T00:00:00Z.
   Do not load validation or holdout bars.
-- Costs, unchanged: commission_rate_bps=10, half_spread_bps=5,
-  slippage_bps=2, leverage=1, stake=100, initial_equity=500. Do not retune.
+- OI series: read `data_cache/open_interest/<SYM>_oi_1h_20240126T000000Z_20250301T000000Z.csv`
+  (Bybit linear open interest, intervalTime 1h). Align to the hour bars.
+  Do not substitute candles, volume, funding, or any candle-derived proxy.
+- Position for hour t: the opposite sign of the prior hour's open-interest
+  change. Let OI[t-1] and OI[t-2] be the cached open-interest values at the
+  prior two hour timestamps.
+  - sign = -1 if OI[t-1] > OI[t-2]
+  - sign = +1 if OI[t-1] < OI[t-2]
+  - flat (0) if OI[t-1] == OI[t-2], or if either OI value is missing
+  Hold that signed position for hour t (enter/rebalance at the open of t
+  under the existing harness conventions). One change. No threshold, no
+  grid. `number_of_trials = 1`.
+- Costs, unchanged: the existing harness cost model
+  (commission_rate_bps=10, half_spread_bps=5, slippage_bps=2, leverage=1,
+  stake=100, initial_equity=500). Do not retune.
 - Baseline: flat cash 0. The same script with an empty entry mask must show
-  0 trades, total_costs 0, Train-1 net 0. Do not copy a catalog name mean
-  (+91, +72, or any other). The harness has no separate control series for
-  a source that is not loaded.
+  0 trades, total_costs 0, Train-1 net 0. Do not copy a catalog name mean.
 
-## Invalid unless the non-candle source is consumed
+## Invalid unless the OI source is consumed
 
 Before any score, the run must show that entries change when that cached
-series is shuffled or zeroed and the candles are held fixed, and that a run
-with the series omitted refuses to score. If the series is absent, empty,
-or unused, write Result INVALID and stop. Do not label (a) or (b). Do not
-report that run as evidence. A candle-only proxy (CVD from close-open,
-volume median, EQH/EQL, BTC efficiency ratio, cross-sectional rank) is
-INVALID on this card.
+OI series is shuffled or zeroed and the candles are held fixed, and that a
+run with the OI series omitted refuses to score. If the series is absent,
+empty, or unused, write Result INVALID and stop. Do not label (a) or (b).
+Do not report that run as evidence. A candle-only proxy (CVD from
+close-open, volume median, EQH/EQL, BTC efficiency ratio, cross-sectional
+rank) is INVALID on this card.
 
 ## Falsifiers
 
@@ -150,7 +131,7 @@ is the unweighted mean of that net across the five symbols.
   {2024-03, 2024-04, 2024-05, 2024-08, 2024-09, 2024-12}.
   (b) fires if that sum is <= 0. A month with no trades contributes 0.
   Do not swap in `ge_3_of_5` or 2025-01.
-- INVALID if the run does not actually consume the non-candle source.
+- INVALID if the run does not actually consume the non-candle OI source.
   INVALID is not (a) and not (b).
 - `number_of_trials = 1`. One change only. No second rule, no threshold
   grid, no second source.
@@ -160,18 +141,18 @@ Both (a) and (b) may fire. Label them literally. No other letters.
 ## decision_if_fail
 
 Close this sleeve's first mechanism. Do not unfreeze catalog names. Do not
-open catalog portfolio. No retune, no second source, no symbol drop, no
-second interval. Do not reopen funding-carry, spread capture, catalog
-mean-reversion, XS_RS, ORB, or swarm. Section 8 stays blocked. INVALID
-(source missing or unused) does not fire this sentence and does not close
-a mechanism that was never run.
+open a catalog portfolio. No retune, no second source, no symbol drop, no
+second interval. Do not touch EMA/BB/Donchian filters, catalog
+mean-reversion, spread capture, funding carry, XS_RS, ORB, or swarm.
+Section 8 stays blocked. INVALID (source missing or unused) does not fire
+this sentence and does not close a mechanism that was never run.
 
 ## decision_if_pass
 
-Not reachable while this card is INVALID. A later valid pass (mean > 0 and
-(b) not fired, source actually consumed) still does not promote, does not
-unfreeze a catalog name, and does not open a catalog portfolio. Leave
-Decision blank. Worker does not open Val-1 or holdout.
+A valid pass (mean > 0 and (b) not fired, OI source actually consumed)
+still does not promote, does not unfreeze a catalog name, and does not
+open a catalog portfolio. Leave Decision blank. Worker does not open Val-1
+or holdout.
 
 ## Out of scope
 
@@ -179,8 +160,10 @@ EMA/BB/Donchian entry filters, catalog mean-reversion, spread capture,
 funding carry, closed families XS_RS / ORB / swarm, a portfolio of catalog
 names, holdout, validation, editing `strategy.py` on disk, `.pi/config.json`,
 and `spec/features/active/F006-catalog5-unfreeze-correction/`. Do not
-`git reset --hard`.
+`git reset --hard`. Do not invent a new rule. The worker implements this
+frozen rule only.
 
 ## Result
 
-Not run. No source file. Result = INVALID. No spawn.
+Not run yet. Frozen rule written before any result. OI cache coverage
+passed. Await T0.
