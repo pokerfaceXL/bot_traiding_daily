@@ -182,7 +182,66 @@ decision_if_fail: keep CONDITIONAL; mark breakout-depth entry-structure axis clo
 
 ## Result
 
-(empty — worker fills)
+Run: `F006_DATA_CACHE=/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache python3 scripts/f006_ema3_13_50_200_entry_breakout_depth.py`
+(harness commit `099a496`; artifacts `output/f006_ema3_13_50_200_entry_breakout_depth/`).
+The gate function is imported unchanged from
+`scripts/f006_ema_50_200_entry_breakout_depth.py` (`breakout_depth_gate`:
+direction-signed `(close - ema200) / ema200 >= D`, ema200 missing or <= 0
+rejects) and intersected with the `EMA3_13_50_200` one-shot mask; exits use
+the ungated signal; no xsym stake. Only the frozen Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` were loaded; checksums equal
+`output/f006_ema3_13_50_200_abs_atr_gate/grid_freeze.json`.
+`grid_freeze.json` was written after the control check and before any gated
+cell. `number_of_trials = 5`.
+
+Control reproduced exactly (max abs train1 diff vs catalog5 = 0.0, 10/10 rows,
+n_trades equal): mean +91.1483016 (sum +911.483016), Train-1 entry n=423,
+entry net +771.283617, initial_sl 292/423 = 0.6903073286052009, big winners
+(net>=29.9, frozen on this run's ungated blotter) 9 trades / +1131.9561537333418,
+pooled losing entry-months 7/12. All match the candle-confirm control row
+(diff 0).
+
+| cell | D | mean train1 net | n entry (mean/series) | initial_sl share (drop pp) | big-winner retained (by key) | cohort net>=29.9 PnL | losing months | +symbols |
+|---|---|---|---|---|---|---|---|---|
+| control | — | +91.148302 | 423 (42.3) | 292/423 = 69.03% (0.0) | 9 / +1131.956 (100%) | +1131.956 | 7/12 | 3/5 |
+| d_0_02 | 0.02 | +94.453053 | 322 (32.2) | 248/322 = 77.02% (-7.99) | 6 / +1012.210 (89.4%) | +1047.597 | 7/12 | 3/5 |
+| d_0_05 | 0.05 | -9.999065 | 159 (15.9) | 138/159 = 86.79% (-17.76) | 0 / 0.000 (0.0%) | +88.176 | 9/12 | 1/5 |
+| d_0_1 | 0.10 | +6.375522 | 48 (4.8, thin) | 41/48 = 85.42% (-16.39) | 0 / 0.000 (0.0%) | +88.176 | 7/12 | 4/5 |
+| d_0_25 | 0.25 | -0.663100 | 2 (0.2, thin) | 2/2 = 100% (-30.97) | 0 / 0.000 (0.0%) | 0.000 | 2/12 | 0/5 |
+| d_0_5 | 0.50 | 0.000000 | 0 (0.0, thin) | n/a | 0 / 0.000 (0.0%) | 0.000 | 0/12 | 0/5 |
+
+Negative drop = initial_sl share rose. Best-PnL D = 0.02 (+94.453053,
+delta +3.3047511/series; entry net/trade +2.5027 vs control +1.8234).
+"Big-winner retained" is the pre-declared metric (baseline net>=29.9 trades
+surviving by symbol/interval/entry_time/direction with identical economics);
+"cohort net>=29.9 PnL" is informational only. The 2/12 and 0/12 floors at
+D=0.25/0.50 are empty-cohort artifacts (2 and 0 trades), not improvements.
+D=0.02 per-symbol train1 net: XRP +544.09, DOGE +428.74, SOL +32.34,
+BTC -13.83, ETH -46.82; per-symbol losing entry-months SOL 6, ETH 8, BTC 8,
+XRP 7, DOGE 5 (control: SOL 6, ETH 7, BTC 6, XRP 9, DOGE 6).
+
+Independent check: recomputing ema200 via `strategy.add_indicators` on the
+closed bars, every kept trade clears D on the closed bar before its entry
+bar (D=0.02 342/342, D=0.05 164/164, D=0.10 48/48 incl. warmup trades).
+Re-running at the harness commit reproduced `cell_summary.csv` byte-for-byte.
+
+Falsifiers:
+- (a) does not fire — D=0.02 beats control mean (+94.453053 vs +91.148302).
+  Every other D is below control.
+- (b) does not fire — non-thin D=0.02 retains 89.4% of baseline big-winner
+  PnL (D=0.05 retains 0%).
+- (c) FIRES — at best-PnL D=0.02 initial_sl share rose 7.99pp (69.03% ->
+  77.02%) instead of falling >=10pp.
+- (d) not reachable — no D passes (a)-(c); the pooled floor at D=0.02 is
+  7/12 anyway (no change).
+- (e) does not fire — the only D above control (0.02) is non-thin (32.2/series).
+
+No D lowers the pooled floor while keeping >=50% big-winner PnL and >=10
+trades/series (D=0.02 keeps 89.4% and 32.2/series but stays 7/12). The
+D=0.02 mean lift is small (+3.30/series) and comes with a higher initial_sl
+share, so it is a cohort-trim, not the pre-declared mechanism. Outcome
+against the pre-declared falsifiers: FALSIFIED (c). Decision left to
+coordinator.
 
 ## Decision
 

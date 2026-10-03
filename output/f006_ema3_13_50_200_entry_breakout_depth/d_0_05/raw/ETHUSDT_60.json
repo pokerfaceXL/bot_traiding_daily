@@ -1,0 +1,187 @@
+{
+  "signal_autopsy": {
+    "blotter": "ETHUSDT_60_EMA3_13_50_200.csv",
+    "n_closed_trades": 13,
+    "n_train1_entries": 12,
+    "calm": {
+      "n": 12,
+      "n_true": 4,
+      "rate": 0.3333333333333333,
+      "tag": "weak"
+    },
+    "forward_agreement": {
+      "n": 12,
+      "n_true": 5,
+      "rate": 0.4166666666666667,
+      "tag": "weak"
+    },
+    "quick_reverse": {
+      "n": 12,
+      "n_true": 0,
+      "rate": 0.0,
+      "tag": "strong"
+    }
+  },
+  "symbol": "ETHUSDT",
+  "interval": "60",
+  "strategy": "EMA3_13_50_200",
+  "n_calls": 17,
+  "net_pnl": 15.719443,
+  "gross_pnl": 19.952005,
+  "win_rate": 23.08,
+  "n_trades": 13,
+  "n_wins": 3,
+  "n_losses": 10,
+  "avg_winner": 16.312481,
+  "avg_loser": -3.3218,
+  "breakeven_win_rate_pct": 16.9184,
+  "sum_wins": 48.937443,
+  "sum_losses": -33.218,
+  "mean_bars_held": 158.0,
+  "total_costs": 4.232562,
+  "exit_initial_sl": 10,
+  "exit_trailing_sl": 0,
+  "exit_take_profit": 0,
+  "exit_signal_reverse": 3,
+  "exit_end_of_data": 0,
+  "profit_factor": 1.473221,
+  "calmar": 0.361533,
+  "max_drawdown_usd": 43.479978,
+  "max_drawdown_pct": 7.7754,
+  "final_equity": 515.719443,
+  "train1_net_pnl": -14.248307,
+  "warmup_net_pnl": 29.96775,
+  "boundary_net_pnl": 0.0,
+  "n_valid_months": 12,
+  "all_valid_months_nonnegative": false,
+  "promotion_pass": false,
+  "phase_fit_score": null,
+  "phase_unlabeled_trades": 0,
+  "phase_leg_metrics": "",
+  "phase_fit": null,
+  "monthly": [
+    {
+      "year": 2024,
+      "month": 3,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 6.161728456110836,
+      "positive_day_pct": 32.25806451612903,
+      "deviation_pct": 67.74193548387096,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -2.871946301226444,
+      "positive_day_pct": 20.0,
+      "deviation_pct": 80.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 0.890466969082695,
+      "positive_day_pct": 9.67741935483871,
+      "deviation_pct": 90.3225806451613,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -4.205966969082624,
+      "positive_day_pct": 10.0,
+      "deviation_pct": 90.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -9.973500000000058,
+      "positive_day_pct": 6.451612903225806,
+      "deviation_pct": 93.54838709677419,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 0.0,
+      "positive_day_pct": 0.0,
+      "deviation_pct": 100.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 0.0,
+      "positive_day_pct": 0.0,
+      "deviation_pct": 100.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 0.0,
+      "positive_day_pct": 0.0,
+      "deviation_pct": 100.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -3.315499999999929,
+      "positive_day_pct": 0.0,
+      "deviation_pct": 100.0,
+      "target_met": false
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": 9.553494748192293,
+      "positive_day_pct": 29.032258064516128,
+      "deviation_pct": 70.96774193548387,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -7.162583720073485,
+      "positive_day_pct": 9.67741935483871,
+      "deviation_pct": 90.3225806451613,
+      "target_met": false
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "is_valid": true,
+      "is_partial": false,
+      "net_pnl": -3.3244999999999436,
+      "positive_day_pct": 3.5714285714285716,
+      "deviation_pct": 96.42857142857143,
+      "target_met": false
+    }
+  ],
+  "seconds": 0.25,
+  "cell": "d_0_05",
+  "threshold": 0.05
+}
