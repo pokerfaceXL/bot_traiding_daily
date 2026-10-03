@@ -1,0 +1,56 @@
+{
+  "cell": "t_0_05",
+  "threshold": 0.05,
+  "mean_train1_net_pnl": 67.7967701,
+  "pooled_train1_net_pnl": 677.967701,
+  "entry_cohort_net_pnl": 570.7851782726274,
+  "entry_cohort_net_per_trade": 1.441376712809665,
+  "n_train1_entry_trades": 396,
+  "mean_n_trades_per_series": 39.6,
+  "n_closed_trades_including_warmup": 436,
+  "initial_sl_share": 0.5934343434343434,
+  "initial_sl_share_drop_pp": -1.3356218434343425,
+  "baseline_big_winner_count": 10,
+  "retained_big_winner_count": 4,
+  "baseline_big_winner_pnl": 968.0207320067371,
+  "retained_big_winner_pnl": 677.4741401626343,
+  "big_winner_pnl_retained_fraction": 0.6998549904589433,
+  "losing_entry_months": 8,
+  "entry_month_net_pnl": {
+    "2024-03": -87.25067890452532,
+    "2024-04": -22.811198036131206,
+    "2024-05": -34.111095473775535,
+    "2024-06": -5.016985455966658,
+    "2024-07": 71.51179922454389,
+    "2024-08": -49.68451788836867,
+    "2024-09": -21.609259645448518,
+    "2024-10": -38.10639101794853,
+    "2024-11": 718.8673051537993,
+    "2024-12": -72.27179405819234,
+    "2025-01": 75.02305229535584,
+    "2025-02": 36.24494207928489
+  },
+  "n_net_positive_symbols": 4,
+  "per_symbol_train1_net_pnl": {
+    "BTCUSDT": 19.022703,
+    "DOGEUSDT": -1.505004999999997,
+    "ETHUSDT": 23.800637,
+    "SOLUSDT": 132.685528,
+    "XRPUSDT": 503.963838
+  },
+  "per_symbol_losing_entry_months": {
+    "SOLUSDT": 5,
+    "ETHUSDT": 8,
+    "BTCUSDT": 6,
+    "XRPUSDT": 8,
+    "DOGEUSDT": 9
+  },
+  "checks": {
+    "mean_beats_control": false,
+    "initial_sl_down_10pp": false,
+    "big_winner_pnl_retained_50pct": true,
+    "pooled_losing_month_floor_improves": false,
+    "not_thin": true
+  },
+  "pass": false
+}

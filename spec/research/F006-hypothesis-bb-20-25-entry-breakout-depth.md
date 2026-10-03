@@ -119,7 +119,31 @@ decision_if_fail: keep CONDITIONAL; mark breakout-depth closed on this name's ow
 
 ## Result
 
-(empty — worker fills after the run)
+Train-1 run completed on the frozen 5-symbol × 2-interval basket. The ungated control
+reproduced all 10 reference rows exactly: mean Train-1 net PnL **+$82.900262/series**
+(+$829.002620 summed by series), while the pre-registered entry cohort reproduced
+**n=512, +$709.849209**, initial-SL share **58.01%**, big-winner PnL **$968.020732**, and
+**7/12** pooled losing entry-months. `number_of_trials = 5`.
+
+| D | mean net/series | cohort net/trade | trades/series | initial-SL share (drop) | big-winner PnL retained | pooled losing months | net-positive symbols |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | +$82.90 | +$1.386 | 51.2 | 58.01% (0.00pp) | 100.0% | 7/12 | 4/5 |
+| 0.02 | **+$71.99** | +$1.264 | 47.7 | 58.07% (-0.06pp) | 80.7% | 8/12 | 5/5 |
+| 0.05 | +$67.80 | +$1.441 | 39.6 | 59.34% (-1.34pp) | 70.0% | 8/12 | 4/5 |
+| 0.10 | +$57.86 | +$1.666 | 28.2 | 60.28% (-2.28pp) | 31.1% | 8/12 | 4/5 |
+| 0.25 | +$2.05 | +$0.706 | 2.9 | 48.28% (9.73pp) | 0.0% | 5/12 | 4/5 |
+| 0.50 | $0.00 | n/a | 0.0 | n/a | 0.0% | 0/12 | 0/5 |
+
+**FALSIFIED by (a) and (c).** Every D reduced mean PnL below control; the best gated
+cell, D=0.02, lost $10.91/series and increased rather than reduced initial-SL share.
+Falsifier (b) did not trigger because the non-thin D=0.02 and D=0.05 cells retained
+more than 50% of pre-frozen big-winner PnL. Falsifier (c) also triggered because the
+best-PnL D missed the required 10pp initial-SL reduction. Falsifier (d) was not
+independently applicable because no D passed (a)–(c). Falsifier (e) did not trigger:
+there was no PnL improvement, thin or otherwise. D=0.25 lowered the pooled floor to
+5/12 but collapsed to 2.9 trades/series, retained no big-winner PnL, and cut mean PnL
+to +$2.05; D=0.50 made no trades. No threshold passed all declared checks. Artifacts:
+`output/f006_bb_20_25_entry_breakout_depth/`.
 
 ## Decision
 
