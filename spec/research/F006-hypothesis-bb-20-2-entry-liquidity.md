@@ -156,4 +156,56 @@ decision_if_fail: liquidity is the last open licensed axis this profile names, o
 
 ## Result
 
+Run: `F006_DATA_CACHE=<main checkout>/data_cache python3 scripts/f006_bb_20_2_entry_liquidity.py`
+(script + test committed before the run at `9199195`; artifacts in
+`output/f006_bb_20_2_entry_liquidity/`; `grid_freeze.json` written before the
+gated cell; `number_of_trials = 1`, single binary cell `liq_med20`).
+The gate reads only the native base `volume` column of the same closed
+Train-1 series: keep iff signal-bar volume >= median volume of the 20 closed
+native bars strictly before it (signal bar excluded; <20 prior bars, missing
+volume, or median not finite / <= 0 rejects; ties kept). It reads no
+`bb_20_2.5_*`, no band, no ATR, no EMA, no `vol_ratio` / `vol_ma20`, no
+quote volume, no candle strength, no breakout depth, no HTF direction. Exits
+use the ungated persistent signal; NO_TRAIL violations 0; matched-trade
+economics mismatches 0.
+
+Control (ungated) reproduced exactly: catalog5 monthly replay 10/10
+(n_trades equal, train1_net_pnl within 1e-6), and the HTF-direction control
+row (`output/f006_bb_20_2_entry_htf_direction/cell_summary.csv`) matched:
+mean **+95.3217987**, entry n **756**, entry net **+834.347778**, initial_sl
+share **0.473545** (358/756), big-winner PnL (net≥29.9) **1251.654084**
+(12 trades), pooled losing entry-months **7/12**.
+
+Gate activity (Train-1 one-shot signals, all 10 series): 2498 one-shot
+signals; 2372 at or above the prior-20 median, 126 below → 126 rejected
+(5.0%); 0 rejected for short window / non-positive median. A close beyond
+the 2σ band almost always prints on at-least-median volume, so the
+closed-trade cohort shrinks only 756 → 742.
+
+| cell | mean train1 net | entry n | n/series | entry net | initial_sl | Δ SL pp | big winners kept | BW PnL kept | kept % | losing months |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| control | +95.321799 | 756 | 75.6 | +834.347778 | 0.473545 | 0.00 | 12/12 | 1251.654 | 100.0% | 7/12 |
+| liq_med20 | +97.245599 | 742 | 74.2 | +853.585778 | 0.474394 | −0.08 | 12/12 | 1251.654 | 100.0% | 6/12 |
+
+Gated per-symbol train1 net (control in parentheses): BTC −31.807
+(−35.123), DOGE +405.526 (+389.419), ETH −15.737 (−15.250), SOL +131.958
+(+131.956), XRP +482.517 (+482.215); 3/5 net-positive (unchanged). The floor
+improvement is one month: 2024-04 flips from −5.17 to +5.01; every other
+month keeps its sign (2024-09 worsens −60.43 → −73.07).
+
+Falsifiers (pre-declared):
+- (a) mean ≤ baseline — false (+97.245599 vs +95.321799, +1.923800/series).
+- (b) removes >50% big-winner PnL — false (100% retained, 12/12).
+- (c) initial_sl share fails to fall ≥10pp — **TRUE** (share *rises*
+  0.08pp, 0.473545 → 0.474394, 358/756 → 352/742).
+- (d) pooled losing-month floor does not improve — false (7/12 → 6/12).
+- (e) mean trades/series < 10 — false (74.2).
+
+**Outcome: FALSIFIED (c).** No passing cell. The gate is nearly inert on
+this name: it removes 14 closed trades, none of them big winners, and does
+not change the stop-out rate. The +1.92/series mean gain and the one-month
+floor gain come from removing a handful of small trades (a sub-$6 swing in
+2024-04), not from separating stop-outs from runners — the mechanism the
+card claimed.
+
 ## Decision
