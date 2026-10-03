@@ -149,7 +149,67 @@ decision_if_fail: this xsym-agree formula is closed on BB_20_2_EMA200 own
 
 ## Result
 
-(empty — worker fills after the run)
+Run: `scripts/f006_bb_20_2_xsym_agree_sizing.py` at commit `92fe281` (script
+uncommitted at run time; committed with this Result). Artifacts:
+`output/f006_bb_20_2_xsym_agree_sizing/` (`summary/{control,sized,results}.csv`,
+`summary/cell_summary.json`, `summary/manifest.json`, `summary/run.log`,
+`raw/*.json`, `blotters/*_{control,sized}.csv`). Data: Train-1 caches
+`*_20240126T000000Z_20250301T000000Z.csv` only, all 10 checksums equal to
+`output/f006_bb_20_2_abs_atr_gate/grid_freeze.json`; no `*_20260901*` or
+`*_20200325*` loaded. number_of_trials = 1. Formula frozen:
+`mult = clip(0.5 + 0.375 * n_agree, 0.5, 2.0)`, n_agree on BB_20_2_EMA200's own
+persistent signal across the other 4 symbols.
+
+Causal alignment: stake at fill bar i = 100 × mult from closed bar i−1
+(`closed_bar_mult.shift(1)`); first bar stake 100. Independent check over all
+820 sized closed trades: stake equals 100 × prior-closed-bar mult on 820/820;
+it differs from the fill-bar's own mult on 435/820, so the shift is binding.
+
+Control replay (stake_series=None): 10/10 rows vs
+`output/f006_notrail_monthly_catalog5/summary/results.csv`, max abs
+train1_net_pnl diff 0.0, n_trades mismatches 0. Mean +95.321799
+(sum +953.217987), 8/10 positive. Control entry-month floor confirmed 7/12.
+
+| metric | control (stake 100) | sized (xsym agree) |
+|---|---:|---:|
+| mean train1_net_pnl / series | +95.3218 | +146.6327 |
+| sum train1_net_pnl | +953.2180 | +1466.3270 |
+| positive series | 8/10 | 9/10 |
+| closed trades (incl. warmup) | 820 | 820 |
+| Train-1-entry trades | 756 | 756 |
+| Train-1-entry net / per trade | +834.35 / +1.1036 | +1287.27 / +1.7027 |
+| pooled losing entry-months | 7/12 | 6/12 |
+
+Pooled entry-month net (control → sized): 2024-03 −99.99→−113.79,
+04 −5.17→−5.88, 05 −47.80→−34.26, 06 −8.94→+8.74, 07 +111.72→+80.33,
+08 −100.93→−109.65, 09 −60.43→−50.76, 10 +185.68→+89.85,
+11 +851.55→+1349.31, 12 −118.10→−99.74, 2025-01 +10.23→+0.54,
+02 +116.53→+172.56.
+
+Sizing stats (Train-1 entries): mean(mult|winner) 1.0844,
+mean(mult|loser) 0.9978, gap +0.0866. Pooled stake_cv 0.4918
+(min series 0.4183). Per-series gap negative on DOGEUSDT/240 (−0.321) and
+XRPUSDT/60 (−0.028).
+
+Big winners (informational, net ≥ 29.9 on this run's ungated control
+blotter): 12 trades / +1251.654084 — confirms the abs-ATR freeze figure.
+Same 12 entry keys under sizing: +1581.53. Sized blotter has 15 trades /
++1761.85 at ≥ 29.9.
+
+Falsifiers:
+- (a) mean sized +146.63 > control +95.32 — not fired.
+- (b) floor 6/12 < control 7/12 — not fired.
+- (c) gap +0.0866 > 0 — not fired.
+- (d) n_trades invariant holds on all 10 series (closed and Train-1-entry
+  keys) — not fired.
+- (e) stake_cv 0.4918 > 0.05, every series > 0.05 — not fired.
+
+Verdict on the pre-declared Train-1 checks: NOT FALSIFIED.
+
+Observations (no decision implied): the floor move is one month, 2024-06,
+flipping from −8.94 to +8.74. Of the +452.92 entry-net gain, +497.75 comes
+from 2024-11; the other 11 months sum −44.83 lower under sizing. The
+winner/loser mult gap is small (+0.087). Validation was not opened.
 
 ## Decision
 

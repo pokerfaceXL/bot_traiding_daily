@@ -1,0 +1,123 @@
+{
+  "symbol": "XRPUSDT",
+  "interval": "240",
+  "strategy": "BB_20_2_EMA200",
+  "n_trades": 40,
+  "n_trades_total_baseline": 40,
+  "n_trades_total_sized": 40,
+  "n_trades_train1_entry_baseline": 36,
+  "n_trades_train1_entry_sized": 36,
+  "trade_count_invariant_ok": true,
+  "train1_net_pnl_baseline": 219.531213,
+  "train1_net_pnl_sized": 483.280857,
+  "train1_entry_net_pnl_baseline": 220.319917,
+  "train1_entry_net_pnl_sized": 484.858267,
+  "losing_month_floor_baseline": 8,
+  "losing_month_floor_sized": 8,
+  "stake_cv": 0.559285,
+  "stake_cv_ok": true,
+  "mean_mult_winners": 1.375,
+  "mean_mult_losers": 0.975,
+  "mean_mult_gap": 0.4,
+  "baseline_entry_monthly": [
+    {
+      "month": "2024-03",
+      "net_pnl": -9.9645
+    },
+    {
+      "month": "2024-04",
+      "net_pnl": 2.887125
+    },
+    {
+      "month": "2024-05",
+      "net_pnl": -16.23859
+    },
+    {
+      "month": "2024-06",
+      "net_pnl": -8.459146
+    },
+    {
+      "month": "2024-07",
+      "net_pnl": -3.3155
+    },
+    {
+      "month": "2024-08",
+      "net_pnl": -19.929
+    },
+    {
+      "month": "2024-09",
+      "net_pnl": -9.9645
+    },
+    {
+      "month": "2024-10",
+      "net_pnl": -3.6445
+    },
+    {
+      "month": "2024-11",
+      "net_pnl": 267.642315
+    },
+    {
+      "month": "2024-12",
+      "net_pnl": -9.9645
+    },
+    {
+      "month": "2025-01",
+      "net_pnl": 24.77702
+    },
+    {
+      "month": "2025-02",
+      "net_pnl": 6.493693
+    }
+  ],
+  "sized_entry_monthly": [
+    {
+      "month": "2024-03",
+      "net_pnl": -11.205563
+    },
+    {
+      "month": "2024-04",
+      "net_pnl": 3.614872
+    },
+    {
+      "month": "2024-05",
+      "net_pnl": -15.448703
+    },
+    {
+      "month": "2024-06",
+      "net_pnl": -5.72173
+    },
+    {
+      "month": "2024-07",
+      "net_pnl": -1.65775
+    },
+    {
+      "month": "2024-08",
+      "net_pnl": -26.171437
+    },
+    {
+      "month": "2024-09",
+      "net_pnl": -9.969
+    },
+    {
+      "month": "2024-10",
+      "net_pnl": -1.82225
+    },
+    {
+      "month": "2024-11",
+      "net_pnl": 535.28463
+    },
+    {
+      "month": "2024-12",
+      "net_pnl": -9.969
+    },
+    {
+      "month": "2025-01",
+      "net_pnl": 12.38851
+    },
+    {
+      "month": "2025-02",
+      "net_pnl": 15.535687
+    }
+  ],
+  "seconds": 0.16
+}

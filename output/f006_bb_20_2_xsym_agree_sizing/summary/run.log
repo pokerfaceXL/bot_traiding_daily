@@ -1,0 +1,14 @@
+H-BB-20-2-XSYM-AGREE-SIZING-01
+Run started: 2026-10-03T09:26:43.582339+00:00
+Commit at run: 92fe281d1d7a6b04e1c90d1b095f16c0c5fbb056
+Control replay: 10 rows, max abs train1 diff 0, n_trades mismatches 0
+Control mean Train-1 net PnL: 95.321799 (sum 953.217987)
+Control Train-1-entry: n=756, net=834.347778
+Control pooled losing-month floor: 7/12
+Sized mean Train-1 net PnL: 146.632696
+Sized Train-1-entry: n=756, net=1287.265355
+Sized pooled losing-month floor: 6/12
+Pooled stake CV: 0.491784 (min series 0.418305)
+Pooled winner-minus-loser mean multiplier: 0.086642
+Big winners (control net>=29.9): 12 / 1251.654084; sized on same keys 1581.527984
+Verdict: NOT FALSIFIED
