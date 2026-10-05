@@ -8,3 +8,10 @@ venv/
 data_cache/*.csv
 output/f005_baseline/raw/*.json
 .venv_lorentzian/
+
+# F011 raw liquidation stream (live collector output, never committed)
+data_cache/liquidations/
+# F011 5m data pulls (large, re-fetchable)
+data_cache/open_interest_5m/
+data_cache/account_ratio_5m/
+data_cache/f011_samples/

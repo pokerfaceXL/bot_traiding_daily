@@ -1,0 +1,1204 @@
+{
+ "generated_at": "2026-10-05T18:06:14Z",
+ "host": "lorenzian-free",
+ "train1": {
+  "start": "2024-01-26T00:00:00+00:00",
+  "end_exclusive": "2025-03-01T00:00:00+00:00"
+ },
+ "train1_days": 400,
+ "sample_days": [
+  "2024-06-12",
+  "2024-10-01"
+ ],
+ "bybit_rest": {
+  "oi_5min/BTCUSDT": {
+   "earliest_search": {
+    "earliest": "2020-08-04T07:50:00Z",
+    "earliest_ms": 1596527400000,
+    "earliest_day_rows": 194,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-09-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_full_pull": {
+    "requests": 576,
+    "rows": 115200,
+    "duplicates_dropped": 0,
+    "expected_bars": 115200,
+    "missing_bars": 0,
+    "off_grid_rows": 0,
+    "gap_runs": 0,
+    "gaps_top10_by_length": [],
+    "first": "2024-01-26T00:00:00Z",
+    "last": "2025-02-28T23:55:00Z",
+    "fields": [
+     "openInterest",
+     "singleOpenInterest",
+     "timestamp"
+    ],
+    "pages_hitting_limit": 576,
+    "openInterest_over_singleOpenInterest": {
+     "min": 2.0,
+     "max": 2.0
+    },
+    "vs_cached_1h_oi": {
+     "file": "data_cache/open_interest/BTCUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv",
+     "matched_hours": 9600,
+     "exact_equal_frac": 1.0,
+     "max_abs_rel_diff": 0.0
+    },
+    "saved_to": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/open_interest_5m/BTCUSDT_oi_5min_20240126T000000Z_20250301T000000Z.csv",
+    "saved_bytes": 6898796
+   }
+  },
+  "oi_5min/ETHUSDT": {
+   "earliest_search": {
+    "earliest": "2020-10-21T08:55:00Z",
+    "earliest_ms": 1603270500000,
+    "earliest_day_rows": 181,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-11-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_full_pull": {
+    "requests": 576,
+    "rows": 115200,
+    "duplicates_dropped": 0,
+    "expected_bars": 115200,
+    "missing_bars": 0,
+    "off_grid_rows": 0,
+    "gap_runs": 0,
+    "gaps_top10_by_length": [],
+    "first": "2024-01-26T00:00:00Z",
+    "last": "2025-02-28T23:55:00Z",
+    "fields": [
+     "openInterest",
+     "singleOpenInterest",
+     "timestamp"
+    ],
+    "pages_hitting_limit": 576,
+    "openInterest_over_singleOpenInterest": {
+     "min": 2.0,
+     "max": 2.0
+    },
+    "vs_cached_1h_oi": {
+     "file": "data_cache/open_interest/ETHUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv",
+     "matched_hours": 9600,
+     "exact_equal_frac": 1.0,
+     "max_abs_rel_diff": 0.0
+    },
+    "saved_to": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/open_interest_5m/ETHUSDT_oi_5min_20240126T000000Z_20250301T000000Z.csv",
+    "saved_bytes": 7033351
+   }
+  },
+  "oi_15min/BTCUSDT": {
+   "earliest_search": {
+    "earliest": "2020-08-04T08:00:00Z",
+    "earliest_ms": 1596528000000,
+    "earliest_day_rows": 64,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-09-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_spot_check": {
+    "2024-01-26": {
+     "rows": 96,
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_BTCUSDT_2024-01-26_spot.json"
+    },
+    "2025-02-28": {
+     "rows": 96,
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_BTCUSDT_2025-02-28_spot.json"
+    }
+   }
+  },
+  "oi_15min/ETHUSDT": {
+   "earliest_search": {
+    "earliest": "2020-10-21T09:00:00Z",
+    "earliest_ms": 1603270800000,
+    "earliest_day_rows": 60,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-11-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_spot_check": {
+    "2024-01-26": {
+     "rows": 96,
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_ETHUSDT_2024-01-26_spot.json"
+    },
+    "2025-02-28": {
+     "rows": 96,
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_ETHUSDT_2025-02-28_spot.json"
+    }
+   }
+  },
+  "account_ratio_5min/BTCUSDT": {
+   "earliest_search": {
+    "earliest": "2020-08-04T07:50:00Z",
+    "earliest_ms": 1596527400000,
+    "earliest_day_rows": 194,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-09-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_full_pull": {
+    "requests": 231,
+    "rows": 115200,
+    "duplicates_dropped": 0,
+    "expected_bars": 115200,
+    "missing_bars": 0,
+    "off_grid_rows": 0,
+    "gap_runs": 0,
+    "gaps_top10_by_length": [],
+    "first": "2024-01-26T00:00:00Z",
+    "last": "2025-02-28T23:55:00Z",
+    "fields": [
+     "symbol",
+     "buyRatio",
+     "sellRatio",
+     "timestamp"
+    ],
+    "pages_hitting_limit": 230,
+    "saved_to": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/account_ratio_5m/BTCUSDT_account_ratio_5min_20240126T000000Z_20250301T000000Z.csv",
+    "saved_bytes": 6540859
+   }
+  },
+  "account_ratio_5min/ETHUSDT": {
+   "earliest_search": {
+    "earliest": "2020-10-21T09:25:00Z",
+    "earliest_ms": 1603272300000,
+    "earliest_day_rows": 175,
+    "verified_empty_before": true,
+    "verified_data_after": true,
+    "first_month_with_data": "2020-11-01",
+    "month_start_holes_after_earliest": [],
+    "month_probes": 106,
+    "bisect_probes": 5
+   },
+   "train1_full_pull": {
+    "requests": 231,
+    "rows": 115200,
+    "duplicates_dropped": 0,
+    "expected_bars": 115200,
+    "missing_bars": 0,
+    "off_grid_rows": 0,
+    "gap_runs": 0,
+    "gaps_top10_by_length": [],
+    "first": "2024-01-26T00:00:00Z",
+    "last": "2025-02-28T23:55:00Z",
+    "fields": [
+     "symbol",
+     "buyRatio",
+     "sellRatio",
+     "timestamp"
+    ],
+    "pages_hitting_limit": 230,
+    "saved_to": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/account_ratio_5m/ETHUSDT_account_ratio_5min_20240126T000000Z_20250301T000000Z.csv",
+    "saved_bytes": 6541091
+   }
+  }
+ },
+ "bybit_archive": {
+  "BTCUSDT": {
+   "listed_files": 2385,
+   "earliest_listed": "2020-03-25",
+   "latest_listed": "2026-10-04",
+   "train1_days": 400,
+   "train1_missing_days": [],
+   "train1_missing_count": 0,
+   "head_non200": [],
+   "train1_total_bytes_gz": 25335699444,
+   "per_day_bytes_gz": {
+    "min": 9631548,
+    "median": 56104237,
+    "max": 311242935
+   }
+  },
+  "ETHUSDT": {
+   "listed_files": 2175,
+   "earliest_listed": "2020-10-21",
+   "latest_listed": "2026-10-04",
+   "train1_days": 400,
+   "train1_missing_days": [],
+   "train1_missing_count": 0,
+   "head_non200": [],
+   "train1_total_bytes_gz": 17615042836,
+   "per_day_bytes_gz": {
+    "min": 8114227,
+    "median": 36339330,
+    "max": 264036676
+   }
+  }
+ },
+ "bybit_trades_samples": {
+  "BTCUSDT": {
+   "2024-06-12": {
+    "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/bybit_trading/BTCUSDT2024-06-12.csv.gz",
+    "bytes_gz": 67634300,
+    "header": "timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional",
+    "rows": 1764280,
+    "timestamp_unit": "s",
+    "first_trade": "2024-06-12T00:00:00Z",
+    "last_trade": "2024-06-12T23:59:57Z",
+    "side_values": {
+     "Buy": 894447,
+     "Sell": 869833
+    },
+    "buckets_5m": 288,
+    "reconstruction_csv": "raw/bybit_archive/BTCUSDT_2024-06-12_5m_reconstruction.csv",
+    "day_taker_buy_vol": 74435.609,
+    "day_taker_sell_vol": 74785.379
+   },
+   "2024-10-01": {
+    "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/bybit_trading/BTCUSDT2024-10-01.csv.gz",
+    "bytes_gz": 107941201,
+    "header": "timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional",
+    "rows": 2916579,
+    "timestamp_unit": "s",
+    "first_trade": "2024-10-01T00:00:00Z",
+    "last_trade": "2024-10-01T23:59:59Z",
+    "side_values": {
+     "Sell": 1468945,
+     "Buy": 1447634
+    },
+    "buckets_5m": 288,
+    "reconstruction_csv": "raw/bybit_archive/BTCUSDT_2024-10-01_5m_reconstruction.csv",
+    "day_taker_buy_vol": 120516.013,
+    "day_taker_sell_vol": 131730.18
+   }
+  },
+  "ETHUSDT": {
+   "2024-06-12": {
+    "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/bybit_trading/ETHUSDT2024-06-12.csv.gz",
+    "bytes_gz": 35655939,
+    "header": "timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional",
+    "rows": 907225,
+    "timestamp_unit": "s",
+    "first_trade": "2024-06-12T00:00:00Z",
+    "last_trade": "2024-06-12T23:59:59Z",
+    "side_values": {
+     "Buy": 461617,
+     "Sell": 445608
+    },
+    "buckets_5m": 288,
+    "reconstruction_csv": "raw/bybit_archive/ETHUSDT_2024-06-12_5m_reconstruction.csv",
+    "day_taker_buy_vol": 435883.25,
+    "day_taker_sell_vol": 449581.61000000004
+   },
+   "2024-10-01": {
+    "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/bybit_trading/ETHUSDT2024-10-01.csv.gz",
+    "bytes_gz": 65166591,
+    "header": "timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional",
+    "rows": 1687211,
+    "timestamp_unit": "s",
+    "first_trade": "2024-10-01T00:00:01Z",
+    "last_trade": "2024-10-01T23:59:59Z",
+    "side_values": {
+     "Sell": 849765,
+     "Buy": 837446
+    },
+    "buckets_5m": 288,
+    "reconstruction_csv": "raw/bybit_archive/ETHUSDT_2024-10-01_5m_reconstruction.csv",
+    "day_taker_buy_vol": 904948.7200000001,
+    "day_taker_sell_vol": 980516.7000000001
+   }
+  }
+ },
+ "binance": {
+  "metrics/BTCUSDT": {
+   "prefix": "data/futures/um/daily/metrics/BTCUSDT/",
+   "listing_pages": 5,
+   "data_files": 2225,
+   "checksum_files": 2225,
+   "earliest_listed": "2020-09-01",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 4502810,
+   "per_file_bytes_zip": {
+    "min": 6577,
+    "median": 11272,
+    "max": 11813
+   }
+  },
+  "metrics/ETHUSDT": {
+   "prefix": "data/futures/um/daily/metrics/ETHUSDT/",
+   "listing_pages": 4,
+   "data_files": 1769,
+   "checksum_files": 1769,
+   "earliest_listed": "2021-12-01",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 4699626,
+   "per_file_bytes_zip": {
+    "min": 6789,
+    "median": 11760,
+    "max": 12192
+   }
+  },
+  "klines_5m/BTCUSDT": {
+   "prefix": "data/futures/um/daily/klines/BTCUSDT/5m/",
+   "listing_pages": 5,
+   "data_files": 2470,
+   "checksum_files": 2470,
+   "earliest_listed": "2019-12-31",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 5568727,
+   "per_file_bytes_zip": {
+    "min": 12873,
+    "median": 13943,
+    "max": 15092
+   }
+  },
+  "klines_5m/ETHUSDT": {
+   "prefix": "data/futures/um/daily/klines/ETHUSDT/5m/",
+   "listing_pages": 5,
+   "data_files": 2470,
+   "checksum_files": 2470,
+   "earliest_listed": "2019-12-31",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 5669930,
+   "per_file_bytes_zip": {
+    "min": 13316,
+    "median": 14170,
+    "max": 15106
+   }
+  },
+  "aggTrades/BTCUSDT": {
+   "prefix": "data/futures/um/daily/aggTrades/BTCUSDT/",
+   "listing_pages": 5,
+   "data_files": 2470,
+   "checksum_files": 2470,
+   "earliest_listed": "2019-12-31",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 7629379450,
+   "per_file_bytes_zip": {
+    "min": 4001705,
+    "median": 17149943,
+    "max": 78779068
+   }
+  },
+  "aggTrades/ETHUSDT": {
+   "prefix": "data/futures/um/daily/aggTrades/ETHUSDT/",
+   "listing_pages": 5,
+   "data_files": 2470,
+   "checksum_files": 2470,
+   "earliest_listed": "2019-12-31",
+   "latest_listed": "2026-10-04",
+   "train1_expected_files": 400,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 7818612572,
+   "per_file_bytes_zip": {
+    "min": 4778643,
+    "median": 16721106,
+    "max": 93849575
+   }
+  },
+  "fundingRate_monthly/BTCUSDT": {
+   "prefix": "data/futures/um/monthly/fundingRate/BTCUSDT/",
+   "listing_pages": 1,
+   "data_files": 81,
+   "checksum_files": 81,
+   "earliest_listed": "2020-01",
+   "latest_listed": "2026-09",
+   "train1_expected_files": 14,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 11513,
+   "per_file_bytes_zip": {
+    "min": 696,
+    "median": 827,
+    "max": 939
+   }
+  },
+  "fundingRate_monthly/ETHUSDT": {
+   "prefix": "data/futures/um/monthly/fundingRate/ETHUSDT/",
+   "listing_pages": 1,
+   "data_files": 81,
+   "checksum_files": 81,
+   "earliest_listed": "2020-01",
+   "latest_listed": "2026-09",
+   "train1_expected_files": 14,
+   "train1_missing": [],
+   "train1_missing_count": 0,
+   "train1_total_bytes_zip": 11537,
+   "per_file_bytes_zip": {
+    "min": 685,
+    "median": 832,
+    "max": 944
+   }
+  }
+ },
+ "binance_samples": {
+  "BTCUSDT": {
+   "2024-06-12": {
+    "metrics": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/BTCUSDT-metrics-2024-06-12.zip",
+     "bytes_zip": 11400,
+     "columns": [
+      "create_time",
+      "symbol",
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio",
+      "sum_taker_long_short_vol_ratio"
+     ],
+     "rows": 288,
+     "first": "2024-06-12 00:00:00+00:00",
+     "last": "2024-06-12 23:55:00+00:00",
+     "step_seconds_mode": 300.0,
+     "null_counts": {
+      "sum_toptrader_long_short_ratio": 1
+     }
+    },
+    "klines_5m": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/BTCUSDT-5m-2024-06-12.zip",
+     "bytes_zip": 13943,
+     "columns": [
+      "open_time",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "close_time",
+      "quote_volume",
+      "count",
+      "taker_buy_volume",
+      "taker_buy_quote_volume",
+      "ignore"
+     ],
+     "rows": 288,
+     "first_open_time": "2024-06-12T00:00:00Z",
+     "last_open_time": "2024-06-12T23:55:00Z"
+    }
+   },
+   "2024-10-01": {
+    "metrics": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/BTCUSDT-metrics-2024-10-01.zip",
+     "bytes_zip": 11300,
+     "columns": [
+      "create_time",
+      "symbol",
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio",
+      "sum_taker_long_short_vol_ratio"
+     ],
+     "rows": 288,
+     "first": "2024-10-01 00:00:00+00:00",
+     "last": "2024-10-01 23:55:00+00:00",
+     "step_seconds_mode": 300.0,
+     "null_counts": {}
+    },
+    "klines_5m": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/BTCUSDT-5m-2024-10-01.zip",
+     "bytes_zip": 14001,
+     "columns": [
+      "open_time",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "close_time",
+      "quote_volume",
+      "count",
+      "taker_buy_volume",
+      "taker_buy_quote_volume",
+      "ignore"
+     ],
+     "rows": 288,
+     "first_open_time": "2024-10-01T00:00:00Z",
+     "last_open_time": "2024-10-01T23:55:00Z"
+    }
+   }
+  },
+  "ETHUSDT": {
+   "2024-06-12": {
+    "metrics": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/ETHUSDT-metrics-2024-06-12.zip",
+     "bytes_zip": 11873,
+     "columns": [
+      "create_time",
+      "symbol",
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio",
+      "sum_taker_long_short_vol_ratio"
+     ],
+     "rows": 288,
+     "first": "2024-06-12 00:00:00+00:00",
+     "last": "2024-06-12 23:55:00+00:00",
+     "step_seconds_mode": 300.0,
+     "null_counts": {
+      "count_toptrader_long_short_ratio": 1,
+      "sum_toptrader_long_short_ratio": 1
+     }
+    },
+    "klines_5m": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/ETHUSDT-5m-2024-06-12.zip",
+     "bytes_zip": 14152,
+     "columns": [
+      "open_time",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "close_time",
+      "quote_volume",
+      "count",
+      "taker_buy_volume",
+      "taker_buy_quote_volume",
+      "ignore"
+     ],
+     "rows": 288,
+     "first_open_time": "2024-06-12T00:00:00Z",
+     "last_open_time": "2024-06-12T23:55:00Z"
+    }
+   },
+   "2024-10-01": {
+    "metrics": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/ETHUSDT-metrics-2024-10-01.zip",
+     "bytes_zip": 11712,
+     "columns": [
+      "create_time",
+      "symbol",
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio",
+      "sum_taker_long_short_vol_ratio"
+     ],
+     "rows": 288,
+     "first": "2024-10-01 00:00:00+00:00",
+     "last": "2024-10-01 23:55:00+00:00",
+     "step_seconds_mode": 300.0,
+     "null_counts": {}
+    },
+    "klines_5m": {
+     "file": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/f011_samples/binance/ETHUSDT-5m-2024-10-01.zip",
+     "bytes_zip": 14295,
+     "columns": [
+      "open_time",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "close_time",
+      "quote_volume",
+      "count",
+      "taker_buy_volume",
+      "taker_buy_quote_volume",
+      "ignore"
+     ],
+     "rows": 288,
+     "first_open_time": "2024-10-01T00:00:00Z",
+     "last_open_time": "2024-10-01T23:55:00Z"
+    }
+   }
+  }
+ },
+ "binance_aggtrades_peek": {
+  "BTCUSDT": {
+   "url": "https://data.binance.vision/data/futures/um/daily/aggTrades/BTCUSDT/BTCUSDT-aggTrades-2024-06-12.zip",
+   "http_status": 206,
+   "zip_bytes": 18846364,
+   "inner_file": "BTCUSDT-aggTrades-2024-06-12.csv",
+   "header": "agg_trade_id,price,quantity,first_trade_id,last_trade_id,transact_time,is_buyer_maker",
+   "first_rows": [
+    "2208923165,67320.6,0.149,5079880580,5079880587,1718150400086,true",
+    "2208923166,67320.7,0.006,5079880588,5079880588,1718150400173,false"
+   ]
+  },
+  "ETHUSDT": {
+   "url": "https://data.binance.vision/data/futures/um/daily/aggTrades/ETHUSDT/ETHUSDT-aggTrades-2024-06-12.zip",
+   "http_status": 206,
+   "zip_bytes": 17189285,
+   "inner_file": "ETHUSDT-aggTrades-2024-06-12.csv",
+   "header": "agg_trade_id,price,quantity,first_trade_id,last_trade_id,transact_time,is_buyer_maker",
+   "first_rows": [
+    "1666770892,3498.17,0.143,4105091376,4105091376,1718150400032,false",
+    "1666770893,3498.17,0.039,4105091377,4105091377,1718150400184,false"
+   ]
+  }
+ },
+ "funding_cached": {
+  "BTCUSDT": {
+   "found": true,
+   "file": "data_cache/funding/BTCUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+   "rows": 1200,
+   "first": "2024-01-26 00:00:00+00:00",
+   "last": "2025-02-28 16:00:00+00:00",
+   "expected_8h_slots": 1200,
+   "missing_8h_slots": 0,
+   "missing_examples": [],
+   "source": "Bybit /v5/market/funding/history (see data_cache/funding/manifest.json)"
+  },
+  "ETHUSDT": {
+   "found": true,
+   "file": "data_cache/funding/ETHUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+   "rows": 1200,
+   "first": "2024-01-26 00:00:00+00:00",
+   "last": "2025-02-28 16:00:00+00:00",
+   "expected_8h_slots": 1200,
+   "missing_8h_slots": 0,
+   "missing_examples": [],
+   "source": "Bybit /v5/market/funding/history (see data_cache/funding/manifest.json)"
+  }
+ },
+ "funding_binance": {
+  "BTCUSDT": {
+   "columns": [
+    "calc_time",
+    "funding_interval_hours",
+    "last_funding_rate"
+   ],
+   "train1_rows": 1200,
+   "expected_8h_slots": 1200,
+   "missing_8h_slots": 0,
+   "missing_examples": [],
+   "first": "2024-01-26 00:00:00+00:00",
+   "last": "2025-02-28 16:00:00+00:00"
+  },
+  "ETHUSDT": {
+   "columns": [
+    "calc_time",
+    "funding_interval_hours",
+    "last_funding_rate"
+   ],
+   "train1_rows": 1200,
+   "expected_8h_slots": 1200,
+   "missing_8h_slots": 0,
+   "missing_examples": [],
+   "first": "2024-01-26 00:00:00+00:00",
+   "last": "2025-02-28 16:00:00+00:00"
+  }
+ },
+ "crosscheck": [
+  {
+   "day": "2024-06-12",
+   "oi_change": {
+    "bybit_bars": 288,
+    "binance_bars": 288,
+    "by_binance_lag_bars": {
+     "-1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.486,
+      "diff_corr": 0.0476
+     },
+     "0": {
+      "aligned_bars": 288,
+      "nonzero_diff_pairs": 287,
+      "direction_agreement": 0.5645,
+      "diff_corr": 0.1248
+     },
+     "1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5734,
+      "diff_corr": 0.3273
+     }
+    },
+    "lag0_by_diff_step": {
+     "5m": {
+      "pairs": 287,
+      "direction_agreement": 0.5645,
+      "diff_corr": 0.1248
+     },
+     "15m": {
+      "pairs": 95,
+      "direction_agreement": 0.6,
+      "diff_corr": 0.376
+     },
+     "60m": {
+      "pairs": 23,
+      "direction_agreement": 0.7826,
+      "diff_corr": 0.4846
+     }
+    },
+    "note": "lag k shifts Binance create_time by k*5m (timestamp convention check)"
+   },
+   "taker_flow": {
+    "aligned_bars": 288,
+    "corr_taker_buy_vol": 0.9887,
+    "corr_taker_sell_vol": 0.9862,
+    "corr_ofi": 0.6941,
+    "ofi_sign_agreement": 0.7674,
+    "corr_trade_count": 0.9925,
+    "corr_cvd": 0.8806,
+    "day_volume_ratio_bybit_over_binance": 0.4523
+   },
+   "symbol": "BTCUSDT"
+  },
+  {
+   "day": "2024-10-01",
+   "oi_change": {
+    "bybit_bars": 288,
+    "binance_bars": 288,
+    "by_binance_lag_bars": {
+     "-1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.4685,
+      "diff_corr": 0.0819
+     },
+     "0": {
+      "aligned_bars": 288,
+      "nonzero_diff_pairs": 287,
+      "direction_agreement": 0.5226,
+      "diff_corr": -0.255
+     },
+     "1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5909,
+      "diff_corr": 0.1859
+     }
+    },
+    "lag0_by_diff_step": {
+     "5m": {
+      "pairs": 287,
+      "direction_agreement": 0.5226,
+      "diff_corr": -0.255
+     },
+     "15m": {
+      "pairs": 95,
+      "direction_agreement": 0.5368,
+      "diff_corr": -0.126
+     },
+     "60m": {
+      "pairs": 23,
+      "direction_agreement": 0.5217,
+      "diff_corr": -0.098
+     }
+    },
+    "note": "lag k shifts Binance create_time by k*5m (timestamp convention check)"
+   },
+   "taker_flow": {
+    "aligned_bars": 288,
+    "corr_taker_buy_vol": 0.9647,
+    "corr_taker_sell_vol": 0.9727,
+    "corr_ofi": 0.697,
+    "ofi_sign_agreement": 0.7535,
+    "corr_trade_count": 0.9804,
+    "corr_cvd": 0.9904,
+    "day_volume_ratio_bybit_over_binance": 0.5869
+   },
+   "symbol": "BTCUSDT"
+  },
+  {
+   "day": "2024-06-12",
+   "oi_change": {
+    "bybit_bars": 288,
+    "binance_bars": 288,
+    "by_binance_lag_bars": {
+     "-1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5629,
+      "diff_corr": 0.0777
+     },
+     "0": {
+      "aligned_bars": 288,
+      "nonzero_diff_pairs": 287,
+      "direction_agreement": 0.5958,
+      "diff_corr": 0.0723
+     },
+     "1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5979,
+      "diff_corr": 0.0972
+     }
+    },
+    "lag0_by_diff_step": {
+     "5m": {
+      "pairs": 287,
+      "direction_agreement": 0.5958,
+      "diff_corr": 0.0723
+     },
+     "15m": {
+      "pairs": 95,
+      "direction_agreement": 0.6526,
+      "diff_corr": 0.2028
+     },
+     "60m": {
+      "pairs": 23,
+      "direction_agreement": 0.5652,
+      "diff_corr": -0.0867
+     }
+    },
+    "note": "lag k shifts Binance create_time by k*5m (timestamp convention check)"
+   },
+   "taker_flow": {
+    "aligned_bars": 288,
+    "corr_taker_buy_vol": 0.9793,
+    "corr_taker_sell_vol": 0.9594,
+    "corr_ofi": 0.6159,
+    "ofi_sign_agreement": 0.7569,
+    "corr_trade_count": 0.9846,
+    "corr_cvd": 0.5254,
+    "day_volume_ratio_bybit_over_binance": 0.3094
+   },
+   "symbol": "ETHUSDT"
+  },
+  {
+   "day": "2024-10-01",
+   "oi_change": {
+    "bybit_bars": 288,
+    "binance_bars": 288,
+    "by_binance_lag_bars": {
+     "-1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5175,
+      "diff_corr": 0.0757
+     },
+     "0": {
+      "aligned_bars": 288,
+      "nonzero_diff_pairs": 287,
+      "direction_agreement": 0.561,
+      "diff_corr": 0.1559
+     },
+     "1": {
+      "aligned_bars": 287,
+      "nonzero_diff_pairs": 286,
+      "direction_agreement": 0.5804,
+      "diff_corr": 0.1451
+     }
+    },
+    "lag0_by_diff_step": {
+     "5m": {
+      "pairs": 287,
+      "direction_agreement": 0.561,
+      "diff_corr": 0.1559
+     },
+     "15m": {
+      "pairs": 95,
+      "direction_agreement": 0.5895,
+      "diff_corr": 0.2909
+     },
+     "60m": {
+      "pairs": 23,
+      "direction_agreement": 0.6087,
+      "diff_corr": -0.1384
+     }
+    },
+    "note": "lag k shifts Binance create_time by k*5m (timestamp convention check)"
+   },
+   "taker_flow": {
+    "aligned_bars": 288,
+    "corr_taker_buy_vol": 0.9408,
+    "corr_taker_sell_vol": 0.959,
+    "corr_ofi": 0.5887,
+    "ofi_sign_agreement": 0.7326,
+    "corr_trade_count": 0.9827,
+    "corr_cvd": 0.9907,
+    "day_volume_ratio_bybit_over_binance": 0.4064
+   },
+   "symbol": "ETHUSDT"
+  }
+ ],
+ "table": [
+  {
+   "source": "Bybit REST oi_5min",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-08-04T07:50:00Z",
+   "covered": "y",
+   "gaps": "0 missing bars in 0 runs (of 115200)",
+   "resolution": "5min",
+   "fields": "openInterest (contracts=base), timestamp",
+   "size": "6.9 MB CSV (115,200 rows, 576 requests)"
+  },
+  {
+   "source": "Bybit REST oi_5min",
+   "symbol": "ETHUSDT",
+   "earliest": "2020-10-21T08:55:00Z",
+   "covered": "y",
+   "gaps": "0 missing bars in 0 runs (of 115200)",
+   "resolution": "5min",
+   "fields": "openInterest (contracts=base), timestamp",
+   "size": "7.0 MB CSV (115,200 rows, 576 requests)"
+  },
+  {
+   "source": "Bybit REST oi_15min",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-08-04T08:00:00Z",
+   "covered": "y (spot)",
+   "gaps": "spot: 2024-01-26 96/96, 2025-02-28 96/96",
+   "resolution": "15min",
+   "fields": "openInterest, timestamp",
+   "size": "~38,400 rows (est.)"
+  },
+  {
+   "source": "Bybit REST oi_15min",
+   "symbol": "ETHUSDT",
+   "earliest": "2020-10-21T09:00:00Z",
+   "covered": "y (spot)",
+   "gaps": "spot: 2024-01-26 96/96, 2025-02-28 96/96",
+   "resolution": "15min",
+   "fields": "openInterest, timestamp",
+   "size": "~38,400 rows (est.)"
+  },
+  {
+   "source": "Bybit REST account_ratio_5min",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-08-04T07:50:00Z",
+   "covered": "y",
+   "gaps": "0 missing bars in 0 runs (of 115200)",
+   "resolution": "5min",
+   "fields": "buyRatio, sellRatio (share of accounts long/short), timestamp",
+   "size": "6.5 MB CSV (115,200 rows, 231 requests)"
+  },
+  {
+   "source": "Bybit REST account_ratio_5min",
+   "symbol": "ETHUSDT",
+   "earliest": "2020-10-21T09:25:00Z",
+   "covered": "y",
+   "gaps": "0 missing bars in 0 runs (of 115200)",
+   "resolution": "5min",
+   "fields": "buyRatio, sellRatio (share of accounts long/short), timestamp",
+   "size": "6.5 MB CSV (115,200 rows, 231 requests)"
+  },
+  {
+   "source": "Bybit trade archive (public.bybit.com/trading)",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-03-25",
+   "covered": "y",
+   "gaps": "0 missing days",
+   "resolution": "tick (every trade; 5m rebuilt)",
+   "fields": "timestamp(s), side(taker), size, price, tickDirection, trdMatchID, grossValue, homeNotional, foreignNotional",
+   "size": "25.34 GB gz (median 56.1 MB/day)"
+  },
+  {
+   "source": "Bybit trade archive (public.bybit.com/trading)",
+   "symbol": "ETHUSDT",
+   "earliest": "2020-10-21",
+   "covered": "y",
+   "gaps": "0 missing days",
+   "resolution": "tick (every trade; 5m rebuilt)",
+   "fields": "timestamp(s), side(taker), size, price, tickDirection, trdMatchID, grossValue, homeNotional, foreignNotional",
+   "size": "17.62 GB gz (median 36.3 MB/day)"
+  },
+  {
+   "source": "Binance vision metrics",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-09-01",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "5m",
+   "fields": "sum_open_interest(+value), top-trader & global long/short ratios, taker long/short vol ratio",
+   "size": "4.5 MB zip (400 files)"
+  },
+  {
+   "source": "Binance vision metrics",
+   "symbol": "ETHUSDT",
+   "earliest": "2021-12-01",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "5m",
+   "fields": "sum_open_interest(+value), top-trader & global long/short ratios, taker long/short vol ratio",
+   "size": "4.7 MB zip (400 files)"
+  },
+  {
+   "source": "Binance vision klines_5m",
+   "symbol": "BTCUSDT",
+   "earliest": "2019-12-31",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "5m",
+   "fields": "OHLCV, quote_volume, count, taker_buy_volume, taker_buy_quote_volume",
+   "size": "5.6 MB zip (400 files)"
+  },
+  {
+   "source": "Binance vision klines_5m",
+   "symbol": "ETHUSDT",
+   "earliest": "2019-12-31",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "5m",
+   "fields": "OHLCV, quote_volume, count, taker_buy_volume, taker_buy_quote_volume",
+   "size": "5.7 MB zip (400 files)"
+  },
+  {
+   "source": "Binance vision aggTrades",
+   "symbol": "BTCUSDT",
+   "earliest": "2019-12-31",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "tick (aggregated trades)",
+   "fields": "agg_trade_id, price, quantity, first/last_trade_id, transact_time, is_buyer_maker",
+   "size": "7.63 GB zip (400 files)"
+  },
+  {
+   "source": "Binance vision aggTrades",
+   "symbol": "ETHUSDT",
+   "earliest": "2019-12-31",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "tick (aggregated trades)",
+   "fields": "agg_trade_id, price, quantity, first/last_trade_id, transact_time, is_buyer_maker",
+   "size": "7.82 GB zip (400 files)"
+  },
+  {
+   "source": "Binance vision fundingRate_monthly",
+   "symbol": "BTCUSDT",
+   "earliest": "2020-01",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "8h",
+   "fields": "calc_time, funding_interval_hours, last_funding_rate",
+   "size": "12 KB zip (14 files)"
+  },
+  {
+   "source": "Binance vision fundingRate_monthly",
+   "symbol": "ETHUSDT",
+   "earliest": "2020-01",
+   "covered": "y",
+   "gaps": "0 missing files",
+   "resolution": "8h",
+   "fields": "calc_time, funding_interval_hours, last_funding_rate",
+   "size": "12 KB zip (14 files)"
+  },
+  {
+   "source": "cached Bybit funding (data_cache/funding)",
+   "symbol": "BTCUSDT",
+   "earliest": "2024-01-26 00:00:00+00:00",
+   "covered": "y",
+   "gaps": "0 missing 8h slots",
+   "resolution": "8h",
+   "fields": "timestamp, funding_rate",
+   "size": "1200 rows"
+  },
+  {
+   "source": "cached Bybit funding (data_cache/funding)",
+   "symbol": "ETHUSDT",
+   "earliest": "2024-01-26 00:00:00+00:00",
+   "covered": "y",
+   "gaps": "0 missing 8h slots",
+   "resolution": "8h",
+   "fields": "timestamp, funding_rate",
+   "size": "1200 rows"
+  }
+ ],
+ "http_requests": 3137,
+ "recommendation": "**Highest common free resolution over Train-1 is 5m** (tick for flow). Build the 5m frame on **Bybit** (same venue as the bot): OI from `/v5/market/open-interest` 5min (covered; already pulled to `data_cache/open_interest_5m/`), long/short account ratio from `/v5/market/account-ratio` 5min (covered), and taker flow (taker_buy/sell, OFI, CVD, trade_count) rebuilt from the `public.bybit.com/trading` tick archive (covered; ~42.95 GB gz for both symbols). Use **Binance data.binance.vision** as the cross-venue / robustness layer: `metrics` 5m (covered; OI, top-trader and global L/S, taker L/S vol ratio) and `klines` 5m with taker_buy_volume + count (covered) \u2014 cheap (tens of MB); `aggTrades` (covered, ~15.45 GB) only if Binance tick flow is needed. Funding stays 8h (cached Bybit). Liquidations: no free history \u2192 live collector only. Caveat: cross-venue 5m OI-change direction agreement on the sample days is only 0.52-0.60 (1h: 0.52-0.78), so Bybit and Binance OI are distinct series (treat them as separate features, do not splice/substitute one for the other).",
+ "notes": [
+  "Taker-side semantics confirmed empirically: Bybit rebuilt 5m taker-buy vs Binance kline taker_buy_volume corr 0.941-0.989, taker-sell corr 0.959-0.986 on the sample days.",
+  "Bybit OI conventions (from the pulled rows): openInterest/singleOpenInterest ratio range BTCUSDT: {'min': 2.0, 'max': 2.0}; ETHUSDT: {'min': 2.0, 'max': 2.0}; cached 1h OI vs 5m openInterest at HH:00 exact-equal fraction BTCUSDT: 1.0; ETHUSDT: 1.0. Pick one convention (singleOpenInterest = one-sided) and use it consistently.",
+  "Bybit OI/account-ratio retention verified by a 1-day-window probe at every month start since 2018-01, day bisection, intra-day paging and an explicit empty-before check (see earliest_search).",
+  "Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] (see train1_full_pull for duplicates/off-grid counts when a full pull was run).",
+  "Bybit trade-archive `side` is the taker side (Buy = aggressive buy); Binance klines taker_buy_volume is the taker-buy base volume; Binance aggTrades is_buyer_maker=true means taker sell.",
+  "Cross-check correlations are a sanity check of reconstruction/alignment only, not a test.",
+  "Sample downloads and full pulls are in the main repo data dir (git-ignored), not committed."
+ ],
+ "raw_files": [
+  "raw/bybit/oi_5min_BTCUSDT_earliest_day_page1.json",
+  "raw/bybit/oi_5min_BTCUSDT_before_earliest.json",
+  "raw/bybit/oi_5min_BTCUSDT_train1_first_page.json",
+  "raw/bybit/oi_5min_ETHUSDT_earliest_day_page1.json",
+  "raw/bybit/oi_5min_ETHUSDT_before_earliest.json",
+  "raw/bybit/oi_5min_ETHUSDT_train1_first_page.json",
+  "raw/bybit/oi_15min_BTCUSDT_earliest_day_page1.json",
+  "raw/bybit/oi_15min_BTCUSDT_before_earliest.json",
+  "raw/bybit/oi_15min_ETHUSDT_earliest_day_page1.json",
+  "raw/bybit/oi_15min_ETHUSDT_before_earliest.json",
+  "raw/bybit/account_ratio_5min_BTCUSDT_earliest_day_page1.json",
+  "raw/bybit/account_ratio_5min_BTCUSDT_before_earliest.json",
+  "raw/bybit/account_ratio_5min_BTCUSDT_train1_first_page.json",
+  "raw/bybit/account_ratio_5min_ETHUSDT_earliest_day_page1.json",
+  "raw/bybit/account_ratio_5min_ETHUSDT_before_earliest.json",
+  "raw/bybit/account_ratio_5min_ETHUSDT_train1_first_page.json",
+  "raw/bybit_archive/BTCUSDT_listing_head.html",
+  "raw/bybit_archive/BTCUSDT_train1_head_sizes.json",
+  "raw/bybit_archive/BTCUSDT_2024-06-12_head.csv",
+  "raw/bybit_archive/BTCUSDT_2024-06-12_5m_reconstruction.csv",
+  "raw/bybit_archive/BTCUSDT_2024-10-01_head.csv",
+  "raw/bybit_archive/BTCUSDT_2024-10-01_5m_reconstruction.csv",
+  "raw/bybit_archive/ETHUSDT_listing_head.html",
+  "raw/bybit_archive/ETHUSDT_train1_head_sizes.json",
+  "raw/bybit_archive/ETHUSDT_2024-06-12_head.csv",
+  "raw/bybit_archive/ETHUSDT_2024-06-12_5m_reconstruction.csv",
+  "raw/bybit_archive/ETHUSDT_2024-10-01_head.csv",
+  "raw/bybit_archive/ETHUSDT_2024-10-01_5m_reconstruction.csv",
+  "raw/binance/metrics_BTCUSDT_listing_page1_head.xml",
+  "raw/binance/metrics_BTCUSDT_train1_listing.json",
+  "raw/binance/metrics_ETHUSDT_listing_page1_head.xml",
+  "raw/binance/metrics_ETHUSDT_train1_listing.json",
+  "raw/binance/klines_5m_BTCUSDT_listing_page1_head.xml",
+  "raw/binance/klines_5m_BTCUSDT_train1_listing.json",
+  "raw/binance/klines_5m_ETHUSDT_listing_page1_head.xml",
+  "raw/binance/klines_5m_ETHUSDT_train1_listing.json",
+  "raw/binance/aggTrades_BTCUSDT_listing_page1_head.xml",
+  "raw/binance/aggTrades_BTCUSDT_train1_listing.json",
+  "raw/binance/aggTrades_ETHUSDT_listing_page1_head.xml",
+  "raw/binance/aggTrades_ETHUSDT_train1_listing.json",
+  "raw/binance/fundingRate_monthly_BTCUSDT_listing_page1_head.xml",
+  "raw/binance/fundingRate_monthly_BTCUSDT_train1_listing.json",
+  "raw/binance/fundingRate_monthly_ETHUSDT_listing_page1_head.xml",
+  "raw/binance/fundingRate_monthly_ETHUSDT_train1_listing.json",
+  "raw/binance/metrics_BTCUSDT_2024-06-12_head.csv",
+  "raw/binance/klines_5m_BTCUSDT_2024-06-12_head.csv",
+  "raw/binance/metrics_BTCUSDT_2024-10-01_head.csv",
+  "raw/binance/klines_5m_BTCUSDT_2024-10-01_head.csv",
+  "raw/binance/aggTrades_BTCUSDT_2024-06-12_head.csv",
+  "raw/binance/metrics_ETHUSDT_2024-06-12_head.csv",
+  "raw/binance/klines_5m_ETHUSDT_2024-06-12_head.csv",
+  "raw/binance/metrics_ETHUSDT_2024-10-01_head.csv",
+  "raw/binance/klines_5m_ETHUSDT_2024-10-01_head.csv",
+  "raw/binance/aggTrades_ETHUSDT_2024-06-12_head.csv",
+  "raw/binance/fundingRate_BTCUSDT_head.csv",
+  "raw/binance/fundingRate_ETHUSDT_head.csv",
+  "raw/bybit/oi_15min_BTCUSDT_2024-01-26_spot.json",
+  "raw/bybit/oi_15min_BTCUSDT_2025-02-28_spot.json",
+  "raw/bybit/oi_15min_ETHUSDT_2024-01-26_spot.json",
+  "raw/bybit/oi_15min_ETHUSDT_2025-02-28_spot.json"
+ ],
+ "runtime_s": 683.5,
+ "oi_spot_refresh": {
+  "generated_at": "2026-10-05T18:54:32Z",
+  "http_requests": 4
+ }
+}
