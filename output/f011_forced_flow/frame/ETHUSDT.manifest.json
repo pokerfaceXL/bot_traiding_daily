@@ -1,0 +1,20 @@
+{
+  "checksums": {
+    "frame": "f944193ab7d85d88835628cfb643eb554be9bef3304c0e5d3c216f5f3a326949",
+    "funding": "e8842c90ced2cb15d6eccf2d2ae7470936f1e6b763d2ec1c45e58bf66739b8df",
+    "ohlcv": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+    "oi": "81dcff76d266c743ca808eba8ab19e88e617048d5d14976c21982434425a05e3"
+  },
+  "funding_fills": 8400,
+  "generated_at": "2026-10-05T16:56:33.877284Z",
+  "rolling_windows": {
+    "atr": 14,
+    "funding_zscore": 168,
+    "oi_zscore": 168,
+    "realized_vol": 24
+  },
+  "row_count": 9600,
+  "symbol": "ETHUSDT",
+  "window_end": "2025-03-01T00:00:00Z",
+  "window_start": "2024-01-26T00:00:00Z"
+}
