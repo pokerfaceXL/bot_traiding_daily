@@ -9,7 +9,7 @@ experiment_id: H-NONCANDLE-SLEEVE-01
 date: 2026-10-04
 base_strategy: flat cash 0
 number_of_trials: 1
-status: frozen rule; OI cache coverage passed; await T0 Result
+status: FALSIFIED (a)+(b) — Decision 2026-10-05 (review PASS 4df434ed on 44bd854)
 
 ## Source (named by Trader kierunku)
 
@@ -234,4 +234,13 @@ flips (about one trade every two hours until the margin floor) are a property of
 retune target.
 
 ## Decision
+
+**2026-10-05 (coordinator) — FALSIFIED (a)+(b).** Review PASS (limen job 4df434ed, tip 44bd854).
+OI consumed (shuffled/zeroed OI change entries on 5/5 symbols; missing OI refuses to score), so the
+run is valid. (a) Train-1 mean net after costs = −276.297349 ≤ 0 → fires. (b) Six shared losing
+months summed = −1381.486747 ≤ 0 → fires. Gross edge ≈ +0.017/trade vs ≈ 0.32 round-trip costs;
+books hit the stake floor by 2024-05-29 (truncation cannot flip either falsifier).
+`decision_if_fail` applied literally: this sleeve's first mechanism (1h prior-hour OI-change fade)
+is closed. No catalog name is unfrozen; no catalog portfolio is opened. Per owner plan C (F011),
+this 1h OI-only result is a coarse baseline only and is NOT a verdict on forced-flow at 5m.
 
