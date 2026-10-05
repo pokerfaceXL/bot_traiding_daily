@@ -1249,3 +1249,5 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   closed. If sizing fails, candle confirm is next and the name stays
   CONDITIONAL. Do not FREEZE. Ticket
   `spec/features/active/F006-ema31350200-xsym-agree-sizing-01/ticket.md`.
+
+- **2026-10-05 evening** — Coordination of F011 taken over by Grok (Limen) from Claude (rate-limited). Owner decision: plan C — max free resolution first (5m OI, trades->taker flow, long/short ratio; Bybit + Binance), no paid vendor yet; hourly OI frame = coarse baseline only, never a go/no-go verdict. Live Bybit liquidation collector starts now. Tickets: F011-data-coverage (T0 recon), F011-liq-collector.
