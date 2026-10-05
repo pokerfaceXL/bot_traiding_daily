@@ -65,13 +65,23 @@ independent streaming Decimal oracle (`verify_sample.py`, no raw disk writes).
   future-trade perturbation leaving the earlier closed bar unchanged.
 - Real 2024-06-12 downloads: BTC 1,764,280 trades, ETH 907,225 trades, each 288
   bars, zero empty buckets. Rerun reports `verified-skip` for both. Raw and partial
-  files are absent. Exact free-byte minima are in `sample-run.jsonl` and manifests.
+  files are absent. Minimum observed free space was 33,649,487,872 bytes (BTC)
+  and 33,681,457,152 bytes (ETH), both above the guard. Exact observations are in
+  `sample-run.jsonl` and manifests.
 - The initial equality check against coverage reconstruction **failed** for BTC
   trade counts. An independent Decimal pass through the original archive matched
   the new reducer (max volume difference < 5.1e-9) and explained the discrepancy:
   Sell 0.003 BTC at `1718202599.9997` belongs before 14:30 UTC, but the old probe
   rounds it into 14:30. The oracle also reproduces all old rounded counts/volumes.
   ETH has no such moved trade on this sample day. Coverage files were not edited.
+
+The full native lane ran once after candidate commit `72a84b8`:
+`python3 -m pytest -q` → **537 passed, 8 skipped in 17.84s**. Before this run,
+the two existing BTC/ETH hourly OHLCV CSV prerequisites were copied from the
+coordinator checkout into this worktree (git-ignored, no symlinks/downloads).
+`git diff --cached --check` also passed before the candidate commit. The full
+Train-1 reducer run, complete 5m frame acceptance, and frame-specific 5m OI
+reconciliation have **not** run.
 
 ## Remaining slice
 
