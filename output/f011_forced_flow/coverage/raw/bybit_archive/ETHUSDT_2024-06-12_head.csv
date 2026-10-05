@@ -1,0 +1,4 @@
+timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional
+1718150400.0063,ETHUSDT,Sell,0.07,3496.69,MinusTick,8b229a2a-bfe5-5b66-9692-b7430a4616c4,2.4476830000000004e+10,0.07,244.76830000000004
+1718150401.1191,ETHUSDT,Buy,0.01,3496.70,PlusTick,5edf8b97-d402-50b0-afe9-65deea59454c,3.4967e+09,0.01,34.967
+1718150401.3569,ETHUSDT,Buy,0.54,3496.70,ZeroPlusTick,d86ffdee-500f-52e8-8b5d-ca948ca86c97,1.888218e+11,0.54,1888.218

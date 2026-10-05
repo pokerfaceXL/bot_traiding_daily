@@ -1,0 +1,25 @@
+# F011 · Bybit allLiquidation live collector (non-trading, public data, no API key).
+# Install (systemd *user* unit; see forced_flow_lab/LIQ_COLLECTOR.md):
+#   mkdir -p ~/f011-liq-collector ~/.config/systemd/user
+#   cp forced_flow_lab/liq_collector.py ~/f011-liq-collector/
+#   cp deploy/f011-liq-collector.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload && systemctl --user enable --now f011-liq-collector
+#   loginctl enable-linger "$USER"   # keep user services running without a login session
+[Unit]
+Description=F011 Bybit allLiquidation collector (BTCUSDT, ETHUSDT)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -u %h/f011-liq-collector/liq_collector.py --out-dir %h/bot_traiding_daily/bot_traiding_daily/data_cache/liquidations/bybit
+Restart=always
+RestartSec=10
+# The script reconnects internally with backoff; Restart=always covers crashes/exits.
+KillSignal=SIGTERM
+TimeoutStopSec=15
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target
