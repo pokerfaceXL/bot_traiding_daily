@@ -88,7 +88,20 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-04 ~00:35 Europe/Warsaw — H-NONCANDLE-SLEEVE-01 OI frozen, spawn T0)
+## Next planned step (2026-10-05 — NEW DIRECTION: F011 Forced-Flow Lab)
+
+Owner set the new direction (spec/vision.md reframed): model market participants and forced
+action ("who is forced to buy/sell if X"), not price, not more indicators. The whole
+momentum/indicator class and the first non-candle rules (funding, spread, OI-fade) are closed.
+Program + staged plan + pre-registered non-trading hypotheses: **spec/research/F011-forced-flow-lab.md**.
+Start is a **non-trading** data/stats lab (BTC+ETH): Stage-1 tickets
+`spec/features/active/F011-forced-flow-{frame,states,event-study}/` (sequential, delegable).
+Data available now: OHLCV + hourly OI + funding; owner-gated to acquire (API, F002 boundary):
+liquidations, perp-spot basis, taker split, order-book. Strategies A/B and ML are gated on a
+Stage-1 statistical edge. Production and the catalog stay untouched; separate `forced_flow_lab/`.
+Next coordinator action: dispatch F011 T1 (event frame) to a worker, then T2, then T3.
+
+## Next planned step (superseded 2026-10-05 — was H-NONCANDLE-SLEEVE-01 OI frozen, spawn T0)
 
 Trader kierunku named Bybit linear open interest as the one source.
 Fetched `/v5/market/open-interest` category=linear intervalTime=1h for
