@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-10-05T16:56:34.088904Z",
+  "per_symbol": {
+    "BTCUSDT": {
+      "checksums": {
+        "frame": "c00bd670385e612aca2730a2a3082d7886a17a3c5df9a0f5a5d682560b17fc42",
+        "funding": "8c575e16eae5cd9ef63ecf562b3e0fc2a116951e87341a6be423557a72f0661c",
+        "ohlcv": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+        "oi": "ed281ca4dacfcb2facd8f839d089e75b4625608b2d6ea263ce41be21547b803b"
+      },
+      "funding_fills": 8400,
+      "generated_at": "2026-10-05T16:56:32.568143Z",
+      "rolling_windows": {
+        "atr": 14,
+        "funding_zscore": 168,
+        "oi_zscore": 168,
+        "realized_vol": 24
+      },
+      "row_count": 9600,
+      "symbol": "BTCUSDT",
+      "window_end": "2025-03-01T00:00:00Z",
+      "window_start": "2024-01-26T00:00:00Z"
+    },
+    "ETHUSDT": {
+      "checksums": {
+        "frame": "f944193ab7d85d88835628cfb643eb554be9bef3304c0e5d3c216f5f3a326949",
+        "funding": "e8842c90ced2cb15d6eccf2d2ae7470936f1e6b763d2ec1c45e58bf66739b8df",
+        "ohlcv": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd",
+        "oi": "81dcff76d266c743ca808eba8ab19e88e617048d5d14976c21982434425a05e3"
+      },
+      "funding_fills": 8400,
+      "generated_at": "2026-10-05T16:56:33.877284Z",
+      "rolling_windows": {
+        "atr": 14,
+        "funding_zscore": 168,
+        "oi_zscore": 168,
+        "realized_vol": 24
+      },
+      "row_count": 9600,
+      "symbol": "ETHUSDT",
+      "window_end": "2025-03-01T00:00:00Z",
+      "window_start": "2024-01-26T00:00:00Z"
+    }
+  },
+  "rolling_windows": {
+    "atr": 14,
+    "funding_zscore": 168,
+    "oi_zscore": 168,
+    "realized_vol": 24
+  },
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "train1_window": {
+    "end": "2025-03-01T00:00:00Z",
+    "start": "2024-01-26T00:00:00Z"
+  }
+}

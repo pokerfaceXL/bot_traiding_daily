@@ -1,0 +1,20 @@
+{
+  "checksums": {
+    "frame": "c00bd670385e612aca2730a2a3082d7886a17a3c5df9a0f5a5d682560b17fc42",
+    "funding": "8c575e16eae5cd9ef63ecf562b3e0fc2a116951e87341a6be423557a72f0661c",
+    "ohlcv": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6",
+    "oi": "ed281ca4dacfcb2facd8f839d089e75b4625608b2d6ea263ce41be21547b803b"
+  },
+  "funding_fills": 8400,
+  "generated_at": "2026-10-05T16:56:32.568143Z",
+  "rolling_windows": {
+    "atr": 14,
+    "funding_zscore": 168,
+    "oi_zscore": 168,
+    "realized_vol": 24
+  },
+  "row_count": 9600,
+  "symbol": "BTCUSDT",
+  "window_end": "2025-03-01T00:00:00Z",
+  "window_start": "2024-01-26T00:00:00Z"
+}
