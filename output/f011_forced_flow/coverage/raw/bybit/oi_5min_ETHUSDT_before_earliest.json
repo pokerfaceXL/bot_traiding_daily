@@ -1,0 +1,12 @@
+{
+ "retCode": 0,
+ "retMsg": "OK",
+ "result": {
+  "symbol": "ETHUSDT",
+  "category": "linear",
+  "list": [],
+  "nextPageCursor": ""
+ },
+ "retExtInfo": {},
+ "time": 1791223757387
+}

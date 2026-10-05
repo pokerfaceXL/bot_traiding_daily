@@ -1,0 +1,12 @@
+{
+ "retCode": 0,
+ "retMsg": "OK",
+ "result": {
+  "symbol": "BTCUSDT",
+  "category": "linear",
+  "list": [],
+  "nextPageCursor": ""
+ },
+ "retExtInfo": {},
+ "time": 1791223599239
+}

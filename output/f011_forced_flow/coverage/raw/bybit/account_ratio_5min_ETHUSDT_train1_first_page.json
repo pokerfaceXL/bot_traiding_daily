@@ -1,0 +1,3011 @@
+{
+ "retCode": 0,
+ "retMsg": "OK",
+ "result": {
+  "list": [
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7792",
+    "sellRatio": "0.2208",
+    "timestamp": "1706376900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7788",
+    "sellRatio": "0.2212",
+    "timestamp": "1706376600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7798",
+    "sellRatio": "0.2202",
+    "timestamp": "1706376300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7802",
+    "sellRatio": "0.2198",
+    "timestamp": "1706376000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7799",
+    "sellRatio": "0.2201",
+    "timestamp": "1706375700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7778",
+    "sellRatio": "0.2222",
+    "timestamp": "1706375400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7777",
+    "sellRatio": "0.2223",
+    "timestamp": "1706375100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7776",
+    "sellRatio": "0.2224",
+    "timestamp": "1706374800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7773",
+    "sellRatio": "0.2227",
+    "timestamp": "1706374500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7774",
+    "sellRatio": "0.2226",
+    "timestamp": "1706374200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7763",
+    "sellRatio": "0.2237",
+    "timestamp": "1706373900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7769",
+    "sellRatio": "0.2231",
+    "timestamp": "1706373600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7772",
+    "sellRatio": "0.2228",
+    "timestamp": "1706373300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7775",
+    "sellRatio": "0.2225",
+    "timestamp": "1706373000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.777",
+    "sellRatio": "0.223",
+    "timestamp": "1706372700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.777",
+    "sellRatio": "0.223",
+    "timestamp": "1706372400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.777",
+    "sellRatio": "0.223",
+    "timestamp": "1706372100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7769",
+    "sellRatio": "0.2231",
+    "timestamp": "1706371800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7766",
+    "sellRatio": "0.2234",
+    "timestamp": "1706371500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7767",
+    "sellRatio": "0.2233",
+    "timestamp": "1706371200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7768",
+    "sellRatio": "0.2232",
+    "timestamp": "1706370900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7764",
+    "sellRatio": "0.2236",
+    "timestamp": "1706370600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7771",
+    "sellRatio": "0.2229",
+    "timestamp": "1706370300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7768",
+    "sellRatio": "0.2232",
+    "timestamp": "1706370000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7765",
+    "sellRatio": "0.2235",
+    "timestamp": "1706369700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7767",
+    "sellRatio": "0.2233",
+    "timestamp": "1706369400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7771",
+    "sellRatio": "0.2229",
+    "timestamp": "1706369100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7772",
+    "sellRatio": "0.2228",
+    "timestamp": "1706368800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7772",
+    "sellRatio": "0.2228",
+    "timestamp": "1706368500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7773",
+    "sellRatio": "0.2227",
+    "timestamp": "1706368200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7775",
+    "sellRatio": "0.2225",
+    "timestamp": "1706367900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7776",
+    "sellRatio": "0.2224",
+    "timestamp": "1706367600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7774",
+    "sellRatio": "0.2226",
+    "timestamp": "1706367300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7776",
+    "sellRatio": "0.2224",
+    "timestamp": "1706367000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7768",
+    "sellRatio": "0.2232",
+    "timestamp": "1706366700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7762",
+    "sellRatio": "0.2238",
+    "timestamp": "1706366400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7759",
+    "sellRatio": "0.2241",
+    "timestamp": "1706366100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706365800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.776",
+    "sellRatio": "0.224",
+    "timestamp": "1706365500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7757",
+    "sellRatio": "0.2243",
+    "timestamp": "1706365200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7758",
+    "sellRatio": "0.2242",
+    "timestamp": "1706364900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7762",
+    "sellRatio": "0.2238",
+    "timestamp": "1706364600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.776",
+    "sellRatio": "0.224",
+    "timestamp": "1706364300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7759",
+    "sellRatio": "0.2241",
+    "timestamp": "1706364000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7764",
+    "sellRatio": "0.2236",
+    "timestamp": "1706363700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7765",
+    "sellRatio": "0.2235",
+    "timestamp": "1706363400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7764",
+    "sellRatio": "0.2236",
+    "timestamp": "1706363100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7759",
+    "sellRatio": "0.2241",
+    "timestamp": "1706362800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7754",
+    "sellRatio": "0.2246",
+    "timestamp": "1706362500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.775",
+    "sellRatio": "0.225",
+    "timestamp": "1706362200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7754",
+    "sellRatio": "0.2246",
+    "timestamp": "1706361900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7757",
+    "sellRatio": "0.2243",
+    "timestamp": "1706361600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7761",
+    "sellRatio": "0.2239",
+    "timestamp": "1706361300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7761",
+    "sellRatio": "0.2239",
+    "timestamp": "1706361000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7758",
+    "sellRatio": "0.2242",
+    "timestamp": "1706360700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7765",
+    "sellRatio": "0.2235",
+    "timestamp": "1706360400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7768",
+    "sellRatio": "0.2232",
+    "timestamp": "1706360100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7756",
+    "sellRatio": "0.2244",
+    "timestamp": "1706359800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7756",
+    "sellRatio": "0.2244",
+    "timestamp": "1706359500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706359200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7752",
+    "sellRatio": "0.2248",
+    "timestamp": "1706358900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706358600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7751",
+    "sellRatio": "0.2249",
+    "timestamp": "1706358300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7757",
+    "sellRatio": "0.2243",
+    "timestamp": "1706358000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7749",
+    "sellRatio": "0.2251",
+    "timestamp": "1706357700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7749",
+    "sellRatio": "0.2251",
+    "timestamp": "1706357400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706357100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.775",
+    "sellRatio": "0.225",
+    "timestamp": "1706356800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7749",
+    "sellRatio": "0.2251",
+    "timestamp": "1706356500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7745",
+    "sellRatio": "0.2255",
+    "timestamp": "1706356200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7747",
+    "sellRatio": "0.2253",
+    "timestamp": "1706355900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7745",
+    "sellRatio": "0.2255",
+    "timestamp": "1706355600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7752",
+    "sellRatio": "0.2248",
+    "timestamp": "1706355300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7753",
+    "sellRatio": "0.2247",
+    "timestamp": "1706355000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706354700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7753",
+    "sellRatio": "0.2247",
+    "timestamp": "1706354400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706354100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706353800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7754",
+    "sellRatio": "0.2246",
+    "timestamp": "1706353500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706353200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7756",
+    "sellRatio": "0.2244",
+    "timestamp": "1706352900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7755",
+    "sellRatio": "0.2245",
+    "timestamp": "1706352600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.775",
+    "sellRatio": "0.225",
+    "timestamp": "1706352300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7749",
+    "sellRatio": "0.2251",
+    "timestamp": "1706352000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7751",
+    "sellRatio": "0.2249",
+    "timestamp": "1706351700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7752",
+    "sellRatio": "0.2248",
+    "timestamp": "1706351400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7756",
+    "sellRatio": "0.2244",
+    "timestamp": "1706351100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7759",
+    "sellRatio": "0.2241",
+    "timestamp": "1706350800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7751",
+    "sellRatio": "0.2249",
+    "timestamp": "1706350500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.775",
+    "sellRatio": "0.225",
+    "timestamp": "1706350200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7746",
+    "sellRatio": "0.2254",
+    "timestamp": "1706349900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7748",
+    "sellRatio": "0.2252",
+    "timestamp": "1706349600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7808",
+    "sellRatio": "0.2192",
+    "timestamp": "1706349300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7811",
+    "sellRatio": "0.2189",
+    "timestamp": "1706349000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.781",
+    "sellRatio": "0.219",
+    "timestamp": "1706348700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7807",
+    "sellRatio": "0.2193",
+    "timestamp": "1706348400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7809",
+    "sellRatio": "0.2191",
+    "timestamp": "1706348100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7801",
+    "sellRatio": "0.2199",
+    "timestamp": "1706347800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7801",
+    "sellRatio": "0.2199",
+    "timestamp": "1706347500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7804",
+    "sellRatio": "0.2196",
+    "timestamp": "1706347200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.781",
+    "sellRatio": "0.219",
+    "timestamp": "1706346900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7807",
+    "sellRatio": "0.2193",
+    "timestamp": "1706346600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7804",
+    "sellRatio": "0.2196",
+    "timestamp": "1706346300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7811",
+    "sellRatio": "0.2189",
+    "timestamp": "1706346000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7803",
+    "sellRatio": "0.2197",
+    "timestamp": "1706345700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7808",
+    "sellRatio": "0.2192",
+    "timestamp": "1706345400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7801",
+    "sellRatio": "0.2199",
+    "timestamp": "1706345100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7809",
+    "sellRatio": "0.2191",
+    "timestamp": "1706344800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.781",
+    "sellRatio": "0.219",
+    "timestamp": "1706344500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7802",
+    "sellRatio": "0.2198",
+    "timestamp": "1706344200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7802",
+    "sellRatio": "0.2198",
+    "timestamp": "1706343900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7802",
+    "sellRatio": "0.2198",
+    "timestamp": "1706343600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7808",
+    "sellRatio": "0.2192",
+    "timestamp": "1706343300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7801",
+    "sellRatio": "0.2199",
+    "timestamp": "1706343000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7804",
+    "sellRatio": "0.2196",
+    "timestamp": "1706342700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7817",
+    "sellRatio": "0.2183",
+    "timestamp": "1706342400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7812",
+    "sellRatio": "0.2188",
+    "timestamp": "1706342100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.781",
+    "sellRatio": "0.219",
+    "timestamp": "1706341800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7813",
+    "sellRatio": "0.2187",
+    "timestamp": "1706341500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7819",
+    "sellRatio": "0.2181",
+    "timestamp": "1706341200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7823",
+    "sellRatio": "0.2177",
+    "timestamp": "1706340900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7822",
+    "sellRatio": "0.2178",
+    "timestamp": "1706340600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7832",
+    "sellRatio": "0.2168",
+    "timestamp": "1706340300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7837",
+    "sellRatio": "0.2163",
+    "timestamp": "1706340000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.783",
+    "sellRatio": "0.217",
+    "timestamp": "1706339700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.782",
+    "sellRatio": "0.218",
+    "timestamp": "1706339400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.782",
+    "sellRatio": "0.218",
+    "timestamp": "1706339100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7827",
+    "sellRatio": "0.2173",
+    "timestamp": "1706338800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7823",
+    "sellRatio": "0.2177",
+    "timestamp": "1706338500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7825",
+    "sellRatio": "0.2175",
+    "timestamp": "1706338200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7825",
+    "sellRatio": "0.2175",
+    "timestamp": "1706337900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.783",
+    "sellRatio": "0.217",
+    "timestamp": "1706337600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7825",
+    "sellRatio": "0.2175",
+    "timestamp": "1706337300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7824",
+    "sellRatio": "0.2176",
+    "timestamp": "1706337000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7823",
+    "sellRatio": "0.2177",
+    "timestamp": "1706336700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7828",
+    "sellRatio": "0.2172",
+    "timestamp": "1706336400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7827",
+    "sellRatio": "0.2173",
+    "timestamp": "1706336100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7826",
+    "sellRatio": "0.2174",
+    "timestamp": "1706335800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7826",
+    "sellRatio": "0.2174",
+    "timestamp": "1706335500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7831",
+    "sellRatio": "0.2169",
+    "timestamp": "1706335200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7846",
+    "sellRatio": "0.2154",
+    "timestamp": "1706334900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706334600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706334300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7847",
+    "sellRatio": "0.2153",
+    "timestamp": "1706334000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7845",
+    "sellRatio": "0.2155",
+    "timestamp": "1706333700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706333400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706333100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7856",
+    "sellRatio": "0.2144",
+    "timestamp": "1706332800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706332500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706332200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7859",
+    "sellRatio": "0.2141",
+    "timestamp": "1706331900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.786",
+    "sellRatio": "0.214",
+    "timestamp": "1706331600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7859",
+    "sellRatio": "0.2141",
+    "timestamp": "1706331300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706331000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706330700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7859",
+    "sellRatio": "0.2141",
+    "timestamp": "1706330400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706330100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706329800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706329500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706329200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706328900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706328600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706328300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706328000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7866",
+    "sellRatio": "0.2134",
+    "timestamp": "1706327700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706327400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706327100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706326800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7856",
+    "sellRatio": "0.2144",
+    "timestamp": "1706326500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.786",
+    "sellRatio": "0.214",
+    "timestamp": "1706326200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706325900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7859",
+    "sellRatio": "0.2141",
+    "timestamp": "1706325600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7859",
+    "sellRatio": "0.2141",
+    "timestamp": "1706325300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706325000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7856",
+    "sellRatio": "0.2144",
+    "timestamp": "1706324700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7855",
+    "sellRatio": "0.2145",
+    "timestamp": "1706324400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7851",
+    "sellRatio": "0.2149",
+    "timestamp": "1706324100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7857",
+    "sellRatio": "0.2143",
+    "timestamp": "1706323800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706323500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7861",
+    "sellRatio": "0.2139",
+    "timestamp": "1706323200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7861",
+    "sellRatio": "0.2139",
+    "timestamp": "1706322900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706322600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706322300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706322000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7855",
+    "sellRatio": "0.2145",
+    "timestamp": "1706321700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7862",
+    "sellRatio": "0.2138",
+    "timestamp": "1706321400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7864",
+    "sellRatio": "0.2136",
+    "timestamp": "1706321100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706320800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706320500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7844",
+    "sellRatio": "0.2156",
+    "timestamp": "1706320200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706319900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706319600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706319300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7838",
+    "sellRatio": "0.2162",
+    "timestamp": "1706319000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706318700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.784",
+    "sellRatio": "0.216",
+    "timestamp": "1706318400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.784",
+    "sellRatio": "0.216",
+    "timestamp": "1706318100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7847",
+    "sellRatio": "0.2153",
+    "timestamp": "1706317800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7856",
+    "sellRatio": "0.2144",
+    "timestamp": "1706317500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7853",
+    "sellRatio": "0.2147",
+    "timestamp": "1706317200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706316900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7848",
+    "sellRatio": "0.2152",
+    "timestamp": "1706316600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.785",
+    "sellRatio": "0.215",
+    "timestamp": "1706316300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706316000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706315700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7845",
+    "sellRatio": "0.2155",
+    "timestamp": "1706315400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7855",
+    "sellRatio": "0.2145",
+    "timestamp": "1706315100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7855",
+    "sellRatio": "0.2145",
+    "timestamp": "1706314800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706314500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.784",
+    "sellRatio": "0.216",
+    "timestamp": "1706314200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7845",
+    "sellRatio": "0.2155",
+    "timestamp": "1706313900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706313600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7837",
+    "sellRatio": "0.2163",
+    "timestamp": "1706313300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7841",
+    "sellRatio": "0.2159",
+    "timestamp": "1706313000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706312700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.785",
+    "sellRatio": "0.215",
+    "timestamp": "1706312400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7834",
+    "sellRatio": "0.2166",
+    "timestamp": "1706312100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7832",
+    "sellRatio": "0.2168",
+    "timestamp": "1706311800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7833",
+    "sellRatio": "0.2167",
+    "timestamp": "1706311500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7834",
+    "sellRatio": "0.2166",
+    "timestamp": "1706311200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7834",
+    "sellRatio": "0.2166",
+    "timestamp": "1706310900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7838",
+    "sellRatio": "0.2162",
+    "timestamp": "1706310600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706310300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706310000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706309700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7844",
+    "sellRatio": "0.2156",
+    "timestamp": "1706309400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706309100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7835",
+    "sellRatio": "0.2165",
+    "timestamp": "1706308800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7835",
+    "sellRatio": "0.2165",
+    "timestamp": "1706308500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7834",
+    "sellRatio": "0.2166",
+    "timestamp": "1706308200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7836",
+    "sellRatio": "0.2164",
+    "timestamp": "1706307900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7835",
+    "sellRatio": "0.2165",
+    "timestamp": "1706307600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7829",
+    "sellRatio": "0.2171",
+    "timestamp": "1706307300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7832",
+    "sellRatio": "0.2168",
+    "timestamp": "1706307000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7832",
+    "sellRatio": "0.2168",
+    "timestamp": "1706306700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7826",
+    "sellRatio": "0.2174",
+    "timestamp": "1706306400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7828",
+    "sellRatio": "0.2172",
+    "timestamp": "1706306100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7835",
+    "sellRatio": "0.2165",
+    "timestamp": "1706305800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.783",
+    "sellRatio": "0.217",
+    "timestamp": "1706305500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7832",
+    "sellRatio": "0.2168",
+    "timestamp": "1706305200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7833",
+    "sellRatio": "0.2167",
+    "timestamp": "1706304900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7839",
+    "sellRatio": "0.2161",
+    "timestamp": "1706304600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7833",
+    "sellRatio": "0.2167",
+    "timestamp": "1706304300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7838",
+    "sellRatio": "0.2162",
+    "timestamp": "1706304000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7841",
+    "sellRatio": "0.2159",
+    "timestamp": "1706303700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7836",
+    "sellRatio": "0.2164",
+    "timestamp": "1706303400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7838",
+    "sellRatio": "0.2162",
+    "timestamp": "1706303100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.784",
+    "sellRatio": "0.216",
+    "timestamp": "1706302800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7844",
+    "sellRatio": "0.2156",
+    "timestamp": "1706302500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7849",
+    "sellRatio": "0.2151",
+    "timestamp": "1706302200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706301900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7857",
+    "sellRatio": "0.2143",
+    "timestamp": "1706301600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706301300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7913",
+    "sellRatio": "0.2087",
+    "timestamp": "1706301000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7918",
+    "sellRatio": "0.2082",
+    "timestamp": "1706300700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7921",
+    "sellRatio": "0.2079",
+    "timestamp": "1706300400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.791",
+    "sellRatio": "0.209",
+    "timestamp": "1706300100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7907",
+    "sellRatio": "0.2093",
+    "timestamp": "1706299800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7915",
+    "sellRatio": "0.2085",
+    "timestamp": "1706299500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7917",
+    "sellRatio": "0.2083",
+    "timestamp": "1706299200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7907",
+    "sellRatio": "0.2093",
+    "timestamp": "1706298900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7913",
+    "sellRatio": "0.2087",
+    "timestamp": "1706298600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7908",
+    "sellRatio": "0.2092",
+    "timestamp": "1706298300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.791",
+    "sellRatio": "0.209",
+    "timestamp": "1706298000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7907",
+    "sellRatio": "0.2093",
+    "timestamp": "1706297700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7906",
+    "sellRatio": "0.2094",
+    "timestamp": "1706297400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7906",
+    "sellRatio": "0.2094",
+    "timestamp": "1706297100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7902",
+    "sellRatio": "0.2098",
+    "timestamp": "1706296800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7893",
+    "sellRatio": "0.2107",
+    "timestamp": "1706296500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7891",
+    "sellRatio": "0.2109",
+    "timestamp": "1706296200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7897",
+    "sellRatio": "0.2103",
+    "timestamp": "1706295900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7728",
+    "sellRatio": "0.2272",
+    "timestamp": "1706295600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7728",
+    "sellRatio": "0.2272",
+    "timestamp": "1706295300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7718",
+    "sellRatio": "0.2282",
+    "timestamp": "1706295000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7704",
+    "sellRatio": "0.2296",
+    "timestamp": "1706294700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7708",
+    "sellRatio": "0.2292",
+    "timestamp": "1706294400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7706",
+    "sellRatio": "0.2294",
+    "timestamp": "1706294100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.768",
+    "sellRatio": "0.232",
+    "timestamp": "1706293800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.768",
+    "sellRatio": "0.232",
+    "timestamp": "1706293500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.768",
+    "sellRatio": "0.232",
+    "timestamp": "1706293200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7737",
+    "sellRatio": "0.2263",
+    "timestamp": "1706292900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7711",
+    "sellRatio": "0.2289",
+    "timestamp": "1706292600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7704",
+    "sellRatio": "0.2296",
+    "timestamp": "1706292300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7705",
+    "sellRatio": "0.2295",
+    "timestamp": "1706292000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.771",
+    "sellRatio": "0.229",
+    "timestamp": "1706291700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7723",
+    "sellRatio": "0.2277",
+    "timestamp": "1706291400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7709",
+    "sellRatio": "0.2291",
+    "timestamp": "1706291100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7703",
+    "sellRatio": "0.2297",
+    "timestamp": "1706290800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7713",
+    "sellRatio": "0.2287",
+    "timestamp": "1706290500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7718",
+    "sellRatio": "0.2282",
+    "timestamp": "1706290200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7727",
+    "sellRatio": "0.2273",
+    "timestamp": "1706289900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7732",
+    "sellRatio": "0.2268",
+    "timestamp": "1706289600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7738",
+    "sellRatio": "0.2262",
+    "timestamp": "1706289300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7732",
+    "sellRatio": "0.2268",
+    "timestamp": "1706289000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7778",
+    "sellRatio": "0.2222",
+    "timestamp": "1706288700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7785",
+    "sellRatio": "0.2215",
+    "timestamp": "1706288400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7784",
+    "sellRatio": "0.2216",
+    "timestamp": "1706288100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7801",
+    "sellRatio": "0.2199",
+    "timestamp": "1706287800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7783",
+    "sellRatio": "0.2217",
+    "timestamp": "1706287500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7783",
+    "sellRatio": "0.2217",
+    "timestamp": "1706287200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7778",
+    "sellRatio": "0.2222",
+    "timestamp": "1706286900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7787",
+    "sellRatio": "0.2213",
+    "timestamp": "1706286600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7782",
+    "sellRatio": "0.2218",
+    "timestamp": "1706286300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7768",
+    "sellRatio": "0.2232",
+    "timestamp": "1706286000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7769",
+    "sellRatio": "0.2231",
+    "timestamp": "1706285700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7782",
+    "sellRatio": "0.2218",
+    "timestamp": "1706285400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7888",
+    "sellRatio": "0.2112",
+    "timestamp": "1706285100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7876",
+    "sellRatio": "0.2124",
+    "timestamp": "1706284800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7879",
+    "sellRatio": "0.2121",
+    "timestamp": "1706284500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7882",
+    "sellRatio": "0.2118",
+    "timestamp": "1706284200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7874",
+    "sellRatio": "0.2126",
+    "timestamp": "1706283900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7877",
+    "sellRatio": "0.2123",
+    "timestamp": "1706283600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7884",
+    "sellRatio": "0.2116",
+    "timestamp": "1706283300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7883",
+    "sellRatio": "0.2117",
+    "timestamp": "1706283000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7879",
+    "sellRatio": "0.2121",
+    "timestamp": "1706282700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7886",
+    "sellRatio": "0.2114",
+    "timestamp": "1706282400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7887",
+    "sellRatio": "0.2113",
+    "timestamp": "1706282100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7899",
+    "sellRatio": "0.2101",
+    "timestamp": "1706281800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7899",
+    "sellRatio": "0.2101",
+    "timestamp": "1706281500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7879",
+    "sellRatio": "0.2121",
+    "timestamp": "1706281200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7868",
+    "sellRatio": "0.2132",
+    "timestamp": "1706280900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7872",
+    "sellRatio": "0.2128",
+    "timestamp": "1706280600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7863",
+    "sellRatio": "0.2137",
+    "timestamp": "1706280300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7858",
+    "sellRatio": "0.2142",
+    "timestamp": "1706280000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7861",
+    "sellRatio": "0.2139",
+    "timestamp": "1706279700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.786",
+    "sellRatio": "0.214",
+    "timestamp": "1706279400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7861",
+    "sellRatio": "0.2139",
+    "timestamp": "1706279100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7854",
+    "sellRatio": "0.2146",
+    "timestamp": "1706278800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7848",
+    "sellRatio": "0.2152",
+    "timestamp": "1706278500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7844",
+    "sellRatio": "0.2156",
+    "timestamp": "1706278200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706277900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7838",
+    "sellRatio": "0.2162",
+    "timestamp": "1706277600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706277300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7843",
+    "sellRatio": "0.2157",
+    "timestamp": "1706277000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7844",
+    "sellRatio": "0.2156",
+    "timestamp": "1706276700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7855",
+    "sellRatio": "0.2145",
+    "timestamp": "1706276400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7856",
+    "sellRatio": "0.2144",
+    "timestamp": "1706276100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7865",
+    "sellRatio": "0.2135",
+    "timestamp": "1706275800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7867",
+    "sellRatio": "0.2133",
+    "timestamp": "1706275500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7865",
+    "sellRatio": "0.2135",
+    "timestamp": "1706275200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.786",
+    "sellRatio": "0.214",
+    "timestamp": "1706274900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7866",
+    "sellRatio": "0.2134",
+    "timestamp": "1706274600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7866",
+    "sellRatio": "0.2134",
+    "timestamp": "1706274300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7867",
+    "sellRatio": "0.2133",
+    "timestamp": "1706274000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7886",
+    "sellRatio": "0.2114",
+    "timestamp": "1706273700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.79",
+    "sellRatio": "0.21",
+    "timestamp": "1706273400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706273100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7975",
+    "sellRatio": "0.2025",
+    "timestamp": "1706272800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7974",
+    "sellRatio": "0.2026",
+    "timestamp": "1706272500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7976",
+    "sellRatio": "0.2024",
+    "timestamp": "1706272200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7949",
+    "sellRatio": "0.2051",
+    "timestamp": "1706271900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7946",
+    "sellRatio": "0.2054",
+    "timestamp": "1706271600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7961",
+    "sellRatio": "0.2039",
+    "timestamp": "1706271300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7958",
+    "sellRatio": "0.2042",
+    "timestamp": "1706271000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7967",
+    "sellRatio": "0.2033",
+    "timestamp": "1706270700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8033",
+    "sellRatio": "0.1967",
+    "timestamp": "1706270400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8033",
+    "sellRatio": "0.1967",
+    "timestamp": "1706270100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8035",
+    "sellRatio": "0.1965",
+    "timestamp": "1706269800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8064",
+    "sellRatio": "0.1936",
+    "timestamp": "1706269500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8057",
+    "sellRatio": "0.1943",
+    "timestamp": "1706269200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8067",
+    "sellRatio": "0.1933",
+    "timestamp": "1706268900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8046",
+    "sellRatio": "0.1954",
+    "timestamp": "1706268600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8052",
+    "sellRatio": "0.1948",
+    "timestamp": "1706268300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8044",
+    "sellRatio": "0.1956",
+    "timestamp": "1706268000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8052",
+    "sellRatio": "0.1948",
+    "timestamp": "1706267700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8057",
+    "sellRatio": "0.1943",
+    "timestamp": "1706267400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8062",
+    "sellRatio": "0.1938",
+    "timestamp": "1706267100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8033",
+    "sellRatio": "0.1967",
+    "timestamp": "1706266800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8014",
+    "sellRatio": "0.1986",
+    "timestamp": "1706266500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7996",
+    "sellRatio": "0.2004",
+    "timestamp": "1706266200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.801",
+    "sellRatio": "0.199",
+    "timestamp": "1706265900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7994",
+    "sellRatio": "0.2006",
+    "timestamp": "1706265600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706265300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7984",
+    "sellRatio": "0.2016",
+    "timestamp": "1706265000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7982",
+    "sellRatio": "0.2018",
+    "timestamp": "1706264700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7978",
+    "sellRatio": "0.2022",
+    "timestamp": "1706264400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7999",
+    "sellRatio": "0.2001",
+    "timestamp": "1706264100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8003",
+    "sellRatio": "0.1997",
+    "timestamp": "1706263800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8011",
+    "sellRatio": "0.1989",
+    "timestamp": "1706263500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8007",
+    "sellRatio": "0.1993",
+    "timestamp": "1706263200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7983",
+    "sellRatio": "0.2017",
+    "timestamp": "1706262900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7994",
+    "sellRatio": "0.2006",
+    "timestamp": "1706262600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.798",
+    "sellRatio": "0.202",
+    "timestamp": "1706262300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7977",
+    "sellRatio": "0.2023",
+    "timestamp": "1706262000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7974",
+    "sellRatio": "0.2026",
+    "timestamp": "1706261700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7976",
+    "sellRatio": "0.2024",
+    "timestamp": "1706261400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7976",
+    "sellRatio": "0.2024",
+    "timestamp": "1706261100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7973",
+    "sellRatio": "0.2027",
+    "timestamp": "1706260800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7966",
+    "sellRatio": "0.2034",
+    "timestamp": "1706260500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7967",
+    "sellRatio": "0.2033",
+    "timestamp": "1706260200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7977",
+    "sellRatio": "0.2023",
+    "timestamp": "1706259900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7979",
+    "sellRatio": "0.2021",
+    "timestamp": "1706259600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7975",
+    "sellRatio": "0.2025",
+    "timestamp": "1706259300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7979",
+    "sellRatio": "0.2021",
+    "timestamp": "1706259000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7981",
+    "sellRatio": "0.2019",
+    "timestamp": "1706258700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7979",
+    "sellRatio": "0.2021",
+    "timestamp": "1706258400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7982",
+    "sellRatio": "0.2018",
+    "timestamp": "1706258100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7972",
+    "sellRatio": "0.2028",
+    "timestamp": "1706257800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7984",
+    "sellRatio": "0.2016",
+    "timestamp": "1706257500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7989",
+    "sellRatio": "0.2011",
+    "timestamp": "1706257200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.799",
+    "sellRatio": "0.201",
+    "timestamp": "1706256900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706256600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7987",
+    "sellRatio": "0.2013",
+    "timestamp": "1706256300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7993",
+    "sellRatio": "0.2007",
+    "timestamp": "1706256000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706255700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7984",
+    "sellRatio": "0.2016",
+    "timestamp": "1706255400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7981",
+    "sellRatio": "0.2019",
+    "timestamp": "1706255100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7977",
+    "sellRatio": "0.2023",
+    "timestamp": "1706254800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7972",
+    "sellRatio": "0.2028",
+    "timestamp": "1706254500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8015",
+    "sellRatio": "0.1985",
+    "timestamp": "1706254200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8012",
+    "sellRatio": "0.1988",
+    "timestamp": "1706253900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8009",
+    "sellRatio": "0.1991",
+    "timestamp": "1706253600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8012",
+    "sellRatio": "0.1988",
+    "timestamp": "1706253300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8014",
+    "sellRatio": "0.1986",
+    "timestamp": "1706253000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8006",
+    "sellRatio": "0.1994",
+    "timestamp": "1706252700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8001",
+    "sellRatio": "0.1999",
+    "timestamp": "1706252400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8005",
+    "sellRatio": "0.1995",
+    "timestamp": "1706252100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706251800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706251500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7993",
+    "sellRatio": "0.2007",
+    "timestamp": "1706251200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7985",
+    "sellRatio": "0.2015",
+    "timestamp": "1706250900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7986",
+    "sellRatio": "0.2014",
+    "timestamp": "1706250600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7988",
+    "sellRatio": "0.2012",
+    "timestamp": "1706250300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7989",
+    "sellRatio": "0.2011",
+    "timestamp": "1706250000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706249700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706249400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.799",
+    "sellRatio": "0.201",
+    "timestamp": "1706249100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7993",
+    "sellRatio": "0.2007",
+    "timestamp": "1706248800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706248500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7993",
+    "sellRatio": "0.2007",
+    "timestamp": "1706248200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7997",
+    "sellRatio": "0.2003",
+    "timestamp": "1706247900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7992",
+    "sellRatio": "0.2008",
+    "timestamp": "1706247600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7989",
+    "sellRatio": "0.2011",
+    "timestamp": "1706247300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8002",
+    "sellRatio": "0.1998",
+    "timestamp": "1706247000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8",
+    "sellRatio": "0.2",
+    "timestamp": "1706246700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8001",
+    "sellRatio": "0.1999",
+    "timestamp": "1706246400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8002",
+    "sellRatio": "0.1998",
+    "timestamp": "1706246100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7999",
+    "sellRatio": "0.2001",
+    "timestamp": "1706245800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7997",
+    "sellRatio": "0.2003",
+    "timestamp": "1706245500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8004",
+    "sellRatio": "0.1996",
+    "timestamp": "1706245200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8005",
+    "sellRatio": "0.1995",
+    "timestamp": "1706244900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8003",
+    "sellRatio": "0.1997",
+    "timestamp": "1706244600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8001",
+    "sellRatio": "0.1999",
+    "timestamp": "1706244300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8005",
+    "sellRatio": "0.1995",
+    "timestamp": "1706244000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8006",
+    "sellRatio": "0.1994",
+    "timestamp": "1706243700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.8004",
+    "sellRatio": "0.1996",
+    "timestamp": "1706243400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7955",
+    "sellRatio": "0.2045",
+    "timestamp": "1706243100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7958",
+    "sellRatio": "0.2042",
+    "timestamp": "1706242800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7959",
+    "sellRatio": "0.2041",
+    "timestamp": "1706242500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7962",
+    "sellRatio": "0.2038",
+    "timestamp": "1706242200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7962",
+    "sellRatio": "0.2038",
+    "timestamp": "1706241900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.796",
+    "sellRatio": "0.204",
+    "timestamp": "1706241600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706241300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7966",
+    "sellRatio": "0.2034",
+    "timestamp": "1706241000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706240700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706240400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706240100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7961",
+    "sellRatio": "0.2039",
+    "timestamp": "1706239800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7957",
+    "sellRatio": "0.2043",
+    "timestamp": "1706239500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7958",
+    "sellRatio": "0.2042",
+    "timestamp": "1706239200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7957",
+    "sellRatio": "0.2043",
+    "timestamp": "1706238900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7965",
+    "sellRatio": "0.2035",
+    "timestamp": "1706238600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7964",
+    "sellRatio": "0.2036",
+    "timestamp": "1706238300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7963",
+    "sellRatio": "0.2037",
+    "timestamp": "1706238000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7965",
+    "sellRatio": "0.2035",
+    "timestamp": "1706237700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7959",
+    "sellRatio": "0.2041",
+    "timestamp": "1706237400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7961",
+    "sellRatio": "0.2039",
+    "timestamp": "1706237100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7956",
+    "sellRatio": "0.2044",
+    "timestamp": "1706236800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.795",
+    "sellRatio": "0.205",
+    "timestamp": "1706236500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7946",
+    "sellRatio": "0.2054",
+    "timestamp": "1706236200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7948",
+    "sellRatio": "0.2052",
+    "timestamp": "1706235900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7946",
+    "sellRatio": "0.2054",
+    "timestamp": "1706235600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7951",
+    "sellRatio": "0.2049",
+    "timestamp": "1706235300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7968",
+    "sellRatio": "0.2032",
+    "timestamp": "1706235000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.797",
+    "sellRatio": "0.203",
+    "timestamp": "1706234700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7977",
+    "sellRatio": "0.2023",
+    "timestamp": "1706234400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7978",
+    "sellRatio": "0.2022",
+    "timestamp": "1706234100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7974",
+    "sellRatio": "0.2026",
+    "timestamp": "1706233800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7939",
+    "sellRatio": "0.2061",
+    "timestamp": "1706233500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7937",
+    "sellRatio": "0.2063",
+    "timestamp": "1706233200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7932",
+    "sellRatio": "0.2068",
+    "timestamp": "1706232900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7936",
+    "sellRatio": "0.2064",
+    "timestamp": "1706232600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7929",
+    "sellRatio": "0.2071",
+    "timestamp": "1706232300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7929",
+    "sellRatio": "0.2071",
+    "timestamp": "1706232000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7928",
+    "sellRatio": "0.2072",
+    "timestamp": "1706231700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7931",
+    "sellRatio": "0.2069",
+    "timestamp": "1706231400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7936",
+    "sellRatio": "0.2064",
+    "timestamp": "1706231100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7933",
+    "sellRatio": "0.2067",
+    "timestamp": "1706230800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7931",
+    "sellRatio": "0.2069",
+    "timestamp": "1706230500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7936",
+    "sellRatio": "0.2064",
+    "timestamp": "1706230200000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7935",
+    "sellRatio": "0.2065",
+    "timestamp": "1706229900000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7941",
+    "sellRatio": "0.2059",
+    "timestamp": "1706229600000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.794",
+    "sellRatio": "0.206",
+    "timestamp": "1706229300000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7943",
+    "sellRatio": "0.2057",
+    "timestamp": "1706229000000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7944",
+    "sellRatio": "0.2056",
+    "timestamp": "1706228700000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7941",
+    "sellRatio": "0.2059",
+    "timestamp": "1706228400000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7941",
+    "sellRatio": "0.2059",
+    "timestamp": "1706228100000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.794",
+    "sellRatio": "0.206",
+    "timestamp": "1706227800000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.7944",
+    "sellRatio": "0.2056",
+    "timestamp": "1706227500000"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "buyRatio": "0.796",
+    "sellRatio": "0.204",
+    "timestamp": "1706227200000"
+   }
+  ],
+  "nextPageCursor": "lastid%3D0%26lasttime%3D1706227200"
+ },
+ "retExtInfo": {},
+ "time": 1791224111149
+}

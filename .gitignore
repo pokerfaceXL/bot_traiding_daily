@@ -13,4 +13,5 @@ output/f005_baseline/raw/*.json
 data_cache/liquidations/
 # F011 5m data pulls (large, re-fetchable)
 data_cache/open_interest_5m/
+data_cache/account_ratio_5m/
 data_cache/f011_samples/

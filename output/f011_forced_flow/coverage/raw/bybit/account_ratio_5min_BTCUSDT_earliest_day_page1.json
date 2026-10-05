@@ -1,0 +1,1175 @@
+{
+ "retCode": 0,
+ "retMsg": "OK",
+ "result": {
+  "list": [
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.596",
+    "sellRatio": "0.404",
+    "timestamp": "1596585300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5986",
+    "sellRatio": "0.4014",
+    "timestamp": "1596585000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5984",
+    "sellRatio": "0.4016",
+    "timestamp": "1596584700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.599",
+    "sellRatio": "0.401",
+    "timestamp": "1596584400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5983",
+    "sellRatio": "0.4017",
+    "timestamp": "1596584100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5984",
+    "sellRatio": "0.4016",
+    "timestamp": "1596583800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5989",
+    "sellRatio": "0.4011",
+    "timestamp": "1596583500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5992",
+    "sellRatio": "0.4008",
+    "timestamp": "1596583200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5994",
+    "sellRatio": "0.4006",
+    "timestamp": "1596582900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5994",
+    "sellRatio": "0.4006",
+    "timestamp": "1596582600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5983",
+    "sellRatio": "0.4017",
+    "timestamp": "1596582300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5991",
+    "sellRatio": "0.4009",
+    "timestamp": "1596582000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5991",
+    "sellRatio": "0.4009",
+    "timestamp": "1596581700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5975",
+    "sellRatio": "0.4025",
+    "timestamp": "1596581400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5979",
+    "sellRatio": "0.4021",
+    "timestamp": "1596581100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596580800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596580500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596580200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5975",
+    "sellRatio": "0.4025",
+    "timestamp": "1596579900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5975",
+    "sellRatio": "0.4025",
+    "timestamp": "1596579600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596579300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596579000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5968",
+    "sellRatio": "0.4032",
+    "timestamp": "1596578700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5972",
+    "sellRatio": "0.4028",
+    "timestamp": "1596578400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5959",
+    "sellRatio": "0.4041",
+    "timestamp": "1596578100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5958",
+    "sellRatio": "0.4042",
+    "timestamp": "1596577800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5967",
+    "sellRatio": "0.4033",
+    "timestamp": "1596577500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5971",
+    "sellRatio": "0.4029",
+    "timestamp": "1596577200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5953",
+    "sellRatio": "0.4047",
+    "timestamp": "1596576900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5953",
+    "sellRatio": "0.4047",
+    "timestamp": "1596576600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5953",
+    "sellRatio": "0.4047",
+    "timestamp": "1596576300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5957",
+    "sellRatio": "0.4043",
+    "timestamp": "1596576000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5963",
+    "sellRatio": "0.4037",
+    "timestamp": "1596575700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.597",
+    "sellRatio": "0.403",
+    "timestamp": "1596575400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5939",
+    "sellRatio": "0.4061",
+    "timestamp": "1596575100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5969",
+    "sellRatio": "0.4031",
+    "timestamp": "1596574800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5991",
+    "sellRatio": "0.4009",
+    "timestamp": "1596574500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5976",
+    "sellRatio": "0.4024",
+    "timestamp": "1596574200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5979",
+    "sellRatio": "0.4021",
+    "timestamp": "1596573900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5983",
+    "sellRatio": "0.4017",
+    "timestamp": "1596573600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5988",
+    "sellRatio": "0.4012",
+    "timestamp": "1596573300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5988",
+    "sellRatio": "0.4012",
+    "timestamp": "1596573000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5995",
+    "sellRatio": "0.4005",
+    "timestamp": "1596572700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5998",
+    "sellRatio": "0.4002",
+    "timestamp": "1596572400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5986",
+    "sellRatio": "0.4014",
+    "timestamp": "1596572100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5989",
+    "sellRatio": "0.4011",
+    "timestamp": "1596571800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5998",
+    "sellRatio": "0.4002",
+    "timestamp": "1596571500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5995",
+    "sellRatio": "0.4005",
+    "timestamp": "1596571200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5991",
+    "sellRatio": "0.4009",
+    "timestamp": "1596570900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5992",
+    "sellRatio": "0.4008",
+    "timestamp": "1596570600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5994",
+    "sellRatio": "0.4006",
+    "timestamp": "1596570300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5992",
+    "sellRatio": "0.4008",
+    "timestamp": "1596570000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5985",
+    "sellRatio": "0.4015",
+    "timestamp": "1596569700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5981",
+    "sellRatio": "0.4019",
+    "timestamp": "1596569400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596569100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5976",
+    "sellRatio": "0.4024",
+    "timestamp": "1596568800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6005",
+    "sellRatio": "0.3995",
+    "timestamp": "1596568500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6012",
+    "sellRatio": "0.3988",
+    "timestamp": "1596568200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6018",
+    "sellRatio": "0.3982",
+    "timestamp": "1596567900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5998",
+    "sellRatio": "0.4002",
+    "timestamp": "1596567600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5982",
+    "sellRatio": "0.4018",
+    "timestamp": "1596567300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5979",
+    "sellRatio": "0.4021",
+    "timestamp": "1596567000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596566700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5971",
+    "sellRatio": "0.4029",
+    "timestamp": "1596566400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5979",
+    "sellRatio": "0.4021",
+    "timestamp": "1596566100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5978",
+    "sellRatio": "0.4022",
+    "timestamp": "1596565800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5992",
+    "sellRatio": "0.4008",
+    "timestamp": "1596565500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.599",
+    "sellRatio": "0.401",
+    "timestamp": "1596565200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6001",
+    "sellRatio": "0.3999",
+    "timestamp": "1596564900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6015",
+    "sellRatio": "0.3985",
+    "timestamp": "1596564600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6032",
+    "sellRatio": "0.3968",
+    "timestamp": "1596564300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6029",
+    "sellRatio": "0.3971",
+    "timestamp": "1596564000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5983",
+    "sellRatio": "0.4017",
+    "timestamp": "1596563700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5993",
+    "sellRatio": "0.4007",
+    "timestamp": "1596563400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5998",
+    "sellRatio": "0.4002",
+    "timestamp": "1596563100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6008",
+    "sellRatio": "0.3992",
+    "timestamp": "1596562800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6008",
+    "sellRatio": "0.3992",
+    "timestamp": "1596562500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.602",
+    "sellRatio": "0.398",
+    "timestamp": "1596562200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6019",
+    "sellRatio": "0.3981",
+    "timestamp": "1596561900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6029",
+    "sellRatio": "0.3971",
+    "timestamp": "1596561600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.601",
+    "sellRatio": "0.399",
+    "timestamp": "1596561300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6009",
+    "sellRatio": "0.3991",
+    "timestamp": "1596561000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5997",
+    "sellRatio": "0.4003",
+    "timestamp": "1596560700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6004",
+    "sellRatio": "0.3996",
+    "timestamp": "1596560400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6",
+    "sellRatio": "0.4",
+    "timestamp": "1596560100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5983",
+    "sellRatio": "0.4017",
+    "timestamp": "1596559800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5985",
+    "sellRatio": "0.4015",
+    "timestamp": "1596559500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5974",
+    "sellRatio": "0.4026",
+    "timestamp": "1596559200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5978",
+    "sellRatio": "0.4022",
+    "timestamp": "1596558900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5969",
+    "sellRatio": "0.4031",
+    "timestamp": "1596558600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5975",
+    "sellRatio": "0.4025",
+    "timestamp": "1596558300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5991",
+    "sellRatio": "0.4009",
+    "timestamp": "1596558000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5972",
+    "sellRatio": "0.4028",
+    "timestamp": "1596557700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5987",
+    "sellRatio": "0.4013",
+    "timestamp": "1596557400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5986",
+    "sellRatio": "0.4014",
+    "timestamp": "1596557100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5998",
+    "sellRatio": "0.4002",
+    "timestamp": "1596556800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6005",
+    "sellRatio": "0.3995",
+    "timestamp": "1596556500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6016",
+    "sellRatio": "0.3984",
+    "timestamp": "1596556200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6013",
+    "sellRatio": "0.3987",
+    "timestamp": "1596555900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6008",
+    "sellRatio": "0.3992",
+    "timestamp": "1596555600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6004",
+    "sellRatio": "0.3996",
+    "timestamp": "1596555300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6011",
+    "sellRatio": "0.3989",
+    "timestamp": "1596555000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6003",
+    "sellRatio": "0.3997",
+    "timestamp": "1596554700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6016",
+    "sellRatio": "0.3984",
+    "timestamp": "1596554400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6034",
+    "sellRatio": "0.3966",
+    "timestamp": "1596554100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6026",
+    "sellRatio": "0.3974",
+    "timestamp": "1596553800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6024",
+    "sellRatio": "0.3976",
+    "timestamp": "1596553500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6038",
+    "sellRatio": "0.3962",
+    "timestamp": "1596553200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.6029",
+    "sellRatio": "0.3971",
+    "timestamp": "1596552900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5997",
+    "sellRatio": "0.4003",
+    "timestamp": "1596552600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5935",
+    "sellRatio": "0.4065",
+    "timestamp": "1596552300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.594",
+    "sellRatio": "0.406",
+    "timestamp": "1596552000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5922",
+    "sellRatio": "0.4078",
+    "timestamp": "1596551700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5928",
+    "sellRatio": "0.4072",
+    "timestamp": "1596551400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5915",
+    "sellRatio": "0.4085",
+    "timestamp": "1596551100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5928",
+    "sellRatio": "0.4072",
+    "timestamp": "1596550800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5918",
+    "sellRatio": "0.4082",
+    "timestamp": "1596550500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5918",
+    "sellRatio": "0.4082",
+    "timestamp": "1596550200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5896",
+    "sellRatio": "0.4104",
+    "timestamp": "1596549900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.59",
+    "sellRatio": "0.41",
+    "timestamp": "1596549600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5894",
+    "sellRatio": "0.4106",
+    "timestamp": "1596549300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5891",
+    "sellRatio": "0.4109",
+    "timestamp": "1596549000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5883",
+    "sellRatio": "0.4117",
+    "timestamp": "1596548700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.586",
+    "sellRatio": "0.414",
+    "timestamp": "1596548400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5866",
+    "sellRatio": "0.4134",
+    "timestamp": "1596548100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5889",
+    "sellRatio": "0.4111",
+    "timestamp": "1596547800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5888",
+    "sellRatio": "0.4112",
+    "timestamp": "1596547500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5871",
+    "sellRatio": "0.4129",
+    "timestamp": "1596547200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5855",
+    "sellRatio": "0.4145",
+    "timestamp": "1596546900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5857",
+    "sellRatio": "0.4143",
+    "timestamp": "1596546600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5849",
+    "sellRatio": "0.4151",
+    "timestamp": "1596546300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5852",
+    "sellRatio": "0.4148",
+    "timestamp": "1596546000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5845",
+    "sellRatio": "0.4155",
+    "timestamp": "1596545700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5839",
+    "sellRatio": "0.4161",
+    "timestamp": "1596545400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5869",
+    "sellRatio": "0.4131",
+    "timestamp": "1596545100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5869",
+    "sellRatio": "0.4131",
+    "timestamp": "1596544800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5854",
+    "sellRatio": "0.4146",
+    "timestamp": "1596544500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5838",
+    "sellRatio": "0.4162",
+    "timestamp": "1596544200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5821",
+    "sellRatio": "0.4179",
+    "timestamp": "1596543900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5851",
+    "sellRatio": "0.4149",
+    "timestamp": "1596543600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5863",
+    "sellRatio": "0.4137",
+    "timestamp": "1596543300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5882",
+    "sellRatio": "0.4118",
+    "timestamp": "1596543000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5869",
+    "sellRatio": "0.4131",
+    "timestamp": "1596542700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5888",
+    "sellRatio": "0.4112",
+    "timestamp": "1596542400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5837",
+    "sellRatio": "0.4163",
+    "timestamp": "1596542100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5848",
+    "sellRatio": "0.4152",
+    "timestamp": "1596541800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5835",
+    "sellRatio": "0.4165",
+    "timestamp": "1596541500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5843",
+    "sellRatio": "0.4157",
+    "timestamp": "1596541200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5828",
+    "sellRatio": "0.4172",
+    "timestamp": "1596540900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5827",
+    "sellRatio": "0.4173",
+    "timestamp": "1596540600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5831",
+    "sellRatio": "0.4169",
+    "timestamp": "1596540300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5852",
+    "sellRatio": "0.4148",
+    "timestamp": "1596540000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5843",
+    "sellRatio": "0.4157",
+    "timestamp": "1596539700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5834",
+    "sellRatio": "0.4166",
+    "timestamp": "1596539400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5847",
+    "sellRatio": "0.4153",
+    "timestamp": "1596539100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5851",
+    "sellRatio": "0.4149",
+    "timestamp": "1596538800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5834",
+    "sellRatio": "0.4166",
+    "timestamp": "1596538500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.583",
+    "sellRatio": "0.417",
+    "timestamp": "1596538200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5827",
+    "sellRatio": "0.4173",
+    "timestamp": "1596537900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5832",
+    "sellRatio": "0.4168",
+    "timestamp": "1596537600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.583",
+    "sellRatio": "0.417",
+    "timestamp": "1596537300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5837",
+    "sellRatio": "0.4163",
+    "timestamp": "1596537000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5824",
+    "sellRatio": "0.4176",
+    "timestamp": "1596536700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5803",
+    "sellRatio": "0.4197",
+    "timestamp": "1596536400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5797",
+    "sellRatio": "0.4203",
+    "timestamp": "1596536100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5791",
+    "sellRatio": "0.4209",
+    "timestamp": "1596535800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5785",
+    "sellRatio": "0.4215",
+    "timestamp": "1596535500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5779",
+    "sellRatio": "0.4221",
+    "timestamp": "1596535200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5776",
+    "sellRatio": "0.4224",
+    "timestamp": "1596534900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5781",
+    "sellRatio": "0.4219",
+    "timestamp": "1596534600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5791",
+    "sellRatio": "0.4209",
+    "timestamp": "1596534300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5793",
+    "sellRatio": "0.4207",
+    "timestamp": "1596534000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5766",
+    "sellRatio": "0.4234",
+    "timestamp": "1596533700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5764",
+    "sellRatio": "0.4236",
+    "timestamp": "1596533400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5772",
+    "sellRatio": "0.4228",
+    "timestamp": "1596533100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5777",
+    "sellRatio": "0.4223",
+    "timestamp": "1596532800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5775",
+    "sellRatio": "0.4225",
+    "timestamp": "1596532500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.578",
+    "sellRatio": "0.422",
+    "timestamp": "1596532200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5774",
+    "sellRatio": "0.4226",
+    "timestamp": "1596531900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5742",
+    "sellRatio": "0.4258",
+    "timestamp": "1596531600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5748",
+    "sellRatio": "0.4252",
+    "timestamp": "1596531300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5752",
+    "sellRatio": "0.4248",
+    "timestamp": "1596531000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5752",
+    "sellRatio": "0.4248",
+    "timestamp": "1596530700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5757",
+    "sellRatio": "0.4243",
+    "timestamp": "1596530400000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5753",
+    "sellRatio": "0.4247",
+    "timestamp": "1596530100000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5757",
+    "sellRatio": "0.4243",
+    "timestamp": "1596529800000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5762",
+    "sellRatio": "0.4238",
+    "timestamp": "1596529500000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5762",
+    "sellRatio": "0.4238",
+    "timestamp": "1596529200000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5751",
+    "sellRatio": "0.4249",
+    "timestamp": "1596528900000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5754",
+    "sellRatio": "0.4246",
+    "timestamp": "1596528600000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.576",
+    "sellRatio": "0.424",
+    "timestamp": "1596528300000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5771",
+    "sellRatio": "0.4229",
+    "timestamp": "1596528000000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5773",
+    "sellRatio": "0.4227",
+    "timestamp": "1596527700000"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "buyRatio": "0.5777",
+    "sellRatio": "0.4223",
+    "timestamp": "1596527400000"
+   }
+  ],
+  "nextPageCursor": ""
+ },
+ "retExtInfo": {},
+ "time": 1791223963082
+}

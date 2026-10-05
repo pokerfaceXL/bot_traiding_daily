@@ -1,0 +1,4 @@
+timestamp,symbol,side,size,price,tickDirection,trdMatchID,grossValue,homeNotional,foreignNotional
+1718150400.0074,BTCUSDT,Buy,0.003,67276.40,PlusTick,c1e07fe5-647a-5b50-b5d3-8bb9f038be9e,2.018292e+10,0.003,201.8292
+1718150400.4434,BTCUSDT,Sell,0.01,67276.30,MinusTick,064b5a5b-dbea-5670-9dce-be82e3320f5b,6.72763e+10,0.01,672.763
+1718150400.6986,BTCUSDT,Sell,0.01,67276.30,ZeroMinusTick,c5793c54-3648-5774-baaf-6eaf5720a7b2,6.72763e+10,0.01,672.763
