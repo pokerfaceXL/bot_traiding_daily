@@ -15,3 +15,4 @@ data_cache/liquidations/
 data_cache/open_interest_5m/
 data_cache/account_ratio_5m/
 data_cache/f011_samples/
+data_cache/bybit_trades_5m/
