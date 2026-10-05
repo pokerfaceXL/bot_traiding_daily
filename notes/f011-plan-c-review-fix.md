@@ -15,7 +15,8 @@ The prepared worktree did not contain required base `3101d78`. Merge `aec6631` b
 
 - Original reviewer simulation reproduced NACK + pongs staying unsubscribed for 85 seconds, and `--duration=2` retrying through 31.4 seconds. Original recommendation raised `KeyError('train1_full_pull')` without full pulls. All four required spot responses were absent.
 - Added offline tests in `forced_flow_lab/test_liq_collector_recovery.py` and `tests/test_f011_data_coverage.py`. Scoped run before capture: 13 passed, 1 failed on missing `raw_file`. After real capture: 14 passed. Tests check exact retained JSON, report equality, each count's source, NACK persistence/resubscription, pings/final heartbeat, immediate failures, connection timeout, zero duration, and clipped exponential backoff.
-- Full pytest is to run after candidate commit; final handoff records its actual result. Logs and reviewer-readable copies are exported to `/tmp/f011-plan-c-fix-evidence/` outside this worktree.
+- Full pytest after code commit `b21a2f5`: first run had 2 failures, 518 passed, 8 skipped; both failures were absent local BTC/ETH Train-1 hourly OHLCV CSVs. Copied those two existing CSVs from the coordinator checkout into this worktree (about 1.2 MiB, git-ignored; no downloads or symlinks). Re-run: **520 passed, 8 skipped in 17.85s**. Cache checksum validation ran as part of the formerly failing causality tests.
+- `git diff --cached --check` passed before the code commit. Logs and reviewer-readable report/JSON/raw copies are exported to `/tmp/f011-plan-c-fix-evidence/` outside this worktree. The refresh command originally printed the preserved original run's 3137-request/683.5s metadata; that console message was corrected before the code commit. Refresh metadata and report correctly record the four new requests.
 
 ## Boundaries for the next worker
 
