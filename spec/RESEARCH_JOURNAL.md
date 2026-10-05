@@ -1251,3 +1251,5 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   `spec/features/active/F006-ema31350200-xsym-agree-sizing-01/ticket.md`.
 
 - **2026-10-05 evening** — Coordination of F011 taken over by Grok (Limen) from Claude (rate-limited). Owner decision: plan C — max free resolution first (5m OI, trades->taker flow, long/short ratio; Bybit + Binance), no paid vendor yet; hourly OI frame = coarse baseline only, never a go/no-go verdict. Live Bybit liquidation collector starts now. Tickets: F011-data-coverage (T0 recon), F011-liq-collector.
+
+- **2026-10-05 20:40** — F011-data-coverage and F011-liq-collector are DONE on branch grok/f011-plan-c (tip 3101d78), done directly by the coordinator while workers were down; collector deployed as systemd user service f011-liq-collector (do NOT respawn these tickets or start a second collector). Review F011-plan-c-review d541f1e0 running; after PASS merge, next = F011-forced-flow-frame-5m. Coverage: free 5m Bybit OI/account-ratio + trade archive + Binance metrics/klines cover all Train-1 with 0 gaps.
