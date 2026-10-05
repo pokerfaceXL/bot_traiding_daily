@@ -4,6 +4,8 @@ Generated 2026-10-05T18:06:14Z by `scripts/f011_data_coverage.py` on host `loren
 
 Train-1 = 2024-01-26T00:00Z .. 2025-02-28T23:00Z → 5m grid [2024-01-26, 2025-03-01) = 400 days × 288 = 115200 bars per symbol. Every number below is taken from responses/listings captured in this run (`coverage.json`, `raw/`).
 
+15min OI spot probes refreshed 2026-10-05T18:54:32Z (4 additional HTTP requests); other evidence unchanged. Each spot count links to its response via `train1_spot_check.*.raw_file` in coverage.json.
+
 ## Coverage table
 
 | source | symbol | earliest (empirical) | Train-1 covered | gaps in Train-1 | resolution | fields | approx. Train-1 size |
@@ -70,7 +72,7 @@ Train-1 = 2024-01-26T00:00Z .. 2025-02-28T23:00Z → 5m grid [2024-01-26, 2025-0
 - Taker-side semantics confirmed empirically: Bybit rebuilt 5m taker-buy vs Binance kline taker_buy_volume corr 0.941-0.989, taker-sell corr 0.959-0.986 on the sample days.
 - Bybit OI conventions (from the pulled rows): openInterest/singleOpenInterest ratio range BTCUSDT: {'min': 2.0, 'max': 2.0}; ETHUSDT: {'min': 2.0, 'max': 2.0}; cached 1h OI vs 5m openInterest at HH:00 exact-equal fraction BTCUSDT: 1.0; ETHUSDT: 1.0. Pick one convention (singleOpenInterest = one-sided) and use it consistently.
 - Bybit OI/account-ratio retention verified by a 1-day-window probe at every month start since 2018-01, day bisection, intra-day paging and an explicit empty-before check (see earliest_search).
-- Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] (the full pulls report 0 duplicates and 0 off-grid rows).
+- Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] (see train1_full_pull for duplicates/off-grid counts when a full pull was run).
 - Bybit trade-archive `side` is the taker side (Buy = aggressive buy); Binance klines taker_buy_volume is the taker-buy base volume; Binance aggTrades is_buyer_maker=true means taker sell.
 - Cross-check correlations are a sanity check of reconstruction/alignment only, not a test.
 - Sample downloads and full pulls are in the main repo data dir (git-ignored), not committed.

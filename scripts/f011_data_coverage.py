@@ -23,6 +23,7 @@ Usage:
   python3 scripts/f011_data_coverage.py \
       [--out output/f011_forced_flow/coverage] [--data-dir data_cache] \
       [--sample-days 2024-06-12,2024-10-01] [--no-full-pull]
+  python3 scripts/f011_data_coverage.py --refresh-oi-spots  # existing report; four small requests only
 """
 
 from __future__ import annotations
@@ -308,14 +309,15 @@ def bybit_full_pull(name: str, symbol: str, raw: Raw, data_dir: Path | None, sav
     return out
 
 
-def bybit_spot_check(name: str, symbol: str) -> dict:
+def bybit_spot_check(name: str, symbol: str, raw: Raw) -> dict:
     """Train-1 first and last day bar counts (used for 15min, which we do not full-pull)."""
     s = BYBIT_SERIES[name]
     per_day = DAY_MS // s["step"]
     res = {}
     for d in (TRAIN1_START, TRAIN1_END_EXCL - timedelta(days=1)):
         j = bybit_window(s, symbol, ms(d), ms(d) + DAY_MS - 1, s["limit"])
-        res[str(d.date())] = {"rows": len(bybit_rows(j)), "expected": per_day}
+        probe = raw.save(f"bybit/{name}_{symbol}_{d.date()}_spot.json", j)
+        res[str(d.date())] = {"rows": len(bybit_rows(j)), "expected": per_day, "raw_file": probe}
     return res
 
 
@@ -640,6 +642,11 @@ def build_report(cov: dict) -> str:
              f"{cov['train1_days']} days × 288 = {cov['train1_days'] * 288} bars per symbol. "
              "Every number below is taken from responses/listings captured in this run "
              "(`coverage.json`, `raw/`).\n")
+    if "oi_spot_refresh" in cov:
+        refresh = cov["oi_spot_refresh"]
+        L.append(f"15min OI spot probes refreshed {refresh['generated_at']} "
+                 f"({refresh['http_requests']} additional HTTP requests); other evidence unchanged. "
+                 "Each spot count links to its response via `train1_spot_check.*.raw_file` in coverage.json.\n")
     L.append("## Coverage table\n")
     L.append("| source | symbol | earliest (empirical) | Train-1 covered | gaps in Train-1 | resolution | fields | approx. Train-1 size |")
     L.append("|---|---|---|---|---|---|---|---|")
@@ -705,15 +712,39 @@ def build_report(cov: dict) -> str:
     return "\n".join(L)
 
 
-def main(argv=None) -> int:
+def refresh_oi_spots(out: Path) -> dict:
+    """Refresh only the four small 15min probes; reuse all other captured evidence."""
+    cov = json.loads((out / "coverage.json").read_text())
+    raw = Raw(out / "raw")
+    requests_before = REQ_STATS["count"]
+    for sym in SYMBOLS:
+        ent = cov["bybit_rest"][f"oi_15min/{sym}"]
+        spots = bybit_spot_check("oi_15min", sym, raw)
+        ent["train1_spot_check"] = spots
+        row = next(r for r in cov["table"] if r["source"] == "Bybit REST oi_15min" and r["symbol"] == sym)
+        row["gaps"] = "spot: " + ", ".join(f"{d} {v['rows']}/{v['expected']}" for d, v in spots.items())
+        row["covered"] = "y (spot)" if all(v["rows"] == v["expected"] for v in spots.values()) and ent["earliest_search"]["earliest_ms"] <= ms(TRAIN1_START) else "check"
+    cov["raw_files"] = list(dict.fromkeys(cov["raw_files"] + raw.files))
+    cov["oi_spot_refresh"] = {
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "http_requests": REQ_STATS["count"] - requests_before,
+    }
+    return cov
+
+
+def main(argv=None) -> tuple[dict, Path]:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(REPO / "output" / "f011_forced_flow" / "coverage"))
     ap.add_argument("--data-dir", default=str(REPO / "data_cache"),
                     help="where large pulls / samples go (git-ignored)")
     ap.add_argument("--sample-days", default="2024-06-12,2024-10-01")
     ap.add_argument("--no-full-pull", action="store_true", help="skip full Train-1 Bybit OI/account-ratio pull")
+    ap.add_argument("--refresh-oi-spots", action="store_true",
+                    help="refresh only the four 15min OI probes in an existing report (no bulk downloads)")
     args = ap.parse_args(argv)
     out = Path(args.out)
+    if args.refresh_oi_spots:
+        return refresh_oi_spots(out), out
     data_dir = Path(args.data_dir)
     raw = Raw(out / "raw")
     sample_days = [d.strip() for d in args.sample_days.split(",") if d.strip()][:2]
@@ -735,7 +766,7 @@ def main(argv=None) -> int:
             e = bybit_earliest(name, sym, raw)
             ent = {"earliest_search": e}
             if name == "oi_15min" or args.no_full_pull:
-                ent["train1_spot_check"] = bybit_spot_check(name, sym)
+                ent["train1_spot_check"] = bybit_spot_check(name, sym, raw)
             else:
                 say(f"bybit {name} {sym}: full Train-1 pull")
                 fp = bybit_full_pull(name, sym, raw, data_dir, save=True)
@@ -870,6 +901,10 @@ def auto_recommendation(cov: dict) -> tuple[str, list[str]]:
     def ok(cond):
         return "covered" if cond else "NOT fully covered"
     br = cov["bybit_rest"]
+    oi_pulls = [br[f"oi_5min/{s}"].get("train1_full_pull") for s in SYMBOLS]
+    ar_pulls = [br[f"account_ratio_5min/{s}"].get("train1_full_pull") for s in SYMBOLS]
+    oi_pulled = all(oi_pulls)
+    ar_pulled = all(ar_pulls)
     oi_ok = all(br[f"oi_5min/{s}"].get("train1_full_pull", {}).get("missing_bars", 1) == 0 or
                 br[f"oi_5min/{s}"].get("train1_full_pull", {}).get("missing_bars", 10**9) < 0.01 * 115200
                 for s in SYMBOLS)
@@ -884,9 +919,10 @@ def auto_recommendation(cov: dict) -> tuple[str, list[str]]:
     ag_size = sum(bn[f"aggTrades/{s}"]["train1_total_bytes_zip"] for s in SYMBOLS)
     rec = (
         f"**Highest common free resolution over Train-1 is 5m** (tick for flow). Build the 5m frame on "
-        f"**Bybit** (same venue as the bot): OI from `/v5/market/open-interest` 5min ({ok(oi_ok)}; already "
-        f"pulled to `data_cache/open_interest_5m/`), long/short account ratio from `/v5/market/account-ratio` "
-        f"5min ({ok(ar_ok)}), and taker flow (taker_buy/sell, OFI, CVD, trade_count) rebuilt from the "
+        f"**Bybit** (same venue as the bot): OI from `/v5/market/open-interest` 5min "
+        f"({ok(oi_ok) + '; already pulled to `data_cache/open_interest_5m/`' if oi_pulled else 'full-window coverage unverified; full pull skipped'}), "
+        f"long/short account ratio from `/v5/market/account-ratio` "
+        f"5min ({ok(ar_ok) if ar_pulled else 'full-window coverage unverified; full pull skipped'}), and taker flow (taker_buy/sell, OFI, CVD, trade_count) rebuilt from the "
         f"`public.bybit.com/trading` tick archive ({ok(tr_ok)}; ~{mb(tr_size)} gz for both symbols). "
         f"Use **Binance data.binance.vision** as the cross-venue / robustness layer: `metrics` 5m "
         f"({ok(m_ok)}; OI, top-trader and global L/S, taker L/S vol ratio) and `klines` 5m with "
@@ -906,14 +942,14 @@ def auto_recommendation(cov: dict) -> tuple[str, list[str]]:
         f"Taker-side semantics confirmed empirically: Bybit rebuilt 5m taker-buy vs Binance kline taker_buy_volume "
         f"corr {min(tb):.3f}-{max(tb):.3f}, taker-sell corr {min(ts_):.3f}-{max(ts_):.3f} on the sample days.",
         "Bybit OI conventions (from the pulled rows): openInterest/singleOpenInterest ratio range "
-        + "; ".join(f"{s}: {br[f'oi_5min/{s}']['train1_full_pull'].get('openInterest_over_singleOpenInterest')}" for s in SYMBOLS)
+        + "; ".join(f"{s}: {br[f'oi_5min/{s}'].get('train1_full_pull', {}).get('openInterest_over_singleOpenInterest', 'unverified (full pull skipped)')}" for s in SYMBOLS)
         + "; cached 1h OI vs 5m openInterest at HH:00 exact-equal fraction "
-        + "; ".join(f"{s}: {br[f'oi_5min/{s}']['train1_full_pull'].get('vs_cached_1h_oi', {}).get('exact_equal_frac')}" for s in SYMBOLS)
+        + "; ".join(f"{s}: {br[f'oi_5min/{s}'].get('train1_full_pull', {}).get('vs_cached_1h_oi', {}).get('exact_equal_frac', 'unverified')}" for s in SYMBOLS)
         + ". Pick one convention (singleOpenInterest = one-sided) and use it consistently.",
         "Bybit OI/account-ratio retention verified by a 1-day-window probe at every month start since "
         "2018-01, day bisection, intra-day paging and an explicit empty-before check (see earliest_search).",
         "Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] "
-        "(the full pulls report 0 duplicates and 0 off-grid rows).",
+        "(see train1_full_pull for duplicates/off-grid counts when a full pull was run).",
         "Bybit trade-archive `side` is the taker side (Buy = aggressive buy); Binance klines "
         "taker_buy_volume is the taker-buy base volume; Binance aggTrades is_buyer_maker=true means taker sell.",
         "Cross-check correlations are a sanity check of reconstruction/alignment only, not a test.",
@@ -926,4 +962,8 @@ if __name__ == "__main__":
     cov, out = main()
     rec, notes = auto_recommendation(cov)
     finish(cov, out, rec, notes)
-    print(f"wrote {out / 'report.md'} and coverage.json ({cov['http_requests']} HTTP requests, {cov['runtime_s']}s)")
+    if "oi_spot_refresh" in cov:
+        print(f"wrote {out / 'report.md'} and coverage.json "
+              f"({cov['oi_spot_refresh']['http_requests']} spot-refresh HTTP requests; other evidence unchanged)")
+    else:
+        print(f"wrote {out / 'report.md'} and coverage.json ({cov['http_requests']} HTTP requests, {cov['runtime_s']}s)")

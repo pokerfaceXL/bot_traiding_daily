@@ -112,11 +112,13 @@
    "train1_spot_check": {
     "2024-01-26": {
      "rows": 96,
-     "expected": 96
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_BTCUSDT_2024-01-26_spot.json"
     },
     "2025-02-28": {
      "rows": 96,
-     "expected": 96
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_BTCUSDT_2025-02-28_spot.json"
     }
    }
   },
@@ -135,11 +137,13 @@
    "train1_spot_check": {
     "2024-01-26": {
      "rows": 96,
-     "expected": 96
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_ETHUSDT_2024-01-26_spot.json"
     },
     "2025-02-28": {
      "rows": 96,
-     "expected": 96
+     "expected": 96,
+     "raw_file": "raw/bybit/oi_15min_ETHUSDT_2025-02-28_spot.json"
     }
    }
   },
@@ -1125,7 +1129,7 @@
   "Taker-side semantics confirmed empirically: Bybit rebuilt 5m taker-buy vs Binance kline taker_buy_volume corr 0.941-0.989, taker-sell corr 0.959-0.986 on the sample days.",
   "Bybit OI conventions (from the pulled rows): openInterest/singleOpenInterest ratio range BTCUSDT: {'min': 2.0, 'max': 2.0}; ETHUSDT: {'min': 2.0, 'max': 2.0}; cached 1h OI vs 5m openInterest at HH:00 exact-equal fraction BTCUSDT: 1.0; ETHUSDT: 1.0. Pick one convention (singleOpenInterest = one-sided) and use it consistently.",
   "Bybit OI/account-ratio retention verified by a 1-day-window probe at every month start since 2018-01, day bisection, intra-day paging and an explicit empty-before check (see earliest_search).",
-  "Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] (the full pulls report 0 duplicates and 0 off-grid rows).",
+  "Bybit REST startTime/endTime are both inclusive; pulls use non-overlapping chunks [t, t+limit*step-1] (see train1_full_pull for duplicates/off-grid counts when a full pull was run).",
   "Bybit trade-archive `side` is the taker side (Buy = aggressive buy); Binance klines taker_buy_volume is the taker-buy base volume; Binance aggTrades is_buyer_maker=true means taker sell.",
   "Cross-check correlations are a sanity check of reconstruction/alignment only, not a test.",
   "Sample downloads and full pulls are in the main repo data dir (git-ignored), not committed."
@@ -1186,7 +1190,15 @@
   "raw/binance/klines_5m_ETHUSDT_2024-10-01_head.csv",
   "raw/binance/aggTrades_ETHUSDT_2024-06-12_head.csv",
   "raw/binance/fundingRate_BTCUSDT_head.csv",
-  "raw/binance/fundingRate_ETHUSDT_head.csv"
+  "raw/binance/fundingRate_ETHUSDT_head.csv",
+  "raw/bybit/oi_15min_BTCUSDT_2024-01-26_spot.json",
+  "raw/bybit/oi_15min_BTCUSDT_2025-02-28_spot.json",
+  "raw/bybit/oi_15min_ETHUSDT_2024-01-26_spot.json",
+  "raw/bybit/oi_15min_ETHUSDT_2025-02-28_spot.json"
  ],
- "runtime_s": 683.5
+ "runtime_s": 683.5,
+ "oi_spot_refresh": {
+  "generated_at": "2026-10-05T18:54:32Z",
+  "http_requests": 4
+ }
 }

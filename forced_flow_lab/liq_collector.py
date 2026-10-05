@@ -254,7 +254,11 @@ class Collector:
     def _session(self, deadline: Optional[float]) -> None:
         import websocket  # websocket-client
 
-        ws = websocket.create_connection(self.url, timeout=10, enable_multithread=False)
+        remaining = deadline - time.monotonic() if deadline is not None else 10.0
+        if remaining <= 0:
+            self.stop_requested = True
+            return
+        ws = websocket.create_connection(self.url, timeout=min(10.0, remaining), enable_multithread=False)
         try:
             self.connected = True
             self.connect_count += 1
@@ -292,7 +296,11 @@ class Collector:
                 if isinstance(raw, bytes):
                     raw = raw.decode("utf-8", errors="replace")
                 last_rx = time.monotonic()
-                self.handle_frame(raw, now_ms())
+                kind = self.handle_frame(raw, now_ms())
+                if kind == "subscribe" and not self.last_ack.get("success"):
+                    # Pongs do not prove that the liquidation topics are subscribed.
+                    # Reconnect with backoff and subscribe again rather than staying idle.
+                    raise ConnectionError("subscription rejected")
         finally:
             self.connected = False
             try:
@@ -301,13 +309,17 @@ class Collector:
                 pass
 
     def run(self, duration: Optional[float] = None) -> None:
-        deadline = time.monotonic() + duration if duration else None
+        deadline = time.monotonic() + duration if duration is not None else None
         backoff = BACKOFF_INITIAL_S
         log.info("collector start pid=%d out_dir=%s symbols=%s", os.getpid(), self.out_dir, self.symbols)
         self.heartbeat(force=True)
         try:
             while not self.stop_requested:
                 t0 = time.monotonic()
+                if deadline is not None and t0 >= deadline:
+                    log.info("duration reached, stopping")
+                    self.stop_requested = True
+                    break
                 try:
                     self._session(deadline)
                 except Exception as exc:  # noqa: BLE001 - any failure -> reconnect
@@ -323,8 +335,10 @@ class Collector:
                 log.info("reconnecting in %.0fs", backoff)
                 self.heartbeat(force=True)
                 end = time.monotonic() + backoff
+                if deadline is not None:
+                    end = min(end, deadline)
                 while time.monotonic() < end and not self.stop_requested:
-                    time.sleep(0.2)
+                    time.sleep(max(0.0, min(0.2, end - time.monotonic())))
                 backoff = next_backoff(backoff)
         finally:
             self.heartbeat(force=True)

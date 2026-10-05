@@ -1,0 +1,493 @@
+{
+ "retCode": 0,
+ "retMsg": "OK",
+ "result": {
+  "symbol": "ETHUSDT",
+  "category": "linear",
+  "list": [
+   {
+    "openInterest": "642451.61000000",
+    "singleOpenInterest": "321225.81",
+    "timestamp": "1740786300000"
+   },
+   {
+    "openInterest": "641811.99000000",
+    "singleOpenInterest": "320906",
+    "timestamp": "1740785400000"
+   },
+   {
+    "openInterest": "641685.43999999",
+    "singleOpenInterest": "320842.72",
+    "timestamp": "1740784500000"
+   },
+   {
+    "openInterest": "641770.06000000",
+    "singleOpenInterest": "320885.03",
+    "timestamp": "1740783600000"
+   },
+   {
+    "openInterest": "641959.97000000",
+    "singleOpenInterest": "320979.99",
+    "timestamp": "1740782700000"
+   },
+   {
+    "openInterest": "640810.52000000",
+    "singleOpenInterest": "320405.26",
+    "timestamp": "1740781800000"
+   },
+   {
+    "openInterest": "641563.67000000",
+    "singleOpenInterest": "320781.84",
+    "timestamp": "1740780900000"
+   },
+   {
+    "openInterest": "642147.50000000",
+    "singleOpenInterest": "321073.75",
+    "timestamp": "1740780000000"
+   },
+   {
+    "openInterest": "642651.68999999",
+    "singleOpenInterest": "321325.85",
+    "timestamp": "1740779100000"
+   },
+   {
+    "openInterest": "642729.59000000",
+    "singleOpenInterest": "321364.8",
+    "timestamp": "1740778200000"
+   },
+   {
+    "openInterest": "642664.23000000",
+    "singleOpenInterest": "321332.12",
+    "timestamp": "1740777300000"
+   },
+   {
+    "openInterest": "642867.57999999",
+    "singleOpenInterest": "321433.79",
+    "timestamp": "1740776400000"
+   },
+   {
+    "openInterest": "642445.19999999",
+    "singleOpenInterest": "321222.6",
+    "timestamp": "1740775500000"
+   },
+   {
+    "openInterest": "641676.39000000",
+    "singleOpenInterest": "320838.2",
+    "timestamp": "1740774600000"
+   },
+   {
+    "openInterest": "647127.46000000",
+    "singleOpenInterest": "323563.73",
+    "timestamp": "1740773700000"
+   },
+   {
+    "openInterest": "647165.43000000",
+    "singleOpenInterest": "323582.72",
+    "timestamp": "1740772800000"
+   },
+   {
+    "openInterest": "647665.26000000",
+    "singleOpenInterest": "323832.63",
+    "timestamp": "1740771900000"
+   },
+   {
+    "openInterest": "646542.14000000",
+    "singleOpenInterest": "323271.07",
+    "timestamp": "1740771000000"
+   },
+   {
+    "openInterest": "646039.53000000",
+    "singleOpenInterest": "323019.77",
+    "timestamp": "1740770100000"
+   },
+   {
+    "openInterest": "646727.15000000",
+    "singleOpenInterest": "323363.58",
+    "timestamp": "1740769200000"
+   },
+   {
+    "openInterest": "644213.96000000",
+    "singleOpenInterest": "322106.98",
+    "timestamp": "1740768300000"
+   },
+   {
+    "openInterest": "644844.01000000",
+    "singleOpenInterest": "322422.01",
+    "timestamp": "1740767400000"
+   },
+   {
+    "openInterest": "650547.27000000",
+    "singleOpenInterest": "325273.64",
+    "timestamp": "1740766500000"
+   },
+   {
+    "openInterest": "649467.52000000",
+    "singleOpenInterest": "324733.76",
+    "timestamp": "1740765600000"
+   },
+   {
+    "openInterest": "648551.11000000",
+    "singleOpenInterest": "324275.56",
+    "timestamp": "1740764700000"
+   },
+   {
+    "openInterest": "651158.99000000",
+    "singleOpenInterest": "325579.5",
+    "timestamp": "1740763800000"
+   },
+   {
+    "openInterest": "651849.17000000",
+    "singleOpenInterest": "325924.59",
+    "timestamp": "1740762900000"
+   },
+   {
+    "openInterest": "652375.41000000",
+    "singleOpenInterest": "326187.71",
+    "timestamp": "1740762000000"
+   },
+   {
+    "openInterest": "651136.75000000",
+    "singleOpenInterest": "325568.38",
+    "timestamp": "1740761100000"
+   },
+   {
+    "openInterest": "654172.36000000",
+    "singleOpenInterest": "327086.18",
+    "timestamp": "1740760200000"
+   },
+   {
+    "openInterest": "655240.59000000",
+    "singleOpenInterest": "327620.3",
+    "timestamp": "1740759300000"
+   },
+   {
+    "openInterest": "661871.05000000",
+    "singleOpenInterest": "330935.53",
+    "timestamp": "1740758400000"
+   },
+   {
+    "openInterest": "663775.52000000",
+    "singleOpenInterest": "331887.76",
+    "timestamp": "1740757500000"
+   },
+   {
+    "openInterest": "663049.43000000",
+    "singleOpenInterest": "331524.72",
+    "timestamp": "1740756600000"
+   },
+   {
+    "openInterest": "668102.55000000",
+    "singleOpenInterest": "334051.28",
+    "timestamp": "1740755700000"
+   },
+   {
+    "openInterest": "669620.34000000",
+    "singleOpenInterest": "334810.17",
+    "timestamp": "1740754800000"
+   },
+   {
+    "openInterest": "671217.38000000",
+    "singleOpenInterest": "335608.69",
+    "timestamp": "1740753900000"
+   },
+   {
+    "openInterest": "671170.14000000",
+    "singleOpenInterest": "335585.07",
+    "timestamp": "1740753000000"
+   },
+   {
+    "openInterest": "670458.62000000",
+    "singleOpenInterest": "335229.31",
+    "timestamp": "1740752100000"
+   },
+   {
+    "openInterest": "673407.51000000",
+    "singleOpenInterest": "336703.76",
+    "timestamp": "1740751200000"
+   },
+   {
+    "openInterest": "672385.06000000",
+    "singleOpenInterest": "336192.53",
+    "timestamp": "1740750300000"
+   },
+   {
+    "openInterest": "676931.13000000",
+    "singleOpenInterest": "338465.57",
+    "timestamp": "1740749400000"
+   },
+   {
+    "openInterest": "678858.24000000",
+    "singleOpenInterest": "339429.12",
+    "timestamp": "1740748500000"
+   },
+   {
+    "openInterest": "677599.65000000",
+    "singleOpenInterest": "338799.83",
+    "timestamp": "1740747600000"
+   },
+   {
+    "openInterest": "670196.65000000",
+    "singleOpenInterest": "335098.33",
+    "timestamp": "1740746700000"
+   },
+   {
+    "openInterest": "671774.85000000",
+    "singleOpenInterest": "335887.43",
+    "timestamp": "1740745800000"
+   },
+   {
+    "openInterest": "672851.12000000",
+    "singleOpenInterest": "336425.56",
+    "timestamp": "1740744900000"
+   },
+   {
+    "openInterest": "672921.35000000",
+    "singleOpenInterest": "336460.68",
+    "timestamp": "1740744000000"
+   },
+   {
+    "openInterest": "673704.18999999",
+    "singleOpenInterest": "336852.1",
+    "timestamp": "1740743100000"
+   },
+   {
+    "openInterest": "673028.24000000",
+    "singleOpenInterest": "336514.12",
+    "timestamp": "1740742200000"
+   },
+   {
+    "openInterest": "671855.72000000",
+    "singleOpenInterest": "335927.86",
+    "timestamp": "1740741300000"
+   },
+   {
+    "openInterest": "669564.93999999",
+    "singleOpenInterest": "334782.47",
+    "timestamp": "1740740400000"
+   },
+   {
+    "openInterest": "668671.19999999",
+    "singleOpenInterest": "334335.6",
+    "timestamp": "1740739500000"
+   },
+   {
+    "openInterest": "670808.24000000",
+    "singleOpenInterest": "335404.12",
+    "timestamp": "1740738600000"
+   },
+   {
+    "openInterest": "669044.17000000",
+    "singleOpenInterest": "334522.09",
+    "timestamp": "1740737700000"
+   },
+   {
+    "openInterest": "669447.60000000",
+    "singleOpenInterest": "334723.8",
+    "timestamp": "1740736800000"
+   },
+   {
+    "openInterest": "665765.12000000",
+    "singleOpenInterest": "332882.56",
+    "timestamp": "1740735900000"
+   },
+   {
+    "openInterest": "667864.73000000",
+    "singleOpenInterest": "333932.37",
+    "timestamp": "1740735000000"
+   },
+   {
+    "openInterest": "668957.55000000",
+    "singleOpenInterest": "334478.78",
+    "timestamp": "1740734100000"
+   },
+   {
+    "openInterest": "669529.53000000",
+    "singleOpenInterest": "334764.77",
+    "timestamp": "1740733200000"
+   },
+   {
+    "openInterest": "668284.67000000",
+    "singleOpenInterest": "334142.34",
+    "timestamp": "1740732300000"
+   },
+   {
+    "openInterest": "669714.55000000",
+    "singleOpenInterest": "334857.28",
+    "timestamp": "1740731400000"
+   },
+   {
+    "openInterest": "671044.21000000",
+    "singleOpenInterest": "335522.11",
+    "timestamp": "1740730500000"
+   },
+   {
+    "openInterest": "675547.57999999",
+    "singleOpenInterest": "337773.79",
+    "timestamp": "1740729600000"
+   },
+   {
+    "openInterest": "680475.35000000",
+    "singleOpenInterest": "340237.68",
+    "timestamp": "1740728700000"
+   },
+   {
+    "openInterest": "683431.27000000",
+    "singleOpenInterest": "341715.64",
+    "timestamp": "1740727800000"
+   },
+   {
+    "openInterest": "685410.04000000",
+    "singleOpenInterest": "342705.02",
+    "timestamp": "1740726900000"
+   },
+   {
+    "openInterest": "684266.15000000",
+    "singleOpenInterest": "342133.08",
+    "timestamp": "1740726000000"
+   },
+   {
+    "openInterest": "687448.91000000",
+    "singleOpenInterest": "343724.46",
+    "timestamp": "1740725100000"
+   },
+   {
+    "openInterest": "688877.62000000",
+    "singleOpenInterest": "344438.81",
+    "timestamp": "1740724200000"
+   },
+   {
+    "openInterest": "691298.79000000",
+    "singleOpenInterest": "345649.4",
+    "timestamp": "1740723300000"
+   },
+   {
+    "openInterest": "692045.19999999",
+    "singleOpenInterest": "346022.6",
+    "timestamp": "1740722400000"
+   },
+   {
+    "openInterest": "694539.74000000",
+    "singleOpenInterest": "347269.87",
+    "timestamp": "1740721500000"
+   },
+   {
+    "openInterest": "690848.51000000",
+    "singleOpenInterest": "345424.26",
+    "timestamp": "1740720600000"
+   },
+   {
+    "openInterest": "693385.56000000",
+    "singleOpenInterest": "346692.78",
+    "timestamp": "1740719700000"
+   },
+   {
+    "openInterest": "696307.25000000",
+    "singleOpenInterest": "348153.63",
+    "timestamp": "1740718800000"
+   },
+   {
+    "openInterest": "699129.60000000",
+    "singleOpenInterest": "349564.8",
+    "timestamp": "1740717900000"
+   },
+   {
+    "openInterest": "695893.32999999",
+    "singleOpenInterest": "347946.67",
+    "timestamp": "1740717000000"
+   },
+   {
+    "openInterest": "696051.96000000",
+    "singleOpenInterest": "348025.98",
+    "timestamp": "1740716100000"
+   },
+   {
+    "openInterest": "696890.43999999",
+    "singleOpenInterest": "348445.22",
+    "timestamp": "1740715200000"
+   },
+   {
+    "openInterest": "699096.31000000",
+    "singleOpenInterest": "349548.16",
+    "timestamp": "1740714300000"
+   },
+   {
+    "openInterest": "701575.73000000",
+    "singleOpenInterest": "350787.87",
+    "timestamp": "1740713400000"
+   },
+   {
+    "openInterest": "702382.41000000",
+    "singleOpenInterest": "351191.21",
+    "timestamp": "1740712500000"
+   },
+   {
+    "openInterest": "700713.57999999",
+    "singleOpenInterest": "350356.79",
+    "timestamp": "1740711600000"
+   },
+   {
+    "openInterest": "703902.17000000",
+    "singleOpenInterest": "351951.09",
+    "timestamp": "1740710700000"
+   },
+   {
+    "openInterest": "716081.74000000",
+    "singleOpenInterest": "358040.87",
+    "timestamp": "1740709800000"
+   },
+   {
+    "openInterest": "714764.30000000",
+    "singleOpenInterest": "357382.15",
+    "timestamp": "1740708900000"
+   },
+   {
+    "openInterest": "722890.38000000",
+    "singleOpenInterest": "361445.19",
+    "timestamp": "1740708000000"
+   },
+   {
+    "openInterest": "723379.29000000",
+    "singleOpenInterest": "361689.65",
+    "timestamp": "1740707100000"
+   },
+   {
+    "openInterest": "726323.10000000",
+    "singleOpenInterest": "363161.55",
+    "timestamp": "1740706200000"
+   },
+   {
+    "openInterest": "729155.03000000",
+    "singleOpenInterest": "364577.52",
+    "timestamp": "1740705300000"
+   },
+   {
+    "openInterest": "729428.47000000",
+    "singleOpenInterest": "364714.24",
+    "timestamp": "1740704400000"
+   },
+   {
+    "openInterest": "731334.53000000",
+    "singleOpenInterest": "365667.27",
+    "timestamp": "1740703500000"
+   },
+   {
+    "openInterest": "731213.66000000",
+    "singleOpenInterest": "365606.83",
+    "timestamp": "1740702600000"
+   },
+   {
+    "openInterest": "732366.27000000",
+    "singleOpenInterest": "366183.14",
+    "timestamp": "1740701700000"
+   },
+   {
+    "openInterest": "732510.87000000",
+    "singleOpenInterest": "366255.44",
+    "timestamp": "1740700800000"
+   }
+  ],
+  "nextPageCursor": ""
+ },
+ "retExtInfo": {},
+ "time": 1791226471934
+}

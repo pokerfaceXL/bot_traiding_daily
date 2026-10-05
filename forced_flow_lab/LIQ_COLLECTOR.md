@@ -20,13 +20,15 @@ data_cache/liquidations/bybit/
 
 Line format: `{"recv_ts_ms": <local epoch ms>, "recv_ts": "<ISO UTC>", "msg": <raw Bybit JSON>}`
 (non-JSON frames are kept as `"raw_text"`). Bybit payload: `msg.data[]` items with
-`T` (event ms), `s` (symbol), `S` (side of the *liquidated position's order*: `Buy` = a short
-was liquidated, `Sell` = a long was liquidated — check Bybit docs before relying on it),
+`T` (event ms), `s` (symbol), `S` (side of the *liquidated position*: `Buy` = a **long**
+was liquidated, `Sell` = a **short** was liquidated, per the
+[official allLiquidation docs](https://bybit-exchange.github.io/docs/v5/websocket/public/all-liquidation)),
+not the opposite-side forced closing trade,
 `v` (size, base), `p` (bankruptcy price). Symbol files appear only once a liquidation arrives;
 quiet periods are normal. Liveness = `heartbeat.json.updated_at` fresh (< 2-3 min) and
 `last_pong_at` fresh; per-symbol `last_message_at` may legitimately be old.
 
-Behaviour: ping `{"op":"ping"}` every 20s; reconnect on any error or if no frame for 75s, with
+Behaviour: ping `{"op":"ping"}` every 20s; reconnect on subscription NACK, any error, or if no frame for 75s, with
 exponential backoff 1s→60s (reset after a session healthy >60s); re-subscribes on every connect;
 SIGTERM/SIGINT stop cleanly.
 
