@@ -38,7 +38,7 @@ def write_catalog(cat: pd.DataFrame, art: pd.DataFrame, perps: pd.DataFrame, inf
             "eff_vs_instrument_min", "notice_duration_h", "source_url", "source_id", "title", "ts_flag",
             "bybit_dateTimestamp", "bybit_publishTime", "spot_also_delisted_same_article",
             "same_venue_perp_live_at_announcement", "perp_explicitly_not_affected",
-            "prior_other_venue_ann_ts", "follower_event", "migration_flag", "migration_note"]
+            "prior_other_venue_ann_ts", "follower_event", "migration_flag", "migration_note", "index_contract"]
     t1 = t1[[c for c in keep if c in t1]]
     t1 = t1.merge(info, on="event_id", how="left")
     t1.to_csv(OUT / "event_catalog.csv", index=False)
@@ -81,7 +81,7 @@ def main():
     met = pd.DataFrame(rows)
     meta_cols = ["event_id", "exchange", "symbol", "base", "contract_type", "announcement_cluster_id",
                  "day_batch_cluster_id", "announcement_ts", "first_publicly_observable_ts", "effective_ts",
-                 "notice_duration_h", "follower_event", "migration_flag", "spot_also_delisted_same_article",
+                 "notice_duration_h", "follower_event", "migration_flag", "index_contract", "spot_also_delisted_same_article",
                  "observability_lag_s"]
     allev = pd.concat([perps, comps])
     met = allev[meta_cols].merge(met, on="event_id", how="left")
@@ -109,6 +109,7 @@ def main():
     subs = {"all": usable, "ex_migration": usable[~usable.migration_flag],
             "ex_follower": usable[~usable.follower_event],
             "ex_migration_ex_follower": usable[~usable.migration_flag & ~usable.follower_event],
+            "tokens_ex_migration_ex_index": usable[~usable.migration_flag & ~usable.index_contract],
             "bybit": usable[usable.exchange == "bybit"], "binance": usable[usable.exchange == "binance"]}
     cl = "day_batch_cluster_id"
 

@@ -181,6 +181,10 @@ MIGRATION_BASES = {
 }
 
 
+# Binance composite-index perps (no underlying token / spot market)
+INDEX_BASES = {"FOOTBALL", "BLUEBIRD", "BTCDOM", "DEFI"}
+
+
 def _base(sym: str) -> str:
     b = sym[:-4] if sym.endswith("USDT") else sym
     return re.sub(r"^(1000000|100000|10000|1000)", "", b)
@@ -294,6 +298,7 @@ def build_catalog() -> pd.DataFrame:
     _cross_venue(df)
     df["migration_note"] = df.base.map(MIGRATION_BASES).fillna("")
     df["migration_flag"] = df.migration_note != ""
+    df["index_contract"] = df.base.isin(INDEX_BASES)
     return df, pd.DataFrame(articles)
 
 

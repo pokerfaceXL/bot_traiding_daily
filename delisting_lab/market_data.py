@@ -364,7 +364,9 @@ if __name__ == "__main__":
     from delisting_lab.catalog import build_catalog
 
     cat, _ = build_catalog()
-    perps = cat[cat.in_train1 & (cat.contract_type == "linear_perp")]
+    from delisting_lab.run_study import spot_only_comparators
+
+    perps = pd.concat([cat[cat.in_train1 & (cat.contract_type == "linear_perp")], spot_only_comparators(cat)])
     btc_1m()
     only = set(sys.argv[1:])
     for _, ev in perps.iterrows():
