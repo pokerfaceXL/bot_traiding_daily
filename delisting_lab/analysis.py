@@ -16,6 +16,7 @@ Conventions
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import numpy as np
@@ -31,6 +32,8 @@ ANN_HORIZONS = {"1m": MIN, "5m": 5 * MIN, "15m": 15 * MIN, "30m": 30 * MIN, "1h"
                 "4h": 4 * HOURS, "12h": 12 * HOURS, "24h": 24 * HOURS, "72h": 72 * HOURS}
 LATENCIES = ["10s", "30s", "60s", "bar1m", "bar5m"]
 COSTS_BP = [34, 50, 75, 100]
+OWNER_TAKER_BP = 4.4  # F006 owner-tier reprice, per side
+OWNER_MAKER_BP = 2.0
 RNG = np.random.default_rng(20261006)
 
 
@@ -115,6 +118,28 @@ class EventData:
 
 
 # ------------------------------------------------------------------ per-event metrics
+def contract_multiplier(sym: str) -> int:
+    m = re.match(r"^(1000000|100000|10000|1000)", sym)
+    return int(m.group(1)) if m else 1
+
+
+def short_funding(fund: pd.DataFrame | None, t0: pd.Timestamp, t1: pd.Timestamp) -> float:
+    """Funding received by a short held over (t0, t1]: sum of settled rates (0 if no history)."""
+    if fund is None or not len(fund):
+        return np.nan
+    f = fund.rate
+    return float(f[(f.index > t0) & (f.index <= t1)].sum())
+
+
+def owner_rt_cost(bs_gap_entry_bp: float, hl1m_exit_bp: float) -> float:
+    """Owner-tier round trip (log-return units): taker fee both sides + half the measured
+    post-announcement buy/sell trade-price gap at entry + half the median 1m high-low range
+    over the final 24h at exit (spread+impact proxy for the illiquid tail)."""
+    g = 0.0 if not np.isfinite(bs_gap_entry_bp) else max(bs_gap_entry_bp, 0.0)
+    h = 0.0 if not np.isfinite(hl1m_exit_bp) else max(hl1m_exit_bp, 0.0)
+    return (2 * OWNER_TAKER_BP + g / 2 + h / 2) / 1e4
+
+
 def horizon_targets(ev) -> dict[str, pd.Timestamp]:
     ann, eff = ev.announcement_ts, ev.effective_ts
     return {"+1h": None, "+4h": None, "+24h": ann + 24 * HOURS, "+72h": ann + 72 * HOURS,
@@ -191,6 +216,12 @@ def event_metrics(d: EventData) -> dict:
             raw, abn = ar(te, pe, t1, d.px(t1))
             r[f"short_{lat}_{name}"] = -raw
             r[f"shortab_{lat}_{name}"] = -abn
+    # funding carry of the short on the primary-latency trades (short receives +rate)
+    te, _ = d.entry("bar5m")
+    for name, t1 in tg.items():
+        if t1 is None:
+            t1 = te + (HOURS if name == "+1h" else 4 * HOURS)
+        r[f"fund_short_bar5m_{name}"] = short_funding(d.fund, te, t1) if t1 <= last_ok and t1 > te else np.nan
     # H2 post-repricing drift windows (abnormal, long-sign)
     for name, (a, b) in {"ann+4h->eff-1h": (ann + 4 * HOURS, eff - HOURS),
                          "ann+24h->eff-1h": (ann + 24 * HOURS, eff - HOURS),
@@ -265,7 +296,8 @@ def event_metrics(d: EventData) -> dict:
             r["perp_minus_spot_24h_to_eff-1h"] = (np.log(d.px(b) / d.px(a))
                                                   - np.log(d.px(b, series=d.spot_close) / d.px(a, series=d.spot_close)))
         for k, t in {"pre": ann, "24h": ann + 24 * HOURS, "eff-24h": eff - 24 * HOURS, "eff-1h": eff - HOURS}.items():
-            r[f"basis_bp_{k}"] = float(np.log(d.px(t) / d.px(t, series=d.spot_close)) * 1e4)
+            r[f"basis_bp_{k}"] = float((np.log(d.px(t) / d.px(t, series=d.spot_close))
+                                        - np.log(contract_multiplier(ev.symbol))) * 1e4)
     return r
 
 

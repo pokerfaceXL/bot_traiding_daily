@@ -99,3 +99,17 @@ def test_horizons_never_extend_past_effective():
     assert np.isnan(m["car_24h"]) and np.isnan(m["car_72h"])
     assert np.isnan(m["short_bar5m_+24h"]) and np.isnan(m["short_bar5m_+72h"])
     assert m["short_bar5m_eff-1h"] == 0.0
+
+
+def test_short_funding_counts_only_settlements_inside_holding_window():
+    idx = pd.to_datetime(["2024-05-01 00:00", "2024-05-01 08:00", "2024-05-01 16:00"], utc=True)
+    f = pd.DataFrame({"rate": [0.001, -0.002, 0.004]}, index=idx)
+    t0, t1 = pd.Timestamp("2024-05-01 00:00", tz="UTC"), pd.Timestamp("2024-05-01 08:00", tz="UTC")
+    assert A.short_funding(f, t0, t1) == -0.002  # 00:00 excluded (entered at it), 08:00 included
+    assert np.isnan(A.short_funding(None, t0, t1))
+
+
+def test_owner_cost_and_multiplier():
+    assert A.contract_multiplier("10000NFTUSDT") == 10000 and A.contract_multiplier("GALUSDT") == 1
+    assert abs(A.owner_rt_cost(6.0, 20.0) * 1e4 - (8.8 + 3.0 + 10.0)) < 1e-9
+    assert abs(A.owner_rt_cost(np.nan, -1.0) * 1e4 - 8.8) < 1e-9

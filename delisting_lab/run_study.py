@@ -248,6 +248,22 @@ def main():
             row["top_events"] = ";".join(s.loc[x.index[:5], "symbol"].astype(str) + "@" + s.loc[x.index[:5], "exchange"])
             tails.append(row)
     pd.DataFrame(ct).to_csv(OUT / "costs_primary.csv", index=False)
+    # owner tier: taker 4.4 bp/side + measured spread/impact per event, with and without funding carry
+    ot = []
+    for name, s in subs.items():
+        oc = pd.Series([A.owner_rt_cost(g, h) for g, h in zip(s.bs_gap_post2h_bp, s.hl1m_last24h_bp)], index=s.index)
+        for tg in PRIMARY_TARGETS:
+            x = s[f"short_{PRIMARY_LAT}_{tg}"]
+            fu = s[f"fund_short_{PRIMARY_LAT}_{tg}"]
+            for lab, v in (("fees+spread", x - oc), ("fees+spread+funding", x - oc + fu.fillna(0)),
+                           ("fees+spread+funding+50bp_floor", x - oc + fu.fillna(0) - 0.0050)):
+                row = {"subset": name, "target": tg, "cost_model": lab, "median_owner_rt_cost_bp": oc.median() * 1e4,
+                       "mean_funding_bp": fu.mean() * 1e4, "funding_coverage": int(fu.notna().sum()), **A.summarise(v, s[cl])}
+                cc = f"ctrl_short_{PRIMARY_LAT}_{tg}"
+                if cc in s:
+                    row["mean_minus_ctrl_bp"] = float((v - s[cc]).mean() * 1e4)
+                ot.append(row)
+    pd.DataFrame(ot).to_csv(OUT / "costs_owner_tier.csv", index=False)
     pd.DataFrame(tails).to_csv(OUT / "tails_primary.csv", index=False)
     exe = []
     for c in ["hl1m_pre24h_bp", "hl1m_post1h_bp", "hl1m_last24h_bp", "bs_gap_pre10m_bp", "bs_gap_post2h_bp",

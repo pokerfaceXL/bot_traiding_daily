@@ -1,0 +1,20 @@
+{
+  "counts": {
+    "perp_events_train1": 82,
+    "perp_article_clusters": 63,
+    "perp_day_batch_clusters": 45,
+    "usable_events": 80,
+    "usable_article_clusters": 61,
+    "usable_day_batch_clusters": 44,
+    "missing_event_rate": 0.024390243902439046,
+    "spot_only_comparators": 8
+  },
+  "identification_coverage": {
+    "usable_with_spot": 46,
+    "usable": 80,
+    "spot_venues": {
+      "binance_spot": 34,
+      "bybit_spot": 12
+    }
+  }
+}

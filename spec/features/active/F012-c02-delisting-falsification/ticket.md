@@ -179,3 +179,26 @@ If FAIL → archive C02. Do not optimize into profitability.
 - Disk-safe: batch download → aggregate → delete raw; never drop free disk below ~10–20 GB.
 - PATH includes `/home/limen/.npm-global/bin`. No `rg` on host — use `grep`.
 - If hist 1m unavailable for a symbol, degrade gracefully to coarser bars and flag resolution.
+
+## Result (2026-10-06) — **FAIL**
+
+Full note: `spec/research/F012-c02-delisting-falsification.md`; tables: `output/f012_c02_delisting/`.
+
+- **Sample:** 82 Train-1 perp delisting events; **80 usable** (missing-event rate **2.4%**; ZKUSDT, MONUSDT Bybit);
+  **61 article / 44 day-batch clusters** (n≥40 met). Identification coverage: 46/80 with same-token spot.
+- **H1 (announcement repricing):** CAR from announcement −258 bp @1m, −561 @5m, −990 @24h, −1705 @eff−1h (mean).
+  Share gone before entry: 25% (10s) … 37% (bar5m). Bar5m short → eff−1h raw +972 bp [CI +242, +1728], minus matched
+  ctrl +872 [+239, +1514]; → +24h +389 [+36, +743]. Time-scrambled placebo paired p=0.099 (+24h), 0.130 (+72h).
+- **H2 (pre-deadline unwind):** eff−24h→eff−1h abnormal drift −93 bp [−327, +139]; eff−1h→eff−1m −44 [−185, +64].
+  OI → 0.52× by eff−1h but Spearman(OI decay, later drift) = 0.013 (p 0.91). Flow imbalance post-4h ≈ 0. **H2 FAIL.**
+- **Identification:** perp − spot ann+24h→eff−1h **+119 bp [−63, +458]** (median +10; wrong sign for forced selling);
+  basis median ≈ 0 throughout; spot-only delistings with perp still trading fall −2020 bp to eff−1h.
+  Decline is informational, common to spot and perp — not derivative forced flow.
+- **Costs (owner tier 4.4 bp taker/side + measured spread/impact, median 22 bp RT, + funding −116 bp for shorts):**
+  bar5m short → eff−1h +834 bp [+66, +1596]; +24h/+72h/mid CIs include 0; with +50 bp floor eff−1h CI [+13, +1581].
+  Per venue eff−1h: Bybit [−56, +1736], Binance [−444, +2330] — not stable. 34/50/75/100 bp table in `costs_primary.csv`.
+- **Tails (eff−1h, 50 bp):** mean +922, median +570, win 66%; top1/3/5 = 14/32/48% of sum; ex-top5 mean +508 bp.
+- **Decision:** **FAIL** — forced-unwind identification fails (the ticket's most important criterion), H2 fails,
+  venue stability and placebo fail. The profitable naive short is an information/stigma drift shared by spot,
+  which the pre-registration defines as failure of the forced-flow hypothesis. C02 archived; no optimization.
+- Collectors `f011-liq-collector`, `f012-deribit-book.timer`, `f012-farside-etf.timer`: active, untouched.
