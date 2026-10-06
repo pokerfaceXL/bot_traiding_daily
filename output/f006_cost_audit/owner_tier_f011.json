@@ -1,0 +1,38 @@
+[
+  {
+    "scenario": "assumed_17_ref",
+    "per_side_bps": 17.0,
+    "rt_band_bps": 34.0,
+    "n_cells_all": 132,
+    "n_beat_all": 0,
+    "n_primary": 22,
+    "n_beat_primary": 0,
+    "both_symbols_primary_pass": false,
+    "max_excess_bps": 20.431,
+    "max_primary_excess_bps": 6.76366
+  },
+  {
+    "scenario": "owner_taker_4_96",
+    "per_side_bps": 4.960000000000001,
+    "rt_band_bps": 9.920000000000002,
+    "n_cells_all": 132,
+    "n_beat_all": 2,
+    "n_primary": 22,
+    "n_beat_primary": 0,
+    "both_symbols_primary_pass": false,
+    "max_excess_bps": 20.431,
+    "max_primary_excess_bps": 6.76366
+  },
+  {
+    "scenario": "owner_maker_2_56",
+    "per_side_bps": 2.56,
+    "rt_band_bps": 5.12,
+    "n_cells_all": 132,
+    "n_beat_all": 11,
+    "n_primary": 22,
+    "n_beat_primary": 2,
+    "both_symbols_primary_pass": false,
+    "max_excess_bps": 20.431,
+    "max_primary_excess_bps": 6.76366
+  }
+]
