@@ -1,0 +1,22 @@
+{
+ "rule": "VERIFIED = snapshot before event day has a cliff within \u00b11 UTC day with tokens within \u00b110%; 0b needs >=80% of random30",
+ "random30": {
+  "EVENT_ABSENT_IN_SNAPSHOT": 14,
+  "NO_SNAPSHOT_BEFORE": 10,
+  "SNAPSHOT_UNPARSEABLE": 3,
+  "VERIFIED": 3
+ },
+ "random30_verified_pct": 10.0,
+ "large30_secondary": {
+  "NO_SNAPSHOT_BEFORE": 21,
+  "VERIFIED": 7,
+  "EVENT_ABSENT_IN_SNAPSHOT": 2
+ },
+ "large30_verified_pct": 23.3,
+ "large30_verified_given_parseable_snapshot": "7/9",
+ "event_tokens_with_any_snapshot_before_event": "53/152",
+ "events_with_snapshot_before": "2342/4032",
+ "events_with_snapshot_>=30d_before": "2285/4032",
+ "large_events_with_snapshot_before": "232/638",
+ "gate0b": "FAIL"
+}

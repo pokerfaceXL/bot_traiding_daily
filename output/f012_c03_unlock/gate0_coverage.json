@@ -1,0 +1,42 @@
+{
+ "catalog_events": 4032,
+ "catalog_tokens": 152,
+ "recipient_nonunknown_pct": 91.9,
+ "recipient_counts": {
+  "ECOSYSTEM": 3179,
+  "UNKNOWN": 325,
+  "TEAM": 247,
+  "VC": 228,
+  "OTHER": 53
+ },
+ "recipient_tokens": {
+  "ECOSYSTEM": 100,
+  "OTHER": 33,
+  "TEAM": 36,
+  "UNKNOWN": 8,
+  "VC": 23
+ },
+ "high_sell_events": 475,
+ "events_mixed": 631,
+ "first_events": 86,
+ "recurring_events": 3946,
+ "valid_pct_events": 3967,
+ "valid_pct_tokens": 117,
+ "large_events": 636,
+ "large_tokens": 94,
+ "large_first": 21,
+ "short_avail_all": "2524/4032",
+ "short_avail_tokens": "72/152",
+ "short_avail_bybit_all": "2524/4032",
+ "short_avail_large": "305/636",
+ "short_avail_large_bybit": "305/636 (59 tokens)",
+ "short_avail_scored": "2472/2489",
+ "scored_events": 2489,
+ "scored_tokens": 68,
+ "scored_large": 285,
+ "scored_large_tokens": 56,
+ "calibrated_note_event_tokens": "16/152",
+ "universe_protocols": 372,
+ "universe_priced": 169,
+ "events_on_chain_coverage_pct": 0.0
+}

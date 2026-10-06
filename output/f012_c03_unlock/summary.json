@@ -1,0 +1,10 @@
+{
+ "decision": "FAIL",
+ "reason": "Gate 0b PIT history FAIL (random-30 Wayback verification 10% < 80%) -> automatic kill",
+ "gates": {"0": "FAIL", "1": "UB-DESCRIPTIVE", "2": "UB-DESCRIPTIVE", "3": "UB-ONLY", "4": "INFEASIBLE",
+           "5": "A unverified / B infeasible / C rejected", "6": "UB size gradient, not PIT", "7": "FAIL (UB)",
+           "8": "UB-ONLY; D INFEASIBLE"},
+ "buy": "DO NOT BUY",
+ "prereg_commit": "150fafd",
+ "costs_bp_rt": {"owner": 9.9, "stress": [34, 50, 75, 100]}
+}
