@@ -1,0 +1,11 @@
+input,role,source_timestamp,publication_timestamp,earliest_live_availability_timestamp,known_vs_flow_T,used_as_predictor_for_T
+Farside Total/issuer flow for T-1,predictor,trade date T-1 (orders by 18:00 ET T-2 cash; NAV 16:00 ET T-1),issuer shares/holdings files evening T-1 to morning T; Farside row filled ~late T-1 to morning T,T 15:00 UTC (conservative; one observed snapshot 2026-10-06 14:52 UTC had T-1 complete),BEFORE,yes (y_lag1; ibit_lag1; gbtc_lag1)
+Farside 5-day mean T-5..T-1,predictor,as above,as above,T 15:00 UTC,BEFORE,yes (y_mean5)
+BTC return 16:00 ET T-2 -> 16:00 ET T-1 (Coinbase 5m),predictor,16:00 ET T-1,real time,16:00 ET T-1 + 5m,BEFORE,yes (ret_lag1)
+ETF dollar volume T-1 (Yahoo daily; 5 ETFs),predictor,16:00 ET T-1 close,consolidated tape ~16:00-20:00 ET T-1,T-1 20:00 ET,BEFORE,yes (dvz_lag1)
+IBIT premium proxy T-1 (log IBIT close / BTC 16:00 ET minus trailing 20d mean),predictor,16:00 ET T-1,real time,T-1 16:05 ET,BEFORE,yes (prem_lag1); official NAV/premium file not used
+BTC overnight return 16:00 ET T-1 -> 09:30 ET T,flagged predictor,09:30 ET T,real time,09:30 ET T,BEFORE ETF session T (AP pre-hedge possible),only in flagged model M3o (not eligible as primary)
+AP cash creation/redemption order for T,mechanism (private),order cutoff 18:00 ET T-1 (IBIT prospectus),not public,never public intraday,DURING (private),no - not observable
+Same-day ETF secondary-market volume/price T,excluded,09:30-16:00 ET T,real time,intraday T,DURING,no (circular with AP hedging)
+Same-day BTC move after 09:30 ET T,excluded,intraday T,real time,intraday T,DURING,no (may reflect ETF execution)
+Farside Total for T (target),target,trade date T,evening T to morning T+1 (same-day row blank/0.0 until publish),T+1 15:00 UTC,AFTER,never (target only; revised EOD never used intraday)

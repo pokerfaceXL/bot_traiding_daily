@@ -1,0 +1,57 @@
+{
+  "inputs": {
+    "farside_snapshot_sha256": "b8aee5123de2bb2e342fb838e87fd704fafff9521d7d888c804b5080a7ce8e03",
+    "frame_5m": "output/f011_forced_flow/frame_5m/BTCUSDT.csv.gz",
+    "coinbase_rows": 120360,
+    "train1_days": 250,
+    "pit_violations": 0
+  },
+  "gate_a": {
+    "pass": false,
+    "primary_model": "M3",
+    "selection_mae_F2": {
+      "M1": 140.77108433734938,
+      "M2": 144.99469879518074,
+      "M3": 134.7244827319476
+    },
+    "primary_F3": {
+      "model": "M3",
+      "scope": "F3",
+      "n": 84,
+      "oos_r2_vs_M0": 0.4262344011955185,
+      "spearman": 0.6568593702541258,
+      "p_spearman_1s": 5.803712543118083e-12,
+      "pearson": 0.6584209892262353,
+      "mae": 301.03899106853083,
+      "mae_M0": 417.70277866004733,
+      "dir_acc": 0.7976190476190477,
+      "dir_acc_M0": 0.6071428571428571,
+      "n_large": 44,
+      "dir_acc_large": 0.8863636363636364,
+      "dir_acc_large_M0": 0.75,
+      "p_dir_acc_large_1s": 7.025812465144554e-08,
+      "p_large_base": 0.5238095238095238,
+      "n_pred_large": 29,
+      "p_large_given_pred_large": 0.7241379310344828,
+      "lift_large": 1.3824451410658307
+    },
+    "checks": {
+      "a_r2_pos": true,
+      "a_spearman_sig": true,
+      "b_large_acc_ge_0.60": true,
+      "b_large_acc_sig": true,
+      "b_large_acc_ge_M0": true,
+      "c_lift_ge_1.5": false,
+      "holm_p_spearman": 1.1607425086236166e-11,
+      "holm_p_large_acc": 7.025812465144554e-08
+    }
+  },
+  "magnitude": {
+    "pred_share_of_cb_window": 1.3178037514499439,
+    "y_share_of_cb_window": 1.7954973933713678,
+    "y_share_of_all3_window": 0.12436476066849123
+  },
+  "gate_b": "NOT REACHED (Gate A FAIL)",
+  "gate_c": "NOT REACHED (Gate A FAIL)",
+  "decision": "FAIL"
+}
