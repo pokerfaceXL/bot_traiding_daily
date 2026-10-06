@@ -103,34 +103,49 @@ thing to acquire if Stage 1 shows signal.
 
 ## 9. Pre-registered Stage-1 hypotheses (non-trading event study)
 
-Frozen before the run. Train-1 only, BTCUSDT + ETHUSDT (extendable to 5), hourly, causal, no
-look-ahead. These test whether forced-flow *state* carries a forward edge — not a strategy.
+> **Pre-run amendment 2026-10-06 (coordinator decision).** Resolution is **5m** instead of
+> hourly. Input states come from `output/f011_forced_flow/frame_5m/` → T2 states (not the
+> hourly frame). Horizons: **+5m / +15m / +30m / +60m / +4h** (and **+8h** for EXHAUSTION).
+> Cost band: **34 bps round trip** (10 commission + 5 half-spread + 2 slippage per side); an
+> edge must beat the baseline by more than this band. Taker flow (`ofi` / `delta_cvd` /
+> `buy_impact` / `sell_impact`) is added to the STRESS and EXHAUSTION definitions (see T2
+> ticket). Event = state entry, not every bar in the state. Falsification rules otherwise
+> stay the same (both symbols; beat baseline by more than the cost band at ≥1 horizon;
+> frozen grid, no widening-to-fit). The original hourly text below is **superseded** by this
+> amendment and is kept only for the audit trail.
 
-```text
-H-FORCEDFLOW-CONTINUATION-01 (cascade continuation):
-Observation: crowded-long state (high OI z + positive funding z) followed by a down-trigger with
-  OI collapsing should precede FURTHER down-move (forced selling begets forced selling).
-Test: label bars entering LONG_STRESS/CASCADE (crowding high, return<0, ΔOI<<0 per ATR); measure
-  the distribution of forward signed return at +1h/+4h vs the unconditional baseline for the same
-  symbol/period.
-Falsified unless: conditional mean forward return is negative and its magnitude beats the
-  unconditional baseline at >=1 horizon by more than a realistic cost band, and it holds on both
-  BTC and ETH (not one symbol).
+### Original §9 text (superseded 2026-10-06)
 
-H-FORCEDFLOW-EXHAUSTION-01 (cascade exhaustion):
-Observation: after a large OI drop during a down-move, continued selling that stops producing
-  proportional price decline (price-impact collapse) marks the end of forced selling.
-Test: among cascade bars, label EXHAUSTION where OI deceleration + price-impact (|Δprice|/volume)
-  falls sharply while sell pressure persists; measure forward signed return at +1h/+4h/+8h vs
-  baseline.
-Falsified unless: conditional mean forward return is positive and beats the unconditional
-  baseline at >=1 horizon by more than a cost band, on both BTC and ETH.
-```
-
-Metrics for both: conditional vs unconditional forward-return mean/median, hit rate, dispersion,
-n events, per-symbol split, and robustness to the state-threshold (small frozen grid, no
-widening-to-fit). A clean negative is a valid, kept result — it tells us the OI-only proxy is
-too coarse and that liquidation/order-flow data is required before Stage 2.
+> ## 9. Pre-registered Stage-1 hypotheses (non-trading event study)
+> 
+> Frozen before the run. Train-1 only, BTCUSDT + ETHUSDT (extendable to 5), hourly, causal, no
+> look-ahead. These test whether forced-flow *state* carries a forward edge — not a strategy.
+> 
+> ```text
+> H-FORCEDFLOW-CONTINUATION-01 (cascade continuation):
+> Observation: crowded-long state (high OI z + positive funding z) followed by a down-trigger with
+>   OI collapsing should precede FURTHER down-move (forced selling begets forced selling).
+> Test: label bars entering LONG_STRESS/CASCADE (crowding high, return<0, ΔOI<<0 per ATR); measure
+>   the distribution of forward signed return at +1h/+4h vs the unconditional baseline for the same
+>   symbol/period.
+> Falsified unless: conditional mean forward return is negative and its magnitude beats the
+>   unconditional baseline at >=1 horizon by more than a realistic cost band, and it holds on both
+>   BTC and ETH (not one symbol).
+> 
+> H-FORCEDFLOW-EXHAUSTION-01 (cascade exhaustion):
+> Observation: after a large OI drop during a down-move, continued selling that stops producing
+>   proportional price decline (price-impact collapse) marks the end of forced selling.
+> Test: among cascade bars, label EXHAUSTION where OI deceleration + price-impact (|Δprice|/volume)
+>   falls sharply while sell pressure persists; measure forward signed return at +1h/+4h/+8h vs
+>   baseline.
+> Falsified unless: conditional mean forward return is positive and beats the unconditional
+>   baseline at >=1 horizon by more than a cost band, on both BTC and ETH.
+> ```
+> 
+> Metrics for both: conditional vs unconditional forward-return mean/median, hit rate, dispersion,
+> n events, per-symbol split, and robustness to the state-threshold (small frozen grid, no
+> widening-to-fit). A clean negative is a valid, kept result — it tells us the OI-only proxy is
+> too coarse and that liquidation/order-flow data is required before Stage 2.
 
 ## 10. Scope guards
 

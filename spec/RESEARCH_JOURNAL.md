@@ -88,18 +88,12 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-05 — NEW DIRECTION: F011 Forced-Flow Lab)
+## Next planned step (2026-10-06 — F011 T2 on 5m frame)
 
-Owner set the new direction (spec/vision.md reframed): model market participants and forced
-action ("who is forced to buy/sell if X"), not price, not more indicators. The whole
-momentum/indicator class and the first non-candle rules (funding, spread, OI-fade) are closed.
-Program + staged plan + pre-registered non-trading hypotheses: **spec/research/F011-forced-flow-lab.md**.
-Start is a **non-trading** data/stats lab (BTC+ETH): Stage-1 tickets
-`spec/features/active/F011-forced-flow-{frame,states,event-study}/` (sequential, delegable).
-Data available now: OHLCV + hourly OI + funding; owner-gated to acquire (API, F002 boundary):
-liquidations, perp-spot basis, taker split, order-book. Strategies A/B and ML are gated on a
-Stage-1 statistical edge. Production and the catalog stay untouched; separate `forced_flow_lab/`.
-Next coordinator action: dispatch F011 T1 (event frame) to a worker, then T2, then T3.
+5m frame merged at `cc9ea1b` (review `0a6f729a` PASS). Coordinator moved T2/T3 to the **5m**
+frame (hourly = coarse baseline only). Tickets + §9 amendment updated. Next: spawn
+`F011-forced-flow-states` (T2) on Claude; T3 waits on T2. Do not run analysis on the
+coordinator host.
 
 ## Next planned step (superseded 2026-10-05 — was H-NONCANDLE-SLEEVE-01 OI frozen, spawn T0)
 
@@ -1255,3 +1249,16 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
 - **2026-10-05 20:40** — F011-data-coverage and F011-liq-collector are DONE on branch grok/f011-plan-c (tip 3101d78), done directly by the coordinator while workers were down; collector deployed as systemd user service f011-liq-collector (do NOT respawn these tickets or start a second collector). Review F011-plan-c-review d541f1e0 running; after PASS merge, next = F011-forced-flow-frame-5m. Coverage: free 5m Bybit OI/account-ratio + trade archive + Binance metrics/klines cover all Train-1 with 0 gaps.
 
 - **2026-10-05 20:55** — **H-NONCANDLE-SLEEVE-01 = FALSIFIED (a)+(b)** (review PASS 4df434ed, tip 44bd854 rebased onto main). Train-1 mean −276.30, shared-months sum −1381.49, OI consumption verified. 1h OI-fade mechanism closed; no catalog unfreeze/portfolio. Coarse 1h baseline only — not a verdict on F011 forced-flow (plan C, 5m).
+
+- **2026-10-06 morning Europe/Warsaw** — **F011 5m frame merged; T2/T3 moved to 5m.** Frame
+  `output/f011_forced_flow/frame_5m/{BTCUSDT,ETHUSDT}.csv.gz` (115200 rows each) merged at
+  `cc9ea1b` after review `0a6f729a` PASS. Coordinator decision: T2 (state machine) and T3
+  (event study) run on the 5m frame, not hourly — taker flow / impacts / 5m OI now exist;
+  hourly remains a coarse baseline only. Tickets
+  `F011-forced-flow-{states,event-study}` rewritten; `F011-forced-flow-lab.md` §9 amended
+  (horizons +5m/+15m/+30m/+60m/+4h, +8h for EXHAUSTION; cost band 34 bps RT; taker flow in
+  STRESS/EXHAUSTION). Non-blocking review notes recorded: rebuild needs ~25 GB temp +
+  re-download; consider Git LFS / external store before committing more binaries; the 2
+  pre-existing `test_causality` failures in fresh worktrees come from missing git-ignored
+  hourly caches (not from the 5m diff). Causality prefix grid for T2 must reach past warmup
+  so `oi_zscore` / `funding_zscore` are exercised.
