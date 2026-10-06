@@ -176,6 +176,74 @@ Event study on the 5m T2 states, Train-1 (2024-02-02 → 2025-02-28), BTCUSDT + 
 
 _Left for the coordinator._
 
+## 9b. Pre-registered T4 diagnostics (2026-10-06)
+
+Owner order after T3 no-edge (0/22 primary, 0/132 grid vs 34 bps RT): **one final diagnostic
+study on existing 5m data; no paid feeds; keep the liquidation collector running.** Frozen
+before any T4 run. Train-1 only, BTCUSDT + ETHUSDT; validation/holdout untouched. Reuse frozen
+T2 thresholds (`output/f011_forced_flow/states/manifest.json`); no new threshold tuning. Event =
+state entry. Long/short mirrored by sign and pooled; also report the per-side split (ETH short
+cascades are rare). Event classes: CROWDING, STRESS, **DELEVERAGING** (= union of STRESS and
+CASCADE entries — OI-declining forced states; stated explicitly, no new rule), CASCADE,
+EXHAUSTION. Horizons: +5m / +15m / +30m / +1h / +4h. Ticket:
+`spec/features/active/F011-forced-flow-diagnostics/ticket.md`.
+
+**Matched baseline (Test 1):** non-event bars, same symbol, same hour-of-day, same trailing
+24h realized-vol decile at t; exclude ±4h around any event; ~20 baselines per event, seeded.
+Cost reference 34 bps RT is context only for Test 1 (does event magnitude dwarf costs).
+
+```text
+H-FORCEDFLOW-DIAG-MAGNITUDE-01 (distribution / vol response):
+Test: for each class × horizon, compare signed-return distribution (mean/median/q05/q25/q50/
+  q75/q95), absolute-return mean/median, forward realized vol, MFE, MAE, MFE+MAE, and
+  MFE/(MFE+MAE) — event vs matched baseline (ratio, difference, bootstrap 95% CI, 2000
+  resamples, block or event-level), per symbol and per half of Train-1.
+POSITIVE only if, for some class and horizon, mean |return| OR forward realized vol exceeds
+  baseline by ratio ≥ 1.25 with CI excluding 1, on BOTH symbols AND both halves.
+
+H-FORCEDFLOW-DIAG-CONTINUATION-SPLIT-01 (cascade continuation vs reversal):
+Outcome: sign of +1h forward return in the cascade direction (>0 = continuation); robustness
+  at +30m.
+Features (pre-event / current; no threshold search — effect sizes are the output):
+  prior OI build-up (24h ΔOI%); oi_zscore; OI-decline speed (delta_oi_pct last 3 bars,
+  ATR-normalised); funding_rate + funding_zscore; long_short_ratio + long_account_share;
+  CVD / taker imbalance (sum ofi/delta_cvd over last 3 and 12 bars); initial price shock
+  (atr_normalized_return of entry bar and last 3 bars); realized vol + regime decile;
+  BTC regime (24h/7d return sign; above/below 200-bar EMA on 1h-resampled BTC);
+  hour-of-day bucket (Asia/EU/US) + weekday; cross-asset confirmation (other symbol in
+  STRESS/CASCADE within ±15m).
+Report: Cliff's delta + bootstrap CI (continuous); risk difference (categorical); group n;
+  count of features tested.
+POSITIVE only if ≥1 feature has |Cliff's δ| ≥ 0.33 (or risk difference ≥ 15 pp) with the same
+  sign on BOTH symbols AND both halves, CIs excluding 0.
+
+H-FORCEDFLOW-DIAG-PRECASCADE-01 (event prediction, not direction):
+Target y_h = 1 if a CASCADE entry occurs within next h ∈ {15m, 30m, 60m}, for bars NOT already
+  in STRESS-after-OI-collapse or CASCADE.
+Features at close of bar t only: CROWDING/STRESS flags + oi_zscore, funding_zscore, ΔOI speed,
+  taker imbalance, realized vol, L/S ratio (causal; bars ≤ t).
+Models: (a) rule baselines P(cascade|CROWDING), P(cascade|STRESS); (b) L2 logistic regression
+  on standardized features, fixed C=1.0, no tuning.
+Split: time-ordered fit first 60% of Train-1 / evaluate last 40%; report both.
+Metrics: base rate, precision, recall (rules; logistic at top 1%/5% score cutoffs), PR-AUC,
+  lift = PR-AUC / base rate, precision/base-rate at cutoffs.
+POSITIVE only if OOS PR-AUC lift ≥ 2.0 at some horizon on BOTH symbols, with ≥20 positive
+  events in the test period (flag if fewer).
+```
+
+Overall: report total number of tests and cells. If all three are NEGATIVE, the program-note
+recommendation is to **ARCHIVE** the forced-flow strategy (state that in Result). Worker fills
+`### Result` below and leaves `### Decision` empty. Outputs under
+`output/f011_forced_flow/diagnostics/`.
+
+### Result
+
+_Pending T4 run._
+
+### Decision
+
+_Left for the coordinator._
+
 ## 10. Scope guards
 
 - Non-trading until Stage 1 produces a statistical edge. No orders, no positions, no promotion.
