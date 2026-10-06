@@ -11,7 +11,7 @@
 
 ## NOW
 
-- **2026-10-06 evening — F012 research phase opened** (owner brief). Spec: `spec/research/F012-structural-edge-candidates.md`. Recommended next falsification = C02 delisting forced unwind. F011 remains ARCHIVED; `f011-liq-collector` unchanged.
+- **2026-10-06 — F012 round 2: next test = R2-A leveraged-ETF daily leverage reset** (BTC 2×/−2× US ETFs, 15:00–16:00 ET, weekend placebo, 9.92 bp RT). C01/C02/C03 all **FAIL**. Decision note + absolute kill rule: `spec/research/F012-round2-candidate-selection.md`. No code started. Round-1 spec: `spec/research/F012-structural-edge-candidates.md`. F011 stays ARCHIVED; collectors unchanged.
 - **2026-10-06 — F011 Forced-Flow Lab ARCHIVED (T4 all-negative).** Coordinator decision in `spec/research/F011-forced-flow-lab.md` §9b: Tests 1–3 NEGATIVE (Test 3 underpowered + definitional; BTC 11 / ETH 18 CASCADE entries in test segment fail the ≥20-episode gate). Per owner pre-committed rule → **ARCHIVE** forced-flow strategy; paid historical liq data **NO-GO**. Unresolved only: `H-PRECASCADE-LIQ-01` (crowding-only → real-liq-defined cascade), revisit when live Bybit collector has ~50+ liq-defined cascade episodes/symbol (collector kept running). Closest Test-1 miss (CASCADE +15m vol 3/4) is context only. Tickets T2–T4 moved to `spec/features/done/`. Momentum/catalog5 profiles remain FREEZE. Next step = protocol §13 owner/trader approval of a new direction (no open licensed axis left on existing profiles).
 - **2026-10-05 — (superseded 2026-10-06 ARCHIVE) NOWY KIERUNEK: F011 Forced-Flow Lab.** Program note remains historical: **spec/research/F011-forced-flow-lab.md**. Plan C free 5m path completed through T4 diagnostics; Stage-2/3 never opened.
 
