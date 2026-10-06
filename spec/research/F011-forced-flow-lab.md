@@ -174,7 +174,8 @@ Event study on the 5m T2 states, Train-1 (2024-02-02 → 2025-02-28), BTCUSDT + 
 
 ### Decision
 
-_Left for the coordinator._
+**2026-10-06 — superseded by §9b Decision:** T3 no-edge stands; after T4 all-negative, forced-flow
+strategy is **ARCHIVED** (see §9b). No Stage-2.
 
 ## 9b. Pre-registered T4 diagnostics (2026-10-06)
 
@@ -271,7 +272,39 @@ T4 run 2026-10-06 on the frozen T2 states, Train-1 (2024-02-02 → 2025-02-28), 
 
 ### Decision
 
-_Left for the coordinator._
+**2026-10-06 Europe/Warsaw — Coordinator (Limen), final.** Status: **ARCHIVED**.
+
+- **Test-3 count reading:** the pre-registered "≥20 positive events" means **independent
+  CASCADE episodes (entries)**, not y=1 bars. Overlapping bars from one episode are not
+  independent. Test segment: BTC **11**, ETH **18** → the ≥20 gate **FAILS**. Even under a
+  bar reading, the lift is largely **definitional**: CASCADE = STRESS + fuel + accelerating
+  return, and `P(cascade|STRESS)` alone reaches ~11.6. Ambiguity (b) (eligibility of STRESS
+  bars) would only lower it further. Separately, T3 already showed that entering at
+  STRESS/CASCADE entries does **not** beat the 34 bps RT cost band — so even a valid
+  cascade-risk signal has **no demonstrated monetisation**.
+- **Verdicts:** Test 1 NEGATIVE; Test 2 NEGATIVE; Test 3 NEGATIVE (underpowered +
+  definitional). Closest Test-1 miss (CASCADE +15m forward vol passes 3/4 cells) is context
+  only, **not** a reason to continue.
+- **Per the owner's pre-committed rule** ("if all three are clean negatives, archive"):
+  **ARCHIVE** the forced-flow strategy. Do **not** add data or complexity to rescue it.
+- **Paid historical liquidation data: NO-GO now.**
+- **Unresolved hypothesis recorded as `H-PRECASCADE-LIQ-01`:** using only *pre-stress*
+  information (crowding variables: `oi_zscore`, `funding_zscore`, L/S, OI build-up — **no**
+  STRESS flag, **no** OI-collapse inputs), predict a cascade defined independently from
+  **real liquidation volume**. That removes the circular OI-based label. Paid data is
+  justified **only if** a free test on the live collector's own data shows **both**:
+  (i) OOS PR-AUC lift ≥ 2× over the crowding-only rule, on ≥50 independent
+  liquidation-defined cascade episodes per symbol; and
+  (ii) flagged bars whose anti-crowd forward return beats 34 bps RT.
+  Until then: **no purchase**.
+- **Keep the Bybit liquidation collector running** (owner order). Revisit only when it has
+  accumulated ~50+ liquidation-defined cascade episodes per symbol. Current rate (measured
+  2026-10-06 from `data_cache/liquidations/bybit/`, collector since 2026-10-05T19:26Z,
+  ~0.75 day / 2 calendar days of jsonl): BTC ≈291 flattened events, ETH ≈123; rough
+  cascade-like 5m bursts (elevated notional, heuristic — not yet the formal liq-defined
+  cascade) ≈4 BTC / ≈3 ETH → ~4–5 bursts/day. At that loose rate, ~10–15 days to 50 bursts
+  per symbol; formal episode count may be lower. Re-measure from collector data before any
+  revisit.
 
 ## 10. Scope guards
 

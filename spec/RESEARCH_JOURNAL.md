@@ -88,12 +88,13 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-06 — F011 T2 on 5m frame)
+## Next planned step (2026-10-06 — F011 ARCHIVED; §13 new direction)
 
-5m frame merged at `cc9ea1b` (review `0a6f729a` PASS). Coordinator moved T2/T3 to the **5m**
-frame (hourly = coarse baseline only). Tickets + §9 amendment updated. Next: spawn
-`F011-forced-flow-states` (T2) on Claude; T3 waits on T2. Do not run analysis on the
-coordinator host.
+F011 forced-flow strategy **ARCHIVED** (§9b Decision). All catalog profiles FREEZE; no licensed
+open axis remains. Protocol next step: **§13 owner/trader approval of a new research direction**
+(record Why existing family insufficient / missing mechanism / reject evidence / budget). Keep
+Bybit liq collector running for possible later `H-PRECASCADE-LIQ-01` only — no spawn until
+owner names the next family. Do not buy paid liq data now.
 
 ## Next planned step (superseded 2026-10-05 — was H-NONCANDLE-SLEEVE-01 OI frozen, spawn T0)
 
@@ -1262,3 +1263,15 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   pre-existing `test_causality` failures in fresh worktrees come from missing git-ignored
   hourly caches (not from the 5m diff). Causality prefix grid for T2 must reach past warmup
   so `oi_zscore` / `funding_zscore` are exercised.
+
+- **2026-10-06 afternoon Europe/Warsaw** — **F011 ARCHIVE (coordinator final).** T4 diagnostics
+  merged at `8da3a91`: Tests 1–3 NEGATIVE. Test-3 "≥20 positive events" read as independent
+  CASCADE *entries* (BTC 11, ETH 18 in test segment) → gate fails; lift also largely
+  definitional (`P(cascade|STRESS)` ~11.6). T3 already no directional edge vs 34 bps. Per
+  owner pre-committed rule → **ARCHIVE** forced-flow strategy; paid historical liq **NO-GO**.
+  Recorded unresolved only: `H-PRECASCADE-LIQ-01` (crowding-only → real-liq-defined cascade;
+  needs ≥50 episodes/symbol + monetisation vs 34 bps on free collector data before any
+  purchase). Collector kept running (~0.75d so far: BTC ~291 / ETH ~123 flattened events;
+  rough cascade-like 5m bursts ~4–5/day). Closest Test-1 miss (CASCADE +15m vol 3/4) noted as
+  context only. Tickets T2–T4 → `spec/features/done/`. Next = protocol §13 new direction
+  (owner/trader); no open licensed axis on existing strategy profiles.
