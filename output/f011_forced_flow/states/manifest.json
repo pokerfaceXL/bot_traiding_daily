@@ -1,0 +1,62 @@
+{
+  "ticket": "spec/features/active/F011-forced-flow-states/ticket.md",
+  "spec": "spec/research/F011-forced-flow-lab.md §3, §6 (amended 2026-10-06)",
+  "frozen_at": "2026-10-06",
+  "frozen_before_labelling": true,
+  "input": "output/f011_forced_flow/frame_5m/<SYMBOL>.csv.gz",
+  "symbols": ["BTCUSDT", "ETHUSDT"],
+  "bar": "5m, bar-open timestamp, row available at bar close",
+  "labelled_rows": "is_warmup == False only; earlier rows are read solely as causal history for rolling lookbacks",
+  "primary_venue": "Bybit (open_interest, funding_rate, ofi, delta_cvd, impacts). bn_ columns never enter any rule; bn OI direction is emitted as a separate cross-check column only.",
+  "states": [
+    "NORMAL", "LONG_CROWDING", "SHORT_CROWDING", "LONG_STRESS", "SHORT_STRESS",
+    "LONG_LIQUIDATION_CASCADE", "SHORT_LIQUIDATION_CASCADE", "LONG_EXHAUSTION", "SHORT_EXHAUSTION"
+  ],
+  "side_convention": "LONG_* = longs are the crowded/stressed/liquidated side (adverse move is down); SHORT_* mirrors it (adverse move is up).",
+  "precedence": ["LIQUIDATION_CASCADE", "EXHAUSTION", "STRESS", "CROWDING", "NORMAL"],
+  "tie_break_within_level": "LONG before SHORT (sides are mutually exclusive by construction; tie-break is defensive only)",
+  "missing_value_rule": "any NaN input makes the condition that uses it false",
+  "thresholds": {
+    "fps_threshold": 2.0,
+    "stress_return_atr": 1.5,
+    "ofi_threshold": 0.10,
+    "fuel_percentile": 0.95,
+    "exhaustion_impact_ratio": 0.5
+  },
+  "lookbacks_bars": {
+    "crowd_memory": 12,
+    "stress_window": 3,
+    "fuel_rank_window": 2016,
+    "exhaustion_after_cascade": 12,
+    "impact_reference_window": 12
+  },
+  "rules": {
+    "fps": "fps_long = oi_zscore + funding_zscore; fps_short = oi_zscore - funding_zscore (frame z-scores: 2016-bar rolling, ddof=1)",
+    "crowded_long_bar": "fps_long >= fps_threshold AND funding_zscore > 0",
+    "crowded_short_bar": "fps_short >= fps_threshold AND funding_zscore < 0",
+    "crowd_side": "side of the most recent crowded bar within the last crowd_memory bars (t-crowd_memory+1 .. t inclusive); none if no crowded bar",
+    "LONG_CROWDING": "crowded_long_bar at t",
+    "SHORT_CROWDING": "crowded_short_bar at t",
+    "stress_window_values": "anr_w = sum(atr_normalized_return, t-stress_window+1..t); doi_w = open_interest_t - open_interest_{t-stress_window}; ofi_w = mean(ofi, t-stress_window+1..t)",
+    "LONG_STRESS": "crowd_side == LONG AND anr_w <= -stress_return_atr AND doi_w < 0 AND ofi_w <= -ofi_threshold",
+    "SHORT_STRESS": "crowd_side == SHORT AND anr_w >= +stress_return_atr AND doi_w < 0 AND ofi_w >= +ofi_threshold",
+    "fuel_pct": "fraction of the last fuel_rank_window fuel values (inclusive of t, min_periods = window) that are <= fuel_t",
+    "LONG_LIQUIDATION_CASCADE": "LONG_STRESS conditions AND fuel_pct >= fuel_percentile AND delta_oi_t < 0 AND atr_normalized_return_t < 0 AND atr_normalized_return_t < atr_normalized_return_{t-1}",
+    "SHORT_LIQUIDATION_CASCADE": "SHORT_STRESS conditions AND fuel_pct >= fuel_percentile AND delta_oi_t < 0 AND atr_normalized_return_t > 0 AND atr_normalized_return_t > atr_normalized_return_{t-1}",
+    "impact_ratio": "LONG: sell_impact_t / max(sell_impact, t-impact_reference_window..t-1); SHORT: buy_impact_t / max(buy_impact, same window)",
+    "LONG_EXHAUSTION": "not a cascade at t AND a LONG_LIQUIDATION_CASCADE fired in t-exhaustion_after_cascade..t-1 AND oi_acceleration_t > 0 AND long impact_ratio <= exhaustion_impact_ratio AND ofi_t < 0",
+    "SHORT_EXHAUSTION": "not a cascade at t AND a SHORT_LIQUIDATION_CASCADE fired in t-exhaustion_after_cascade..t-1 AND oi_acceleration_t > 0 AND short impact_ratio <= exhaustion_impact_ratio AND ofi_t > 0",
+    "long_short_ratio": "secondary crowding confirmation, reported only (lsr_confirms column); never gates a primary state",
+    "bn_cross_check": "bn_doi_w = bn_sum_open_interest_t - bn_sum_open_interest_{t-stress_window}; reported separately to measure venue agreement on stress/cascade bars; never used in a rule"
+  },
+  "robustness_grid": {
+    "design": "one-at-a-time: each variant changes exactly one key threshold from the primary value; primary output is the only labelled file; variants report state counts only",
+    "fps_threshold": [2.0, 3.0],
+    "stress_return_atr": [1.5, 2.5],
+    "ofi_threshold": [0.10, 0.20],
+    "fuel_percentile": [0.95, 0.99],
+    "exhaustion_impact_ratio": [0.5, 0.25]
+  },
+  "no_tuning": "Values chosen a priori from spec §3 scale (FPS ~2 = many longs) and feature definitions, without inspecting state distributions. Rare states are reported as findings, never re-tuned.",
+  "excluded": "forward returns, PnL, trades, liquidation_* columns (all null), any bn_ column inside a rule"
+}
