@@ -9,6 +9,8 @@ import pandas as pd
 import numpy as np
 import pytest
 
+from data_contract import DataContractError
+
 from forced_flow_lab.build_frame import (
     load_ohlcv, load_oi, load_funding,
     align_and_forward_fill_funding,
@@ -19,8 +21,11 @@ from forced_flow_lab.build_frame import (
 
 def build_frame_up_to_bar(symbol: str, bar_index: int) -> pd.DataFrame:
     """Build features using only data up to bar_index (inclusive)."""
-    # Load full data
-    ohlcv = load_ohlcv(symbol)
+    # Load full data; the hourly cache is git-ignored and may be absent.
+    try:
+        ohlcv = load_ohlcv(symbol)
+    except DataContractError as exc:
+        pytest.skip(f"hourly cache absent: {exc}")
     oi = load_oi(symbol)
     funding = load_funding(symbol)
     

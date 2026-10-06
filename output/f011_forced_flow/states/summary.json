@@ -1,0 +1,268 @@
+{
+  "BTCUSDT": {
+    "labelled_bars": 113184,
+    "counts": {
+      "NORMAL": 83209,
+      "LONG_CROWDING": 15842,
+      "SHORT_CROWDING": 12714,
+      "LONG_STRESS": 714,
+      "SHORT_STRESS": 543,
+      "LONG_LIQUIDATION_CASCADE": 27,
+      "SHORT_LIQUIDATION_CASCADE": 19,
+      "LONG_EXHAUSTION": 72,
+      "SHORT_EXHAUSTION": 44
+    },
+    "durations": {
+      "LONG_CROWDING": {
+        "runs": 773,
+        "median_bars": 11.0,
+        "median_minutes": 55.0,
+        "max_bars": 138
+      },
+      "LONG_EXHAUSTION": {
+        "runs": 61,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 2
+      },
+      "LONG_LIQUIDATION_CASCADE": {
+        "runs": 27,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 1
+      },
+      "LONG_STRESS": {
+        "runs": 498,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 6
+      },
+      "NORMAL": {
+        "runs": 746,
+        "median_bars": 5.0,
+        "median_minutes": 25.0,
+        "max_bars": 3509
+      },
+      "SHORT_CROWDING": {
+        "runs": 652,
+        "median_bars": 11.0,
+        "median_minutes": 55.0,
+        "max_bars": 159
+      },
+      "SHORT_EXHAUSTION": {
+        "runs": 32,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 3
+      },
+      "SHORT_LIQUIDATION_CASCADE": {
+        "runs": 19,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 1
+      },
+      "SHORT_STRESS": {
+        "runs": 393,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 5
+      }
+    },
+    "bn_cross_check": {
+      "stress_or_cascade_bars": 1303,
+      "with_bn_oi": 1303,
+      "bn_oi_also_falling_fraction": 0.6462010744435918
+    },
+    "lsr_confirms_fraction_on_crowding": 0.4308026334220479,
+    "robustness": {
+      "fps_threshold=3.0": {
+        "NORMAL": 102356,
+        "LONG_CROWDING": 6282,
+        "SHORT_CROWDING": 3989,
+        "LONG_STRESS": 312,
+        "SHORT_STRESS": 190,
+        "LONG_EXHAUSTION": 36,
+        "LONG_LIQUIDATION_CASCADE": 14,
+        "SHORT_EXHAUSTION": 3,
+        "SHORT_LIQUIDATION_CASCADE": 2
+      },
+      "stress_return_atr=2.5": {
+        "NORMAL": 83380,
+        "LONG_CROWDING": 16281,
+        "SHORT_CROWDING": 13073,
+        "LONG_STRESS": 212,
+        "SHORT_STRESS": 159,
+        "LONG_EXHAUSTION": 37,
+        "SHORT_EXHAUSTION": 19,
+        "LONG_LIQUIDATION_CASCADE": 15,
+        "SHORT_LIQUIDATION_CASCADE": 8
+      },
+      "ofi_threshold=0.2": {
+        "NORMAL": 83314,
+        "LONG_CROWDING": 16027,
+        "SHORT_CROWDING": 12864,
+        "LONG_STRESS": 479,
+        "SHORT_STRESS": 373,
+        "LONG_EXHAUSTION": 56,
+        "SHORT_EXHAUSTION": 35,
+        "LONG_LIQUIDATION_CASCADE": 21,
+        "SHORT_LIQUIDATION_CASCADE": 15
+      },
+      "fuel_percentile=0.99": {
+        "NORMAL": 83232,
+        "LONG_CROWDING": 15872,
+        "SHORT_CROWDING": 12730,
+        "LONG_STRESS": 748,
+        "SHORT_STRESS": 566,
+        "LONG_EXHAUSTION": 16,
+        "SHORT_EXHAUSTION": 12,
+        "LONG_LIQUIDATION_CASCADE": 5,
+        "SHORT_LIQUIDATION_CASCADE": 3
+      },
+      "exhaustion_impact_ratio=0.25": {
+        "NORMAL": 83222,
+        "LONG_CROWDING": 15851,
+        "SHORT_CROWDING": 12722,
+        "LONG_STRESS": 717,
+        "SHORT_STRESS": 544,
+        "LONG_EXHAUSTION": 54,
+        "SHORT_EXHAUSTION": 28,
+        "LONG_LIQUIDATION_CASCADE": 27,
+        "SHORT_LIQUIDATION_CASCADE": 19
+      }
+    }
+  },
+  "ETHUSDT": {
+    "labelled_bars": 113184,
+    "counts": {
+      "NORMAL": 85768,
+      "LONG_CROWDING": 17566,
+      "SHORT_CROWDING": 8630,
+      "LONG_STRESS": 811,
+      "SHORT_STRESS": 258,
+      "LONG_LIQUIDATION_CASCADE": 42,
+      "SHORT_LIQUIDATION_CASCADE": 4,
+      "LONG_EXHAUSTION": 95,
+      "SHORT_EXHAUSTION": 10
+    },
+    "durations": {
+      "LONG_CROWDING": {
+        "runs": 803,
+        "median_bars": 11.0,
+        "median_minutes": 55.0,
+        "max_bars": 200
+      },
+      "LONG_EXHAUSTION": {
+        "runs": 82,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 3
+      },
+      "LONG_LIQUIDATION_CASCADE": {
+        "runs": 41,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 2
+      },
+      "LONG_STRESS": {
+        "runs": 545,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 5
+      },
+      "NORMAL": {
+        "runs": 621,
+        "median_bars": 6.0,
+        "median_minutes": 30.0,
+        "max_bars": 3136
+      },
+      "SHORT_CROWDING": {
+        "runs": 382,
+        "median_bars": 12.0,
+        "median_minutes": 60.0,
+        "max_bars": 185
+      },
+      "SHORT_EXHAUSTION": {
+        "runs": 8,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 2
+      },
+      "SHORT_LIQUIDATION_CASCADE": {
+        "runs": 4,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 1
+      },
+      "SHORT_STRESS": {
+        "runs": 199,
+        "median_bars": 1.0,
+        "median_minutes": 5.0,
+        "max_bars": 4
+      }
+    },
+    "bn_cross_check": {
+      "stress_or_cascade_bars": 1115,
+      "with_bn_oi": 1114,
+      "bn_oi_also_falling_fraction": 0.6903052064631957
+    },
+    "lsr_confirms_fraction_on_crowding": 0.4111696442204917,
+    "robustness": {
+      "fps_threshold=3.0": {
+        "NORMAL": 101564,
+        "LONG_CROWDING": 7960,
+        "SHORT_CROWDING": 3101,
+        "LONG_STRESS": 378,
+        "SHORT_STRESS": 87,
+        "LONG_EXHAUSTION": 64,
+        "LONG_LIQUIDATION_CASCADE": 25,
+        "SHORT_EXHAUSTION": 3,
+        "SHORT_LIQUIDATION_CASCADE": 2
+      },
+      "stress_return_atr=2.5": {
+        "NORMAL": 85919,
+        "LONG_CROWDING": 18149,
+        "SHORT_CROWDING": 8774,
+        "LONG_STRESS": 200,
+        "SHORT_STRESS": 72,
+        "LONG_EXHAUSTION": 46,
+        "LONG_LIQUIDATION_CASCADE": 18,
+        "SHORT_EXHAUSTION": 4,
+        "SHORT_LIQUIDATION_CASCADE": 2
+      },
+      "ofi_threshold=0.2": {
+        "NORMAL": 85823,
+        "LONG_CROWDING": 17756,
+        "SHORT_CROWDING": 8704,
+        "LONG_STRESS": 600,
+        "SHORT_STRESS": 163,
+        "LONG_EXHAUSTION": 87,
+        "LONG_LIQUIDATION_CASCADE": 40,
+        "SHORT_EXHAUSTION": 8,
+        "SHORT_LIQUIDATION_CASCADE": 3
+      },
+      "fuel_percentile=0.99": {
+        "NORMAL": 85786,
+        "LONG_CROWDING": 17610,
+        "SHORT_CROWDING": 8633,
+        "LONG_STRESS": 854,
+        "SHORT_STRESS": 263,
+        "LONG_EXHAUSTION": 26,
+        "LONG_LIQUIDATION_CASCADE": 10,
+        "SHORT_LIQUIDATION_CASCADE": 1,
+        "SHORT_EXHAUSTION": 1
+      },
+      "exhaustion_impact_ratio=0.25": {
+        "NORMAL": 85775,
+        "LONG_CROWDING": 17584,
+        "SHORT_CROWDING": 8630,
+        "LONG_STRESS": 815,
+        "SHORT_STRESS": 258,
+        "LONG_EXHAUSTION": 67,
+        "LONG_LIQUIDATION_CASCADE": 42,
+        "SHORT_EXHAUSTION": 9,
+        "SHORT_LIQUIDATION_CASCADE": 4
+      }
+    }
+  }
+}
