@@ -1,0 +1,132 @@
+{
+  "cols": [
+    "symbol",
+    "variant",
+    "hypothesis",
+    "horizon",
+    "horizon_bars",
+    "n_entries_raw",
+    "n_events",
+    "n_long_side",
+    "base_n",
+    "base_mean",
+    "base_median",
+    "base_hit_rate",
+    "base_std",
+    "mean",
+    "median",
+    "hit_rate",
+    "std",
+    "t_stat",
+    "excess_mean",
+    "excess_median",
+    "beats_cost_band"
+  ],
+  "head": {
+    "symbol": {
+      "0": "BTCUSDT",
+      "1": "BTCUSDT",
+      "2": "BTCUSDT"
+    },
+    "variant": {
+      "0": "primary",
+      "1": "primary",
+      "2": "primary"
+    },
+    "hypothesis": {
+      "0": "H-FORCEDFLOW-CONTINUATION-01",
+      "1": "H-FORCEDFLOW-CONTINUATION-01",
+      "2": "H-FORCEDFLOW-CONTINUATION-01"
+    },
+    "horizon": {
+      "0": "5m",
+      "1": "15m",
+      "2": "30m"
+    },
+    "horizon_bars": {
+      "0": 1,
+      "1": 3,
+      "2": 6
+    },
+    "n_entries_raw": {
+      "0": 911,
+      "1": 911,
+      "2": 911
+    },
+    "n_events": {
+      "0": 911,
+      "1": 881,
+      "2": 833
+    },
+    "n_long_side": {
+      "0": 509,
+      "1": 489,
+      "2": 457
+    },
+    "base_n": {
+      "0": 113183,
+      "1": 113181,
+      "2": 113178
+    },
+    "base_mean": {
+      "0": -8.62246e-07,
+      "1": -2.41054e-06,
+      "2": -4.23173e-06
+    },
+    "base_median": {
+      "0": -3.34625e-07,
+      "1": -1.72223e-06,
+      "2": -2.95449e-06
+    },
+    "base_hit_rate": {
+      "0": 0.49914,
+      "1": 0.49939,
+      "2": 0.499259
+    },
+    "base_std": {
+      "0": 0.00167423,
+      "1": 0.00285259,
+      "2": 0.00401432
+    },
+    "mean": {
+      "0": 1.3721e-05,
+      "1": -5.13163e-05,
+      "2": -0.000105464
+    },
+    "median": {
+      "0": -0.000102355,
+      "1": -0.000189218,
+      "2": -0.00028655
+    },
+    "hit_rate": {
+      "0": 0.455543,
+      "1": 0.450624,
+      "2": 0.445378
+    },
+    "std": {
+      "0": 0.00237486,
+      "1": 0.00339107,
+      "2": 0.00433177
+    },
+    "t_stat": {
+      "0": 0.174385,
+      "1": -0.449166,
+      "2": -0.702683
+    },
+    "excess_mean": {
+      "0": 1.45833e-05,
+      "1": -4.89057e-05,
+      "2": -0.000101232
+    },
+    "excess_median": {
+      "0": -0.00010202,
+      "1": -0.000187496,
+      "2": -0.000283595
+    },
+    "beats_cost_band": {
+      "0": false,
+      "1": false,
+      "2": false
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "strategy": "spread-capture (decision closed)",
+  "original_bar_per_side_bps": 17.0,
+  "live_max_inside_spread_bps_doge": 1.076716,
+  "measured_basket_half_spread_median_bps": 0.5314594107286965,
+  "measured_basket_half_spread_p90_bps": 1.6695176026672218,
+  "note": "Still fails as a standalone edge: capturing the inside spread cannot cover commission even at maker 2 bps; half-spread << commission. No blotter to reprice. Verdict does NOT flip."
+}

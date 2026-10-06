@@ -1,0 +1,80 @@
+[
+  {
+    "scenario": "assumed_17",
+    "per_side_bps": 17.0,
+    "rt_band_bps": 34.0,
+    "n_cells": 132,
+    "n_beat_band": 0,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": false
+  },
+  {
+    "scenario": "taker_5_5_assumed_spread_slip",
+    "per_side_bps": 12.5,
+    "rt_band_bps": 25.0,
+    "n_cells": 132,
+    "n_beat_band": 0,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": false
+  },
+  {
+    "scenario": "maker_2_assumed_spread_slip",
+    "per_side_bps": 9,
+    "rt_band_bps": 18,
+    "n_cells": 132,
+    "n_beat_band": 1,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": true
+  },
+  {
+    "scenario": "taker_5_5_measured_median",
+    "per_side_bps": 6.06032242995993,
+    "rt_band_bps": 12.12064485991986,
+    "n_cells": 132,
+    "n_beat_band": 2,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": true
+  },
+  {
+    "scenario": "comm10_measured_median",
+    "per_side_bps": 10.56032242995993,
+    "rt_band_bps": 21.12064485991986,
+    "n_cells": 132,
+    "n_beat_band": 0,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": false
+  },
+  {
+    "scenario": "maker_2_measured_median",
+    "per_side_bps": 2.5603224299599296,
+    "rt_band_bps": 5.120644859919859,
+    "n_cells": 132,
+    "n_beat_band": 11,
+    "max_excess_bps": 20.431,
+    "flip_any_cell_to_pass": true
+  },
+  {
+    "scenario": "assumed_17_primary_only",
+    "per_side_bps": 17.0,
+    "rt_band_bps": 34.0,
+    "n_cells": 22,
+    "n_beat_band": 0,
+    "max_excess_bps": 6.76366
+  },
+  {
+    "scenario": "taker_5_5_measured_median_primary_only",
+    "per_side_bps": 6.06032242995993,
+    "rt_band_bps": 12.12064485991986,
+    "n_cells": 22,
+    "n_beat_band": 0,
+    "max_excess_bps": 6.76366
+  },
+  {
+    "scenario": "maker_2_measured_median_primary_only",
+    "per_side_bps": 2.5603224299599296,
+    "rt_band_bps": 5.120644859919859,
+    "n_cells": 22,
+    "n_beat_band": 2,
+    "max_excess_bps": 6.76366
+  }
+]

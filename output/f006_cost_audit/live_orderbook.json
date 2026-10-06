@@ -1,0 +1,62 @@
+[
+  {
+    "symbol": "BTCUSDT",
+    "mid": 86176.85,
+    "half_spread_bps": 0.005802022236323841,
+    "impact_beyond_touch_buy_bps": 0.0,
+    "impact_beyond_touch_sell_bps": 8.443055282691958e-13,
+    "full_buy_bps": 0.005802022233790925,
+    "full_sell_bps": 0.005802022237168147,
+    "bid_depth_50_usd": 2412815.3713000016,
+    "ask_depth_50_usd": 1386863.3990000002,
+    "ts": "2026-10-06T14:37:39.834222+00:00"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "mid": 2711.415,
+    "half_spread_bps": 0.018440555946283174,
+    "impact_beyond_touch_buy_bps": 0.0,
+    "impact_beyond_touch_sell_bps": 0.0,
+    "full_buy_bps": 0.018440555946283174,
+    "full_sell_bps": 0.018440555946283174,
+    "bid_depth_50_usd": 2986822.9367000004,
+    "ask_depth_50_usd": 733542.8373000001,
+    "ts": "2026-10-06T14:37:40.007195+00:00"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "mid": 121.245,
+    "half_spread_bps": 0.4123881397173127,
+    "impact_beyond_touch_buy_bps": 0.0,
+    "impact_beyond_touch_sell_bps": 5.860312235483889e-13,
+    "full_buy_bps": 0.41238813971672666,
+    "full_sell_bps": 0.4123881397178987,
+    "bid_depth_50_usd": 10471941.195,
+    "ask_depth_50_usd": 12488236.965,
+    "ts": "2026-10-06T14:37:40.180323+00:00"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "mid": 1.51545,
+    "half_spread_bps": 0.3299350028044112,
+    "impact_beyond_touch_buy_bps": 0.0,
+    "impact_beyond_touch_sell_bps": 0.0,
+    "full_buy_bps": 0.3299350028036786,
+    "full_sell_bps": 0.3299350028036786,
+    "bid_depth_50_usd": 6158249.6220200015,
+    "ask_depth_50_usd": 5619786.333430001,
+    "ts": "2026-10-06T14:37:40.354209+00:00"
+  },
+  {
+    "symbol": "DOGEUSDT",
+    "mid": 0.095825,
+    "half_spread_bps": 0.5217845030000586,
+    "impact_beyond_touch_buy_bps": 7.240874566605271e-13,
+    "impact_beyond_touch_sell_bps": 0.2886301923101805,
+    "full_buy_bps": 0.5217845030007827,
+    "full_sell_bps": 0.8104146953102391,
+    "bid_depth_50_usd": 5136350.451100002,
+    "ask_depth_50_usd": 5617028.846710001,
+    "ts": "2026-10-06T14:37:40.526465+00:00"
+  }
+]
