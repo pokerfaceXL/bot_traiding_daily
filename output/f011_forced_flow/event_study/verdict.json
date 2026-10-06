@@ -1,0 +1,31 @@
+{
+  "H-FORCEDFLOW-CONTINUATION-01": {
+    "edge": false,
+    "horizons_passing_all_symbols": [],
+    "horizons_passing_per_symbol": {
+      "BTCUSDT": [],
+      "ETHUSDT": []
+    }
+  },
+  "H-FORCEDFLOW-EXHAUSTION-01": {
+    "edge": false,
+    "horizons_passing_all_symbols": [],
+    "horizons_passing_per_symbol": {
+      "BTCUSDT": [],
+      "ETHUSDT": []
+    }
+  },
+  "_meta": {
+    "cost_band_round_trip": 0.0034,
+    "cells_primary": 22,
+    "cells_total_incl_robustness": 132,
+    "variants": [
+      "exhaustion_impact_ratio=0.25",
+      "fps_threshold=3.0",
+      "fuel_percentile=0.99",
+      "ofi_threshold=0.2",
+      "primary",
+      "stress_return_atr=2.5"
+    ]
+  }
+}

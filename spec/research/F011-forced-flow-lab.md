@@ -147,6 +147,35 @@ thing to acquire if Stage 1 shows signal.
 > widening-to-fit). A clean negative is a valid, kept result — it tells us the OI-only proxy is
 > too coarse and that liquidation/order-flow data is required before Stage 2.
 
+### Result (T3, 2026-10-06)
+
+Event study on the 5m T2 states, Train-1 (2024-02-02 → 2025-02-28), BTCUSDT + ETHUSDT. Code
+`forced_flow_lab/event_study.py`; tables, verdict and method in `output/f011_forced_flow/event_study/`
+(`report.md`, `verdict.json`, `cells.csv`, one CSV per hypothesis).
+
+- **H-FORCEDFLOW-CONTINUATION-01: no edge.** 0 of 10 primary cells, and 0 of 60 incl. the frozen
+  grid, beat the baseline by > 34 bps. Signed conditional means are −13.4…+0.1 bps; hit rates are
+  0.43–0.46 at every horizon on both symbols. Stress/cascade entries are followed by a small *reversal*,
+  not continuation, and it is far below the cost band (largest |excess| 13 bps, ETH +4h, t = −1.8).
+- **H-FORCEDFLOW-EXHAUSTION-01: no edge.** 0 of 12 primary cells, and 0 of 72 incl. grid, pass.
+  BTC is ≤ +0.4 bps excess at every horizon. ETH is +2…+7 bps up to 60m (n = 41–90, |t| ≤ 1.5), then
+  turns negative (−67 bps at +8h, n = 38). It does not hold on both symbols and never nears the band.
+- **Cells tested:** 22 primary (5 + 6 horizons × 2 symbols); 132 including the 5 one-at-a-time grid
+  variants. Largest excess in any cell: +20.4 bps (exhaustion, ETH, 60m, `stress_return_atr=2.5`, n = 20).
+- **Method:** event = state entry (STRESS→CASCADE on one side counts as one episode). Overlap: greedy
+  non-overlapping per hypothesis × symbol × horizon (keep only if t ≥ previous kept t + h). Forward return
+  is close_t → close_{t+h}, and an event is dropped if its window passes the last labelled bar. Returns
+  are signed by the predicted direction. Baseline: unconditional same-symbol forward return, weighted by
+  the events' side mix. Pass: signed mean > 0 and excess > 34 bps RT at the same horizon on both symbols.
+- **Caveat:** liquidation columns are null across Train-1, so CASCADE/EXHAUSTION rely on an OI/ATR fuel
+  proxy plus 5m taker flow. They are not observed forced orders, and there is no order-book depth. This null
+  says the OI + taker-flow proxy carries no tradable state edge at 5m. It does not rule out an edge in
+  liquidation-driven flow measured directly.
+
+### Decision
+
+_Left for the coordinator._
+
 ## 10. Scope guards
 
 - Non-trading until Stage 1 produces a statistical edge. No orders, no positions, no promotion.

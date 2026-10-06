@@ -59,9 +59,10 @@ def entries(state: pd.Series, sides: dict) -> pd.DataFrame:
     for direction, names in sides.items():
         inside = np.isin(values, names)
         prev = np.concatenate(([False], inside[:-1]))
+        side = names[0].split("_")[0]
         for pos in np.flatnonzero(inside & ~prev):
-            rows.append((int(pos), direction))
-    return pd.DataFrame(sorted(rows), columns=["pos", "direction"])
+            rows.append((int(pos), direction, side))
+    return pd.DataFrame(sorted(rows), columns=["pos", "direction", "side"])
 
 
 def forward_returns(close: pd.Series, horizon: int) -> np.ndarray:
@@ -100,7 +101,7 @@ def cell(ev: pd.DataFrame, fwd_all: np.ndarray) -> dict:
     """Conditional vs side-weighted unconditional stats for one hypothesis x symbol x horizon."""
     base = fwd_all[~np.isnan(fwd_all)]
     n = len(ev)
-    out = {"n_events": n, "n_long_side": int((ev.direction == -1).sum()) if n else 0}
+    out = {"n_events": n, "n_long_side": int((ev.side == "LONG").sum()) if n else 0}
     weights = {d: float((ev.direction == d).mean()) if n else 0.0 for d in (-1, +1)}
     out.update({
         "base_n": int(len(base)),
@@ -172,6 +173,89 @@ def run(symbols=SYMBOLS) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def bps(x) -> str:
+    return "—" if pd.isna(x) else f"{x * 1e4:+.1f}"
+
+
+def write_report(table: pd.DataFrame, v: dict, path: Path) -> None:
+    primary = table[table.variant == "primary"]
+    meta = v["_meta"]
+    lines = [
+        "# F011 T3 — forced-flow state-entry event study (5m, Train-1, non-trading)",
+        "",
+        "Code: `forced_flow_lab/event_study.py`. Input: T2 states `output/f011_forced_flow/states/<SYMBOL>.csv.gz`"
+        " + `close` from `frame_5m` (labelled rows only). No orders, positions, sizing or PnL.",
+        "",
+        "## Method",
+        "",
+        "- **Event = state entry**: first bar of a run in the side's state set (continuation: STRESS or CASCADE"
+        " per side, so STRESS→CASCADE is one episode; exhaustion: EXHAUSTION per side).",
+        "- **Timing / look-ahead**: label at bar t is known at its close; forward return = close_{t+h}/close_t − 1."
+        " Events whose t+h is past the last labelled bar (2025-02-28 23:55 UTC) are dropped, never truncated.",
+        "- **Overlap policy**: per hypothesis × symbol × horizon, entries (long and short sides in one stream) are"
+        " thinned greedily in time order: an entry is kept only if t ≥ previous kept t + h. `n_entries_raw` is the"
+        " unthinned count; `n_events` is what the statistics use.",
+        "- **Signed return**: × predicted direction (continuation LONG side −1 / SHORT +1; exhaustion LONG +1 /"
+        " SHORT −1), so positive = hypothesis direction.",
+        "- **Baseline**: unconditional forward return over every labelled bar of the same symbol with a complete"
+        " window (overlapping), signed with the events' side mix.",
+        f"- **Pass rule (§9)**: signed conditional mean > 0 AND excess mean over baseline > {meta['cost_band_round_trip'] * 1e4:.0f} bps"
+        " (34 bps RT cost band) at the same horizon on **both** BTCUSDT and ETHUSDT, primary thresholds."
+        " The frozen one-at-a-time T2 grid is reported as robustness; it cannot create a pass on its own.",
+        f"- **Cells tested**: {meta['cells_primary']} primary (continuation 5 horizons × 2 symbols + exhaustion"
+        f" 6 horizons × 2 symbols); {meta['cells_total_incl_robustness']} including the"
+        f" {len(meta['variants']) - 1} frozen grid variants.",
+        "",
+        "## Verdict",
+        "",
+    ]
+    for hyp in HYPOTHESES:
+        r = v[hyp]
+        lines.append(f"- **{hyp}: {'EDGE' if r['edge'] else 'NO EDGE'}** — horizons passing on both symbols:"
+                     f" {r['horizons_passing_all_symbols'] or 'none'}; cells beating the band across all"
+                     f" {meta['cells_total_incl_robustness']}: {int(table[table.hypothesis == hyp].beats_cost_band.sum())}.")
+    lines.append("")
+    cols = ["n_entries_raw", "n_events", "n_long_side", "mean", "base_mean", "excess_mean", "median",
+            "base_median", "hit_rate", "base_hit_rate", "std", "t_stat", "beats_cost_band"]
+    for hyp in HYPOTHESES:
+        lines += [f"## {hyp} (primary thresholds; returns in bps, signed)", ""]
+        for sym, g in primary[primary.hypothesis == hyp].groupby("symbol", sort=False):
+            lines += [f"### {sym}", "",
+                      "| horizon | raw entries | n events | long-side | mean | base mean | excess mean | median | base median"
+                      " | hit rate | base hit | std | t | beats band |",
+                      "|---|" + "---:|" * 13]
+            for _, r in g.iterrows():
+                lines.append(f"| {r.horizon} | {r.n_entries_raw} | {r.n_events} | {r.n_long_side} | {bps(r['mean'])} |"
+                             f" {bps(r.base_mean)} | {bps(r.excess_mean)} | {bps(r['median'])} | {bps(r.base_median)} |"
+                             f" {r.hit_rate:.3f} | {r.base_hit_rate:.3f} | {r['std'] * 1e4:.1f} | {r.t_stat:+.2f} |"
+                             f" {'yes' if r.beats_cost_band else 'no'} |")
+            lines.append("")
+    lines += ["## Robustness — excess mean (bps) over baseline per frozen grid variant (n events)", ""]
+    variants = ["primary"] + [x for x in meta["variants"] if x != "primary"]
+    for hyp in HYPOTHESES:
+        lines += [f"### {hyp}", "", "| symbol | horizon | " + " | ".join(variants) + " |",
+                  "|---|---|" + "---:|" * len(variants)]
+        sub = table[table.hypothesis == hyp]
+        for (sym, hz), g in sub.groupby(["symbol", "horizon"], sort=False):
+            by = g.set_index("variant")
+            lines.append(f"| {sym} | {hz} | " + " | ".join(
+                f"{bps(by.loc[x, 'excess_mean'])} ({by.loc[x, 'n_events']})" for x in variants) + " |")
+        lines.append("")
+    best = table.loc[table.excess_mean.idxmax()]
+    lines += [
+        "## Notes",
+        "",
+        f"- Largest excess mean in all {meta['cells_total_incl_robustness']} cells: {bps(best.excess_mean)} bps"
+        f" ({best.hypothesis}, {best.symbol}, {best.horizon}, {best.variant}, n={best.n_events}) — below the 34 bps band.",
+        "- Caveat: Bybit liquidation columns are null for the whole Train-1 window, so CASCADE/EXHAUSTION use an"
+        " OI/ATR fuel proxy plus taker flow (`ofi`, impacts) — not observed forced orders. Order-book depth is absent."
+        " This limits how sharply the states isolate forced flow; a null here is evidence about the proxy, not"
+        " about liquidation-driven flow itself.",
+        "- Robustness variants share most events with the primary labelling; they are not independent tests.",
+    ]
+    path.write_text("\n".join(lines) + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--symbols", nargs="+", default=list(SYMBOLS))
@@ -190,6 +274,7 @@ def main():
         "variants": sorted(table.variant.unique().tolist()),
     }
     (OUTPUT / "verdict.json").write_text(json.dumps(v, indent=2) + "\n")
+    write_report(table, v, OUTPUT / "report.md")
     print(json.dumps(v, indent=2))
 
 

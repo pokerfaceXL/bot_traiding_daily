@@ -27,6 +27,7 @@ def test_long_to_short_switch_is_a_new_entry():
     state, _ = series(["LONG_EXHAUSTION", "SHORT_EXHAUSTION", "SHORT_EXHAUSTION"])
     ev = es.entries(state, EXH)
     assert ev.pos.tolist() == [0, 1] and ev.direction.tolist() == [+1, -1]
+    assert ev.side.tolist() == ["LONG", "SHORT"]
 
 
 def test_forward_return_uses_close_t_to_close_t_plus_h_and_drops_tail():
@@ -74,7 +75,7 @@ def test_signing_continuation_long_side_down_is_positive():
 
 def test_cell_beats_band_only_by_more_than_cost_and_in_predicted_direction():
     fwd_all = np.zeros(100)
-    ev = pd.DataFrame({"direction": [-1, -1], "fwd": [-0.004, -0.004]})
+    ev = pd.DataFrame({"direction": [-1, -1], "side": ["LONG", "LONG"], "fwd": [-0.004, -0.004]})
     ev["signed"] = ev.direction * ev.fwd
     assert es.cell(ev, fwd_all)["beats_cost_band"]
     ev["fwd"] = [-0.0034, -0.0034]
