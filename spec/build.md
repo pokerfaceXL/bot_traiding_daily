@@ -11,35 +11,35 @@
 
 ## NOW
 
-- **2026-10-06 night Europe/Warsaw — Collector portfolio review (PO mandate).** Note `spec/research/F013-collector-portfolio-review-2026-10-06.md`. Decisions: `f011-liq-collector` **REVIEW_AT_N** (H-PRECASCADE-LIQ-01; N=50 liq-defined cascade episodes/symbol; earliest reassess **2026-10-20** Europe/Warsaw; control owner ChatGPT PO; measurement owner Limen coordinator); `f012-deribit-book.timer` **SUNSET** (C04/C05 rejected/blocked; unsigned book does not repair); `f012-farside-etf.timer` **SUNSET** (C01 mechanism-ID FAIL; larger sample ≠ repair). **STOP:** do not execute SUNSET or reopen tests without a further PO decision. All three collectors still running.
-- **2026-10-06 — F012 CLOSED / F013 NO CANDIDATE; structural-edge PARKED — evidence constrained.** C01/C02 = mechanism-identification FAIL; C03/R2-A = PIT-data FAIL (mechanism untested). F013 brief: 5 mechanisms PIT-first → NO CANDIDATE. Outcome `spec/features/done/F012-structural-edge/outcome.md`; brief `spec/research/F013-structural-edge-identification-brief.md`. No auto R2-B/R2-C; no new alpha family.
-- **2026-10-06 — F011 Forced-Flow Lab ARCHIVED.** T4 all-negative; paid liq NO-GO. Unresolved only `H-PRECASCADE-LIQ-01` on live collector (see portfolio review). Spec `spec/research/F011-forced-flow-lab.md` §9b.
-- **F006 catalog status (authoritative):** all catalog5 names + `DONCHIAN_55_NO_TRAIL` + `EMA3_21_50_200` = **FREEZE** on own-trade axes. Shared-losing months CONFIRMED blocks §8 in-class portfolio. Funding-carry **FALSIFIED**; spread-capture **CLOSED**; catalog mean-reversion closed; `H-NONCANDLE-SLEEVE-01` **FALSIFIED**. Do not reopen. SSOT: `spec/RESEARCH_JOURNAL.md`.
-- **Active collector units (still running after review):** `f011-liq-collector.service` (continuous); `f012-deribit-book.timer` (hourly); `f012-farside-etf.timer` (daily 21:30 UTC). Data under `data_cache/liquidations/bybit/` and `data_cache/f012/`.
-- **Board rule after this review:** do not spawn R2-B/R2-C, F011 cascades, catalog MR, funding-carry, spread-capture, or a new structural-edge candidate list without an explicit new PO mandate.
-- Owner-tier primary cost **≈ 9.9 bp RT** (`spec/research/F012-owner-cost-hurdle.md`). Free PIT data remains a condition. Project still has no exchange API keys from this box.
+- **2026-10-06 ~22:28 Europe/Warsaw — F012 SUNSET executed (PO-approved).** Proof `spec/research/F013-f012-sunset-executed-2026-10-06.md`. Stopped+disabled `f012-deribit-book.timer` and `f012-farside-etf.timer` (oneshots inactive). Preserved `data_cache/f012/deribit_book/` and `data_cache/f012/etf_flows/`. `f011-liq-collector` left running (MainPID unchanged).
+- **f011 REVIEW_AT_N (confirmed):** N=50 independent liq-defined cascade episodes/symbol; earliest checkpoint **2026-10-20** Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO. Not a reopen of F011 tests now.
+- **2026-10-06 — F012 CLOSED / F013 NO CANDIDATE; structural-edge PARKED — evidence constrained.** Portfolio review note `spec/research/F013-collector-portfolio-review-2026-10-06.md`. Outcome `spec/features/done/F012-structural-edge/outcome.md`; brief `spec/research/F013-structural-edge-identification-brief.md`.
+- **F006 catalog status (authoritative):** catalog5 + `DONCHIAN_55_NO_TRAIL` + `EMA3_21_50_200` = **FREEZE** on own-trade axes. Funding-carry **FALSIFIED**; spread-capture **CLOSED**; catalog MR closed; `H-NONCANDLE-SLEEVE-01` **FALSIFIED**. SSOT: `spec/RESEARCH_JOURNAL.md`.
+- **Active collector unit:** `f011-liq-collector.service` only (continuous). F012 timers **disabled/inactive**. Data: `data_cache/liquidations/bybit/` (live) + preserved `data_cache/f012/`.
+- **Board rule:** no R2-B/R2-C, F011 cascades, catalog MR, funding-carry, spread-capture, or new structural-edge candidate list without explicit new PO mandate.
+- Owner-tier primary cost **≈ 9.9 bp RT** (`spec/research/F012-owner-cost-hurdle.md`). Free PIT data remains a condition. No exchange API keys from this box.
 
 ## NEXT
 - ⚫ **structural-edge PARKED — evidence constrained** (F012 CLOSED NO CANDIDATE + F013 NO CANDIDATE). Next research step = PO decision only.
-- ⚫ F011-forced-flow-lab **ARCHIVED**; collector **REVIEW_AT_N** per `spec/research/F013-collector-portfolio-review-2026-10-06.md` (do not stop until PO executes sunset/keep).
-- 🟡 Pending PO: execute documented SUNSET for `f012-deribit-book.timer` + `f012-farside-etf.timer` (preserve `data_cache/f012/`), or override.
+- ⚫ F011-forced-flow-lab **ARCHIVED**; collector **REVIEW_AT_N** (N=50/symbol; earliest **2026-10-20** Europe/Warsaw; measure=Limen coordinator; decide=ChatGPT PO).
+- ⚫ F012 collectors **SUNSET done** (timers disabled; data preserved under `data_cache/f012/`).
 - 🔴 F010-search-performance: deferred until grids grow.
 - 🔴 F007-portfolio-holdout: after a promotable F006 candidate (none now).
 - 🔴 F009-live-pilot: after F007 + owner decision.
 
 ## PROVEN
 
-- **Monitor checklist (collectors, until PO acts on SUNSET):**
-  - `systemctl --user status f011-liq-collector f012-deribit-book.timer f012-farside-etf.timer`
+- **Monitor checklist (active collector):**
+  - `systemctl --user status f011-liq-collector` (must stay active; do not stop/restart casually)
   - `cat data_cache/liquidations/bybit/heartbeat.json` (expect `connected` and fresh `updated_at`)
-  - `cat data_cache/f012/deribit_book/heartbeat.json` / `data_cache/f012/etf_flows/heartbeat.json`
-  - Do **not** `git reset --hard`; do **not** delete `data_cache/` collector trees on sunset.
+  - Preserved F012 trees (read-only ops): `data_cache/f012/deribit_book/`, `data_cache/f012/etf_flows/` — do **not** delete
+  - Do **not** `git reset --hard`
 
-- **2026-09 (highlights)** — F001–F004 infra merged (signal/risk contract, offline boundary, data contract, execution-equity). F005 baseline: 0/24885 valid months meet calendar-green under leverage=10; DD>50% universal on $500. Notes `spec/research/F00{1,2,3,4,5}-*.md`.
-- **2026-09→10 F006 (highlights)** — NO_TRAIL beats trailing; catalog5 + Donchian exhaust entry/exit/sizing/liquidity/HTF/depth/candle axes → **FREEZE** each name on own trades (not class REJECT). Swarm ~20 families H2-falsified. XS_RS / ORB closed. Mean-reversion aggregate-negative. Portfolio diversification exploration: no improvement vs best single (correlated losers). Detail remains in `spec/research/F006-*.md` + `spec/RESEARCH_JOURNAL.md`.
-- **2026-10-06 F011/F012/F013 (highlights)** — Forced-flow archived (T4). Structural-edge four tested mechanisms: two ID fails, two PIT fails; F013 brief NO CANDIDATE. Collector portfolio review encoded above.
-- Collectors (ops pointers, not edges): `forced_flow_lab/LIQ_COLLECTOR.md`; `f012_collectors/README.md`; units under `deploy/f011-liq-collector.service`, `deploy/f012-*.{service,timer}`.
-- Cost SSOT for structural work: owner-tier ≈9.92 bp RT taker (`spec/research/F012-owner-cost-hurdle.md`); 34 bp = historical/stress reference only.
+- **2026-09 (highlights)** — F001–F004 infra merged. F005 baseline: 0/24885 calendar-green under leverage=10; DD>50% on $500. Notes `spec/research/F00{1,2,3,4,5}-*.md`.
+- **2026-09→10 F006 (highlights)** — catalog5 + Donchian → **FREEZE** each name on own trades; swarm ~20 families H2-falsified; XS_RS/ORB/MR closed. Detail in `spec/research/F006-*.md` + journal.
+- **2026-10-06 F011/F012/F013 (highlights)** — Forced-flow archived (T4). Structural-edge: two ID fails, two PIT fails; F013 brief NO CANDIDATE. Portfolio review → F012 SUNSET executed; f011 REVIEW_AT_N. Proof `spec/research/F013-f012-sunset-executed-2026-10-06.md`.
+- Collectors (ops): `forced_flow_lab/LIQ_COLLECTOR.md`; `f012_collectors/README.md`; units under `deploy/`.
+- Cost SSOT: owner-tier ≈9.92 bp RT taker (`spec/research/F012-owner-cost-hurdle.md`); 34 bp = historical/stress only.
 - Brak strategii potwierdzonej w tym procesie.
 
 ## Decyzje i granice pracy

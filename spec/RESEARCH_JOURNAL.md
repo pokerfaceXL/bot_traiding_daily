@@ -88,17 +88,15 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-06 — F012 CLOSED NO CANDIDATE; F013 brief NO CANDIDATE)
+## Next planned step (2026-10-06 — F012 SUNSET done; f011 REVIEW_AT_N; structural-edge PARKED)
 
-F012 structural edge is **CLOSED, NO CANDIDATE** (`spec/features/done/F012-structural-edge/outcome.md`).
-Keep the two FAIL kinds apart: C01 and C02 are **mechanism-identification FAILs** (data existed). C03 and
-R2-A are **PIT-data FAILs** (Gate 0). R2-A gates 1–5 were **not tested** and no outcome was scored, so
-neither mechanism is refuted. The identification-only successor brief
-`spec/research/F013-structural-edge-identification-brief.md` audited 5 new mechanisms PIT-first
-(exchange leveraged tokens, CME margin hikes, Aave collateral cuts, Ethena hedge, R2-B re-evaluated).
-Verdict: **NO CANDIDATE**, because the forced quantity has no free PIT history (N1/N3/N5), access is
-forbidden by terms (N2), or the trigger is post-flow and in the carry family (N4). Next step = **PO decision
-only**. Do not auto-start R2-B/R2-C or any brief candidate, do not buy data, and leave the collectors unchanged.
+F012 structural edge remains **CLOSED, NO CANDIDATE**. F013 brief remains **NO CANDIDATE**. Board:
+**structural-edge PARKED — evidence constrained**. F012 timers **SUNSET executed** (2026-10-06 ~22:28
+Europe/Warsaw); data preserved under `data_cache/f012/`. Only `f011-liq-collector` stays active under
+**REVIEW_AT_N** (N=50 liq-defined cascade episodes/symbol; earliest checkpoint **2026-10-20**
+Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO). Next research step =
+**PO decision only**. Do not auto-start R2-B/R2-C, F011 tests, new alpha family, backtest, candidate
+selection, or new collector. Do not buy data. Proof: `spec/research/F013-f012-sunset-executed-2026-10-06.md`.
 
 ## Next planned step (superseded 2026-10-06 — was F011 ARCHIVED; §13 new direction)
 
@@ -1308,7 +1306,9 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   | collector | recommendation | reopen / sunset |
   | --- | --- | --- |
   | `f011-liq-collector` | **REVIEW_AT_N** | Trigger: ≥50 independent liq-defined cascade episodes/symbol for `H-PRECASCADE-LIQ-01` + PO decision; earliest date **2026-10-20** Europe/Warsaw; control owner ChatGPT PO; measurement owner Limen coordinator |
-  | `f012-deribit-book.timer` | **SUNSET** | Safe stop: `systemctl --user stop/disable` timer (+ oneshot if running); **preserve** `data_cache/f012/deribit_book/` — **not executed this ticket** |
-  | `f012-farside-etf.timer` | **SUNSET** | Safe stop: stop/disable timer; **preserve** `data_cache/f012/etf_flows/` — **not executed this ticket** |
+  | `f012-deribit-book.timer` | **SUNSET** | Safe stop: `systemctl --user stop/disable` timer (+ oneshot if running); **preserve** `data_cache/f012/deribit_book/` — **not executed this ticket** (executed later same night; see next entry) |
+  | `f012-farside-etf.timer` | **SUNSET** | Safe stop: stop/disable timer; **preserve** `data_cache/f012/etf_flows/` — **not executed this ticket** (executed later same night; see next entry) |
 
-  Rationale: liq collector still serves an open gate (sample-limited); Deribit unsigned book cannot fix C04/C05 blockers; Farside flows cannot repair C01 identification FAIL. Scope guards held: no F011 cascade resume, no catalog MR/funding/spread reopen, no new alpha family, no strategy/backtest/new collector, thresholds unchanged, cost ≈9.9 bp RT, free PIT remains. **STOP. Services still running.**
+  Rationale: liq collector still serves an open gate (sample-limited); Deribit unsigned book cannot fix C04/C05 blockers; Farside flows cannot repair C01 identification FAIL. Scope guards held: no F011 cascade resume, no catalog MR/funding/spread reopen, no new alpha family, no strategy/backtest/new collector, thresholds unchanged, cost ≈9.9 bp RT, free PIT remains. **STOP at review time. Services were still running then.**
+
+- **2026-10-06 ~22:28 Europe/Warsaw** — **F012 SUNSET executed (PO-approved operational).** Authority: ChatGPT PO approval of `spec/research/F013-collector-portfolio-review-2026-10-06.md`. Host `limen@100.98.80.81`. Commands: `systemctl --user stop` then `disable` for `f012-deribit-book.timer` (+ service) and `f012-farside-etf.timer` (+ service). After: both timers **disabled/inactive**; both oneshots inactive; `systemctl --user list-timers --all` → 0. Data preserved: `data_cache/f012/deribit_book/`, `data_cache/f012/etf_flows/` (not deleted). `f011-liq-collector` **untouched** and still **active** (MainPID 2460311 unchanged). REVIEW_AT_N confirmed: N=50 independent liq-defined cascade episodes/symbol; earliest checkpoint 2026-10-20 Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO. Proof note `spec/research/F013-f012-sunset-executed-2026-10-06.md`. Docs-only commit; no code. **STOP** — no F011 test, no new alpha, no backtest, no candidate selection, no new collector. No Slack/email/human contact.
