@@ -1,0 +1,58 @@
+{
+  "ticket": "spec/features/active/F011-forced-flow-diagnostics/ticket.md",
+  "spec": "spec/research/F011-forced-flow-lab.md \u00a79b",
+  "code": "forced_flow_lab/diagnostics.py",
+  "inputs": {
+    "frame": "output/f011_forced_flow/frame_5m/<SYMBOL>.csv.gz",
+    "states": "output/f011_forced_flow/states/<SYMBOL>.csv.gz (frozen T2 thresholds, not relabelled)"
+  },
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "window": "Train-1 labelled rows only",
+  "seed_baseline_sampling": 20261006,
+  "seed_bootstrap_test1": 20261007,
+  "seed_bootstrap_test2": 20261008,
+  "bootstrap_resamples": 2000,
+  "baselines_per_event": 20,
+  "exclusion_bars_each_side": 48,
+  "horizons": {
+    "5m": 1,
+    "15m": 3,
+    "30m": 6,
+    "1h": 12,
+    "4h": 48
+  },
+  "precascade_horizons": {
+    "15m": 3,
+    "30m": 6,
+    "60m": 12
+  },
+  "classes": {
+    "CROWDING": [
+      "CROWDING"
+    ],
+    "STRESS": [
+      "STRESS"
+    ],
+    "DELEVERAGING": [
+      "STRESS",
+      "LIQUIDATION_CASCADE"
+    ],
+    "CASCADE": [
+      "LIQUIDATION_CASCADE"
+    ],
+    "EXHAUSTION": [
+      "EXHAUSTION"
+    ]
+  },
+  "gates": {
+    "ratio": 1.25,
+    "cliffs_delta": 0.33,
+    "risk_difference": 0.15,
+    "pr_auc_lift": 2.0,
+    "min_test_positive_events": 20
+  },
+  "cost_band_round_trip_context_only": 0.0034
+}

@@ -238,7 +238,36 @@ recommendation is to **ARCHIVE** the forced-flow strategy (state that in Result)
 
 ### Result
 
-_Pending T4 run._
+T4 run 2026-10-06 on the frozen T2 states, Train-1 (2024-02-02 → 2025-02-28), BTCUSDT + ETHUSDT. Code
+`forced_flow_lab/diagnostics.py`; tables, verdicts, seeds and method in `output/f011_forced_flow/diagnostics/`
+(`report.md`, `verdict.json`, `manifest.json`, `test1_magnitude.csv.gz`, `test2_continuation_split.csv.gz`,
+`test3_precascade.csv`, per-event files). Baseline sampling seed 20261006; bootstraps 2000 resamples.
+
+- **H-FORCEDFLOW-DIAG-MAGNITUDE-01: NEGATIVE.** No class × horizon has mean |return| or forward realized
+  vol ≥ 1.25× the matched baseline with CI lo > 1 on all four symbol × half cells. Closest: STRESS /
+  DELEVERAGING at +5m (|ret| ratios 1.17 / 1.42 / 1.21 / 1.24 for BTC H1/H2, ETH H1/H2). The effect fades to
+  ~1.0–1.15 by +15m…+4h. CASCADE and EXHAUSTION (n ≈ 16–29 per half) are noisy, and their ratios flip across
+  halves. Mean |return| reaches the 34 bps cost band only at +4h (≈ 78–101 bps), where the matched
+  baseline is the same size.
+- **H-FORCEDFLOW-DIAG-CONTINUATION-SPLIT-01: NEGATIVE.** 29 features tested (15 continuous Cliff's δ +
+  14 categorical risk differences), 116 gate cells (CASCADE, +1h). 18 single cells clear effect + CI, but no
+  feature has the same sign on both symbols and both halves. Large effects flip sign between halves (e.g.
+  BTC realized-vol δ +0.49 in H1, −0.54 in H2). Continuation / reversal group n is 4–15 per symbol × half. The +30m robustness check and the
+  non-gating DELEVERAGING context are also NEGATIVE (DELEVERAGING: 0 cells clear the gate).
+- **H-FORCEDFLOW-DIAG-PRECASCADE-01: NEGATIVE (flagged).** The logistic model (C = 1.0, fit on the first
+  60%) has OOS PR-AUC lift ≥ 2 on both symbols at every horizon (BTC 7.0 / 4.0 / 3.3, ETH 9.9 / 6.9 / 6.1 at
+  15 / 30 / 60m). But the 40% test segment holds only 11 (BTC) and 18 (ETH) CASCADE entries, below the
+  pre-registered 20, so the gate is not met. Two caveats: (i) if y = 1 *bars* (33–214) were counted instead
+  of cascade entries, Test 3 would read POSITIVE; (ii) the lift is largely by construction. A CASCADE needs
+  an active crowd side plus STRESS conditions, so the CROWDING/STRESS flags (the largest coefficients, and
+  rule lifts of 1.1–11.6) are antecedents of the label, not independent forecasts. The open question for
+  the coordinator is in `output/f011_forced_flow/diagnostics/QUESTION.md`.
+- **Counts:** 3 tests; 1194 reported cells (Test 1 450, Test 2 696, Test 3 48); 222 gate cells
+  (100 + 116 + 6).
+- **Recommendation: all three pre-registered tests are NEGATIVE → ARCHIVE the forced-flow strategy**
+  (program note). This rests on the Test-3 positive-event count being read as cascade entries (see caveat
+  above). Liquidation columns remain null on Train-1, so this is a verdict on the OI + taker-flow proxy, not
+  on directly observed liquidation flow.
 
 ### Decision
 

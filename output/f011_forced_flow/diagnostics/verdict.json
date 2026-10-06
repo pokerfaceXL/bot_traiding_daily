@@ -1,0 +1,127 @@
+{
+  "H-FORCEDFLOW-DIAG-MAGNITUDE-01": {
+    "verdict": "NEGATIVE",
+    "passing": [],
+    "gate_cells": 100,
+    "class_horizon_metric_candidates": 50
+  },
+  "H-FORCEDFLOW-DIAG-CONTINUATION-SPLIT-01": {
+    "verdict": "NEGATIVE",
+    "class": "CASCADE",
+    "outcome": "1h",
+    "features_tested": 29,
+    "n_continuous": 15,
+    "n_categorical": 14,
+    "gate_cells": 116,
+    "passing": [],
+    "cells_meeting_effect_and_ci": 18
+  },
+  "H-FORCEDFLOW-DIAG-PRECASCADE-01": {
+    "verdict": "NEGATIVE",
+    "passing_horizons": [],
+    "per_horizon": {
+      "15m": {
+        "BTCUSDT": {
+          "lift": 7.018,
+          "pr_auc": 0.00512,
+          "base_rate": 0.00073,
+          "n_cascade_entries_test": 11,
+          "n_positive_bars_test": 33,
+          "few_positives_flag": true
+        },
+        "ETHUSDT": {
+          "lift": 9.856,
+          "pr_auc": 0.01176,
+          "base_rate": 0.00119,
+          "n_cascade_entries_test": 18,
+          "n_positive_bars_test": 54,
+          "few_positives_flag": true
+        }
+      },
+      "30m": {
+        "BTCUSDT": {
+          "lift": 3.963,
+          "pr_auc": 0.00578,
+          "base_rate": 0.00146,
+          "n_cascade_entries_test": 11,
+          "n_positive_bars_test": 66,
+          "few_positives_flag": true
+        },
+        "ETHUSDT": {
+          "lift": 6.854,
+          "pr_auc": 0.01636,
+          "base_rate": 0.00239,
+          "n_cascade_entries_test": 18,
+          "n_positive_bars_test": 108,
+          "few_positives_flag": true
+        }
+      },
+      "60m": {
+        "BTCUSDT": {
+          "lift": 3.341,
+          "pr_auc": 0.00975,
+          "base_rate": 0.00292,
+          "n_cascade_entries_test": 11,
+          "n_positive_bars_test": 132,
+          "few_positives_flag": true
+        },
+        "ETHUSDT": {
+          "lift": 6.087,
+          "pr_auc": 0.02879,
+          "base_rate": 0.00473,
+          "n_cascade_entries_test": 18,
+          "n_positive_bars_test": 214,
+          "few_positives_flag": true
+        }
+      }
+    },
+    "gate_cells": 6
+  },
+  "_context_non_gating": {
+    "test2_CASCADE_30m": {
+      "verdict": "NEGATIVE",
+      "class": "CASCADE",
+      "outcome": "30m",
+      "features_tested": 29,
+      "n_continuous": 15,
+      "n_categorical": 14,
+      "gate_cells": 116,
+      "passing": [],
+      "cells_meeting_effect_and_ci": 18
+    },
+    "test2_DELEVERAGING_1h": {
+      "verdict": "NEGATIVE",
+      "class": "DELEVERAGING",
+      "outcome": "1h",
+      "features_tested": 29,
+      "n_continuous": 15,
+      "n_categorical": 14,
+      "gate_cells": 116,
+      "passing": [],
+      "cells_meeting_effect_and_ci": 0
+    },
+    "test2_DELEVERAGING_30m": {
+      "verdict": "NEGATIVE",
+      "class": "DELEVERAGING",
+      "outcome": "30m",
+      "features_tested": 29,
+      "n_continuous": 15,
+      "n_categorical": 14,
+      "gate_cells": 116,
+      "passing": [],
+      "cells_meeting_effect_and_ci": 0
+    }
+  },
+  "_counts": {
+    "tests": 3,
+    "test1_cells": 450,
+    "test1_gate_cells": 100,
+    "test2_cells": 696,
+    "test2_gate_cells": 116,
+    "test3_cells": 48,
+    "test3_gate_cells": 6,
+    "total_cells": 1194,
+    "total_gate_cells": 222
+  },
+  "_recommendation": "ARCHIVE"
+}
