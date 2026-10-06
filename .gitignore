@@ -21,3 +21,6 @@ data_cache/frame_5m_inputs/
 
 # F012 free prospective collectors (raw snapshots, never commit)
 data_cache/f012/
+
+# F012-C02 delisting study raw caches (re-fetchable, never commit)
+data_cache/f012_c02/
