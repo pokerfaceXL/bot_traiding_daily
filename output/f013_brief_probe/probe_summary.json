@@ -1,0 +1,85 @@
+{
+ "probed_utc": "2026-10-06",
+ "bybit_announcements_api": {
+  "endpoint": "/v5/announcements/index?locale=en-US&limit=100&page=N",
+  "items_served": 5000,
+  "oldest_publish_utc": "2024-12-02T17:45:45+00:00",
+  "train1_days_covered": 88.3,
+  "train1_days": 365,
+  "train1_risk_limit_titles": [
+   [
+    "2025-02-27",
+    "USDT Perpetual: Risk Limit Adjustment for SOLUSDT"
+   ],
+   [
+    "2025-02-25",
+    "USDT Perpetual: Risk Limit Adjustment for XCNUSDT"
+   ],
+   [
+    "2025-02-20",
+    "USDT Perpetual: Risk Limit Adjustment for USDT Perps (Feb 20, 2025)"
+   ],
+   [
+    "2025-02-19",
+    "USDT Perpetual: Risk Limit Adjustment for ARCUSDT"
+   ],
+   [
+    "2025-02-17",
+    "USDT Perpetual: Risk Limit Adjustment for USDT Perps (Feb 18, 2025)"
+   ],
+   [
+    "2025-01-25",
+    "USDT Perpetual: Risk Limit Adjustment for BANUSDT (Jan 26, 2025)"
+   ],
+   [
+    "2025-01-22",
+    "USDT Perpetual: Risk Limit Adjustment for VTHOUSDT"
+   ],
+   [
+    "2025-01-20",
+    "USDT Perpetual: Risk Limit Adjustment for TRUMPUSDT"
+   ],
+   [
+    "2025-01-16",
+    "USDT Perpetual: Risk Limit Adjustment for ONDOUSDT"
+   ],
+   [
+    "2025-01-10",
+    "USDT Perpetual: Risk Limit Adjustment for ETHBTCUSDT"
+   ],
+   [
+    "2025-01-07",
+    "USDT Perpetual: Risk Limit Adjustment for USDT Perps (Jan 7, 2025)"
+   ],
+   [
+    "2024-12-18",
+    "USDT Perpetual: Risk Limit Adjustment for USDT Perps (Dec 20, 2024)"
+   ]
+  ]
+ },
+ "wayback_cdx_bybit_articles_train1": {
+  "distinct_urls": 1976,
+  "risk_limit_slugs": 16,
+  "leverage_slugs": 137
+ },
+ "bybit_lever_token_api": {
+  "/v5/spot-lever-token/info": "HTTP 404",
+  "/v5/spot-lever-token/reference?ltCoin=BTC3L": "HTTP 404 (empty body)"
+ },
+ "gate_lever_token": {
+  "/api/v4/spot/currencies/BTC3L": "HTTP 200, current metadata only (no outstanding/NAV history field)"
+ },
+ "cme_group": {
+  "historical-margins.html": "HTTP 403, anti-scraping Data Terms of Use message",
+  "CmeWS Margins": "HTTP 403 same"
+ },
+ "aave_proposals_v3_src": {
+  "repo": "bgd-labs/aave-proposals-v3 (moved to repositories/704198518)",
+  "src_dirs": 28,
+  "train1_dirs": 0,
+  "note": "tree pruned to 2026 payloads; Train-1 payloads only via git history / on-chain logs (not probed)"
+ },
+ "ethena_api": {
+  "https://api.ethena.fi/": "HTTP 403"
+ }
+}
