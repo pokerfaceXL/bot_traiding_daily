@@ -1275,3 +1275,6 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   rough cascade-like 5m bursts ~4–5/day). Closest Test-1 miss (CASCADE +15m vol 3/4) noted as
   context only. Tickets T2–T4 → `spec/features/done/`. Next = protocol §13 new direction
   (owner/trader); no open licensed axis on existing strategy profiles.
+
+- **2026-10-06 evening Europe/Warsaw** — **F012 research phase opened** per owner brief 2026-10-06; F011 archived; collector unchanged (`f011-liq-collector` left running, not touched). Candidate-selection study committed at `spec/research/F012-structural-edge-candidates.md` (≥16 mechanisms, anti-F011 A/B/C filter, data feasibility with live probes, scoring, falsification designs). Recommendation: **C02 exchange delisting forced unwind** (2nd C01 ETF NAV-window × prior flow; 3rd C03 token unlock cliffs). Optional free collectors: `f012-deribit-book.timer`, `f012-farside-etf.timer` under `f012_collectors/` (2 GB / 64 MB caps; stop via `systemctl --user stop f012-deribit-book.timer f012-farside-etf.timer`). No strategy implementation; no backtest; validation/holdout untouched.
+

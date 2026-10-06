@@ -1,0 +1,17 @@
+candidate,class,survive,causal,pre_flow,lead,magnitude,data_q,hist,backtest,persist,capacity,robust,complexity_inv,paid_inv,priced_inv,edge_34bp,total
+C01_etf_nav_window_prior_flow,A,yes,3,4,3,5,4,4,4,2,5,3,3,5,2,2,49
+C02_delisting_forced_unwind,A,yes,5,5,4,4,4,4,4,4,2,1,4,5,3,3,52
+C03_token_unlock_cliff,A,yes,3,5,5,4,2,2,2,4,3,3,3,1,2,3,42
+C04_deribit_max_pain_pin,C,no,1,2,2,2,3,3,3,2,3,3,3,4,1,1,33
+C05_deribit_dealer_charm,A,no,4,2,3,3,2,2,2,3,3,3,2,3,2,2,36
+C06_dated_futures_expiry,A,no,4,4,4,1,4,4,4,4,1,2,4,5,3,1,49
+C07_funding_settlement_clock,B,no,2,2,1,2,5,5,5,2,5,5,4,5,2,1,46
+C08_funding_basis_arb_unwind,B,no,3,2,2,3,4,4,4,2,4,4,3,5,2,1,43
+C09_spot_perp_basis_dislocation,B,no,2,1,1,1,4,4,4,2,4,4,3,5,1,1,37
+C10_stablecoin_mint_burn,A,no,2,3,2,3,3,3,3,3,3,2,3,4,2,2,38
+C11_coinbase_upbit_premium_leadlag,B,no,2,1,1,2,4,4,3,2,3,3,2,5,1,1,34
+C12_mstr_treasury_atm_8k,C,no,2,1,2,3,4,3,3,3,3,1,3,5,2,2,37
+C13_miner_scheduled_sell,C,no,2,1,2,2,2,2,2,3,2,1,2,3,2,1,27
+C14_vol_targeting_delever,B,no,3,3,2,3,2,2,2,3,3,2,2,3,2,2,34
+C15_hl_public_twap,A,no,5,5,3,1,3,1,2,3,1,1,3,4,3,1,36
+C16_index_rebalance,A,no,4,4,4,1,2,2,2,3,1,1,3,3,3,1,34

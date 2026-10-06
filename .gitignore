@@ -18,3 +18,6 @@ data_cache/f011_samples/
 data_cache/bybit_trades_5m/
 # F011 5m frame inputs (Bybit 5m OHLCV + Binance bn_ layer, re-fetchable)
 data_cache/frame_5m_inputs/
+
+# F012 free prospective collectors (raw snapshots, never commit)
+data_cache/f012/

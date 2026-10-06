@@ -1,0 +1,15 @@
+[Unit]
+Description=F012 Farside BTC/ETH ETF daily flow snapshot (non-trading)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/bot_traiding_daily/bot_traiding_daily
+Environment=PYTHONPATH=%h/bot_traiding_daily/bot_traiding_daily
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -m f012_collectors.farside_etf_flows --out-dir %h/bot_traiding_daily/bot_traiding_daily/data_cache/f012/etf_flows --max-dir-mb 64 --min-free-gb 5
+Nice=10
+
+[Install]
+WantedBy=default.target

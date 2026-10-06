@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily timer for F012 Farside ETF flow collector (after US cash close)
+
+[Timer]
+# 21:30 UTC ≈ after US cash equity close year-round with margin
+OnCalendar=*-*-* 21:30:00
+Persistent=true
+Unit=f012-farside-etf.service
+
+[Install]
+WantedBy=timers.target

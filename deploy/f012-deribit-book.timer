@@ -1,0 +1,12 @@
+[Unit]
+Description=Hourly timer for F012 Deribit book-summary collector
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1h
+AccuracySec=1min
+Persistent=true
+Unit=f012-deribit-book.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=F012 Deribit option book-summary snapshot (non-trading)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/bot_traiding_daily/bot_traiding_daily
+Environment=PYTHONPATH=%h/bot_traiding_daily/bot_traiding_daily
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -m f012_collectors.deribit_book_summary --out-dir %h/bot_traiding_daily/bot_traiding_daily/data_cache/f012/deribit_book --max-dir-gb 2 --min-free-gb 5
+Nice=10
+
+[Install]
+WantedBy=default.target
