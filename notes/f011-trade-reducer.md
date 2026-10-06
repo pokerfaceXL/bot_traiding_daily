@@ -1,7 +1,8 @@
 # Disk-safe Bybit 5m trade reducer — continuation handoff
 
-The first F011 T1b slice implements the streaming trade reducer only. The complete
-5m feature frame and the full 800-symbol-day Train-1 reduction are not delivered.
+Status 2026-10-06: the full Train-1 reduction and both 5m feature frames are
+built and committed. See "Full-range run and frame build (PROVEN)" below. The
+reducer safety contract and integration conventions in this file are unchanged.
 Ticket: `spec/features/active/F011-forced-flow-frame-5m/ticket.md`.
 Free-source authority: `output/f011_forced_flow/coverage/report.md`.
 
@@ -83,19 +84,64 @@ coordinator checkout into this worktree (git-ignored, no symlinks/downloads).
 Train-1 reducer run, complete 5m frame acceptance, and frame-specific 5m OI
 reconciliation have **not** run.
 
+## Full-range run and frame build (PROVEN)
+
+Reduction (`python3 -m forced_flow_lab.reduce_trades_5m`, one shared cache) ran to
+completion on 2026-10-06 for all 400 days × 2 symbols: 798 `written` + 2
+`verified-skip` (the pre-existing 2024-06-12 samples). All 800 day CSVs exist and
+checksum-verify; zero days carried empty 5m buckets; BTC reduced 675,698,155
+trades. Global minimum observed free space across the run was 33,270,108,160 bytes
+(30.99 GiB) — never near the 10 GiB guard. After the run `.raw-day.csv.gz` and all
+`*.part` files were absent. Per-day evidence (status, free-byte minima, trade
+counts): `/home/limen/f011-artifacts/frame-5m-continuation/reduction.jsonl`.
+
+Inputs: `python3 -m forced_flow_lab.fetch_inputs_5m --reuse-cache <checkout>/data_cache`
+fetched Bybit 5m OHLCV (REST kline, grid-exact) and the Binance `bn_` daily ZIPs
+(metrics + 5m klines), held in memory; it only reuses/copies the already-verified
+coverage inputs (5m OI, 5m account ratio, cached 8h funding, cached 1h OI) and the
+hourly `_60_` OHLCV data-contract cache. It never reads `data_cache/liquidations`
+nor the Bybit tick archive (that is the reducer's job alone).
+
+Frame: `python3 -m forced_flow_lab.build_frame_5m` wrote
+`output/f011_forced_flow/frame_5m/<SYMBOL>.csv.gz` + manifest (committed). Both
+symbols: 115,200 rows, 56 columns, warm-up 2,016 bars (= max rolling window =
+7 days of 5m OI/funding z-score). Zero post-warm-up nulls/infinities in the Bybit
+core columns; liquidation columns are float64 all-null (deliberate, no free
+Train-1 history); only the `bn_` metrics layer carries ~127–144 listed nulls where
+Binance dropped 5m metric bars (klines and all Bybit core series are complete).
+Hourly OI reconciliation: 9,600 hours matched, max |diff| 0.0, using the
+`openInterest` (two-sided) convention that equals the cached 1h OI exactly;
+`singleOpenInterest` (2x smaller) is not used. CVD is `cumsum(delta_cvd)` from a
+zero baseline at Train-1 start, never reset at midnight. Funding is the latest
+settlement ≤ bar open, strictly <8 h old, flagged (`funding_filled`, 114,000 bars)
+with `funding_age_minutes`.
+
+Checks run (not merely present): `python3 -m pytest -q` → **547 passed, 8
+skipped** (the pre-existing 8 skips; the 1h `test_causality` now passes because the
+hourly `_60_` caches are present). Focused: `test_frame_5m.py` **10 passed**,
+`test_reduce_trades_5m.py` **17 passed**. The strongest frame check is
+`test_compute_frame_is_prefix_causal`: recomputing on truncated input prefixes
+leaves every earlier row byte-identical, proving no feature reads future bars. An
+independent reconciliation unit test (`reconcile_hourly_oi`) covers both the exact
+match and the mismatch/missing-hour failure paths. A rebuild with the final code
+reproduced `frame_sha256` 27a31d89… (BTC) / 1b5c76848… (ETH).
+
 ## Remaining slice
 
-Run the remaining 798 symbol-days using the guarded reducer, then build the
-causal 5m frame from verified Plan-C inputs. No background full-range process was
-left running. Reduced sample days are retained both here and in the external
-bundle; copy CSV + matching manifest together to reuse them in another cache.
+The T1b frame is complete; the next tickets are F011-forced-flow-states and
+-event-study, which consume these frames. Before any downstream join, honor the
+row-availability rule: a row timestamped `t` is only known at `available_at`=t+5m
+(state snapshots at t, completed candle/flow over [t,t+5m)). Liquidation columns
+stay null for Train-1; the live collector's data (from 2026-10-05) is outside this
+window and is a separate future layer. The `bn_` columns are cross-venue
+robustness only — never substitute them for Bybit OI.
 
-The frame builder still needs Bybit 5m OI/account ratio/OHLCV, cached funding,
-separate `bn_` metrics/klines, frozen rolling choices, typed-null liquidations,
-full-range CVD, 115,200 rows/symbol, OI full-hour reconciliation and frame
-causality tests. Prefer `openInterest` if reconciling unchanged cached hourly OI;
-the coverage report proves it matches exactly, while `singleOpenInterest` is 2x
-smaller. The frame builder must document whichever convention it chooses.
+To reproduce from an empty cache: run the reducer (≈25 GB transient, one raw day
+at a time), then `fetch_inputs_5m --reuse-cache` (or let it fetch Bybit 5m OHLCV
+and hourly `_60_` from REST if no reuse cache), then `build_frame_5m`. The
+`data_cache/{bybit_trades_5m,frame_5m_inputs,open_interest_5m,account_ratio_5m}`
+trees are all git-ignored and re-fetchable.
 
 No collector service, `data_cache/liquidations`, strategy, live bot or catalog
-changes. No labels, event study, signals or backtests. No ticket/board edits.
+changes were made. No labels, event study, signals or backtests. No ticket/board
+edits.
