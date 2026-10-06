@@ -47,10 +47,12 @@ def synthetic_inputs(index):
 
 def test_compute_frame_is_prefix_causal():
     """Row i uses only data at or before i: truncating after i cannot change it."""
-    full_index = bf.grid("2024-01-26", "2024-02-02")  # 2016 bars = one warm-up window
+    full_index = bf.grid("2024-01-26", "2024-02-08")  # 3744 bars: prefixes reach past warm-up
     inputs = synthetic_inputs(full_index)
     full = bf.compute_frame(inputs, full_index)
-    for k in (300, 1200, 2000):
+    for k in (300, 2100, 2600, 3200):
+        if k > bf.WARMUP:
+            assert full[["oi_zscore", "funding_zscore"]].iloc[bf.WARMUP:k].notna().all().all()
         prefix_index = full_index[:k]
         prefix_inputs = {key: value.loc[value.index <= prefix_index[-1]] for key, value in inputs.items()}
         prefix = bf.compute_frame(prefix_inputs, prefix_index)
