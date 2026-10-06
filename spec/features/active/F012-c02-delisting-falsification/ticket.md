@@ -202,3 +202,7 @@ Full note: `spec/research/F012-c02-delisting-falsification.md`; tables: `output/
   venue stability and placebo fail. The profitable naive short is an information/stigma drift shared by spot,
   which the pre-registration defines as failure of the forced-flow hypothesis. C02 archived; no optimization.
 - Collectors `f011-liq-collector`, `f012-deribit-book.timer`, `f012-farside-etf.timer`: active, untouched.
+
+### Cost primary correction (2026-10-06)
+
+Owner: Derivatives fees BINDING. Primary RT = **≈9.92 bp taker** / **≈5.12 bp maker** (4.4/2.0 fee + 0.56 basket half-spread+impact). Stress 50/75/100; 34 = obsolete historical reference only. Recomputed nets in `output/f012_c02_delisting/costs_primary.csv`. **FAIL reaffirmed** (H2 + perp-vs-spot identification; cost hurdle does not flip).

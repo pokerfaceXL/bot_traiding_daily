@@ -1,5 +1,8 @@
 # F012-C02 · Delisting forced-unwind falsification — decision: **FAIL**
 
+> Primary cost hurdle = binding owner-tier RT **≈9.92 bp** (taker) / **≈5.12 bp** (maker).
+> 34 bp is obsolete historical reference. See `F012-owner-cost-hurdle.md`.
+
 Pre-registration: `spec/features/active/F012-c02-delisting-falsification/ticket.md` (commit `c48165a`).
 Train-1 only (2024-03-01 → 2025-03-01 UTC). Code: `delisting_lab/`. Tables: `output/f012_c02_delisting/`.
 Criteria were not changed after seeing data. Inference: cluster bootstrap on `day_batch_cluster_id`
@@ -90,27 +93,31 @@ effect on the token**, not a derivative forced-flow effect. Per the pre-registra
 the first without the second = FAILURE of the forced-flow hypothesis, even if a naive
 announcement-short backtest is profitable."
 
-## Costs (primary family: short at bar5m entry)
+## Costs — PRIMARY = binding owner-tier RT (≈9.92 taker / ≈5.12 maker)
 
-Fixed hurdles 34/50/75/100 bp RT: `costs_primary.csv`. Owner tier (`costs_owner_tier.csv`): taker
-4.4 bp/side + half the measured post-announcement buy/sell trade-price gap at entry (median 7.0 bp)
-+ half the median 1m high-low over the last 24h at exit (median 18.3 bp) → median owner RT 22 bp;
-funding carry added (shorts PAY on these names: mean −116 bp to eff−1h).
+Owner correction 2026-10-06: Derivatives fees are BINDING. See
+`spec/research/F012-owner-cost-hurdle.md`. Primary go/no-go uses basket
+owner-tier RT = 2×(fee + 0.56 bp half-spread+impact) → **9.92 bp taker**, **5.12 bp maker**.
+Stress: 50/75/100. **34 bp is historical-reference only (obsolete for owner decisions).**
+Tables: `costs_primary.csv`, `costs_latency_owner_primary.csv`, `costs_owner_primary.csv`.
+Event-measured delisting-asset spreads (median ~22 bp RT) are secondary only
+(`costs_event_measured_secondary.csv` if present) — not the primary hurdle.
 
-| subset | exit | owner fees+spread+funding: mean | median | 95% CI | + 50 bp floor: 95% CI |
-|---|---|---|---|---|---|
-| all | +24h | +329 | +99 | [−10, +665] | [−68, +618] |
-| all | +72h | +568 | +94 | [−96, +1234] | [−171, +1189] |
-| all | mid | +526 | +121 | [−90, +1138] | [−152, +1100] |
-| all | eff−1h | +834 | +576 | [+66, +1596] | [+13, +1581] |
-| bybit | eff−1h | +824 | +578 | [−56, +1736] | [−171, +1683] |
-| binance | eff−1h | +854 | +540 | [−444, +2330] | [−490, +2369] |
+Primary family: short at bar5m entry. Funding carry on these names is a cost to shorts
+(mean −116 bp to eff−1h).
 
-Only the hold-to-eff−1h leg survives costs on the pooled sample; it is not significant within
-either exchange, and Binance (12 clusters) has negative medians at +24h/+72h/mid. Shortability
-after the announcement (reduce-only / new-position restrictions) is not verified from history.
+| subset | exit | owner taker 9.92 mean / median / 95% CI | + funding mean | maker 5.12 mean |
+|---|---|---|---|---|
+| all | +24h | +379 / +150 / [+20, +723] | +342 | +384 |
+| all | **eff−1h** | **+962 / +610 / [+240, +1716]** | **+847** | **+967** |
 
-## Tail concentration (bar5m short → eff−1h, 50 bp RT, `tails_primary.csv`)
+Stress 50/75/100 at eff−1h (all): mean +922 / +897 / +872. Venue-split remains non-significant alone.
+
+**Cost hurdle does not flip the decision:** even at ~9.9 bp the FAIL rests on failed
+identification (perp−spot≈0), H2 (deadline drift CI includes 0), placebo, and venue instability —
+not on the old 34 bp floor.
+
+## Tail concentration (bar5m short → eff−1h, **owner taker 9.92 bp RT**, `tails_primary.csv`)
 
 | subset | n | mean | median | trim10 | win | top1/3/5 share of sum | mean ex top1/3/5 |
 |---|---|---|---|---|---|---|---|
@@ -134,18 +141,19 @@ support a pre-event positioning condition for an unwind direction.
 | ≥40 usable independent clusters | met (44 day-batch / 61 article) |
 | economically meaningful effect | met for the naive hold-to-eff−1h short |
 | credible vs matched control | met vs matched controls; **not met** vs time-scrambled placebo (p 0.10/0.13) |
-| positive after realistic costs | only eff−1h exit, pooled; +24h/+72h/mid CIs include 0 |
+| positive after realistic costs (owner-tier ~9.9) | eff−1h pooled survives owner RT + funding; **does not rescue FAIL** |
 | not driven by a handful of tokens | met (ex-top5 still +508 bp) |
 | stable across Binance/Bybit | **not met** (neither venue significant alone; Binance medians negative short-horizon) |
 | separation announcement vs subsequent drift | drift continues post-entry, but it is common to spot → informational |
 | forced-unwind identification (MOST IMPORTANT for C02) | **not met**: perp − spot ≈ 0 (+119 bp, wrong sign), basis ≈ 0, flow balanced, OI decay non-predictive, spot-only delistings fall as much |
 
-**FAIL.** The C02 mechanism — a known derivative shutdown deadline creating additional predictable
-flow after information is in spot — is not present. The naive post-announcement short is profitable
-in the pooled sample because delisted tokens keep losing value on spot and perp alike; that is an
-information/stigma drift, not the pre-registered edge, and it fails venue stability and the placebo
-test. C02 is archived. Per the ticket, no optimization; C01/C03 not started. The informational drift
-observation would need its own owner-approved pre-registration to be studied further.
+**FAIL** (reaffirmed after owner-tier ~9.9 bp primary recompute). The C02 mechanism — a known
+derivative shutdown deadline creating additional predictable flow after information is in spot —
+is not present. The naive post-announcement short remains profitable at owner-tier RT because
+delisted tokens keep losing value on spot and perp alike; that is an information/stigma drift, not
+the pre-registered forced-unwind edge, and it fails identification, H2, venue stability and the
+placebo test. Lowering the hurdle from 34→9.9 bp does not change those failures. C02 is archived.
+Per the ticket, no optimization; C01/C03 not started.
 
 ## Reproduce
 

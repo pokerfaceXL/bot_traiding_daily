@@ -31,9 +31,18 @@ HOURS = pd.Timedelta(hours=1)
 ANN_HORIZONS = {"1m": MIN, "5m": 5 * MIN, "15m": 15 * MIN, "30m": 30 * MIN, "1h": HOURS,
                 "4h": 4 * HOURS, "12h": 12 * HOURS, "24h": 24 * HOURS, "72h": 72 * HOURS}
 LATENCIES = ["10s", "30s", "60s", "bar1m", "bar5m"]
-COSTS_BP = [34, 50, 75, 100]
-OWNER_TAKER_BP = 4.4  # F006 owner-tier reprice, per side
-OWNER_MAKER_BP = 2.0
+# Binding owner Derivatives fees (2026-10-06). Go/no-go PRIMARY.
+# taker 4.4 bps, maker 2.0 bps; basket half-spread+impact ~0.56 bps.
+OWNER_TAKER_FEE_BP = 4.4
+OWNER_MAKER_FEE_BP = 2.0
+OWNER_HALF_SPREAD_IMPACT_BP = 0.56
+OWNER_RT_TAKER_BP = 2 * (OWNER_TAKER_FEE_BP + OWNER_HALF_SPREAD_IMPACT_BP)  # 9.92
+OWNER_RT_MAKER_BP = 2 * (OWNER_MAKER_FEE_BP + OWNER_HALF_SPREAD_IMPACT_BP)  # 5.12
+COSTS_BP_STRESS = [50, 75, 100]
+COSTS_BP_HIST_REF_OBSOLETE = 34
+COSTS_BP = [OWNER_RT_TAKER_BP, OWNER_RT_MAKER_BP, 50, 75, 100, COSTS_BP_HIST_REF_OBSOLETE]
+OWNER_TAKER_BP = OWNER_TAKER_FEE_BP
+OWNER_MAKER_BP = OWNER_MAKER_FEE_BP
 RNG = np.random.default_rng(20261006)
 
 
@@ -137,7 +146,15 @@ def owner_rt_cost(bs_gap_entry_bp: float, hl1m_exit_bp: float) -> float:
     over the final 24h at exit (spread+impact proxy for the illiquid tail)."""
     g = 0.0 if not np.isfinite(bs_gap_entry_bp) else max(bs_gap_entry_bp, 0.0)
     h = 0.0 if not np.isfinite(hl1m_exit_bp) else max(hl1m_exit_bp, 0.0)
-    return (2 * OWNER_TAKER_BP + g / 2 + h / 2) / 1e4
+    return (2 * OWNER_TAKER_FEE_BP + g / 2 + h / 2) / 1e4
+
+
+def owner_basket_rt_bp(side: str = "taker") -> float:
+    if side == "taker":
+        return OWNER_RT_TAKER_BP
+    if side == "maker":
+        return OWNER_RT_MAKER_BP
+    raise ValueError(side)
 
 
 def horizon_targets(ev) -> dict[str, pd.Timestamp]:

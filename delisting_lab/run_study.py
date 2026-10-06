@@ -275,7 +275,15 @@ def main():
     print(json.dumps(res, indent=2, default=str))
 
 
-COSTS = A.COSTS_BP
+COST_SCHEDULE = [
+    ("owner_taker_9.92", A.OWNER_RT_TAKER_BP, "primary"),
+    ("owner_maker_5.12", A.OWNER_RT_MAKER_BP, "primary_maker_bound"),
+    ("stress_50", 50.0, "stress"),
+    ("stress_75", 75.0, "stress"),
+    ("stress_100", 100.0, "stress"),
+    ("hist_ref_34_obsolete", float(A.COSTS_BP_HIST_REF_OBSOLETE), "historical_reference_obsolete"),
+]
+COSTS = [c for _, c, _ in COST_SCHEDULE]
 
 
 def md(df: pd.DataFrame) -> str:
