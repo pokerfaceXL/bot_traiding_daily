@@ -1,0 +1,102 @@
+{
+  "gate": 0,
+  "verdict": "KILL",
+  "reasons": [
+    "BITX PIT AUM coverage 11.6% < 90%"
+  ],
+  "n_sessions": 250,
+  "bitx_pit_coverage": 0.116,
+  "bitx_sessions_covered": 29,
+  "price_coverage_us": 1.0,
+  "price_us_days": 247,
+  "price_coverage_placebo": 1.0,
+  "price_placebo_days": 115,
+  "per_fund": {
+    "BITU": {
+      "sessions": 250,
+      "absent_prelaunch": 21,
+      "ok": 229,
+      "stale": 0,
+      "missing": 0,
+      "coverage_of_live": 1.0,
+      "pit_status": "UNVERIFIED-LABELED"
+    },
+    "BITX": {
+      "sessions": 250,
+      "absent_prelaunch": 0,
+      "ok": 8,
+      "stale": 21,
+      "missing": 221,
+      "coverage_of_live": 0.116,
+      "pit_status": "PIT-BY-CAPTURE"
+    },
+    "SBIT": {
+      "sessions": 250,
+      "absent_prelaunch": 21,
+      "ok": 229,
+      "stale": 0,
+      "missing": 0,
+      "coverage_of_live": 1.0,
+      "pit_status": "UNVERIFIED-LABELED"
+    }
+  },
+  "bitx_distinct_as_of": [
+    "2024-05-02",
+    "2024-05-03",
+    "2024-05-17",
+    "2024-05-20",
+    "2024-06-14",
+    "2024-09-05",
+    "2024-12-03",
+    "2025-01-17",
+    "2025-01-28"
+  ],
+  "bitx_covered_dates": [
+    "2024-05-03",
+    "2024-05-06",
+    "2024-05-07",
+    "2024-05-08",
+    "2024-05-09",
+    "2024-05-20",
+    "2024-05-21",
+    "2024-05-22",
+    "2024-05-23",
+    "2024-05-24",
+    "2024-06-17",
+    "2024-06-18",
+    "2024-06-20",
+    "2024-06-21",
+    "2024-09-06",
+    "2024-09-09",
+    "2024-09-10",
+    "2024-09-11",
+    "2024-12-05",
+    "2024-12-06",
+    "2024-12-09",
+    "2025-01-21",
+    "2025-01-22",
+    "2025-01-23",
+    "2025-01-24",
+    "2025-01-29",
+    "2025-01-30",
+    "2025-01-31",
+    "2025-02-03"
+  ],
+  "bitx_wayback_captures": {
+    "cdx_rows": 17,
+    "distinct_served": 10,
+    "parsed": 10,
+    "pit_valid": 10
+  },
+  "calendar_check": {
+    "hardcoded_sessions": 250,
+    "yahoo_bitx_sessions": 250,
+    "in_hardcoded_not_yahoo": [],
+    "in_yahoo_not_hardcoded": []
+  },
+  "leverage_evidence": {
+    "BITX": "volatilityshares.com/bitx: '2x Bitcoin ETF' (archived Train-1 title '2x Bitcoin Strategy ETF')",
+    "BITU": "proshares.com BITU: 'daily investment results ... two times (2x) the daily performance of the Bloomberg Bitcoin Index'",
+    "SBIT": "proshares.com SBIT: 'daily investment results ... -2x the daily performance of its underlying benchmark'"
+  }
+}

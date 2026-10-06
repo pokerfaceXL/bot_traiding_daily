@@ -1,0 +1,30 @@
+{
+  "study": "F012-R2A LETF daily reset identification",
+  "train1": [
+    "2024-03-01",
+    "2025-02-28"
+  ],
+  "prereg": "spec/features/active/F012-r2a-letf-reset-identification/prereg.md",
+  "verdict": "FAIL",
+  "killed_by": "Gate 0 (Data)",
+  "gates": {
+    "0": "KILL",
+    "1": "NOT REACHED",
+    "2": "NOT REACHED",
+    "3": "NOT REACHED",
+    "4": "NOT REACHED",
+    "5": "NOT REACHED"
+  },
+  "gate0_reasons": [
+    "BITX PIT AUM coverage 11.6% < 90%"
+  ],
+  "bitx_pit_coverage": 0.116,
+  "price_coverage_us": 1.0,
+  "pit_status": {
+    "BITX": "PIT-BY-CAPTURE",
+    "BITU": "UNVERIFIED-LABELED",
+    "SBIT": "UNVERIFIED-LABELED"
+  },
+  "cost_primary_bp_rt": 9.92,
+  "outcomes_scored": false
+}

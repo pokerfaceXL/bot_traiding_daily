@@ -1,0 +1,7 @@
+fund,L,source,url,as_of_rule,publication_evidence,pit_status
+BITX,2.0,Volatility Shares fund page (current snapshot only; no daily history file),https://www.volatilityshares.com/bitx,page shows 'Net Assets as of D' = D close,Wayback capture time (UTC) = latest possible publication,PIT by capture; sparse
+BITX,2.0,Volatility Shares premium/discount PDF,https://www.volatilityshares.com/download-premium-discount.php?ukey=bitx,chart of premium/discount only,n/a,no NAV x shares history -> unusable
+BITX,2.0,Volatility Shares holdings XLS,https://www.volatilityshares.com/download-holdings-usbanks.php?fund=bitx,"current holdings, no date or shares field",3 Train-1 captures,unusable for AUM
+BITU,2.0,"ProShares issuer history CSV (NAV, shares, AUM)",https://accounts.profunds.com/etfdata/ByFund/BITU-historical_nav.csv,row D = D close,downloaded 2026-10-06; assumed public D 20:00 ET,UNVERIFIED-LABELED
+SBIT,-2.0,"ProShares issuer history CSV (NAV, shares, AUM)",https://accounts.profunds.com/etfdata/ByFund/SBIT-historical_nav.csv,row D = D close,downloaded 2026-10-06; assumed public D 20:00 ET,UNVERIFIED-LABELED
+ALL,,SEC EDGAR N-PORT,https://www.sec.gov/cgi-bin/browse-edgar,monthly holdings,EDGAR acceptance time,monthly only -> never daily AUM (prereg §5.3)
