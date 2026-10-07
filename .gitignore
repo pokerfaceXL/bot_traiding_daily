@@ -30,3 +30,6 @@ data_cache/f012_c03/
 
 # F012-R2A LETF reset study raw caches (re-fetchable, never commit)
 data_cache/f012_r2a/
+
+# F013 Gate A raw re-fetch (announcement bodies; never committed)
+data_cache/f013/
