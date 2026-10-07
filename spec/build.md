@@ -11,7 +11,7 @@
 
 ## NOW
 
-- **2026-10-07 — F014 Systematic alpha discovery: 0/28 SURVIVORS — STOP, awaiting owner.** Owner mandate (PO skipped). Prereg + 28-hyp registry frozen (`1a4b5b7`, sha256 `b742d3fb…`) before scoring; scored DISCOVERY 2024-03-01→2025-03-01 only; validation/holdout **not opened**. BH family m=56: 10 tests q≤0.10; criteria pass C1 17, C2 2, C3 4, C4 14, **C5 (net@9.9>0) 0**. Strongest structure = 1h close-location/large-bar *reversal* (registered as continuation → not flipped post hoc), gross ≈3–10 bp/trade ≤ 9.9 bp. Prereg `spec/research/F014-systematic-alpha-discovery-prereg.md`; code `alpha_discovery_lab/`; outputs `output/f014_discovery/` (`STATUS.md`).
+- **2026-10-07 — F014 CLOSED NO CANDIDATE (owner).** Discovery 0/28 survivors at tip `4482000`; validation/holdout never opened. Archived to `spec/features/done/F014-systematic-alpha-discovery/` (+ `outcome.md`). Note `spec/research/F014-systematic-alpha-discovery-discovery.md`; outputs `output/f014_discovery/`. Research program stopped pending new owner mandate.
 - **2026-10-07 — F013 Delisting Informational Alpha: FAIL, ARCHIVED.** Gate A PASS, B PASS, C PASS (98.6 % eligible). **Gate D (KILL) FAIL**: 55 events / 32 day-batch clusters, net@34 mean +528.5 bp but CI [−197.1, +1182.8]. E–Q not run (stop rule). Validation and holdout **never opened**. Note `spec/research/F013-delisting-informational-alpha-discovery.md`; outcome `spec/features/done/F013-delisting-informational-alpha/outcome.md`; outputs `output/f013_delisting_info/`.
 - **2026-10-06 ~22:28 Europe/Warsaw — F012 SUNSET executed (PO-approved).** Proof `spec/research/F013-f012-sunset-executed-2026-10-06.md`. Stopped+disabled `f012-deribit-book.timer` and `f012-farside-etf.timer` (oneshots inactive). Preserved `data_cache/f012/deribit_book/` and `data_cache/f012/etf_flows/`. `f011-liq-collector` left running (MainPID unchanged).
 - **f011 REVIEW_AT_N (confirmed):** N=50 independent liq-defined cascade episodes/symbol; earliest checkpoint **2026-10-20** Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO. Not a reopen of F011 tests now.
@@ -22,8 +22,9 @@
 - Owner-tier primary cost **≈ 9.9 bp RT** (`spec/research/F012-owner-cost-hurdle.md`). Free PIT data remains a condition. No exchange API keys from this box.
 
 ## NEXT
-- ⚫ **F014 discovery — 0 survivors; STOP.** Owner decision only. No validation run (nothing to validate). A maker-execution reversal study would be a NEW prereg, not an F014 continuation.
-- ⚫ **F013 delisting informational alpha — FAIL, archived** (Gate D KILL on discovery; validation untouched). No relabeled retry; next step = owner decision only.
+- ⚫ **Research program CLOSED by owner 2026-10-07.** F011–F014 archived / NO CANDIDATE. No open research tickets. Next work requires a new owner mandate.
+- ⚫ **F014 CLOSED NO CANDIDATE** — do not open validation; do not flip signs; maker reversal = NEW prereg only.
+- ⚫ **F013 FAIL archived** (Gate D KILL). No relabeled retry.
 - ⚫ **structural-edge PARKED — evidence constrained** for other candidates (F012 CLOSED NO CANDIDATE; F013 brief NO CANDIDATE historical).
 - ⚫ F011-forced-flow-lab **ARCHIVED**; collector **REVIEW_AT_N** (N=50/symbol; earliest **2026-10-20** Europe/Warsaw; measure=Limen coordinator; decide=ChatGPT PO).
 - ⚫ F012 collectors **SUNSET done** (timers disabled; data preserved under `data_cache/f012/`).
