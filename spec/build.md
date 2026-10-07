@@ -11,7 +11,7 @@
 
 ## NOW
 
-- **2026-10-07 — F013 Delisting Informational Alpha OPEN (owner mandate).** Informational underreaction after public delisting announcements; not forced-flow, not C02 revival. Prereg (gates A–Q, validation [2025-03-01, 2026-03-01) frozen untouched) `spec/research/F013-delisting-informational-alpha-prereg.md`. **Gate A PASS** (151/163 usable; 12 Bybit ambiguous-push events dropped) `output/f013_delisting_info/gate_a_timestamp_audit.md`. Next = Gate B on discovery.
+- **2026-10-07 — F013 Delisting Informational Alpha: FAIL, ARCHIVED.** Gate A PASS, B PASS, C PASS (98.6 % eligible). **Gate D (KILL) FAIL**: 55 events / 32 day-batch clusters, net@34 mean +528.5 bp but CI [−197.1, +1182.8]. E–Q not run (stop rule). Validation and holdout **never opened**. Note `spec/research/F013-delisting-informational-alpha-discovery.md`; outcome `spec/features/done/F013-delisting-informational-alpha/outcome.md`; outputs `output/f013_delisting_info/`.
 - **2026-10-06 ~22:28 Europe/Warsaw — F012 SUNSET executed (PO-approved).** Proof `spec/research/F013-f012-sunset-executed-2026-10-06.md`. Stopped+disabled `f012-deribit-book.timer` and `f012-farside-etf.timer` (oneshots inactive). Preserved `data_cache/f012/deribit_book/` and `data_cache/f012/etf_flows/`. `f011-liq-collector` left running (MainPID unchanged).
 - **f011 REVIEW_AT_N (confirmed):** N=50 independent liq-defined cascade episodes/symbol; earliest checkpoint **2026-10-20** Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO. Not a reopen of F011 tests now.
 - **2026-10-06 — F012 CLOSED / F013 structural-edge brief NO CANDIDATE (historical; F013 number now = delisting track); structural-edge PARKED — evidence constrained.** Portfolio review note `spec/research/F013-collector-portfolio-review-2026-10-06.md`. Outcome `spec/features/done/F012-structural-edge/outcome.md`; brief `spec/research/F013-structural-edge-identification-brief.md`.
@@ -21,7 +21,7 @@
 - Owner-tier primary cost **≈ 9.9 bp RT** (`spec/research/F012-owner-cost-hurdle.md`). Free PIT data remains a condition. No exchange API keys from this box.
 
 ## NEXT
-- 🟢 **F013 delisting informational alpha — Gate B** (latency decay) then C–N, P, Q on discovery; validation opened once only if discovery survives. STOP before live bot/optimization.
+- ⚫ **F013 delisting informational alpha — FAIL, archived** (Gate D KILL on discovery; validation untouched). No relabeled retry; next step = owner decision only.
 - ⚫ **structural-edge PARKED — evidence constrained** for other candidates (F012 CLOSED NO CANDIDATE; F013 brief NO CANDIDATE historical).
 - ⚫ F011-forced-flow-lab **ARCHIVED**; collector **REVIEW_AT_N** (N=50/symbol; earliest **2026-10-20** Europe/Warsaw; measure=Limen coordinator; decide=ChatGPT PO).
 - ⚫ F012 collectors **SUNSET done** (timers disabled; data preserved under `data_cache/f012/`).
