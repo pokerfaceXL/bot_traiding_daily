@@ -88,7 +88,19 @@ confirmed. However, this **blocks** §8 in-class portfolio combination — the p
 "losses not strongly correlated" fails. Next = owner decision on §13 non-correlated data or
 target revisit (see Next planned step).
 
-## Next planned step (2026-10-06 — F012 SUNSET done; f011 REVIEW_AT_N; structural-edge PARKED)
+## Next planned step (2026-10-07 — F013 Delisting Informational Alpha OPEN; Gate A PASS → Gate B)
+
+Owner mandate 2026-10-07: new track **F013 — Delisting Informational Alpha** (informational
+underreaction after public delisting announcements; not forced-flow, not C02 revival). Prereg SSOT
+`spec/research/F013-delisting-informational-alpha-prereg.md` freezes signal (short same-venue USDT
+perp at P + 5 min, exit min(+72 h, eff − 1 h)), cost ladder 34/50/75/100/150/200 bp (decision rung
+34; owner 9.9 bp context only), gates A–Q, validation [2025-03-01, 2026-03-01) untouched, sealed
+holdout [2026-03-01, 2026-09-01), and PASS|CONDITIONAL|FAIL rules. Gate A PASS on the contaminated
+discovery set. **Next = Gate B (latency decay) on discovery**, then C–N, P, Q; any KILL ⇒ FAIL and
+validation stays closed. PASS ⇒ STOP (owner decision; no live bot/optimization). Structural-edge
+stays PARKED for other candidates; f011 REVIEW_AT_N unchanged; F012 timers stay SUNSET.
+
+## Next planned step (superseded 2026-10-07 — was F012 SUNSET done; f011 REVIEW_AT_N; structural-edge PARKED)
 
 F012 structural edge remains **CLOSED, NO CANDIDATE**. F013 brief remains **NO CANDIDATE**. Board:
 **structural-edge PARKED — evidence constrained**. F012 timers **SUNSET executed** (2026-10-06 ~22:28
@@ -1312,3 +1324,5 @@ Do not retune the 4-bar length. Next is pre-registered `H-BB-20-2-ENTRY-LIQUIDIT
   Rationale: liq collector still serves an open gate (sample-limited); Deribit unsigned book cannot fix C04/C05 blockers; Farside flows cannot repair C01 identification FAIL. Scope guards held: no F011 cascade resume, no catalog MR/funding/spread reopen, no new alpha family, no strategy/backtest/new collector, thresholds unchanged, cost ≈9.9 bp RT, free PIT remains. **STOP at review time. Services were still running then.**
 
 - **2026-10-06 ~22:28 Europe/Warsaw** — **F012 SUNSET executed (PO-approved operational).** Authority: ChatGPT PO approval of `spec/research/F013-collector-portfolio-review-2026-10-06.md`. Host `limen@100.98.80.81`. Commands: `systemctl --user stop` then `disable` for `f012-deribit-book.timer` (+ service) and `f012-farside-etf.timer` (+ service). After: both timers **disabled/inactive**; both oneshots inactive; `systemctl --user list-timers --all` → 0. Data preserved: `data_cache/f012/deribit_book/`, `data_cache/f012/etf_flows/` (not deleted). `f011-liq-collector` **untouched** and still **active** (MainPID 2460311 unchanged). REVIEW_AT_N confirmed: N=50 independent liq-defined cascade episodes/symbol; earliest checkpoint 2026-10-20 Europe/Warsaw; measurement owner Limen coordinator; decision owner ChatGPT PO. Proof note `spec/research/F013-f012-sunset-executed-2026-10-06.md`. Docs-only commit; no code. **STOP** — no F011 test, no new alpha, no backtest, no candidate selection, no new collector. No Slack/email/human contact.
+
+- **2026-10-07 Europe/Warsaw** — **F013 Delisting Informational Alpha OPENED (owner mandate) + Gate A timestamp audit: PASS.** New track: informational underreaction after public delisting announcements — not forced-flow, not C02 revival; the C02 incidental +938/+508 bp short is hypothesis-generating only and the C02 Train-1 events are the contaminated discovery set. Prereg `spec/research/F013-delisting-informational-alpha-prereg.md` (copy `spec/features/active/F013-delisting-informational-alpha/prereg.md`) committed in `0d77ea4` before the audit ran. It freezes: P = `first_publicly_observable_ts` (S = `announcement_ts` audit-only); entry P + 5 min, exit min(+72 h, eff − 1 h), equal notional; cost ladder 34/50/75/100/150/200 bp RT (decision 34, owner 9.9 bp context); gates A–Q with KILL/ROUTE tags; validation [2025-03-01, 2026-03-01) and sealed holdout [2026-03-01, 2026-09-01). Gate A (raw re-fetch of Binance `publishDate`/body and Bybit page `date`/body/API fields; the C02 raw cache was gone): 163 events → PASS 92 / WARN 59 / FAIL 12; usable 92.6 % ≥ 85 %, worst venue FAIL 11.4 % (Bybit) ≤ 25 %. All 12 FAILs are Bybit F3 (publishTime 19–78 h after dateTimestamp but before delisting ⇒ first push ambiguous ⇒ dropped, not re-timed). Raw anchors match the catalog (Binance ≤ 9.5 s, publishDate earlier ⇒ P conservative; Bybit 0 s). Body re-parse matches 163/163 (consistency check, same parser). P − S: Binance 0 for all; Bybit median 151 s, p90 10 554 s; using S as clock would enter before P for 42.9 % of events at 10 s and 20.9 % at 15 min. The Bybit announcements API now serves items back to 2022-08 (482 total), which corrects the F013-brief probe note "from 2024-12-02 only". Report `output/f013_delisting_info/gate_a_timestamp_audit.md`; code `delisting_lab/f013_raw.py`, `delisting_lab/f013_timestamp_audit.py`; tests `tests/test_f013_timestamp_audit.py`. No price read, no alpha scored, no later gate run. Parked note marked superseded. Collectors/systemd untouched. Next = Gate B.

@@ -1,5 +1,10 @@
 # Delisting informational / event-driven alpha — PARKED (not F012)
 
+> **SUPERSEDED 2026-10-07 by F013 — Delisting Informational Alpha** (owner mandate).
+> Pre-registration: `spec/research/F013-delisting-informational-alpha-prereg.md`; feature
+> `spec/features/active/F013-delisting-informational-alpha/`. Text below is kept as the
+> historical record and is no longer binding.
+
 > Owner request 2026-10-06 (post C02 FAIL at `4fc012d`).
 > This note is **not** an F012 strategy ticket, **not** C02 revival, and **not** mixed into F012-C01.
 
