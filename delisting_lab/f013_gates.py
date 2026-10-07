@@ -45,7 +45,14 @@ def row(label: str, v: pd.Series, clusters: pd.Series, **extra) -> dict:
 
 
 def fmt(df: pd.DataFrame) -> str:
-    return df.to_markdown(index=False, floatfmt=".1f")
+    """Markdown table without the optional `tabulate` dependency."""
+    def cell(x):
+        if isinstance(x, (float, np.floating)):
+            return "" if not np.isfinite(x) else (f"{x:.3f}" if abs(x) < 1 else f"{x:.1f}")
+        return str(x).replace("|", "/")
+    lines = ["| " + " | ".join(map(str, df.columns)) + " |", "|" + "---|" * len(df.columns)]
+    lines += ["| " + " | ".join(cell(x) for x in r) + " |" for r in df.itertuples(index=False)]
+    return "\n".join(lines)
 
 
 # ------------------------------------------------------------------ funnel
@@ -53,7 +60,7 @@ def funnel(t: pd.DataFrame) -> dict[str, pd.DataFrame]:
     u = t[t.in_primary_universe]
     has = u[u.has_perp_1m.fillna(False) & u.entry_px.notna()]
     suff = u[~u.insufficient_notice.fillna(True)]
-    elig = suff[suff.eligible.fillna(False).astype(bool)]
+    elig = suff[suff.eligible.astype("boolean").fillna(False).astype(bool)]
     liq_ok = (elig.turnover_24h >= K_MIN_TURNOVER) & (elig.zero_vol_share_24h <= K_MAX_ZERO_SHARE)
     scored = elig[liq_ok & elig.exit_ts.notna() & elig.gross.notna()]
     return {"usable_primary": u, "with_data": has, "sufficient_notice": suff, "eligible": elig,
@@ -87,7 +94,7 @@ def gate_c(f: dict) -> GateResult:
     suff = f["sufficient_notice"]
     u = f["usable_primary"]
     share = len(f["eligible"]) / len(suff) if len(suff) else 0.0
-    inel = suff[~suff.eligible.fillna(False).astype(bool)]
+    inel = suff[~suff.eligible.astype("boolean").fillna(False).astype(bool)]
     tb = inel[["event_id", "symbol", "has_perp_1m", "trade_in_entry_minute", "restricted_before_entry",
                "restriction_times"]].copy()
     st = "PASS" if share >= C_MIN_ELIGIBLE else "FAIL"
@@ -97,7 +104,7 @@ def gate_c(f: dict) -> GateResult:
     return GateResult("C", "KILL", "Short eligibility", st, tb, notes, {"eligible_share": share})
 
 
-def gate_d(s: pd.DataFrame) -> GateResult:
+def gate_d(s: pd.DataFrame, pre_k: pd.DataFrame | None = None) -> GateResult:
     rows = []
     for c in (C.OWNER_CONTEXT_BP, *C.COST_LADDER):
         rows.append(row(f"{c:g} bp RT" + (" (context only)" if c == C.OWNER_CONTEXT_BP else ""),
@@ -109,8 +116,20 @@ def gate_d(s: pd.DataFrame) -> GateResult:
     st = "PASS" if lo34 > 0 and m75 > 0 else "FAIL"
     return GateResult("D", "KILL", "Cost ladder", st, tb,
                       [f"Breakeven RT cost (mean gross + funding) = {be:.1f} bp.",
-                       f"Decision: net@34 CI lower = {lo34:.1f} bp (needs > 0); mean net@75 = {m75:.1f} bp (needs > 0)."],
+                       f"Decision: net@34 CI lower = {lo34:.1f} bp (needs > 0); mean net@75 = {m75:.1f} bp (needs > 0)."]
+                      + _pre_k_note(pre_k),
                       {"breakeven_bp": be, "net34_ci_lo": lo34, "net75_mean": m75})
+
+
+def _pre_k_note(pre_k: pd.DataFrame | None) -> list[str]:
+    """Context only: the same rung on the eligible sample before the Gate K liquidity exclusion."""
+    if pre_k is None or not len(pre_k):
+        return []
+    p = pre_k[pre_k.gross.notna()]
+    d = C.describe(net(p, 34).values, p.day_batch_cluster_id.values)
+    return [f"Context (not decision): eligible sample before Gate K exclusion, n = {d['n']} "
+            f"({d['n_clusters']} day-batch clusters): net@34 mean {d['mean']:.1f} bp, CI [{d['ci_lo']:.1f}, "
+            f"{d['ci_hi']:.1f}]."]
 
 
 def gate_e(s: pd.DataFrame) -> GateResult:

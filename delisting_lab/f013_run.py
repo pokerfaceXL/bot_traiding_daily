@@ -53,7 +53,7 @@ def main() -> dict:
     f = G.funnel(t)
     s = f["scored"]
     runners = {
-        "B": lambda: G.gate_b(s), "C": lambda: G.gate_c(f), "D": lambda: G.gate_d(s), "E": lambda: G.gate_e(s),
+        "B": lambda: G.gate_b(s), "C": lambda: G.gate_c(f), "D": lambda: G.gate_d(s, f["eligible"]), "E": lambda: G.gate_e(s),
         "F": lambda: G.gate_f(s), "G": lambda: G.gate_g(s), "H": lambda: G.gate_h(s), "I": lambda: G.gate_i(s),
         "J": lambda: G.gate_j(s), "K": lambda: G.gate_k(f), "L": lambda: G.gate_l(s),
         "M": lambda: G.gate_m(s, excluded_scored(t)), "N": lambda: G.gate_n(s), "Q": lambda: G.gate_q(s),

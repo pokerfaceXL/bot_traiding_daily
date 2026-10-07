@@ -1,0 +1,2 @@
+event_id,symbol,has_perp_1m,trade_in_entry_minute,restricted_before_entry,restriction_times
+BYBIT-202502121019-FBUSDT,FBUSDT,True,False,False,

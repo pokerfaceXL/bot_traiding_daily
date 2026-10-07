@@ -1,0 +1,122 @@
+{
+  "track": "F013",
+  "phase": "discovery (C02 Train-1, contaminated)",
+  "window": "[2024-03-01, 2025-03-01)",
+  "validation_opened": false,
+  "holdout_opened": false,
+  "funnel": {
+    "usable_primary": 76,
+    "with_data": 74,
+    "sufficient_notice": 74,
+    "eligible": 73,
+    "k_included": 55,
+    "scored": 55
+  },
+  "scored_day_batch_clusters": 32,
+  "primary_net34_mean_bp": 528.4555717893727,
+  "primary_gross_mean_bp": 695.8630645166453,
+  "primary_funding_mean_bp": -133.40749272727274,
+  "gates": {
+    "B": {
+      "kind": "ROUTE",
+      "title": "Latency decay",
+      "status": "PASS",
+      "notes": [
+        "Events without tick support at P+10s: 0 (listed, not imputed): "
+      ]
+    },
+    "C": {
+      "kind": "KILL",
+      "title": "Short eligibility",
+      "status": "PASS",
+      "notes": [
+        "Gate-A-usable primary universe: 76; insufficient notice (eff\u22121h\u2212entry<1h or no entry bar): 2; eligible 73/74 = 98.6% (bar \u2265 70 %).",
+        "Restriction sentences found only in Binance articles (no new positions from \u2248 eff \u2212 30 min) \u2014 all after entry."
+      ],
+      "eligible_share": 0.9864864864864865
+    },
+    "D": {
+      "kind": "KILL",
+      "title": "Cost ladder",
+      "status": "FAIL",
+      "notes": [
+        "Breakeven RT cost (mean gross + funding) = 562.5 bp.",
+        "Decision: net@34 CI lower = -197.1 bp (needs > 0); mean net@75 = 487.5 bp (needs > 0).",
+        "Context (not decision): eligible sample before Gate K exclusion, n = 73 (37 day-batch clusters): net@34 mean 492.4 bp, CI [-143.8, 1090.6]."
+      ],
+      "breakeven_bp": 562.4555717893727,
+      "net34_ci_lo": -197.05534888470163,
+      "net75_mean": 487.45557178937264
+    },
+    "E": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "F": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "G": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "H": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "I": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "J": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "K": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "L": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "M": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "N": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "P": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    },
+    "Q": {
+      "status": "NOT_RUN",
+      "reason": "stopped after Gate D FAIL"
+    }
+  },
+  "first_fail": "D",
+  "discovery_outcome": "FAIL",
+  "pass_only_robustness": [
+    {
+      "split": "all scored (PASS+WARN)",
+      "n": 55,
+      "n_clusters": 32,
+      "mean": 528.4555717893727,
+      "median": 359.878091495199,
+      "ci_lo": -197.05534888470163,
+      "ci_hi": 1182.793101000291
+    },
+    {
+      "split": "Gate A PASS only",
+      "n": 40,
+      "n_clusters": 26,
+      "mean": 692.3199829688762,
+      "median": 352.7097297213096,
+      "ci_lo": -1.9808006854673923,
+      "ci_hi": 1354.7078093102075
+    }
+  ]
+}
