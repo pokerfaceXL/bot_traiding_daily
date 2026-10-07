@@ -1,0 +1,402 @@
+{
+  "n_survivors": 0,
+  "recommended": [],
+  "closest_non_survivors": [
+    {
+      "hyp_id": "H-PS-VOL-COMPRESS",
+      "family": "A",
+      "d": 1,
+      "primary_horizon": 4,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": true,
+      "C3": true,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C5"
+      ],
+      "robustness": 3.0,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 1878,
+          "b": 0.337132412697913,
+          "p": 4.7600553978451744e-11,
+          "q": 2.6656310227932975e-09,
+          "ic": 0.16375657098020677,
+          "n_blocks_ok": 4,
+          "gross_bp": null,
+          "net_9p9": null,
+          "net_34": null,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 1828,
+          "b": 0.29845644972089636,
+          "p": 1.8551008030478313e-10,
+          "q": 5.194282248533928e-09,
+          "ic": 0.17276804012757505,
+          "n_blocks_ok": 4,
+          "gross_bp": null,
+          "net_9p9": null,
+          "net_34": null,
+          "cost_mult": 1.0
+        }
+      }
+    },
+    {
+      "hyp_id": "H-PS-REV-DN",
+      "family": "A",
+      "d": 1,
+      "primary_horizon": 1,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": true,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C5"
+      ],
+      "robustness": 2.0,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 873,
+          "b": 4.873060676345076,
+          "p": 0.05505713648483664,
+          "q": 0.2371692033192963,
+          "ic": 0.07746341914223687,
+          "n_blocks_ok": 4,
+          "gross_bp": 4.746286691378011,
+          "net_9p9": -5.153713308621989,
+          "net_34": -29.25371330862199,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 908,
+          "b": 7.3429115748660925,
+          "p": 0.03632366481945657,
+          "q": 0.16951043582413064,
+          "ic": 0.08217682619622531,
+          "n_blocks_ok": 4,
+          "gross_bp": 6.109552439913275,
+          "net_9p9": -3.790447560086726,
+          "net_34": -27.890447560086727,
+          "cost_mult": 1.0
+        }
+      }
+    },
+    {
+      "hyp_id": "H-TIME-US-OPEN",
+      "family": "F",
+      "d": -1,
+      "primary_horizon": 1,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": true,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C5"
+      ],
+      "robustness": 1.75,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 730,
+          "b": -0.24148546859589573,
+          "p": 0.938783142207222,
+          "q": 0.9894488179705112,
+          "ic": -0.0023375086365939298,
+          "n_blocks_ok": 3,
+          "gross_bp": -0.13755928859074476,
+          "net_9p9": -10.037559288590746,
+          "net_34": -34.137559288590744,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 730,
+          "b": -4.418699282672697,
+          "p": 0.21198315871727108,
+          "q": 0.5652884232460562,
+          "ic": -0.0187908968805179,
+          "n_blocks_ok": 3,
+          "gross_bp": 4.522589963883137,
+          "net_9p9": -5.3774100361168635,
+          "net_34": -29.477410036116865,
+          "cost_mult": 1.0
+        }
+      }
+    },
+    {
+      "hyp_id": "H-OF-BUYRATIO-HI",
+      "family": "C",
+      "d": -1,
+      "primary_horizon": 1,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": false,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "robustness": 1.75,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 2738,
+          "b": -1.119799706014891,
+          "p": 0.44749795486960153,
+          "q": 0.7159967277913625,
+          "ic": -0.010329663821342913,
+          "n_blocks_ok": 2,
+          "gross_bp": 0.41083975268785,
+          "net_9p9": -9.48916024731215,
+          "net_34": -33.58916024731215,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 2718,
+          "b": -1.8377841697537851,
+          "p": 0.2930537641282409,
+          "q": 0.6895069048269803,
+          "ic": -0.004677108623512402,
+          "n_blocks_ok": 4,
+          "gross_bp": 1.7396601350103746,
+          "net_9p9": -8.160339864989625,
+          "net_34": -32.260339864989625,
+          "cost_mult": 1.0
+        }
+      }
+    },
+    {
+      "hyp_id": "H-OF-BUYRATIO-SPIKE",
+      "family": "C",
+      "d": -1,
+      "primary_horizon": 1,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": false,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "robustness": 1.75,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 1723,
+          "b": -0.7034262843992202,
+          "p": 0.6611394709571279,
+          "q": 0.8815192946095038,
+          "ic": -0.006930853182435678,
+          "n_blocks_ok": 2,
+          "gross_bp": 0.20613525527002383,
+          "net_9p9": -9.693864744729977,
+          "net_34": -33.79386474472997,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 1729,
+          "b": -5.1782792048789466,
+          "p": 0.008830554155095014,
+          "q": 0.0618138790856651,
+          "ic": -0.012728599620162023,
+          "n_blocks_ok": 4,
+          "gross_bp": 4.628260276672254,
+          "net_9p9": -5.271739723327746,
+          "net_34": -29.371739723327746,
+          "cost_mult": 1.0
+        }
+      }
+    },
+    {
+      "hyp_id": "H-XS-ETH-BTC-REV-DN",
+      "family": "D",
+      "d": 1,
+      "primary_horizon": 1,
+      "assets": [
+        "ETHUSDT",
+        "SOLUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": false,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "robustness": 1.75,
+      "per_asset": {
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 1654,
+          "b": 0.28198210535199536,
+          "p": 0.8508531903349635,
+          "q": 0.9529555731751591,
+          "ic": 0.030028112085062227,
+          "n_blocks_ok": 2,
+          "gross_bp": -0.5118077861400323,
+          "net_9p9": -20.715146980971635,
+          "net_34": -69.8970131017233,
+          "cost_mult": 2.040741332811273
+        },
+        "SOLUSDT": {
+          "status": "SCORED",
+          "n_state": 1597,
+          "b": 7.799745379293001,
+          "p": 0.0008748888724782188,
+          "q": 0.012248444214695063,
+          "ic": 0.0375216305600892,
+          "n_blocks_ok": 4,
+          "gross_bp": 5.7854151851917255,
+          "net_9p9": -17.116449048559623,
+          "net_34": -72.86745188021693,
+          "cost_mult": 2.313319619570843
+        }
+      }
+    },
+    {
+      "hyp_id": "H-XS-SOL-BTC-REV",
+      "family": "D",
+      "d": -1,
+      "primary_horizon": 1,
+      "assets": [
+        "SOLUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": false,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "robustness": 1.75,
+      "per_asset": {
+        "SOLUSDT": {
+          "status": "SCORED",
+          "n_state": 1598,
+          "b": -8.570412305127382,
+          "p": 0.007204299340536268,
+          "q": 0.05763439472429015,
+          "ic": -0.03375654822794093,
+          "n_blocks_ok": 4,
+          "gross_bp": 8.61014207763292,
+          "net_9p9": -14.333557680415742,
+          "net_34": -70.18640254596855,
+          "cost_mult": 2.3175454301059255
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 1649,
+          "b": -0.05104362329072234,
+          "p": 0.9717800890781806,
+          "q": 0.9894488179705112,
+          "ic": -0.021124366445940453,
+          "n_blocks_ok": 2,
+          "gross_bp": 0.33217825008500274,
+          "net_9p9": -19.896125710702083,
+          "net_34": -69.13876464554741,
+          "cost_mult": 2.04326302634213
+        }
+      }
+    },
+    {
+      "hyp_id": "H-DER-FUND-DELTA",
+      "family": "B",
+      "d": -1,
+      "primary_horizon": 4,
+      "assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "C1": true,
+      "C2": false,
+      "C3": false,
+      "C4": true,
+      "C5": false,
+      "survives": false,
+      "fails": [
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "robustness": 1.625,
+      "per_asset": {
+        "BTCUSDT": {
+          "status": "SCORED",
+          "n_state": 1693,
+          "b": -5.3086390627298,
+          "p": 0.3341005102940397,
+          "q": 0.6948518697962319,
+          "ic": -0.00986119398168522,
+          "n_blocks_ok": 2,
+          "gross_bp": 2.829120167984012,
+          "net_9p9": -7.070879832015988,
+          "net_34": -31.170879832015988,
+          "cost_mult": 1.0
+        },
+        "ETHUSDT": {
+          "status": "SCORED",
+          "n_state": 1726,
+          "b": -10.186354681278969,
+          "p": 0.1433248174851418,
+          "q": 0.4721288105392907,
+          "ic": -0.023491694952051823,
+          "n_blocks_ok": 3,
+          "gross_bp": 10.086500349041906,
+          "net_9p9": 0.18650034904190527,
+          "net_34": -23.913499650958094,
+          "cost_mult": 1.0
+        }
+      }
+    }
+  ]
+}
