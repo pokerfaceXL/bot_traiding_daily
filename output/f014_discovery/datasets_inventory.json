@@ -1,0 +1,108 @@
+{
+  "data_root": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache",
+  "window": [
+    "2024-01-26 00:00:00+00:00",
+    "2025-03-01 00:00:00+00:00"
+  ],
+  "files": {
+    "BTCUSDT/ohlcv": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/BTCUSDT_60_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "66776a15cbe6f3bb5f55c5de2d7aa1e510061a65b3a49f9263057a8c69e01ad6"
+    },
+    "BTCUSDT/funding": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/funding/BTCUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 16:00:00+00:00",
+      "sha256": "e9f12cb2f382eb01aae5cd1cf678b384b4a1197315bfd616e7b835ff462e94bb"
+    },
+    "BTCUSDT/oi_1h": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/open_interest/BTCUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "ed281ca4dacfcb2facd8f839d089e75b4625608b2d6ea263ce41be21547b803b"
+    },
+    "BTCUSDT/account_ratio_5m": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/account_ratio_5m/BTCUSDT_account_ratio_5min_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 115200,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:55:00+00:00",
+      "sha256": "ecb2735adbeb60d405e84afaf09b8797ae561715e03c50a2e9a69d83fe6acac9"
+    },
+    "ETHUSDT/ohlcv": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/ETHUSDT_60_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "7122f57dca13a78cbff3f8a0ce1a42ee982292a2e63db2ef1995f9e133a78bfd"
+    },
+    "ETHUSDT/funding": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/funding/ETHUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 16:00:00+00:00",
+      "sha256": "27b1b909eeace3c35a4206a96ad6900733ab490cf2c0ffdc3fea80a13ec995d2"
+    },
+    "ETHUSDT/oi_1h": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/open_interest/ETHUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "81dcff76d266c743ca808eba8ab19e88e617048d5d14976c21982434425a05e3"
+    },
+    "ETHUSDT/account_ratio_5m": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/account_ratio_5m/ETHUSDT_account_ratio_5min_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 115200,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:55:00+00:00",
+      "sha256": "94c61af25d8171a066ee765c43e74fadcb21bea6b7516a631fa2bc0a56afca52"
+    },
+    "SOLUSDT/ohlcv": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/SOLUSDT_60_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "99d6f5a73c5bb19a2693513db684d359f956760dc11ea66f9818173289eb2b6b"
+    },
+    "SOLUSDT/funding": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/funding/SOLUSDT_funding_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 1200,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 16:00:00+00:00",
+      "sha256": "f08e543b4f0c194b565059b30e219b1bc1224bd40818c0a420dd9ab1f4fd773e"
+    },
+    "SOLUSDT/oi_1h": {
+      "present": true,
+      "path": "/home/limen/bot_traiding_daily/bot_traiding_daily/data_cache/open_interest/SOLUSDT_oi_1h_20240126T000000Z_20250301T000000Z.csv",
+      "rows": 9600,
+      "first": "2024-01-26 00:00:00+00:00",
+      "last": "2025-02-28 23:00:00+00:00",
+      "sha256": "20f2a0e10f8e180101de36c62240a5a3d3380d1c202d4e5379dd8dc7cf2d5e5a"
+    },
+    "SOLUSDT/account_ratio_5m": {
+      "present": false
+    }
+  },
+  "gaps": [
+    "SOLUSDT/account_ratio_5m: missing (SOLUSDT_account_ratio_5min_20240126T000000Z_20250301T000000Z.csv)",
+    "liquidations/bybit: live only from ~2026-10-05 -> not usable for Train-1 discovery (collector untouched)",
+    "5m OHLCV: only 2-day samples -> primary bar is 1h",
+    "account_ratio_5m and open_interest_5m: BTC/ETH only (no SOL) -> Family C has no bonus asset",
+    "f012 deribit/etf: preserved read-only, not used",
+    "funding / OI: Train-1 only -> Family B and H-TIME-FUNDING-HOUR cannot be re-scored on validation without a new discovery-window-safe fetch (not done here)"
+  ]
+}

@@ -1,0 +1,828 @@
+{
+  "feature": "F014",
+  "splits": {
+    "warmup": [
+      "2024-01-26T00:00:00+00:00",
+      "2024-03-01T00:00:00+00:00"
+    ],
+    "discovery": [
+      "2024-03-01T00:00:00+00:00",
+      "2025-03-01T00:00:00+00:00"
+    ],
+    "validation": [
+      "2025-03-01T00:00:00+00:00",
+      "2026-03-01T00:00:00+00:00"
+    ],
+    "final_holdout": [
+      "2026-03-01T00:00:00+00:00",
+      "2026-09-01T00:00:00+00:00"
+    ]
+  },
+  "blocks": {
+    "Q1": [
+      "2024-03-01T00:00:00+00:00",
+      "2024-06-01T00:00:00+00:00"
+    ],
+    "Q2": [
+      "2024-06-01T00:00:00+00:00",
+      "2024-09-01T00:00:00+00:00"
+    ],
+    "Q3": [
+      "2024-09-01T00:00:00+00:00",
+      "2024-12-01T00:00:00+00:00"
+    ],
+    "Q4": [
+      "2024-12-01T00:00:00+00:00",
+      "2025-03-01T00:00:00+00:00"
+    ]
+  },
+  "protocol": {
+    "bar": "1h (Bybit linear OHLCV, timestamp = bar open, UTC)",
+    "decision": "at close of bar t (= timestamp_t + 1h); all state inputs known by then",
+    "forward_return": "y_h = 1e4 * ln(close_{t+h} / close_t) in bp; NaN if t+h outside the loaded Train-1 file",
+    "horizons_reported": [
+      1,
+      2,
+      4,
+      12
+    ],
+    "lookback_bars": 720,
+    "quantile_rule": "threshold_t = rolling(720, min_periods=720) quantile of the state variable over bars t-720..t-1 (shift 1, causal); 'top 20%' = value > q80 strictly; 'bottom 20%' = value < q20 strictly; 'top 5%' = value > q95 strictly",
+    "vol_window_bars": 24,
+    "breakout_window_bars": 20,
+    "aux_alignment": "funding / OI / account-ratio rows are attached to bar t only if their timestamp <= bar-open timestamp_t (>= 1h before the decision; conservative, no same-bar peek)",
+    "primary_test": "OLS y = a + b*S over the hypothesis population (S = state indicator); b = mean(y|S) - mean(y|population & not S); two-sided p from Newey-West HAC SE (Bartlett, 24 lags), normal approximation",
+    "hac_lags": 24,
+    "ic": "Spearman rank correlation of the hypothesis' continuous score with y over the population (diagnostic; criterion 1 accepts b sign OR IC sign)",
+    "min_state_n_full": 30,
+    "min_state_n_block": 10,
+    "fdr": {
+      "method": "Benjamini-Hochberg",
+      "family": "one primary test per (hypothesis, required asset) at the primary horizon; required assets = 2 (see each hypothesis' replication pair) -> m = 28 x 2 = 56; SKIPPED or INSUFFICIENT tests stay in the family with p = 1",
+      "m": 56,
+      "q_max": 0.1,
+      "secondary": "all non-primary horizons and the optional third asset are reported, NOT in the family"
+    },
+    "cost_bp_rt": {
+      "primary_owner_tier": 9.9,
+      "stress_historical": 34.0
+    },
+    "cost_rule": "one RT per hypothetical state-bar trade (overlapping state bars each pay a full RT); pair expressions (residual) pay RT x (1 + |beta_t|) averaged over state bars",
+    "tradable_gross": "gross_bp = mean over state bars of d * y (d = predicted direction of the expression)",
+    "success": [
+      "C1 sign: b sign == d OR IC sign == d, on BOTH required assets",
+      "C2 FDR: BH q <= 0.10 on BOTH required-asset primary tests (family m = 56)",
+      "C3 stability: block b sign == d in >= 3 of 4 quarterly blocks, on BOTH required assets",
+      "C4 replication: both required assets have b sign == d (third asset optional, bonus only)",
+      "C5 economics: tradable expression with gross_bp - 9.9 * cost_mult > 0 on BOTH required assets (net @34 reported as stress); non-tradable hypotheses fail C5 by construction"
+    ],
+    "robustness_score": "mean_asset(n_blocks_ok)/4 + 1{C4} + 1{C2} + clip(min_asset((gross - 9.9*cm)/(9.9*cm)), 0, 1); survivors ranked by this score, never by max return; at most 3 recommended",
+    "two_sided_hyps": "for d = 0 hypotheses (time-of-day) the predicted sign is set to sign(b_BTC) on the full discovery window; ETH and blocks must then agree"
+  },
+  "hypotheses": [
+    {
+      "id": "H-PS-REV-UP",
+      "family": "A",
+      "state": "r_1h(t) > 0 AND |r_1h(t)| > q80 of trailing 720 |r_1h|",
+      "why": "short-horizon overreaction to large up bars",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-PS-REV-DN",
+      "family": "A",
+      "state": "r_1h(t) < 0 AND |r_1h(t)| > q80 of trailing 720 |r_1h|",
+      "why": "short-horizon overreaction to large down bars",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-PS-TREND-UP",
+      "family": "A",
+      "state": "close_t > max(high_{t-20..t-1})",
+      "why": "momentum continuation after range breakout (IC/state test, not a Donchian strategy reopen)",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-PS-TREND-DN",
+      "family": "A",
+      "state": "close_t < min(low_{t-20..t-1})",
+      "why": "momentum continuation",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-PS-RANGE-LOC",
+      "family": "A",
+      "state": "loc_t = (close-low)/(high-low) of bar t > q80 of trailing 720 loc",
+      "why": "close near the high = unabsorbed buying",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": "bars with high == low have loc undefined (NaN, excluded)"
+    },
+    {
+      "id": "H-PS-RANGE-LOC-DN",
+      "family": "A",
+      "state": "loc_t < q20 of trailing 720 loc",
+      "why": "close near the low = unabsorbed selling",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-PS-VOL-COMPRESS",
+      "family": "A",
+      "state": "sigma24_t (std of last 24 1h log returns) < q20 of trailing 720 sigma24",
+      "why": "volatility compression precedes expansion",
+      "expected": "higher vol-normalised forward move",
+      "d": 1,
+      "horizons": [
+        4,
+        1,
+        2,
+        12
+      ],
+      "primary_horizon": 4,
+      "target": "y = |fwd log return_h| / (sigma24_t * sqrt(h)) (unitless); |r|, MFE, MAE reported",
+      "expression": "none (non-directional; a straddle is not available on linear perps)",
+      "tradable": false,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": "fails C5 by construction; kept for information and multiplicity"
+    },
+    {
+      "id": "H-PS-GAP-CONT",
+      "family": "A",
+      "state": "population = 00:00 UTC bars only; g = log return of the 00:00-01:00 bar; state = |g| > q80 of |g| over the previous 30 00:00 bars (causal)",
+      "why": "day-roll repricing (UTC day open) continues",
+      "expected": "same-sign continuation over next 4h",
+      "d": 1,
+      "horizons": [
+        4,
+        1,
+        2,
+        12
+      ],
+      "primary_horizon": 4,
+      "target": "y = sign(g) * fwd log return_h",
+      "expression": "position sign(g) at 01:00 UTC",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": "crypto has no session gap; the 00:00 UTC bar return is the frozen proxy"
+    },
+    {
+      "id": "H-DER-FUND-HI",
+      "family": "B",
+      "state": "funding_t (last settled, aligned) > q80 of trailing 720 aligned funding",
+      "why": "crowded longs pay and unwind",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        4,
+        12,
+        1,
+        2
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "funding"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-FUND-LO",
+      "family": "B",
+      "state": "funding_t < q20 of trailing 720 aligned funding",
+      "why": "crowded shorts",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        4,
+        12,
+        1,
+        2
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "funding"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-FUND-DELTA",
+      "family": "B",
+      "state": "dF = funding_t - funding_{t-24}; dF > 0 AND dF > q80 of trailing 720 dF",
+      "why": "crowding acceleration",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        4,
+        12,
+        1,
+        2
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "funding"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-OI-UP-PX-UP",
+      "family": "B",
+      "state": "dOI4 = ln(OI_t/OI_{t-4}) > q80 of trailing 720 dOI4 AND r_4h(t) > 0",
+      "why": "new leveraged longs chase -> long-squeeze risk",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        4,
+        1,
+        2,
+        12
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "oi_1h"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-OI-UP-PX-DN",
+      "family": "B",
+      "state": "dOI4 > q80 AND r_4h(t) < 0",
+      "why": "new shorts pile in -> short-squeeze risk",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        4,
+        1,
+        2,
+        12
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "oi_1h"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-OI-DOWN-CAPIT",
+      "family": "B",
+      "state": "dOI4 < q20 AND r_4h(t) < q20 of trailing 720 r_4h",
+      "why": "capitulation / forced deleveraging exhausts sellers",
+      "expected": "positive bounce",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "oi_1h"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-DER-OI-FLAT-MOVE",
+      "family": "B",
+      "state": "|dOI1| = |ln(OI_t/OI_{t-1})| < q20 of trailing 720 |dOI1| AND |r_1h(t)| > q80 of trailing 720 |r_1h|",
+      "why": "price move without positioning change = thin-book move",
+      "expected": "mean reversion next 1-2h",
+      "d": -1,
+      "horizons": [
+        1,
+        2
+      ],
+      "primary_horizon": 1,
+      "target": "y = sign(r_1h(t)) * fwd log return_h (d = -1: reversal)",
+      "expression": "position -sign(r_1h(t))",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "oi_1h"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-OF-BUYRATIO-HI",
+      "family": "C",
+      "state": "buyRatio_t (Bybit account ratio 5m, last row <= bar open) > q80 of trailing 720",
+      "why": "retail long crowding is contrarian",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "account_ratio_5m"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": ""
+    },
+    {
+      "id": "H-OF-BUYRATIO-LO",
+      "family": "C",
+      "state": "buyRatio_t < q20 of trailing 720",
+      "why": "retail short crowding is contrarian",
+      "expected": "positive fwd return",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "long on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "account_ratio_5m"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": ""
+    },
+    {
+      "id": "H-OF-BUYRATIO-SPIKE",
+      "family": "C",
+      "state": "dBR4 = buyRatio_t - buyRatio_{t-4} > q80 of trailing 720 dBR4",
+      "why": "fast retail long build-up is contrarian",
+      "expected": "negative fwd return",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "account_ratio_5m"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": ""
+    },
+    {
+      "id": "H-XS-ETH-BTC-REV",
+      "family": "D",
+      "state": "e_t = r_X(t) - beta_t r_BTC(t), beta_t = OLS slope over bars t-720..t-1; e_t > q80 of trailing 720 e",
+      "why": "idiosyncratic relative moves revert (relative value)",
+      "expected": "negative fwd residual",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = r_X,fwd_h - beta_t * r_BTC,fwd_h (bp)",
+      "expression": "short X / long beta BTC (pair)",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "ETHUSDT",
+        "SOLUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": "required pair: X = ETH (primary), replication X = SOL; cost multiplier 1 + |beta_t|"
+    },
+    {
+      "id": "H-XS-ETH-BTC-REV-DN",
+      "family": "D",
+      "state": "e_t < q20 of trailing 720 e",
+      "why": "relative value reversion",
+      "expected": "positive fwd residual",
+      "d": 1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = r_X,fwd_h - beta_t * r_BTC,fwd_h (bp)",
+      "expression": "long X / short beta BTC (pair)",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "ETHUSDT",
+        "SOLUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": "X = ETH primary, X = SOL replication; cost multiplier 1 + |beta_t|"
+    },
+    {
+      "id": "H-XS-BTC-LEAD",
+      "family": "D",
+      "state": "|r_BTC(t)| > q80 of trailing 720 |r_BTC|",
+      "why": "BTC leads alt repricing",
+      "expected": "same-sign follower return next 1h",
+      "d": 1,
+      "horizons": [
+        1,
+        2
+      ],
+      "primary_horizon": 1,
+      "target": "y = sign(r_BTC(t)) * r_X,fwd_h",
+      "expression": "position sign(r_BTC(t)) in follower X",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "ETHUSDT",
+        "SOLUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": "follower X = ETH (primary) and SOL (replication)"
+    },
+    {
+      "id": "H-XS-SOL-BTC-REV",
+      "family": "D",
+      "state": "|e_t| > q80 of trailing 720 |e| (residual as in H-XS-ETH-BTC-REV)",
+      "why": "symmetric residual reversion",
+      "expected": "residual reverts",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = sign(e_t) * (r_X,fwd_h - beta_t r_BTC,fwd_h)",
+      "expression": "position -sign(e_t) in pair",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "SOLUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": null,
+      "notes": "X = SOL primary, X = ETH replication; cost multiplier 1 + |beta_t|"
+    },
+    {
+      "id": "H-VOL-REGIME-DIR",
+      "family": "E",
+      "state": "population = bars with a trend state (TS = +1 if H-PS-TREND-UP, -1 if H-PS-TREND-DN); S = sigma24_t > q80 (high vol); bars with sigma24 between q20 and q80 excluded",
+      "why": "in high vol noise dominates breakouts",
+      "expected": "trend-follow return lower in high-vol than low-vol regime",
+      "d": -1,
+      "horizons": [
+        1,
+        2,
+        4
+      ],
+      "primary_horizon": 1,
+      "target": "y = TS_t * fwd log return_h",
+      "expression": "trend-follow (position TS_t) only in low-vol regime",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": "b = mean(y|high vol) - mean(y|low vol); tradable gross = mean(y | low vol) (d applied to the regime contrast, the expression itself is long TS)"
+    },
+    {
+      "id": "H-VOL-SPIKE-DRIFT",
+      "family": "E",
+      "state": "|r_1h(t)| > q95 of trailing 720 |r_1h|",
+      "why": "risk-off after shock",
+      "expected": "negative drift next 2-4h",
+      "d": -1,
+      "horizons": [
+        2,
+        4,
+        1,
+        12
+      ],
+      "primary_horizon": 2,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-VOL-OF-VOL",
+      "family": "E",
+      "state": "vov_t = std of |r_1h| over last 24 bars > q80 of trailing 720 vov",
+      "why": "unstable volatility = risk-off",
+      "expected": "negative mean drift 4h (and elevated |fwd r|, secondary)",
+      "d": -1,
+      "horizons": [
+        4,
+        1,
+        2,
+        12
+      ],
+      "primary_horizon": 4,
+      "target": "y = own forward log return (bp)",
+      "expression": "short on state bar",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-TIME-US-OPEN",
+      "family": "F",
+      "state": "forward window starts 13:00 or 14:00 UTC (bar t open hour in {12, 13})",
+      "why": "US cash open flow",
+      "expected": "directional edge differs from other hours (two-sided); |r| secondary",
+      "d": 0,
+      "horizons": [
+        1,
+        2
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "position sign(b_BTC) on state bars",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-TIME-ASIA",
+      "family": "F",
+      "state": "forward window starts 00:00-03:00 UTC (bar t open hour in {23, 0, 1, 2})",
+      "why": "Asia session flow",
+      "expected": "directional edge differs (two-sided); |r| secondary",
+      "d": 0,
+      "horizons": [
+        1,
+        2
+      ],
+      "primary_horizon": 1,
+      "target": "y = own forward log return (bp)",
+      "expression": "position sign(b_BTC) on state bars",
+      "tradable": true,
+      "data": [
+        "ohlcv"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    },
+    {
+      "id": "H-TIME-FUNDING-HOUR",
+      "family": "F",
+      "state": "forward window starts within +-1h of a funding settlement 00/08/16 UTC (bar t open hour in {22, 23, 6, 7, 14, 15}); target signed by last settled funding",
+      "why": "payers of funding de-risk around settlement (inventory management)",
+      "expected": "price moves against the funding-paying side",
+      "d": 1,
+      "horizons": [
+        1,
+        2
+      ],
+      "primary_horizon": 1,
+      "target": "y = -sign(funding_t) * fwd log return_h (funding_t == 0 -> excluded)",
+      "expression": "position -sign(funding_t) on state bars",
+      "tradable": true,
+      "data": [
+        "ohlcv",
+        "funding"
+      ],
+      "required_assets": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "bonus_asset": "SOLUSDT",
+      "notes": ""
+    }
+  ],
+  "sha256": "b742d3fbf8266ea21d930f0e630d1af22831c49494f62b6b4522f6320daac690"
+}
